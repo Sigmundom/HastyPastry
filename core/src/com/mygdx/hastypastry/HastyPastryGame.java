@@ -10,7 +10,7 @@ import pl.mk5.gdx.fireapp.GdxFIRApp;
 import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 import pl.mk5.gdx.fireapp.functional.Consumer;
 
-public class HastyPastry extends ApplicationAdapter {
+public class HastyPastryGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 

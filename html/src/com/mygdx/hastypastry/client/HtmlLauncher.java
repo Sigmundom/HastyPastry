@@ -3,7 +3,7 @@ package com.mygdx.hastypastry.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.mygdx.hastypastry.HastyPastry;
+import com.mygdx.hastypastry.HastyPastryGame;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -46,6 +46,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new HastyPastry();
+                return new HastyPastryGame();
         }
 }
