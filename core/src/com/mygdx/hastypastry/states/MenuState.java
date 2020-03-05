@@ -1,5 +1,6 @@
 package com.mygdx.hastypastry.states;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.hastypastry.HastyPastryGame;
@@ -15,12 +16,15 @@ public class MenuState extends GameState {
 
     @Override
     protected void handleInput() {
-
+        if(Gdx.input.justTouched()) {
+            gsm.push(new PlayState(gsm, 20, 20));
+            dispose();
+        }
     }
 
     @Override
     public void update(float dt) {
-
+        handleInput();
     }
 
     @Override
@@ -33,6 +37,6 @@ public class MenuState extends GameState {
 
     @Override
     public void dispose() {
-
+        background.dispose();
     }
 }
