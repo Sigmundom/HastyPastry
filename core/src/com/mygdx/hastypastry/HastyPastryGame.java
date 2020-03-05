@@ -24,7 +24,7 @@ public class HastyPastryGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 		Gdx.gl.glClearColor(1, 01, 1, 1);
-		gsm.push(new PlayState(gsm));
+		gsm.push(new PlayState(gsm, 20, 20));
 	}
 
 	@Override
