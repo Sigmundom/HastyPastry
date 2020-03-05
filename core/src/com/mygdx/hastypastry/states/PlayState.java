@@ -46,6 +46,9 @@ public class PlayState extends GameState{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         b2dr.render(world, cam.combined);
+        sb.begin();
+        sb.draw(waffle.getWaffle(), waffle.getPosition().x, waffle.getPosition().y, 16, 16);
+        sb.end();
     }
 
     @Override
