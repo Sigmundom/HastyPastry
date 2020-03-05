@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.hastypastry.states.GameStateManager;
+import com.mygdx.hastypastry.states.MenuState;
 import com.mygdx.hastypastry.states.PlayState;
 
 import pl.mk5.gdx.fireapp.GdxFIRApp;
@@ -15,6 +16,8 @@ import pl.mk5.gdx.fireapp.functional.Consumer;
 public class HastyPastryGame extends ApplicationAdapter {
 	private GameStateManager gsm;
 	private SpriteBatch batch;
+	public static final int WIDTH = 480;
+	public static final int HEIGHT = 800;
 
 	@Override
 	public void create () {
