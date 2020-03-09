@@ -3,6 +3,7 @@ package com.mygdx.hastypastry.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -36,24 +37,26 @@ public class PlayState extends GameState{
     @Override
     public void update(float dt) {
         world.step(1/60f, 6,2 );
-
     }
 
     @Override
     public void render(SpriteBatch sb) {
         update(Gdx.graphics.getDeltaTime());
-        Gdx.gl.glClearColor(0.5f, 0.8f, 1f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Gdx.gl.glClearColor(0.5f, 0.8f, 1f, 1f);
+        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        sb.begin();
+        sb.draw(waffle.getWaffleTexture(), waffle.getWaffle().getPosition().x, waffle.getWaffle().getPosition().y, 16, 16);
+        sb.end();
 
         b2dr.render(world, cam.combined);
-        sb.begin();
-        sb.draw(waffle.getWaffle(), waffle.getPosition().x, waffle.getPosition().y, 16, 16);
-        sb.end();
     }
 
     @Override
     public void dispose() {
         b2dr.dispose();
         world.dispose();
+        waffle.dispose();
+
     }
 }

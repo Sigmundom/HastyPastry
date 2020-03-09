@@ -21,18 +21,20 @@ public class Waffle {
 
     public Waffle(World world, float start_X, float start_Y) {
         BodyDef def = new BodyDef();
+        def.fixedRotation = false;
         def.type = BodyDef.BodyType.DynamicBody;
         def.position.set(start_X, start_Y);
-        position = new Vector2(start_X, start_Y);
-        def.fixedRotation = false;
-        wBody = world.createBody(def);
+        //position = new Vector2(start_X, start_Y);
 
         CircleShape shape = new CircleShape();
         shape.setRadius(WAFFLE_RADIUS);
 
         sprite = new Sprite(new Texture("Waffle.png"));
 
+        wBody = world.createBody(def);
+        wBody.setUserData(sprite);
         wBody.createFixture(shape, 1.0f);
+
         shape.dispose();
     }
 
@@ -45,17 +47,18 @@ public class Waffle {
     public void render(SpriteBatch sb) {
         update();
         sprite.draw(sb);
+        ((Sprite) wBody.getUserData()).draw(sb);
     }
 
-    public Texture getWaffle() {
+    public Body getWaffle() {
+        return wBody;
+    }
+
+    public Texture getWaffleTexture() {
         return sprite.getTexture();
     }
 
-    public Vector2 getPosition() {
-        return position;
-    }
-
     public void dispose() {
-
+        sprite.getTexture().dispose();
     }
 }
