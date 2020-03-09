@@ -17,7 +17,7 @@ public class MenuState extends GameState {
     @Override
     protected void handleInput() {
         if(Gdx.input.justTouched()) {
-            gsm.push(new PlayState(gsm, 20, 20));
+            gsm.push(new PlayState(gsm));
             dispose();
         }
     }

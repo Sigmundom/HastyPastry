@@ -18,7 +18,7 @@ public class PlayState extends GameState{
     private World world;
     private Waffle waffle;
 
-    public PlayState(GameStateManager gsm, float start_x, float start_y) {
+    public PlayState(GameStateManager gsm) {
         super(gsm);
 
         cam = new OrthographicCamera();
@@ -26,7 +26,7 @@ public class PlayState extends GameState{
 
         world = new World(new Vector2(0, -9.81f), false);
         b2dr = new Box2DDebugRenderer();
-        waffle = new Waffle(world, start_x, start_y);
+        waffle = new Waffle(world, 200, 200);
     }
 
     @Override
