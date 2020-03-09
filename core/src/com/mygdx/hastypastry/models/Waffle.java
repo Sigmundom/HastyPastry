@@ -22,7 +22,7 @@ public class Waffle {
         def = new BodyDef();
         def.fixedRotation = false;
         def.type = BodyDef.BodyType.DynamicBody;
-        def.position.set(start_X, start_Y);
+        def.position.set(8f, 18f);
 
         shape = new CircleShape();
         shape.setRadius(WAFFLE_RADIUS);
@@ -30,9 +30,8 @@ public class Waffle {
         sprite = new Sprite(new Texture("Waffle.png"));
 
         wBody = world.createBody(def);
-        wBody.setUserData(sprite);
 
-        //wBody.createFixture(shape, 1.0f);
+        wBody.createFixture(shape, 1.0f).setUserData(sprite);
     }
 
     public void update() { }

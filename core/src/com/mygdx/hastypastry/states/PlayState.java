@@ -42,14 +42,15 @@ public class PlayState extends GameState{
     @Override
     public void render(SpriteBatch sb) {
         update(Gdx.graphics.getDeltaTime());
-        //Gdx.gl.glClearColor(0.5f, 0.8f, 1f, 1f);
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0.5f, 0.8f, 1f, 1f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         sb.begin();
-        sb.draw(waffle.getWaffleTexture(), waffle.getWaffle().getPosition().x, waffle.getWaffle().getPosition().y, 16, 16);
+        sb.draw(waffle.getWaffleTexture(), waffle.getWaffle().getPosition().x*32-waffle.getWaffleTexture().getWidth()/2f,
+                waffle.getWaffle().getPosition().y*32-waffle.getWaffleTexture().getHeight(), 20, 50);
         sb.end();
 
-        b2dr.render(world, cam.combined);
+        b2dr.render(world, cam.combined.scl(32));
     }
 
     @Override
@@ -57,6 +58,5 @@ public class PlayState extends GameState{
         b2dr.dispose();
         world.dispose();
         waffle.dispose();
-
     }
 }
