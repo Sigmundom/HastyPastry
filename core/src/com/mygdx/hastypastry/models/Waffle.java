@@ -1,6 +1,8 @@
 package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -10,39 +12,38 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Waffle {
     private Body wBody;
-    private Texture texture;
-    private Vector2 position;
+    private Sprite sprite;
+    private CircleShape shape;
+    private BodyDef def;
 
-    private static final float WAFFLE_RADIUS = 20;
+    private static final float WAFFLE_RADIUS = 7;
 
     public Waffle(World world, float start_X, float start_Y) {
-        BodyDef def = new BodyDef();
-        def.type = BodyDef.BodyType.DynamicBody;
-        def.position.set(start_X, start_Y);
-        position = new Vector2(start_X, start_Y);
+        def = new BodyDef();
         def.fixedRotation = false;
-        wBody = world.createBody(def);
+        def.type = BodyDef.BodyType.DynamicBody;
+        def.position.set(8f, 18f);
 
-        CircleShape shape = new CircleShape();
+        shape = new CircleShape();
         shape.setRadius(WAFFLE_RADIUS);
 
-        texture = new Texture("Waffle.png");
+        sprite = new Sprite(new Texture("Waffle.png"));
 
-        wBody.createFixture(shape, 1.0f);
+        wBody = world.createBody(def);
 
+        wBody.createFixture(shape, 1.0f).setUserData(sprite);
+    }
+
+    public void update() { }
+
+    public void render(SpriteBatch sb) { update(); }
+
+    public Body getWaffle() { return wBody; }
+
+    public Texture getWaffleTexture() { return sprite.getTexture(); }
+
+    public void dispose() {
+        sprite.getTexture().dispose();
         shape.dispose();
     }
-
-    /*public void update() {
-        world.step(1/60f, 6, 2);
-    }*/
-
-    public Texture getWaffle() {
-        return texture;
-    }
-
-    public Vector2 getPosition() {
-        return position;
-    }
-
 }

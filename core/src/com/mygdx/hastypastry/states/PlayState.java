@@ -3,6 +3,7 @@ package com.mygdx.hastypastry.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -19,7 +20,7 @@ public class PlayState extends GameState{
     private Waffle waffle;
     private RoundObstacle roundObstacle;
 
-    public PlayState(GameStateManager gsm, float start_x, float start_y) {
+    public PlayState(GameStateManager gsm) {
         super(gsm);
 
         cam = new OrthographicCamera();
@@ -29,6 +30,7 @@ public class PlayState extends GameState{
         b2dr = new Box2DDebugRenderer();
         waffle = new Waffle(world, start_x, start_y);
         roundObstacle = new RoundObstacle(world, new Vector2(50, 50), false);
+        waffle = new Waffle(world, 200, 200);
     }
 
     @Override
@@ -39,7 +41,6 @@ public class PlayState extends GameState{
     @Override
     public void update(float dt) {
         world.step(1/60f, 6,2 );
-
     }
 
     @Override
@@ -48,11 +49,14 @@ public class PlayState extends GameState{
         Gdx.gl.glClearColor(0.5f, 0.8f, 1f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        b2dr.render(world, cam.combined);
         sb.begin();
         sb.draw(waffle.getWaffle(), waffle.getPosition().x, waffle.getPosition().y, 16, 16);
         sb.draw(roundObstacle.getTexture(), roundObstacle.getPos().x, roundObstacle.getPos().y, 45, 44);
+        sb.draw(waffle.getWaffleTexture(), waffle.getWaffle().getPosition().x*32-waffle.getWaffleTexture().getWidth()/2f,
+                waffle.getWaffle().getPosition().y*32-waffle.getWaffleTexture().getHeight(), 20, 50);
         sb.end();
+
+        b2dr.render(world, cam.combined.scl(32));
     }
 
     @Override
@@ -60,5 +64,6 @@ public class PlayState extends GameState{
         b2dr.dispose();
         world.dispose();
         roundObstacle.dispose();
+        waffle.dispose();
     }
 }
