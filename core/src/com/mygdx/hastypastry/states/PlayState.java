@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.hastypastry.models.RoundObstacle;
 import com.mygdx.hastypastry.models.Waffle;
 
 public class PlayState extends GameState{
@@ -17,6 +18,7 @@ public class PlayState extends GameState{
     private Box2DDebugRenderer b2dr;
     private World world;
     private Waffle waffle;
+    private RoundObstacle roundObstacle;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -26,6 +28,8 @@ public class PlayState extends GameState{
 
         world = new World(new Vector2(0, -9.81f), false);
         b2dr = new Box2DDebugRenderer();
+        waffle = new Waffle(world, start_x, start_y);
+        roundObstacle = new RoundObstacle(world, new Vector2(50, 50), false);
         waffle = new Waffle(world, 200, 200);
     }
 
@@ -46,6 +50,8 @@ public class PlayState extends GameState{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         sb.begin();
+        sb.draw(waffle.getWaffle(), waffle.getPosition().x, waffle.getPosition().y, 16, 16);
+        sb.draw(roundObstacle.getTexture(), roundObstacle.getPos().x, roundObstacle.getPos().y, 45, 44);
         sb.draw(waffle.getWaffleTexture(), waffle.getWaffle().getPosition().x*32-waffle.getWaffleTexture().getWidth()/2f,
                 waffle.getWaffle().getPosition().y*32-waffle.getWaffleTexture().getHeight(), 20, 50);
         sb.end();
@@ -57,6 +63,7 @@ public class PlayState extends GameState{
     public void dispose() {
         b2dr.dispose();
         world.dispose();
+        roundObstacle.dispose();
         waffle.dispose();
     }
 }
