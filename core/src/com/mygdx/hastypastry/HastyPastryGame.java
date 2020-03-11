@@ -10,6 +10,5 @@ public class HastyPastryGame extends Game {
 	public void create () {
 		ScreenManager.getInstance().initialize(this);
 		ScreenManager.getInstance().showScreen( ScreenEnum.MAIN_MENU);
-
 	}
 }

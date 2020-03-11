@@ -15,8 +15,8 @@ public class MainMenuView extends BaseView {
 
     @Override
     public void buildStage() {
+        SinglePlayerBtn = new MenuButton("Single Player", ScreenEnum.DRAW);
 
-        SinglePlayerBtn = new MenuButton("Single Player", ScreenEnum.PLAY);
         SinglePlayerBtn.setPosition(Config.WIDTH/2 - SinglePlayerBtn.getWidth() - 10,Config.HEIGHT/2);
         MultiPlayerBtn = new MenuButton("Multiplayer", ScreenEnum.LOBBY);
         MultiPlayerBtn.setPosition(Config.WIDTH/2 + 10,Config.HEIGHT/2);
