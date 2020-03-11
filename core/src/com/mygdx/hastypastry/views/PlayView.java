@@ -21,7 +21,6 @@ import static com.mygdx.hastypastry.Config.VELOCITY_ITERATIONS;
 
 public class PlayView extends BaseView {
     private Box2DDebugRenderer b2dr;
-    private OrthographicCamera orthographicCamera;
     private World world;
     private Waffle waffle;
     private RoundObstacle roundObstacle;
@@ -30,8 +29,6 @@ public class PlayView extends BaseView {
     public PlayView() {
         super();
         world = new World(new Vector2(0, -9.81f), false);
-        orthographicCamera = new OrthographicCamera();
-        orthographicCamera.setToOrtho(false, Gdx.graphics.getWidth()/SCALE, Gdx.graphics.getHeight()/SCALE);
         b2dr = new Box2DDebugRenderer();
         waffle = new Waffle(world, Config.WIDTH/2, Config.HEIGHT - 50);
         roundObstacle = new RoundObstacle(world, new Vector2(50, 50), false);
@@ -40,7 +37,6 @@ public class PlayView extends BaseView {
     @Override
     public void draw(SpriteBatch batch, float delta) {
         world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-        batch.setProjectionMatrix(orthographicCamera.combined);
         batch.draw(roundObstacle.getTexture(), roundObstacle.getPos().x, roundObstacle.getPos().y, 45, 44);
         waffle.draw(batch);
     }

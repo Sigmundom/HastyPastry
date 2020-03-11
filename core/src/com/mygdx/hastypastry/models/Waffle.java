@@ -15,7 +15,7 @@ public class Waffle extends Sprite{
     private static final float WAFFLE_RADIUS = 7;
 
     public Waffle(World world, float startX, float startY) {
-        super(new Texture("waffle.png"));
+        super(new Texture("Waffle.png"));
         BodyDef def = new BodyDef();
         def.fixedRotation = false;
         def.type = BodyDef.BodyType.DynamicBody;
