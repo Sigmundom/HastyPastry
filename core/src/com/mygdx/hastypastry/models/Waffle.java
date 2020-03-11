@@ -3,47 +3,42 @@ package com.mygdx.hastypastry.models;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.hastypastry.Config;
 
-public class Waffle {
-    private Body wBody;
-    private Sprite sprite;
-    private CircleShape shape;
-    private BodyDef def;
+public class Waffle extends Sprite{
+    private Body body;
 
     private static final float WAFFLE_RADIUS = 7;
 
-    public Waffle(World world, float start_X, float start_Y) {
-        def = new BodyDef();
+    public Waffle(World world, float startX, float startY) {
+        super(new Texture("Waffle.png"));
+        BodyDef def = new BodyDef();
         def.fixedRotation = false;
         def.type = BodyDef.BodyType.DynamicBody;
-        def.position.set(8f, 18f);
+        def.position.set(startX / Config.PIXEL_PER_METER, startY / Config.PIXEL_PER_METER);
 
-        shape = new CircleShape();
+        CircleShape shape = new CircleShape();
         shape.setRadius(WAFFLE_RADIUS);
 
-        sprite = new Sprite(new Texture("Waffle.png"));
+        body = world.createBody(def);
 
-        wBody = world.createBody(def);
-
-        wBody.createFixture(shape, 1.0f).setUserData(sprite);
+        body.createFixture(shape, 1.0f).setUserData(this);
+        shape.dispose();
     }
 
     public void update() { }
 
-    public void render(SpriteBatch sb) { update(); }
+    public void draw(SpriteBatch sb) {
+        sb.draw(this.getTexture(), body.getPosition().x * Config.PIXEL_PER_METER - (this.getTexture().getWidth() / 2),
+                body.getPosition().y * Config.PIXEL_PER_METER - (this.getTexture().getHeight() / 2));
+    }
 
-    public Body getWaffle() { return wBody; }
-
-    public Texture getWaffleTexture() { return sprite.getTexture(); }
 
     public void dispose() {
-        sprite.getTexture().dispose();
-        shape.dispose();
+        this.getTexture().dispose();
     }
 }
