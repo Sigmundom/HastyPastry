@@ -31,7 +31,7 @@ public abstract class BaseView implements Screen {
     @Override
     public void render(float delta) {
         // Clear screen
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         spriteBatch.begin();
         spriteBatch.draw(background, 0,0, Config.WIDTH, Config.HEIGHT);

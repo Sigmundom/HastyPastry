@@ -34,7 +34,7 @@ public class PlayView extends BaseView {
     }
     @Override
     public void buildStage() {
-        MenuBtn = new MenuButton("Main Menu", ScreenEnum.MAIN_MENU);
+        MenuBtn = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         MenuBtn.setPosition(10, Config.HEIGHT - MenuBtn.getHeight() - 10);
         this.ui.addActor(MenuBtn);
     }
