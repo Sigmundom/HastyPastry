@@ -13,13 +13,19 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.hastypastry.Config;
 
+import static com.mygdx.hastypastry.Config.SCALE;
+
 public abstract class BaseView implements Screen {
     protected InputProcessor controller;
     protected Stage ui = new Stage(new FitViewport(Config.WIDTH, Config.HEIGHT));
     protected Texture background = new Texture("bg.png");
     protected SpriteBatch spriteBatch = new SpriteBatch();
+    private OrthographicCamera orthographicCamera;
 
-    public BaseView() {}
+    public BaseView() {
+        orthographicCamera = new OrthographicCamera();
+        orthographicCamera.setToOrtho(false, Gdx.graphics.getWidth()/SCALE, Gdx.graphics.getHeight()/SCALE);
+    }
 
     public BaseView(InputProcessor controller) {
         this.controller = controller;
@@ -33,9 +39,10 @@ public abstract class BaseView implements Screen {
         // Clear screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        spriteBatch.setProjectionMatrix(orthographicCamera.combined);
         spriteBatch.begin();
-        spriteBatch.draw(background, 0,0, Config.WIDTH, Config.HEIGHT);
         // custom drawing
+        spriteBatch.draw(background, 0, 0, Gdx.graphics.getWidth()/Config.SCALE, Gdx.graphics.getHeight()/Config.SCALE);
         draw(spriteBatch, delta);
         spriteBatch.end();
 

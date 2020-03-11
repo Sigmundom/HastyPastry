@@ -1,5 +1,7 @@
 package com.mygdx.hastypastry.views;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -11,6 +13,11 @@ import com.mygdx.hastypastry.models.Waffle;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.awt.Menu;
+
+import static com.mygdx.hastypastry.Config.POSITION_ITERATIONS;
+import static com.mygdx.hastypastry.Config.SCALE;
+import static com.mygdx.hastypastry.Config.TIME_STEP;
+import static com.mygdx.hastypastry.Config.VELOCITY_ITERATIONS;
 
 public class PlayView extends BaseView {
     private Box2DDebugRenderer b2dr;
@@ -28,10 +35,14 @@ public class PlayView extends BaseView {
     }
 
     @Override
-    public void draw(SpriteBatch spriteBatch, float delta) {
-        spriteBatch.draw(roundObstacle.getTexture(), roundObstacle.getPos().x, roundObstacle.getPos().y, 45, 44);
-        waffle.draw(spriteBatch);
+    public void draw(SpriteBatch batch, float delta) {
+        world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
+        batch.draw(roundObstacle.getTexture(), roundObstacle.getPos().x, roundObstacle.getPos().y, 45, 44);
+        waffle.draw(batch);
     }
+
+
+
     @Override
     public void buildStage() {
         MenuBtn = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
