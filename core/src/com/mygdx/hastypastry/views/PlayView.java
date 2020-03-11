@@ -5,14 +5,19 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.hastypastry.Config;
+import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.RoundObstacle;
 import com.mygdx.hastypastry.models.Waffle;
+import com.mygdx.hastypastry.ui.MenuButton;
+
+import java.awt.Menu;
 
 public class PlayView extends BaseView {
     private Box2DDebugRenderer b2dr;
     private World world;
     private Waffle waffle;
     private RoundObstacle roundObstacle;
+    private MenuButton MenuBtn;
 
     public PlayView() {
         super();
@@ -29,6 +34,8 @@ public class PlayView extends BaseView {
     }
     @Override
     public void buildStage() {
-
+        MenuBtn = new MenuButton("Main Menu", ScreenEnum.MAIN_MENU);
+        MenuBtn.setPosition(10, Config.HEIGHT - MenuBtn.getHeight() - 10);
+        this.ui.addActor(MenuBtn);
     }
 }
