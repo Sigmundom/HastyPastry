@@ -50,9 +50,9 @@ public class PlayState extends GameState{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         sb.begin();
-        sb.draw(roundObstacle.getTexture(), roundObstacle.getPos().x, roundObstacle.getPos().y, 45, 44);
-        sb.draw(waffle.getWaffleTexture(), waffle.getWaffle().getPosition().x*32-waffle.getWaffleTexture().getWidth()/2f,
-                waffle.getWaffle().getPosition().y*32-waffle.getWaffleTexture().getHeight(), 20, 50);
+//        sb.draw(roundObstacle.getTexture(), roundObstacle.getPos().x, roundObstacle.getPos().y, 45, 44);
+//        sb.draw(waffle.getWaffleTexture(), waffle.getWaffle().getPosition().x*32-waffle.getWaffleTexture().getWidth()/2f,
+//                waffle.getWaffle().getPosition().y*32-waffle.getWaffleTexture().getHeight(), 20, 50);
         sb.end();
 
         b2dr.render(world, cam.combined.scl(32));
