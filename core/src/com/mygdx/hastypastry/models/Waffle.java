@@ -33,8 +33,8 @@ public class Waffle extends Sprite{
     public void update() { }
 
     public void draw(SpriteBatch sb) {
-        sb.draw(this.getTexture(), body.getPosition().x * Config.PIXEL_PER_METER - (this.getTexture().getWidth() / 2),
-                body.getPosition().y * Config.PIXEL_PER_METER - (this.getTexture().getHeight() / 2));
+        sb.draw(this.getTexture(), body.getPosition().x * Config.PIXEL_PER_METER - (this.getTexture().getWidth() / 2f),
+                body.getPosition().y * Config.PIXEL_PER_METER - (this.getTexture().getHeight() / 2f));
     }
 
 
