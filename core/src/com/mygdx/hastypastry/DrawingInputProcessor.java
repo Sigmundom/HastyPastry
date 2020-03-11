@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class DrawingInputProcessor implements InputProcessor {
 
     private ArrayList<Vector2> points = new ArrayList<Vector2>();
-    private static int minDistSqrd = 2;
+    private static int minDistSqrd = 1;
 
 
 
@@ -32,18 +32,22 @@ public class DrawingInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println(" " + screenX + ", "  + screenY);
+        if (points.size()!= 0){
+            Vector2 newPoint = new Vector2(screenX, screenY);
+            Vector2 lastPoint = points.get(points.size() - 1);
 
-        Vector2 newPoint = new Vector2(screenX, screenY);
-        Vector2 lastPoint = points.get(points.size() - 1);
+            //determine squared distance between input and last point
+            float lenSq = newPoint.sub(lastPoint).len2();
 
-        //determine squared distance between input and last point
-        float lenSq = newPoint.sub(lastPoint).len2();
-
-        //the minimum distance between input points, squared
-        if (lenSq >= minDistSqrd && points.size() > 10) {
+            //the minimum distance between input points, squared
+            if (lenSq >= minDistSqrd && points.size() < 10) {
+                points.add(new Vector2(screenX, screenY));
+            }
+            System.out.println(" " + points.toString());
+        }else {
             points.add(new Vector2(screenX, screenY));
         }
-        System.out.println(" " + points.toString());
         return false;
     }
 
