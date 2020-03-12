@@ -11,6 +11,7 @@ public class RoundObstacle extends Obstacle {
     public RoundObstacle(Assets assets, World world, float posX, float posY, float radius, boolean isDeadly){
         super(world, posX, posY, 2*radius, 2*radius);
         this.isDeadly = isDeadly;
+
         if (isDeadly){
             sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("deadlyCircle"));
         } else {

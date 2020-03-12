@@ -24,7 +24,7 @@ public abstract class BaseView implements Screen {
 
     public BaseView(Assets assets, InputProcessor... controllers) {
         if (controllers.length == 1) {
-            this.controller = controllers[0];
+            this.controller = controllers[0]; //For example drawingController
         }
         this.assets = assets;
         batch = new SpriteBatch();
@@ -32,7 +32,7 @@ public abstract class BaseView implements Screen {
         camera.setToOrtho(false, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
         spriteViewport = new FitViewport(Config.WORLD_WIDTH, Config.WORLD_HEIGHT, camera); //to draw sprites
         FitViewport stageViewport = new FitViewport(Config.UI_WIDTH, Config.UI_HEIGHT); //to draw actors
-        ui = new Stage(stageViewport, new SpriteBatch());
+        ui = new Stage(stageViewport, new SpriteBatch()); // The stage will contain UI elements
     }
 
     // Subclasses must load actors in this method
@@ -41,7 +41,7 @@ public abstract class BaseView implements Screen {
     @Override
     public void render(float delta) {
         // Clear screen
-        spriteViewport.apply();
+        spriteViewport.apply(); //Set the world viewport.
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(spriteViewport.getCamera().combined);
@@ -51,10 +51,10 @@ public abstract class BaseView implements Screen {
         draw(batch, delta);
         batch.end();
 
-        ui.getViewport().apply();
+        ui.getViewport().apply(); //Set the UI viewport
         // draw ui
         if (ui != null) {
-            ui.act(delta);
+//            ui.act(delta); // Don't think we need this because UI is static.
             ui.draw();
         }
     }
@@ -70,7 +70,7 @@ public abstract class BaseView implements Screen {
 
     @Override
     public void show() {
-        InputMultiplexer input = new InputMultiplexer();
+        InputMultiplexer input = new InputMultiplexer(); //To handle 2 controllers at once.
         // Add controllers related to ui
         input.addProcessor(ui);
         if (controller != null) {

@@ -40,7 +40,11 @@ public class PlayView extends BaseView {
 
     @Override
     public void draw(SpriteBatch batch, float delta) {
+        // Uncomment this to see bodies. For some reason I can't seem to render both textures and bodies
 //        debugRenderer.render(world, batch.getProjectionMatrix());
+
+        //Renders obstacles and waffles. Utilizes the sprite draw function, since the sprite already
+        //know what it need (position and size).
         for (Obstacle obstacle : obstacles) {
             obstacle.getSprite().draw(batch);
         }

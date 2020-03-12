@@ -25,6 +25,8 @@ public class Assets {
                     new SkinLoader.SkinParameter("ui/uiskin.pack"));
 
     //Obstacles and waffle
+    //Loads a text-file with reference to a collection of textures ("textures.png"), and
+    //information about size and coordinates in collection.
     public static final AssetDescriptor<TextureAtlas> gameTextures =
             new AssetDescriptor<>("textures.pack", TextureAtlas.class);
 
