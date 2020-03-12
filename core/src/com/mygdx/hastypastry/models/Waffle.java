@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.hastypastry.Assets;
 
@@ -18,6 +19,7 @@ public class Waffle {
         sprite.setOrigin(RADIUS, RADIUS); //Sets the origin for rotation
         sprite.setSize(2*RADIUS, 2*RADIUS);
         sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("waffle"));
+
         BodyDef def = new BodyDef();
         def.fixedRotation = false;
         def.type = BodyDef.BodyType.DynamicBody;
@@ -26,7 +28,14 @@ public class Waffle {
         CircleShape shape = new CircleShape();
         shape.setRadius(RADIUS);
 
+        FixtureDef fixturedef = new FixtureDef();
+        fixturedef.shape = shape;
+        fixturedef.density = 1.0f;
+        fixturedef.filter.categoryBits = 1; //What it is
+        fixturedef.filter.maskBits = 2;     //Collides with
+
         body = world.createBody(def);
+        body.createFixture(fixturedef);
 
         body.createFixture(shape, 1.0f);
         shape.dispose();
@@ -40,4 +49,7 @@ public class Waffle {
         return sprite;
     }
 
+    public Body getBody() {
+        return body;
+    }
 }

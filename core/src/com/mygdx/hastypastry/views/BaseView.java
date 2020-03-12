@@ -22,7 +22,10 @@ public abstract class BaseView implements Screen {
     protected SpriteBatch batch;
     protected Viewport spriteViewport;
 
-    public BaseView(Assets assets) {
+    public BaseView(Assets assets, InputProcessor... controllers) {
+        if (controllers.length == 1) {
+            this.controller = controllers[0];
+        }
         this.assets = assets;
         batch = new SpriteBatch();
         OrthographicCamera camera = new OrthographicCamera();
@@ -30,10 +33,6 @@ public abstract class BaseView implements Screen {
         spriteViewport = new FitViewport(Config.WORLD_WIDTH, Config.WORLD_HEIGHT, camera); //to draw sprites
         FitViewport stageViewport = new FitViewport(Config.UI_WIDTH, Config.UI_HEIGHT); //to draw actors
         ui = new Stage(stageViewport, new SpriteBatch());
-    }
-
-    public BaseView(InputProcessor controller) {
-        this.controller = controller;
     }
 
     // Subclasses must load actors in this method

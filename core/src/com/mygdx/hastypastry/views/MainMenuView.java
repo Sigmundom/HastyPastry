@@ -42,5 +42,4 @@ public class MainMenuView extends BaseView {
 //        Add table to stage
         this.ui.addActor(mainTable);
     }
-
 }
