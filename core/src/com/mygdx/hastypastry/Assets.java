@@ -3,7 +3,6 @@ package com.mygdx.hastypastry;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -22,19 +21,19 @@ public class Assets {
 
     //The skin
     public static final AssetDescriptor<Skin> uiSkin =
-            new AssetDescriptor<Skin>("ui/uiskin.json", Skin.class,
+            new AssetDescriptor<>("ui/uiskin.json", Skin.class,
                     new SkinLoader.SkinParameter("ui/uiskin.pack"));
 
-    //Waffle
-    public static final AssetDescriptor<Texture> waffle =
-            new AssetDescriptor<>("waffle.png", Texture.class);
+    //Obstacles and waffle
+    public static final AssetDescriptor<TextureAtlas> gameTextures =
+            new AssetDescriptor<>("textures.pack", TextureAtlas.class);
 
     //Method for loading the assets into the manager
     public void load()
     {
         manager.load(uiAtlas);
         manager.load(uiSkin);
-        manager.load(waffle);
+        manager.load(gameTextures);
     }
 
     //Easy asset disposing, whenever you are done with it just dispose the manager instead of many files.

@@ -1,39 +1,22 @@
 package com.mygdx.hastypastry.models;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.mygdx.hastypastry.Assets;
 
 public class SquareObstacle extends Obstacle{
 
-    public SquareObstacle(World world, Vector2 position, Boolean isDeadly){
-        super.pos = position;
-        super.isDeadly = isDeadly;
-        setBoundary();
+    public SquareObstacle(Assets assets, World world, float posX, float posY, float width, float height, boolean isDeadly){
+        super(world, posX, posY, width, height);
+        this.isDeadly = isDeadly;
         if (isDeadly){
-            super.texture = new Texture("deadlySquare.png");
+            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("deadlySquare"));
         } else {
-            super.texture = new Texture("square.png");
+            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("square"));
         }
-        super.body = defineBody(world, position);
-        super.body.createFixture(setBoundary(), 1.0f);
-    }
-
-    @Override
-    protected Shape setBoundary() {
         PolygonShape shape = new PolygonShape();
-        float[] vertices = new float[8];
-        vertices[0] = 0;
-        vertices[1] = 0;
-        vertices[2] = 50;
-        vertices[3] = 0;
-        vertices[4] = 50;
-        vertices[5] = 50;
-        vertices[6] = 0;
-        vertices[7] = 50;
-        shape.set(vertices);
-        return shape;
+        shape.setAsBox(width/2, height/2);
+        body.createFixture(shape, 1.0f);
+        shape.dispose();
     }
 }

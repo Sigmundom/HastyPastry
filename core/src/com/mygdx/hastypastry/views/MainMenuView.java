@@ -19,9 +19,6 @@ public class MainMenuView extends BaseView {
         //Create Table
         Table mainTable = new Table();
 
-        //Shows helping lines
-        mainTable.debugTable();
-
         //Set table to fill stage
         mainTable.setFillParent(true);
 

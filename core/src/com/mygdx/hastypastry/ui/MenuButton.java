@@ -11,8 +11,6 @@ public class MenuButton extends TextButton {
 
     public MenuButton(Assets assets, String text, final ScreenEnum navigateTo) {
         super(text, assets.getManager().get(Assets.uiSkin), "container_gold");
-//        this.setTransform(true);
-//        this.setScale(0.05f);
         this.addListener(
             new InputListener() {
                 @Override

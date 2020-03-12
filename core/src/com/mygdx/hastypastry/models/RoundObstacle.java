@@ -1,30 +1,23 @@
 package com.mygdx.hastypastry.models;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.hastypastry.Assets;
 
 public class RoundObstacle extends Obstacle {
 
-    public RoundObstacle(World world, Vector2 position, Boolean isDeadly){
-        super.pos = position;
-        super.isDeadly = isDeadly;
-        setBoundary();
+    public RoundObstacle(Assets assets, World world, float posX, float posY, float radius, boolean isDeadly){
+        super(world, posX, posY, 2*radius, 2*radius);
+        this.isDeadly = isDeadly;
         if (isDeadly){
-            super.texture = new Texture("deadlyCircle.png");
+            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("deadlyCircle"));
         } else {
-            super.texture = new Texture("circle.png");
+            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("circle"));
         }
-        super.body = defineBody(world, position);
-        super.body.createFixture(setBoundary(), 1.0f);
-    }
-
-    @Override
-    protected Shape setBoundary() {
-        CircleShape shape = new CircleShape();
-        shape.setRadius(50);
-        return shape;
+        Shape shape = new CircleShape();
+        shape.setRadius(radius);
+        body.createFixture(shape, 1.0f);
+        shape.dispose();
     }
 }
