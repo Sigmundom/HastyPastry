@@ -30,18 +30,21 @@ public class PlayView extends BaseView {
         super();
         world = new World(new Vector2(0, -9.81f), false);
         b2dr = new Box2DDebugRenderer();
-        waffle = new Waffle(world, Config.WIDTH/2, Config.HEIGHT - 50);
-        roundObstacle = new RoundObstacle(world, new Vector2(50, 50), false);
+        waffle = new Waffle(world, 195, 300);
+        roundObstacle = new RoundObstacle(world, new Vector2(200, 50), false);
     }
 
     @Override
     public void draw(SpriteBatch batch, float delta) {
         world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-        batch.draw(roundObstacle.getTexture(), roundObstacle.getPos().x, roundObstacle.getPos().y, 45, 44);
-        waffle.draw(batch);
+        batch.draw(roundObstacle.getTexture(),
+                roundObstacle.getBody().getPosition().x * Config.PIXEL_PER_METER - roundObstacle.getTexture().getWidth() / 2f,
+                roundObstacle.getBody().getPosition().y * Config.PIXEL_PER_METER - roundObstacle.getTexture().getHeight() / 2f);
+
+        batch.draw(waffle.getTexture(),
+                waffle.getBody().getPosition().x * Config.PIXEL_PER_METER - waffle.getTexture().getWidth() / 2f,
+                waffle.getBody().getPosition().y * Config.PIXEL_PER_METER - waffle.getTexture().getHeight() / 2f);
     }
-
-
 
     @Override
     public void buildStage() {
@@ -49,4 +52,6 @@ public class PlayView extends BaseView {
         MenuBtn.setPosition(10, Config.HEIGHT - MenuBtn.getHeight() - 10);
         this.ui.addActor(MenuBtn);
     }
+
+    //dispose???
 }

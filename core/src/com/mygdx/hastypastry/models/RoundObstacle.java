@@ -3,8 +3,10 @@ package com.mygdx.hastypastry.models;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.hastypastry.Config;
 
 public class RoundObstacle extends Obstacle {
 
@@ -18,13 +20,21 @@ public class RoundObstacle extends Obstacle {
             super.texture = new Texture("circle.png");
         }
         super.body = defineBody(world, position);
-        super.body.createFixture(setBoundary(), 1.0f);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = setBoundary();
+        fixtureDef.density = 1.0f;
+        fixtureDef.filter.categoryBits = 2;
+        fixtureDef.filter.maskBits = 1;
+
+        super.body.createFixture(fixtureDef);
+        System.out.println(body.getPosition().x + ", " + body.getPosition().y);
     }
 
     @Override
     protected Shape setBoundary() {
         CircleShape shape = new CircleShape();
-        shape.setRadius(50);
+        shape.setRadius(25 / Config.PIXEL_PER_METER);
         return shape;
     }
 }

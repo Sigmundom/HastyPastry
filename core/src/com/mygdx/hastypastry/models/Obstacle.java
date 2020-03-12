@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.hastypastry.Config;
 
 import java.util.List;
 
@@ -21,14 +22,13 @@ public abstract class Obstacle {
 
     protected Body defineBody(World world, Vector2 position){
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(position);
+        bodyDef.position.set(position.x / Config.PIXEL_PER_METER, position.y / Config.PIXEL_PER_METER);
         bodyDef.type = BodyDef.BodyType.StaticBody;
         return world.createBody(bodyDef);
     }
 
 
     public Body getBody(){ return body; }
-    public Vector2 getPos(){ return pos; }
     public Texture getTexture(){ return texture; }
     public Boolean getIsDeadly(){ return isDeadly; }
     public List<Vector2> getBoundary(){ return boundary; }
