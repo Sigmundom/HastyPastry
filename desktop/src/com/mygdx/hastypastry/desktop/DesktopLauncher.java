@@ -8,8 +8,8 @@ import com.mygdx.hastypastry.HastyPastryGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.height = Config.HEIGHT;
-		config.width = Config.WIDTH;
+		config.height = Config.UI_HEIGHT;
+		config.width = Config.UI_WIDTH;
 		new LwjglApplication(new HastyPastryGame(), config);
 	}
 }

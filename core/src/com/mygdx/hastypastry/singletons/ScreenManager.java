@@ -13,6 +13,8 @@ public class ScreenManager {
 
     // Reference to game
     private Game game;
+    // Reference to asset manager
+    private Assets assets;
 
     // Singleton: private constructor
     private ScreenManager() {
@@ -28,12 +30,14 @@ public class ScreenManager {
     }
 
     // Initialization with the game class
-    public void initialize(Game game) {
+    public void initialize(Game game, Assets assets) {
         this.game = game;
+        this.assets = assets;
+
         //Tell the manager to start loading
-        Assets.load();
+        assets.load();
 //Tell the program to "loop" the loading until finished. Essentially stopping the game from continuing.
-        Assets.manager.finishLoading();
+        assets.getManager().finishLoading();
     }
 
     // Show in the game the screen which enum type is received
@@ -43,7 +47,7 @@ public class ScreenManager {
         Screen currentScreen = game.getScreen();
 
         // Show new screen
-        BaseView newScreen = screenEnum.getScreen(params);
+        BaseView newScreen = screenEnum.getScreen(assets, params);
         newScreen.buildStage();
         game.setScreen(newScreen);
 
