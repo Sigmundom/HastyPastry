@@ -2,7 +2,6 @@ package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.Assets;
-import com.mygdx.hastypastry.DrawingInputProcessor;
+import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
 
 public abstract class BaseView implements Screen {
     protected Assets assets;
@@ -23,7 +22,7 @@ public abstract class BaseView implements Screen {
     protected SpriteBatch batch;
     protected Viewport spriteViewport;
 
-    public BaseView(Assets assets, boolean... controllerBools) {
+    public BaseView(Assets assets) {
         this.assets = assets;
         batch = new SpriteBatch();
         OrthographicCamera camera = new OrthographicCamera();
@@ -31,10 +30,6 @@ public abstract class BaseView implements Screen {
         spriteViewport = new FitViewport(Config.WORLD_WIDTH, Config.WORLD_HEIGHT, camera); //to draw sprites
         FitViewport stageViewport = new FitViewport(Config.UI_WIDTH, Config.UI_HEIGHT); //to draw actors
         ui = new Stage(stageViewport, new SpriteBatch()); // The stage will contain UI elements
-        System.out.println("length: " + controllerBools.length);
-        if (controllerBools.length == 1 && controllerBools[0]) {
-            this.controller = new DrawingInputProcessor(camera); //For example drawingController
-        }
     }
 
     // Subclasses must load actors in this method
