@@ -13,19 +13,17 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.Assets;
+import com.mygdx.hastypastry.DrawingInputProcessor;
 
 public abstract class BaseView implements Screen {
     protected Assets assets;
-    protected InputProcessor controller;
+    protected DrawingInputProcessor controller;
     protected Stage ui;
     protected Texture background = new Texture("bg.png");
     protected SpriteBatch batch;
     protected Viewport spriteViewport;
 
-    public BaseView(Assets assets, InputProcessor... controllers) {
-        if (controllers.length == 1) {
-            this.controller = controllers[0]; //For example drawingController
-        }
+    public BaseView(Assets assets, boolean... controllerBools) {
         this.assets = assets;
         batch = new SpriteBatch();
         OrthographicCamera camera = new OrthographicCamera();
@@ -33,6 +31,10 @@ public abstract class BaseView implements Screen {
         spriteViewport = new FitViewport(Config.WORLD_WIDTH, Config.WORLD_HEIGHT, camera); //to draw sprites
         FitViewport stageViewport = new FitViewport(Config.UI_WIDTH, Config.UI_HEIGHT); //to draw actors
         ui = new Stage(stageViewport, new SpriteBatch()); // The stage will contain UI elements
+        System.out.println("length: " + controllerBools.length);
+        if (controllerBools.length == 1 && controllerBools[0]) {
+            this.controller = new DrawingInputProcessor(camera); //For example drawingController
+        }
     }
 
     // Subclasses must load actors in this method

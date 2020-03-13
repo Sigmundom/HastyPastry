@@ -14,8 +14,13 @@ import java.util.ArrayList;
 
 public class DrawingInputProcessor implements InputProcessor {
 
-    private ArrayList<ArrayList<Vector2>> lines = new ArrayList<ArrayList<Vector2>>();
-    private static int minDistSqrd = 500;
+    private ArrayList<ArrayList<Vector3>> lines = new ArrayList<ArrayList<Vector3>>();
+    private static int minDistSqrd = 2;
+    private Camera cam;
+
+    public DrawingInputProcessor(Camera cam){
+        this.cam = cam;
+    }
 
 
     @Override
@@ -37,9 +42,12 @@ public class DrawingInputProcessor implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         // Add new line here
         System.out.println("Start! " + screenX + ", "  + screenY);
-        lines.add(new ArrayList<Vector2>());
-        ArrayList<Vector2> currentLine = lines.get(lines.size() - 1);
-        currentLine.add(new Vector2(screenX, screenY));
+        lines.add(new ArrayList<Vector3>());
+        ArrayList<Vector3> currentLine = lines.get(lines.size() - 1);
+        Vector3 worldCoordPoint = new Vector3(screenX, screenY, 0);
+        currentLine.add(worldCoordPoint);
+
+        System.out.println("Unproj: " + cam.unproject(new Vector3(screenX, screenY, 0)));
         return false;
     }
 
@@ -56,10 +64,10 @@ public class DrawingInputProcessor implements InputProcessor {
         if(lines.isEmpty()){
             this.touchDown(screenX, screenY, pointer, 0);
         }
-        ArrayList<Vector2> currentLine = lines.get(lines.size() - 1);
+        ArrayList<Vector3> currentLine = lines.get(lines.size() - 1);
 
-        Vector2 newPoint = new Vector2(screenX, screenY);
-        Vector2 lastPoint = currentLine.get(currentLine.size() - 1);
+        Vector3 newPoint = new Vector3(screenX, screenY, 0);
+        Vector3 lastPoint = currentLine.get(currentLine.size() - 1);
 
         //determine squared distance between input and last point
         float lenSq = newPoint.sub(lastPoint).len2();
@@ -67,7 +75,7 @@ public class DrawingInputProcessor implements InputProcessor {
 
         //the minimum distance between input points, squared
         if (lenSq >= minDistSqrd && currentLine.size() < 100) {
-            currentLine.add(new Vector2(screenX, screenY));
+            currentLine.add(new Vector3(screenX, screenY, 0));
             System.out.println("Points: " + currentLine.toString());
         }
 
