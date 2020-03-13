@@ -15,7 +15,8 @@ import com.mygdx.hastypastry.models.TriangularObstacle;
 import com.mygdx.hastypastry.models.Waffle;
 import com.mygdx.hastypastry.Assets;
 import com.mygdx.hastypastry.ui.MenuButton;
-
+import com.mygdx.hastypastry.levels.Level;
+import com.mygdx.hastypastry.levels.Level1;
 import java.util.ArrayList;
 
 import static com.mygdx.hastypastry.Config.POSITION_ITERATIONS;
@@ -25,19 +26,15 @@ import static com.mygdx.hastypastry.Config.VELOCITY_ITERATIONS;
 public class PlayView extends BaseView {
     private Box2DDebugRenderer debugRenderer;
     private World world;
-    private Waffle waffle;
-    private ArrayList<Obstacle> obstacles = new ArrayList<>();
     private MenuButton MenuBtn;
+    private Level level;
 
     public PlayView(Assets assets) {
         super(assets);
         world = new World(new Vector2(0, -9.81f), false);
         world.setContactListener(new MyContactListener());
         debugRenderer = new Box2DDebugRenderer();
-        waffle = new Waffle(assets, world, Config.WORLD_WIDTH/2, Config.WORLD_HEIGHT - 2);
-        obstacles.add(new RoundObstacle(assets, world, Config.WORLD_WIDTH/2, 2, 2, false));
-        obstacles.add(new SquareObstacle(assets, world, 3, 8, 2, 4, true));
-        obstacles.add(new TriangularObstacle(assets, world, 10,10,6,3, false));
+        level = new Level1(assets, world);
     }
 
     @Override
@@ -45,18 +42,18 @@ public class PlayView extends BaseView {
         // Uncomment this to see bodies. For some reason I can't seem to render both textures and bodies
 //        debugRenderer.render(world, batch.getProjectionMatrix());
 
-        //Renders obstacles and waffles. Utilizes the sprite draw function, since the sprite already
+        //Renders obstacles and waffles through levels. Utilizes the sprite draw function, since the sprite already
         //know what it need (position and size).
-        for (Obstacle obstacle : obstacles) {
+        for (Obstacle obstacle : level.getObstacles()){
             obstacle.getSprite().draw(batch);
         }
-        waffle.getSprite().draw(batch);
+        level.getWaffle().getSprite().draw(batch);
         world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
         update();
     }
 
     private void update() {
-        waffle.update();
+        level.getWaffle().update();
     }
 
     @Override
