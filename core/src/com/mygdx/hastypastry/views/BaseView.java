@@ -2,7 +2,6 @@ package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,19 +12,17 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.Assets;
+import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
 
 public abstract class BaseView implements Screen {
     protected Assets assets;
-    protected InputProcessor controller;
+    protected DrawingInputProcessor controller;
     protected Stage ui;
     protected Texture background = new Texture("bg.png");
     protected SpriteBatch batch;
     protected Viewport spriteViewport;
 
-    public BaseView(Assets assets, InputProcessor... controllers) {
-        if (controllers.length == 1) {
-            this.controller = controllers[0]; //For example drawingController
-        }
+    public BaseView(Assets assets) {
         this.assets = assets;
         batch = new SpriteBatch();
         OrthographicCamera camera = new OrthographicCamera();
