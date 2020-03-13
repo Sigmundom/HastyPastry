@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.listeners.MyContactListener;
 import com.mygdx.hastypastry.models.Obstacle;
 import com.mygdx.hastypastry.models.RoundObstacle;
 import com.mygdx.hastypastry.models.SquareObstacle;
@@ -31,10 +32,11 @@ public class PlayView extends BaseView {
     public PlayView(Assets assets) {
         super(assets);
         world = new World(new Vector2(0, -9.81f), false);
+        world.setContactListener(new MyContactListener());
         debugRenderer = new Box2DDebugRenderer();
         waffle = new Waffle(assets, world, Config.WORLD_WIDTH/2, Config.WORLD_HEIGHT - 2);
         obstacles.add(new RoundObstacle(assets, world, Config.WORLD_WIDTH/2, 2, 2, false));
-        obstacles.add(new SquareObstacle(assets, world, 3, 8, 2, 4, false));
+        obstacles.add(new SquareObstacle(assets, world, 3, 8, 2, 4, true));
         obstacles.add(new TriangularObstacle(assets, world, 10,10,6,3, false));
     }
 

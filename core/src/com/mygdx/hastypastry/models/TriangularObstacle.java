@@ -7,17 +7,18 @@ import com.mygdx.hastypastry.Assets;
 public class TriangularObstacle extends Obstacle{
 
     public TriangularObstacle(Assets assets, World world, float posX, float posY, float width, float height, Boolean isDeadly){
-        super(world, posX, posY, width, height);
-        super.isDeadly = isDeadly;
+        super(world, posX, posY, width, height, isDeadly);
+
         if (isDeadly){
-            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("deadlyTriangle"));
+            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("deadlytriangle"));
         } else {
             sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("triangle"));
         }
+
         PolygonShape shape = new PolygonShape();
         float[] vertices = {-width/2, -height/2, width/2, -height/2, 0, height/2};
         shape.set(vertices);
-        super.body.createFixture(shape, 1.0f);
-        shape.dispose();
+
+        setFixture(shape);
     }
 }

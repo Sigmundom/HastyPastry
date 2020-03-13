@@ -51,9 +51,9 @@ public abstract class BaseView implements Screen {
         draw(batch, delta);
         batch.end();
 
-        ui.getViewport().apply(); //Set the UI viewport
         // draw ui
         if (ui != null) {
+            ui.getViewport().apply(); //Set the UI viewport
 //            ui.act(delta); // Don't think we need this because UI is static.
             ui.draw();
         }
