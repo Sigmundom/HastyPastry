@@ -1,37 +1,24 @@
 package com.mygdx.hastypastry.models;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.hastypastry.Assets;
 
 public class TriangularObstacle extends Obstacle{
 
-    public TriangularObstacle(World world, Vector2 position, Boolean isDeadly){
-        super.pos = position;
-        super.isDeadly = isDeadly;
-        setBoundary();
-        if (isDeadly){
-            super.texture = new Texture("deadlyTriangle.png");
-        } else {
-            super.texture = new Texture("triangle.png");
-        }
-        super.body = defineBody(world, position);
-        super.body.createFixture(setBoundary(), 1.0f);
-    }
+    public TriangularObstacle(Assets assets, World world, float posX, float posY, float width, float height, Boolean isDeadly){
+        super(world, posX, posY, width, height, isDeadly);
 
-    @Override
-    protected Shape setBoundary() {
+        if (isDeadly){
+            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("deadlytriangle"));
+        } else {
+            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("triangle"));
+        }
+
         PolygonShape shape = new PolygonShape();
-        float[] vertices = new float[6];
-        vertices[0] = 0;
-        vertices[1] = 0;
-        vertices[2] = 40;
-        vertices[3] = 0;
-        vertices[4] = 20;
-        vertices[5] = 40;
+        float[] vertices = {-width/2, -height/2, width/2, -height/2, 0, height/2};
         shape.set(vertices);
-        return shape;
+
+        setFixture(shape);
     }
 }

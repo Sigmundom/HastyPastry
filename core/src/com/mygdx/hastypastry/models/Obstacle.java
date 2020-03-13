@@ -1,39 +1,40 @@
 package com.mygdx.hastypastry.models;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
-
-import java.util.List;
 
 public abstract class Obstacle {
 
     protected Body body;
-    protected Vector2 pos;
-    protected Texture texture;
-    protected Boolean isDeadly;
-    protected List<Vector2> boundary;
+    protected Sprite sprite;
 
-    protected abstract Shape setBoundary();
-
-    protected Body defineBody(World world, Vector2 position){
+    protected Obstacle(World world, float posX, float posY, float width, float height, boolean isDeadly) {
+        sprite = new Sprite();
+        sprite.setSize(width, height);
+        sprite.setPosition(posX - width/2, posY - height/2);
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(position);
+        bodyDef.position.set(posX, posY);
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        return world.createBody(bodyDef);
+        body = world.createBody(bodyDef);
+        body.setUserData(isDeadly);
     }
 
+    protected void setFixture(Shape shape) {
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 1.0f;
+        fixtureDef.filter.categoryBits = 2;
+        fixtureDef.filter.maskBits = 1;
 
-    public Body getBody(){ return body; }
-    public Vector2 getPos(){ return pos; }
-    public Texture getTexture(){ return texture; }
-    public Boolean getIsDeadly(){ return isDeadly; }
-    public List<Vector2> getBoundary(){ return boundary; }
+        body.createFixture(fixtureDef);
+        shape.dispose();
+    }
 
-    public void dispose() {
-        texture.dispose();
+    public Sprite getSprite() {
+        return sprite;
     }
 }
