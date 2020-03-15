@@ -12,8 +12,7 @@ import java.util.ArrayList;
  * @author sigmundhh */
 
 public class DrawingInputProcessor implements InputProcessor {
-
-    private ArrayList<ArrayList<Vector3>> lines = new ArrayList<ArrayList<Vector3>>();
+    
     private static float minDistSqrd = 0.5f;
     private Camera cam;
     private Drawing drawing;

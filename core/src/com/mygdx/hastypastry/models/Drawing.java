@@ -1,8 +1,6 @@
 package com.mygdx.hastypastry.models;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -10,15 +8,7 @@ import java.util.Stack;
  * @author sigmundhh */
 public class Drawing {
 
-    ShapeRenderer shapeRenderer;
-    private Viewport viewport;
     private Stack<ArrayList<Vector2>> lines = new Stack<>();
-
-
-    public Drawing(Viewport viewport){
-        this.viewport = viewport;
-        shapeRenderer = new ShapeRenderer();
-    }
 
     public void addLine(ArrayList<Vector2> line) {
         lines.push(line);
@@ -29,15 +19,8 @@ public class Drawing {
     }
 
 
-    public void draw() {
-        shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        for (ArrayList<Vector2> line: lines) {
-            for(int i = 0; i < line.size()-1; ++i) {
-                shapeRenderer.rectLine(line.get(i), line.get(i+1), 0.5f);
-            }
-        }
-        shapeRenderer.end();
+    public Stack<ArrayList<Vector2>> getLines() {
+        return lines;
     }
 
 
