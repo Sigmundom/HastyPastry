@@ -5,20 +5,16 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Stack;
 
-/** The Drawing is an object containing all the lines as drawn by the DrawView
+/** The Drawing is an object containing all the lines as drawn in the GameView
  * @author sigmundhh */
 public class Drawing {
 
     private Stack<ArrayList<Vector2>> lines = new Stack<>();
-    private Stack<ChainShape> shapes = new Stack<>();
     private ArrayList<Body> bodies;
 
     public void addLine(ArrayList<Vector2> line) {
@@ -33,6 +29,10 @@ public class Drawing {
         bodies = new ArrayList<>();
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.density = 1.0f;
+        fixtureDef.filter.categoryBits = 2;
+        fixtureDef.filter.maskBits = 1;
 
         for (ArrayList<Vector2> line : lines) {
             Body body = world.createBody(bodyDef);
@@ -40,14 +40,10 @@ public class Drawing {
             line.toArray(vertices);
             ChainShape shape = new ChainShape();
             shape.createChain(vertices);
-            FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = shape;
-            fixtureDef.density = 1.0f;
-            fixtureDef.filter.categoryBits = 2;
-            fixtureDef.filter.maskBits = 1;
 
             body.createFixture(fixtureDef);
-            body.setUserData(false);
+            body.setUserData(false); //Not dangerous to collide with
             bodies.add(body);
             shape.dispose();
         }

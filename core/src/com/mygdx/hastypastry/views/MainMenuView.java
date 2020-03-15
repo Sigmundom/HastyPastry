@@ -9,7 +9,6 @@ public class MainMenuView extends BaseView {
 
     private MenuButton singlePlayerBtn;
     private MenuButton multiPlayerBtn;
-    private MenuButton drawing;
 
     public MainMenuView(Assets assets) {
         super(assets);
@@ -34,14 +33,11 @@ public class MainMenuView extends BaseView {
         //Create Buttons
         singlePlayerBtn = new MenuButton(assets, "Single Player", ScreenEnum.PLAY);
         multiPlayerBtn = new MenuButton(assets,"Multiplayer", ScreenEnum.LOBBY);
-        drawing = new MenuButton(assets, "Draw", ScreenEnum.DRAW);
 
         //Add buttons to table
         mainTable.add(singlePlayerBtn).growX().pad(25);
         mainTable.row();
         mainTable.add(multiPlayerBtn).growX().pad(25);
-        mainTable.row();
-        mainTable.add(drawing).growX().pad(25);
 
 //        Add table to stage
         this.ui.addActor(mainTable);

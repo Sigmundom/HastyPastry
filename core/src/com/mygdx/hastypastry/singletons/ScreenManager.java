@@ -36,7 +36,7 @@ public class ScreenManager {
 
         //Tell the manager to start loading
         assets.load();
-//Tell the program to "loop" the loading until finished. Essentially stopping the game from continuing.
+        //Tell the program to "loop" the loading until finished. Essentially stopping the game from continuing.
         assets.getManager().finishLoading();
     }
 

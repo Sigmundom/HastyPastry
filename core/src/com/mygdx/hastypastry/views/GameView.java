@@ -30,7 +30,7 @@ import static com.mygdx.hastypastry.Config.POSITION_ITERATIONS;
 import static com.mygdx.hastypastry.Config.TIME_STEP;
 import static com.mygdx.hastypastry.Config.VELOCITY_ITERATIONS;
 
-public class PlayView extends BaseView {
+public class GameView extends BaseView {
     private Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private World world;
@@ -40,7 +40,7 @@ public class PlayView extends BaseView {
     private Level level;
     private boolean paused = true;
 
-    public PlayView(Assets assets) {
+    public GameView(Assets assets) {
         super(assets);
         world = new World(new Vector2(0, -9.81f), false);
         world.setContactListener(new MyContactListener());
@@ -75,8 +75,6 @@ public class PlayView extends BaseView {
             }
         }
         shapeRenderer.end();
-        batch.begin();
-
     }
 
     private void update() {
