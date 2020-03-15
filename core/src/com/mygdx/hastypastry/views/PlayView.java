@@ -97,6 +97,7 @@ public class PlayView extends BaseView {
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        drawing.addBodies(world);
                         paused = false;
                         return false;
                     }
