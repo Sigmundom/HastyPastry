@@ -46,7 +46,9 @@ public abstract class BaseView implements Screen {
         // custom drawing
         batch.draw(background, 0, 0, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
         draw(batch, delta);
-        batch.end();
+        if (batch.isDrawing()) {
+            batch.end();
+        }
 
         // draw ui
         if (ui != null) {

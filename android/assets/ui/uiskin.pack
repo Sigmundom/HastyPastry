@@ -1,5 +1,5 @@
 uiskin.png
-size: 82, 45
+size: 155, 45
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -17,5 +17,12 @@ container_gold
   size: 41, 45
   split: 20, 20, 22, 22
   orig: 41, 45
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 82, 0
+  size: 73, 45
+  orig: 73, 45
   offset: 0, 0
   index: -1
