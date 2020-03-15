@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.hastypastry.Assets;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
 import com.mygdx.hastypastry.levels.Level;
-import com.mygdx.hastypastry.levels.Level1;
 import com.mygdx.hastypastry.models.Drawing;
 
 import java.util.ArrayList;
