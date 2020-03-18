@@ -32,7 +32,7 @@ public class MainMenuView extends BaseView {
 
         //Create Buttons
         singlePlayerBtn = new MenuButton(assets, "Single Player", ScreenEnum.PLAY);
-        multiPlayerBtn = new MenuButton(assets,"Multiplayer", ScreenEnum.LOBBY);
+        multiPlayerBtn = new MenuButton(assets,"Multiplayer", ScreenEnum.LOBBY, "Per");
 
         //Add buttons to table
         mainTable.add(singlePlayerBtn).growX().pad(25);

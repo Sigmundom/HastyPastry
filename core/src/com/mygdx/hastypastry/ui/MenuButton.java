@@ -9,13 +9,13 @@ import com.mygdx.hastypastry.singletons.ScreenManager;
 
 public class MenuButton extends TextButton {
 
-    public MenuButton(Assets assets, String text, final ScreenEnum navigateTo) {
+    public MenuButton(Assets assets, String text, final ScreenEnum navigateTo, final Object... params) {
         super(text, assets.getManager().get(Assets.uiSkin), "container_gold");
         this.addListener(
             new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    ScreenManager.getInstance().showScreen(navigateTo);
+                    ScreenManager.getInstance().showScreen(navigateTo, params);
                     return false;
                 }
             }

@@ -21,7 +21,7 @@ public enum ScreenEnum {
     },
     LOBBY {
         public BaseView getScreen(Assets assets, Object... params) {
-            return new LobbyView(assets);
+            return new LobbyView(assets, (String)params[0]);
         }
     }
     ;
