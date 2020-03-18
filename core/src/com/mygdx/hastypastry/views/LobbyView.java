@@ -21,7 +21,7 @@ public class LobbyView extends BaseView {
     public LobbyView(Assets assets, String name) {
         super(assets);
         this.name = name;
-        lobby = new Lobby(name);
+        lobby = new Lobby(name, ui);
         font.setColor(Color.BLACK);
         font.getData().setScale(0.05f);
     }
@@ -36,7 +36,6 @@ public class LobbyView extends BaseView {
     @Override
     public void draw(SpriteBatch batch, float delta) {
         Set<String> users = lobby.getLobbyList(name).keySet();
-        System.out.println(users);
         int y = 12;
         for (CharSequence user : users) {
             font.draw(batch, user, 9, y, 5, 1, false);
