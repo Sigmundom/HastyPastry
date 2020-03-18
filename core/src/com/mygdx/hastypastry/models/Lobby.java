@@ -8,7 +8,7 @@ import pl.mk5.gdx.fireapp.functional.Consumer;
 
 public class Lobby {
     private final String DB_PATH = "lobby";
-    private Map<String, Object> lobbyList;
+    private Map<String, Object> lobbyList = new HashMap<>();
 
     public Lobby(String name) {
         joinLobby(name);
