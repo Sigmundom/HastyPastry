@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /** The Drawing is an object containing all the lines as drawn in the GameView
+ * It provides functionality to add lines and points, which are used by DrawingInputProcessor
+ * addBodies(world) us used bu GameView for adding the bodies to the world when the user pushes play-btn.
+ * GameView ask for all lines for drawing
  * @author sigmundhh */
 public class Drawing {
 
@@ -24,6 +27,11 @@ public class Drawing {
     public void addPoint(Vector2 point) {
         lines.peek().add(point);
     }
+
+    public void undoLine(){
+        lines.pop();
+    }
+
 
     public void addBodies(World world) {
         bodies = new ArrayList<>();
@@ -48,7 +56,6 @@ public class Drawing {
             shape.dispose();
         }
     }
-
 
     public Stack<ArrayList<Vector2>> getLines() {
         return lines;
