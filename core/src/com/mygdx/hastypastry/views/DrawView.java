@@ -15,9 +15,8 @@ import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.levels.Level1;
 import com.mygdx.hastypastry.models.Drawing;
-import com.mygdx.hastypastry.models.GameInfo;
+import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Obstacle;
-import com.mygdx.hastypastry.models.Player;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.ui.PlayButton;
@@ -30,12 +29,12 @@ public class DrawView extends BaseView {
     private ShapeRenderer shapeRenderer;
     private Level level;
     private Drawing drawing;
-    private GameInfo gameInfo;
+    private Game game;
 
     public DrawView(Assets assets, Object... params) {
         super(assets);
         if (params.length == 1) {
-            gameInfo = (GameInfo)params[0];
+            game = (Game)params[0];
         }
         Box2D.init(); // To be able to make shapes before creating a world.
         level = new Level1(assets);

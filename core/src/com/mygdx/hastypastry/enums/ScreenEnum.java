@@ -3,7 +3,6 @@ package com.mygdx.hastypastry.enums;
 import com.mygdx.hastypastry.Assets;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.models.Drawing;
-import com.mygdx.hastypastry.models.GameInfo;
 import com.mygdx.hastypastry.views.BaseView;
 import com.mygdx.hastypastry.views.DrawView;
 import com.mygdx.hastypastry.views.LobbyView;

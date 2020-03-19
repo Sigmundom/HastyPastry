@@ -1,9 +1,7 @@
 package com.mygdx.hastypastry.models;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.levels.Level1;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.HashMap;
@@ -11,7 +9,6 @@ import java.util.Map;
 
 import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 import pl.mk5.gdx.fireapp.functional.Consumer;
-import pl.mk5.gdx.fireapp.promises.Promise;
 
 public class Lobby {
     private final String DB_PATH = "lobby";
@@ -78,8 +75,8 @@ public class Lobby {
                 ).then(new Consumer<Void>() {
             @Override
             public void accept(Void aVoid) {
-                GameInfo gameInfo = new GameInfo(gameID, playerName, opponentName);
-                ScreenManager.getInstance().showScreen(ScreenEnum.DRAW, gameInfo);
+                Game game = new Game(gameID, playerName, opponentName);
+                ScreenManager.getInstance().showScreen(ScreenEnum.DRAW, game);
             }
         });
     }
