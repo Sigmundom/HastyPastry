@@ -1,24 +1,32 @@
 package com.mygdx.hastypastry.models;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.levels.Level1;
+import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 import pl.mk5.gdx.fireapp.functional.Consumer;
+import pl.mk5.gdx.fireapp.promises.Promise;
 
 public class Lobby {
     private final String DB_PATH = "lobby";
+    private String playerName;
     private Stage ui;
     private Map<String, Object> lobbyList = new HashMap<>();
 
-    public Lobby(String name, Stage ui) {
-        joinLobby(name);
+    public Lobby(String playerName, Stage ui) {
+        this.playerName = playerName;
+        joinLobby();
         this.ui = ui;
     }
 
-    private void joinLobby(final String name) {
+    private void joinLobby() {
+        // Listen for changes in lobby list
         GdxFIRDatabase.inst()
                 .inReference(DB_PATH)
                 .onDataChange(Map.class)
@@ -31,24 +39,62 @@ public class Lobby {
                         lobbyList = list;  // Kan fjernes om vi bruka stage
                     }
                 })
-                .then(
+                .then(  // Add player to lobby
                         GdxFIRDatabase.inst()
-                                .inReference(DB_PATH + "/" + name)
+                                .inReference(DB_PATH + "/" + playerName)
                                 .setValue("ready")
                 );
+
+        // Listen for challanges
+        GdxFIRDatabase.inst()
+                .inReference(String.format("%s/%s", DB_PATH, playerName))
+                .onDataChange(String.class)
+                .then(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) {
+                        if (s != "ready") {
+                            System.out.println(s + " has challenged you!");
+                        }
+                    }
+                });
+    }
+
+    public void challangePlayer(final String opponentName) {
+        GdxFIRDatabase.inst()
+                .inReference(String.format("%s/%s", DB_PATH, opponentName))
+                .setValue(playerName);
+    }
+
+    public void acceptChallange(final String opponentName) {
+        final String gameID = playerName+opponentName;
+        String gamePath = "games/"+gameID+"/";
+        GdxFIRDatabase.inst()
+                .inReference(gamePath+playerName)
+                .setValue(new Player(playerName))
+                .then(
+                        GdxFIRDatabase.inst()
+                        .inReference(gamePath+opponentName)
+                        .setValue(new Player(opponentName))
+                ).then(new Consumer<Void>() {
+            @Override
+            public void accept(Void aVoid) {
+                GameInfo gameInfo = new GameInfo(gameID, playerName, opponentName);
+                ScreenManager.getInstance().showScreen(ScreenEnum.DRAW, gameInfo);
+            }
+        });
     }
 
     // Kan fjernes om vi bruka stage
-    public void exitLobby(String name) {
+    public void exitLobby() {
         GdxFIRDatabase.inst()
-                .inReference(DB_PATH + "/" + name)
+                .inReference(DB_PATH + "/" + playerName)
                 .removeValue();
     }
 
     public Map<String, Object> getLobbyList(String name) {
         //Removes current user from the local lobby list before returning it
         Map<String, Object> filteredList = new HashMap<>(lobbyList);
-        filteredList.remove(name);
+        filteredList.remove(playerName);
         return filteredList;
     }
 

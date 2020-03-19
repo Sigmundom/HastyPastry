@@ -6,13 +6,14 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.hastypastry.interfaces.WorldObject;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
-/** The Drawing is an object containing all the lines as drawn in the GameView
+/** The Drawing is an object containing all the lines as drawn in the DrawView
  * @author sigmundhh */
-public class Drawing {
+public class Drawing implements WorldObject {
 
     private Stack<ArrayList<Vector2>> lines = new Stack<>();
     private ArrayList<Body> bodies;
@@ -25,7 +26,7 @@ public class Drawing {
         lines.peek().add(point);
     }
 
-    public void addBodies(World world) {
+    public void addBody(World world) {
         bodies = new ArrayList<>();
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;

@@ -24,6 +24,7 @@ public class LobbyView extends BaseView {
         lobby = new Lobby(name, ui);
         font.setColor(Color.BLACK);
         font.getData().setScale(0.05f);
+        lobby.acceptChallange("Birte");
     }
 
     @Override
@@ -45,6 +46,6 @@ public class LobbyView extends BaseView {
 
     @Override
     public void hide() {
-        lobby.exitLobby(name);
+        lobby.exitLobby();
     }
 }

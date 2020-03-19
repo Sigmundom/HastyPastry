@@ -3,56 +3,49 @@ package com.mygdx.hastypastry.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.hastypastry.Assets;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.listeners.MyContactListener;
-import com.mygdx.hastypastry.models.Drawing;
-import com.mygdx.hastypastry.models.Obstacle;
-import com.mygdx.hastypastry.Assets;
-import com.mygdx.hastypastry.singletons.ScreenManager;
-import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.levels.Level1;
+import com.mygdx.hastypastry.models.Drawing;
+import com.mygdx.hastypastry.models.GameInfo;
+import com.mygdx.hastypastry.models.Obstacle;
+import com.mygdx.hastypastry.models.Player;
+import com.mygdx.hastypastry.singletons.ScreenManager;
+import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.ui.PlayButton;
 
 import java.util.ArrayList;
 
-import static com.mygdx.hastypastry.Config.POSITION_ITERATIONS;
-import static com.mygdx.hastypastry.Config.TIME_STEP;
-import static com.mygdx.hastypastry.Config.VELOCITY_ITERATIONS;
-
-public class GameView extends BaseView {
-    private Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();;
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private World world;
+public class DrawView extends BaseView {
     private MenuButton menuButton;
     private PlayButton playButton;
-    private Drawing drawing;
+    private ShapeRenderer shapeRenderer;
     private Level level;
-    private boolean paused = true;
+    private Drawing drawing;
+    private GameInfo gameInfo;
 
-    public GameView(Assets assets) {
+    public DrawView(Assets assets, Object... params) {
         super(assets);
-        world = new World(new Vector2(0, -9.81f), false);
-        world.setContactListener(new MyContactListener());
-        level = new Level1(assets, world);
+        if (params.length == 1) {
+            gameInfo = (GameInfo)params[0];
+        }
+        Box2D.init(); // To be able to make shapes before creating a world.
+        level = new Level1(assets);
+        shapeRenderer = new ShapeRenderer();
         drawing = new Drawing();
         controller = new DrawingInputProcessor(spriteViewport.getCamera(), drawing);
     }
 
     @Override
     public void draw(SpriteBatch batch, float delta) {
-        update(); // world step and update positions.
-
         //Renders obstacles and waffles through levels. Utilizes the sprite draw function, since the sprite already
         //know what it need (position and size).
         for (Obstacle obstacle : level.getObstacles()){
@@ -61,9 +54,6 @@ public class GameView extends BaseView {
         level.getWaffle().getSprite().draw(batch);
 
         batch.end();
-
-        // Renders the shape of the bodies. Remove in production.
-        debugRenderer.render(world, batch.getProjectionMatrix());
 
         Gdx.gl.glLineWidth(3);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -77,13 +67,6 @@ public class GameView extends BaseView {
         shapeRenderer.end();
     }
 
-    private void update() {
-        if (!paused) {
-            world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-            level.getWaffle().update();
-        }
-    }
-
     @Override
     public void buildStage() {
         menuButton = new MenuButton(assets,"Menu", ScreenEnum.MAIN_MENU);
@@ -95,17 +78,11 @@ public class GameView extends BaseView {
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        drawing.addBodies(world);
-                        paused = false;
+                        ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, level, drawing);
                         return false;
                     }
                 });
         this.ui.addActor(menuButton);
         this.ui.addActor(playButton);
-    }
-
-    @Override
-    public void resume() {
-        paused = false;
     }
 }

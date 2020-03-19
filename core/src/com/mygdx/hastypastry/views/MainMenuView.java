@@ -31,7 +31,7 @@ public class MainMenuView extends BaseView {
         mainTable.top();
 
         //Create Buttons
-        singlePlayerBtn = new MenuButton(assets, "Single Player", ScreenEnum.PLAY);
+        singlePlayerBtn = new MenuButton(assets, "Single Player", ScreenEnum.DRAW);
         multiPlayerBtn = new MenuButton(assets,"Multiplayer", ScreenEnum.LOBBY, "Per");
 
         //Add buttons to table
