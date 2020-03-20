@@ -6,13 +6,13 @@ import com.mygdx.hastypastry.Assets;
 public class SquareObstacle extends Obstacle{
 
     // Fixture and shape is defined here, while the rest is common for all obstacles and defined in superclass.
-    public SquareObstacle(Assets assets, float posX, float posY, float width, float height, boolean isDeadly){
+    public SquareObstacle(float posX, float posY, float width, float height, boolean isDeadly){
         super(posX, posY, width, height, isDeadly);
 
         if (isDeadly){
-            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("deadlysquare"));
+            sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("deadlysquare"));
         } else {
-            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("square"));
+            sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("square"));
         }
 
         shape = new PolygonShape();

@@ -14,8 +14,6 @@ import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.listeners.MyContactListener;
 import com.mygdx.hastypastry.models.Drawing;
 import com.mygdx.hastypastry.models.Obstacle;
-import com.mygdx.hastypastry.Assets;
-import com.mygdx.hastypastry.models.Waffle;
 import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.levels.Level;
 
@@ -33,8 +31,8 @@ public class SingleplayerView extends BaseView {
     protected Drawing drawing;
     protected Level level;
 
-    public SingleplayerView(Assets assets, Level level, Drawing drawing) {
-        super(assets);
+    public SingleplayerView(Level level, Drawing drawing) {
+        super();
         world = new World(new Vector2(0, -9.81f), false);
         world.setContactListener(new MyContactListener());
         this.level = level;
@@ -81,7 +79,7 @@ public class SingleplayerView extends BaseView {
 
     @Override
     public void buildStage() {
-        menuButton = new MenuButton(assets,"Menu", ScreenEnum.MAIN_MENU);
+        menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         menuButton.setPosition(10, Config.UI_HEIGHT - menuButton.getHeight() - 10);
         this.ui.addActor(menuButton);
     }

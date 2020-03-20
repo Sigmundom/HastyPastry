@@ -14,12 +14,12 @@ public class Waffle implements WorldObject {
     private Body body;
     private Sprite sprite;
 
-    public Waffle(Assets assets, float posX, float posY) {
+    public Waffle(float posX, float posY) {
         sprite = new Sprite();
         sprite.setPosition(posX - RADIUS, posY - RADIUS);
         sprite.setOrigin(RADIUS, RADIUS); //Sets the origin for rotation
         sprite.setSize(2*RADIUS, 2*RADIUS);
-        sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("waffle"));
+        sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("waffle"));
 
 
     }

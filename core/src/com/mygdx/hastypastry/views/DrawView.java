@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.mygdx.hastypastry.Assets;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
 import com.mygdx.hastypastry.enums.ScreenEnum;
@@ -31,13 +30,13 @@ public class DrawView extends BaseView {
     private Drawing drawing;
     private Game game;
 
-    public DrawView(Assets assets, Object... params) {
-        super(assets);
+    public DrawView(Object... params) {
+        super();
         if (params.length == 1) {
             game = (Game)params[0];
         }
         Box2D.init(); // To be able to make shapes before creating a world.
-        level = new Level1(assets);
+        level = new Level1();
         shapeRenderer = new ShapeRenderer();
         drawing = new Drawing();
         controller = new DrawingInputProcessor(spriteViewport.getCamera(), drawing);
@@ -68,9 +67,9 @@ public class DrawView extends BaseView {
 
     @Override
     public void buildStage() {
-        menuButton = new MenuButton(assets,"Menu", ScreenEnum.MAIN_MENU);
+        menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         menuButton.setPosition(10, Config.UI_HEIGHT - menuButton.getHeight() - 10);
-        playButton = new PlayButton(assets);
+        playButton = new PlayButton();
         playButton.setPosition(Config.UI_WIDTH - playButton.getWidth() - 10,
                 Config.UI_HEIGHT - playButton.getHeight() - 10);
         playButton.addListener(

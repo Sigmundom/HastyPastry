@@ -5,18 +5,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.hastypastry.Assets;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.models.Drawing;
-import com.mygdx.hastypastry.models.Obstacle;
 
 import java.util.ArrayList;
 
 public class MultiplayerView extends SingleplayerView {
     private Drawing opponentDrawing;
 
-    public MultiplayerView(Assets assets, Level level, Drawing drawing, Drawing opponentDrawing) {
-        super(assets, level, drawing);
+    public MultiplayerView(Level level, Drawing drawing, Drawing opponentDrawing) {
+        super(level, drawing);
         this.opponentDrawing = opponentDrawing;
     }
 

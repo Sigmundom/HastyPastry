@@ -11,19 +11,16 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.hastypastry.Config;
-import com.mygdx.hastypastry.Assets;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
 
 public abstract class BaseView implements Screen {
-    protected Assets assets;
     protected DrawingInputProcessor controller;
     protected Stage ui;
     protected Texture background = new Texture("bg.png");
     protected SpriteBatch batch;
     protected Viewport spriteViewport;
 
-    public BaseView(Assets assets) {
-        this.assets = assets;
+    public BaseView() {
         batch = new SpriteBatch();
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);

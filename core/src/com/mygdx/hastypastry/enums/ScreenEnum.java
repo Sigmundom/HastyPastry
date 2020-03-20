@@ -13,25 +13,25 @@ import com.mygdx.hastypastry.views.SingleplayerView;
 public enum ScreenEnum {
 
     MAIN_MENU {
-        public BaseView getScreen(Assets assets, Object... params) {
-            return new MainMenuView(assets);
+        public BaseView getScreen(Object... params) {
+            return new MainMenuView();
         }
     },
     PLAY {
-        public BaseView getScreen(Assets assets, Object... params) {
-            return new SingleplayerView(assets, (Level)params[0], (Drawing)params[1]);
+        public BaseView getScreen(Object... params) {
+            return new SingleplayerView((Level)params[0], (Drawing)params[1]);
         }
     },
     LOBBY {
-        public BaseView getScreen(Assets assets, Object... params) {
-            return new LobbyView(assets, (String)params[0]);
+        public BaseView getScreen(Object... params) {
+            return new LobbyView((String)params[0]);
         }
     },
     DRAW {
-        public BaseView getScreen(Assets assets, Object... params) {
-            return new DrawView(assets, params);
+        public BaseView getScreen(Object... params) {
+            return new DrawView(params);
         }
     };
 
-    public abstract BaseView getScreen(Assets assets, Object... params);
+    public abstract BaseView getScreen(Object... params);
 }

@@ -5,13 +5,13 @@ import com.mygdx.hastypastry.Assets;
 
 public class RoundObstacle extends Obstacle {
 
-    public RoundObstacle(Assets assets, float posX, float posY, float radius, boolean isDeadly){
+    public RoundObstacle(float posX, float posY, float radius, boolean isDeadly){
         super(posX, posY, 2*radius, 2*radius, isDeadly);
 
         if (isDeadly){
-            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("deadlycircle"));
+            sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("deadlycircle"));
         } else {
-            sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("circle"));
+            sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("circle"));
         }
         shape = new CircleShape();
         shape.setRadius(radius);
