@@ -3,6 +3,7 @@ package com.mygdx.hastypastry.enums;
 import com.mygdx.hastypastry.Assets;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.models.Drawing;
+import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.views.BaseView;
 import com.mygdx.hastypastry.views.DrawView;
 import com.mygdx.hastypastry.views.LobbyView;
@@ -29,7 +30,7 @@ public enum ScreenEnum {
     },
     DRAW {
         public BaseView getScreen(Object... params) {
-            return new DrawView(params);
+            return new DrawView((Game)params[0]);
         }
     };
 

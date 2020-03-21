@@ -15,7 +15,6 @@ public abstract class Obstacle implements WorldObject {
     protected float posX;
     protected float posY;
     protected boolean isDeadly;
-    protected Shape shape;
 
     protected Obstacle(float posX, float posY, float width, float height, boolean isDeadly) {
         this.posX = posX;
@@ -27,6 +26,8 @@ public abstract class Obstacle implements WorldObject {
 
     }
 
+    protected abstract Shape getShape();
+
     public void addBody(World world) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(posX, posY);
@@ -34,6 +35,7 @@ public abstract class Obstacle implements WorldObject {
         body = world.createBody(bodyDef);
         body.setUserData(isDeadly);
 
+        Shape shape = getShape();
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 1.0f;

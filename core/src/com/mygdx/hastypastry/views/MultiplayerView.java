@@ -9,6 +9,7 @@ import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.models.Drawing;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MultiplayerView extends SingleplayerView {
     private Drawing opponentDrawing;
@@ -38,7 +39,7 @@ public class MultiplayerView extends SingleplayerView {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setColor(Color.BLACK);
-        for (ArrayList<Vector2> line: drawing.getLines()) {
+        for (List<Vector2> line: drawing.getLines()) {
             for(int i = 0; i < line.size()-1; ++i) {
                 shapeRenderer.line(line.get(i), line.get(i+1));
             }

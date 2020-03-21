@@ -6,19 +6,19 @@ import java.util.ArrayList;
 
 public class Game {
     private String gameID;
-    private Player player1;
-    private Player player2;
+    private Player player;
+    private Player opponent;
     private ArrayList<Obstacle> obstacles;
 
-    public Game(String gameID, String player1, String player2, Level level) {
+    public Game(String gameID, String player, String opponent, Level level) {
         this.gameID = gameID;
-        this.player1 = new Player(player1, level.getWaffle());
-        this.player2 = new Player(player2, level.getWaffle());
+        this.player = new Player(player, level.getWaffle());
+        this.opponent = new Player(opponent, level.getWaffle());
         this.obstacles = level.getObstacles();
     }
 
     public Game(Level level) {
-        this.player1 = new Player(level.getWaffle());
+        this.player = new Player(level.getWaffle());
         this.obstacles = level.getObstacles();
     }
 
@@ -30,12 +30,12 @@ public class Game {
         return gameID;
     }
 
-    public Player getPlayer1() {
-        return player1;
+    public Player getPlayer() {
+        return player;
     }
 
-    public Player getPlayer2() {
-        return player2;
+    public Player getOpponent() {
+        return opponent;
     }
 
     public ArrayList<Obstacle> getObstacles() {

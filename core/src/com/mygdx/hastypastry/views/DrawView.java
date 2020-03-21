@@ -13,33 +13,28 @@ import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.levels.Level1;
-import com.mygdx.hastypastry.models.Drawing;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Obstacle;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.ui.PlayButton;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class DrawView extends BaseView {
     private MenuButton menuButton;
     private PlayButton playButton;
     private ShapeRenderer shapeRenderer;
     private Level level;
-    private Drawing drawing;
     private Game game;
 
-    public DrawView(Object... params) {
+    public DrawView(Game game) {
         super();
-        if (params.length == 1) {
-            game = (Game)params[0];
-        }
+        this.game = game;
         Box2D.init(); // To be able to make shapes before creating a world.
         level = new Level1();
         shapeRenderer = new ShapeRenderer();
-        drawing = new Drawing();
-        controller = new DrawingInputProcessor(spriteViewport.getCamera(), drawing);
+        controller = new DrawingInputProcessor(spriteViewport.getCamera(), game.getPlayer().getDrawing());
     }
 
     @Override
@@ -57,7 +52,7 @@ public class DrawView extends BaseView {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setColor(Color.BLACK);
-        for (ArrayList<Vector2> line: drawing.getLines()) {
+        for (List<Vector2> line: game.getPlayer().getDrawing().getLines()) {
             for(int i = 0; i < line.size()-1; ++i) {
                 shapeRenderer.line(line.get(i), line.get(i+1));
             }
@@ -76,7 +71,11 @@ public class DrawView extends BaseView {
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, level, drawing);
+                        if (game.isMultiplayer()) {
+                            game.getPlayer().getDrawing().uploadLines(game.getGameID(), game.getPlayer().getName());
+                        } else {
+                            ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, level, game.getPlayer().getDrawing());
+                        }
                         return false;
                     }
                 });

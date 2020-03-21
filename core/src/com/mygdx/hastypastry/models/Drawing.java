@@ -9,16 +9,19 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
+
+import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 
 /** The Drawing is an object containing all the lines as drawn in the DrawView
  * @author sigmundhh */
 public class Drawing implements WorldObject {
 
-    private Stack<ArrayList<Vector2>> lines = new Stack<>();
-    private ArrayList<Body> bodies;
+    private Stack<List<Vector2>> lines = new Stack<>();
+    private List<Body> bodies;
 
-    public void addLine(ArrayList<Vector2> line) {
+    public void addLine(List<Vector2> line) {
         lines.push(line);
     }
 
@@ -35,7 +38,7 @@ public class Drawing implements WorldObject {
         fixtureDef.filter.categoryBits = 2;
         fixtureDef.filter.maskBits = 1;
 
-        for (ArrayList<Vector2> line : lines) {
+        for (List<Vector2> line : lines) {
             Body body = world.createBody(bodyDef);
             Vector2[] vertices = new Vector2[line.size()];
             line.toArray(vertices);
@@ -50,8 +53,28 @@ public class Drawing implements WorldObject {
         }
     }
 
+    private List<List<String>> serializeLines() {
+        List<List<String>> serializedLines = new ArrayList<>();
 
-    public Stack<ArrayList<Vector2>> getLines() {
+        for (List<Vector2> line : lines) {
+            List<String> currentLine = new ArrayList<String>();
+            for (Vector2 point : line) {
+                currentLine.add(point.toString());
+            }
+            serializedLines.add(currentLine);
+        }
+        return serializedLines;
+    }
+
+    public void uploadLines(String gameID, String playerName) {
+        System.out.println(serializeLines());
+        GdxFIRDatabase.inst()
+                .inReference(String.format("games/%s/%s/drawing", gameID, playerName))
+                .setValue(serializeLines());
+    }
+
+
+    public Stack<List<Vector2>> getLines() {
         return lines;
     }
 
