@@ -20,8 +20,11 @@ public class Waffle implements WorldObject {
         sprite.setOrigin(RADIUS, RADIUS); //Sets the origin for rotation
         sprite.setSize(2*RADIUS, 2*RADIUS);
         sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("waffle"));
+    }
 
-
+    // Makes a deep copy of the waffle in Level.
+    public Waffle(Waffle waffle) {
+        sprite = new Sprite(waffle.getSprite());
     }
 
     public void addBody(World world) {

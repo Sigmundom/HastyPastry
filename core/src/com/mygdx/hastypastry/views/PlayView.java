@@ -12,37 +12,27 @@ import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.listeners.MyContactListener;
-import com.mygdx.hastypastry.models.Drawing;
-import com.mygdx.hastypastry.models.Obstacle;
+import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.ui.MenuButton;
-import com.mygdx.hastypastry.levels.Level;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.mygdx.hastypastry.Config.POSITION_ITERATIONS;
 import static com.mygdx.hastypastry.Config.TIME_STEP;
 import static com.mygdx.hastypastry.Config.VELOCITY_ITERATIONS;
 
-public class SingleplayerView extends BaseView {
+public class PlayView extends BaseView {
     protected Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();;
     protected ShapeRenderer shapeRenderer = new ShapeRenderer();
     protected World world;
     protected MenuButton menuButton;
-    protected Drawing drawing;
-    protected Level level;
+    protected Game game;
 
-    public SingleplayerView(Level level, Drawing drawing) {
+    public PlayView(Game game) {
         super();
         world = new World(new Vector2(0, -9.81f), false);
         world.setContactListener(new MyContactListener());
-        this.level = level;
-        this.drawing = drawing;
-        level.getWaffle().addBody(world);
-        for (WorldObject obstacle : level.getObstacles()) {
-            obstacle.addBody(world);
-        }
-        drawing.addBody(world);
+        this.game = game;
+        game.initPlayView(world);
     }
 
     @Override
@@ -51,11 +41,9 @@ public class SingleplayerView extends BaseView {
 
         //Renders obstacles and waffles through levels. Utilizes the sprite draw function, since the sprite already
 //        know what it need (position and size).
-        for (Obstacle obstacle : level.getObstacles()){
-            obstacle.getSprite().draw(batch);
+        for (WorldObject object: game.getWorldObjects()){
+            object.getSprite().draw(batch);
         }
-        level.getWaffle().getSprite().draw(batch);
-
         batch.end();
 
         // Renders the shape of the bodies. Remove in production.
@@ -65,7 +53,8 @@ public class SingleplayerView extends BaseView {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setColor(Color.BLACK);
-        for (List<Vector2> line: drawing.getLines()) {
+        // Renders players drawing
+        for (List<Vector2> line: game.getFinalLines()) {
             for(int i = 0; i < line.size()-1; ++i) {
                 shapeRenderer.line(line.get(i), line.get(i+1));
             }
@@ -75,7 +64,7 @@ public class SingleplayerView extends BaseView {
 
     protected void update() {
             world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-            level.getWaffle().update();
+            game.update();
     }
 
     @Override

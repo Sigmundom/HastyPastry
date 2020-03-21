@@ -11,10 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.levels.Level;
-import com.mygdx.hastypastry.levels.Level1;
+import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.models.Game;
-import com.mygdx.hastypastry.models.Obstacle;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.ui.PlayButton;
@@ -25,14 +23,12 @@ public class DrawView extends BaseView {
     private MenuButton menuButton;
     private PlayButton playButton;
     private ShapeRenderer shapeRenderer;
-    private Level level;
     private Game game;
 
     public DrawView(Game game) {
         super();
         this.game = game;
         Box2D.init(); // To be able to make shapes before creating a world.
-        level = new Level1();
         shapeRenderer = new ShapeRenderer();
         controller = new DrawingInputProcessor(spriteViewport.getCamera(), game.getPlayer().getDrawing());
     }
@@ -41,11 +37,9 @@ public class DrawView extends BaseView {
     public void draw(SpriteBatch batch, float delta) {
         //Renders obstacles and waffles through levels. Utilizes the sprite draw function, since the sprite already
         //know what it need (position and size).
-        for (Obstacle obstacle : level.getObstacles()){
-            obstacle.getSprite().draw(batch);
+        for (WorldObject object : game.getWorldObjects()) {
+            object.getSprite().draw(batch);
         }
-        level.getWaffle().getSprite().draw(batch);
-
         batch.end();
 
         Gdx.gl.glLineWidth(3);
@@ -74,7 +68,7 @@ public class DrawView extends BaseView {
                         if (game.isMultiplayer()) {
                             game.getPlayer().getDrawing().uploadLines(game.getGameID(), game.getPlayer().getName());
                         } else {
-                            ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, level, game.getPlayer().getDrawing());
+                            ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, game);
                         }
                         return false;
                     }

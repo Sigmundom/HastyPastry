@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.hastypastry.interfaces.WorldObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 
 /** The Drawing is an object containing all the lines as drawn in the DrawView
  * @author sigmundhh */
-public class Drawing implements WorldObject {
+public class Drawing {
 
     private Stack<List<Vector2>> lines = new Stack<>();
     private List<Body> bodies;
@@ -57,7 +56,7 @@ public class Drawing implements WorldObject {
         List<List<String>> serializedLines = new ArrayList<>();
 
         for (List<Vector2> line : lines) {
-            List<String> currentLine = new ArrayList<String>();
+            List<String> currentLine = new ArrayList<>();
             for (Vector2 point : line) {
                 currentLine.add(point.toString());
             }
