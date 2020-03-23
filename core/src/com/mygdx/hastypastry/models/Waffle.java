@@ -7,23 +7,31 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.hastypastry.Assets;
+import com.mygdx.hastypastry.interfaces.WorldObject;
 
-public class Waffle {
+public class Waffle implements WorldObject {
     private final float RADIUS = 1;
     private Body body;
     private Sprite sprite;
 
-    public Waffle(Assets assets, World world, float posX, float posY) {
+    public Waffle(float posX, float posY) {
         sprite = new Sprite();
         sprite.setPosition(posX - RADIUS, posY - RADIUS);
         sprite.setOrigin(RADIUS, RADIUS); //Sets the origin for rotation
         sprite.setSize(2*RADIUS, 2*RADIUS);
-        sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("waffle"));
+        sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("waffle"));
+    }
 
+    // Makes a deep copy of the waffle in Level.
+    public Waffle(Waffle waffle) {
+        sprite = new Sprite(waffle.getSprite());
+    }
+
+    public void addBody(World world) {
         BodyDef def = new BodyDef();
         def.fixedRotation = false;
         def.type = BodyDef.BodyType.DynamicBody;
-        def.position.set(posX, posY); //Set body position
+        def.position.set(sprite.getX()+RADIUS, sprite.getY()+RADIUS); //Set body position
 
         CircleShape shape = new CircleShape();
         shape.setRadius(RADIUS);

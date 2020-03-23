@@ -2,7 +2,8 @@ package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.Assets;
+import com.mygdx.hastypastry.levels.Level1;
+import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class MainMenuView extends BaseView {
@@ -10,8 +11,8 @@ public class MainMenuView extends BaseView {
     private MenuButton singlePlayerBtn;
     private MenuButton multiPlayerBtn;
 
-    public MainMenuView(Assets assets) {
-        super(assets);
+    public MainMenuView() {
+        super();
     }
 
     @Override
@@ -31,8 +32,8 @@ public class MainMenuView extends BaseView {
         mainTable.top();
 
         //Create Buttons
-        singlePlayerBtn = new MenuButton(assets, "Single Player", ScreenEnum.PLAY);
-        multiPlayerBtn = new MenuButton(assets,"Multiplayer", ScreenEnum.LOBBY, "Per");
+        singlePlayerBtn = new MenuButton("Single Player", ScreenEnum.DRAW, new Game("PerBirte", "Per", "Birte", new Level1()));
+        multiPlayerBtn = new MenuButton("Multiplayer", ScreenEnum.LOBBY, "Per");
 
         //Add buttons to table
         mainTable.add(singlePlayerBtn).growX().pad(25);
