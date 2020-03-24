@@ -6,6 +6,6 @@ import com.mygdx.hastypastry.Assets;
 public class UndoButton extends ImageButton {
 
     public UndoButton() {
-        super(Assets.instance.getManager().get(Assets.uiSkin), "play");
+        super(Assets.instance.getManager().get(Assets.uiSkin), "undo");
     }
 }

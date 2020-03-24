@@ -35,7 +35,9 @@ public class Drawing {
     }
 
     public void undoLine(){
-        lines.pop();
+        if(!lines.isEmpty()){
+            lines.pop();
+        }
     }
 
     public void addBody(World world) {
