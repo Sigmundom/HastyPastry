@@ -1,5 +1,5 @@
 textures.png
-size: 400, 50
+size: 450, 50
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -52,9 +52,16 @@ triangle
   orig: 50, 50
   offset: 0, 0
   index: -1
-waffle
+undo
   rotate: false
   xy: 350, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+waffle
+  rotate: false
+  xy: 400, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
