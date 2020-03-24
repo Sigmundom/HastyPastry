@@ -4,13 +4,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.hastypastry.Assets;
+import com.mygdx.hastypastry.HastyPastryGame;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
 public class MenuButton extends TextButton {
 
-    public MenuButton(Assets assets, String text, final ScreenEnum navigateTo, final Object... params) {
-        super(text, assets.getManager().get(Assets.uiSkin), "container_gold");
+    public MenuButton(String text, final ScreenEnum navigateTo, final Object... params) {
+        super(text, Assets.instance.getManager().get(Assets.uiSkin), "container_gold");
         this.addListener(
             new InputListener() {
                 @Override

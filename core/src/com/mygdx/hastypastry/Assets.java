@@ -1,18 +1,41 @@
 package com.mygdx.hastypastry;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Assets {
+public class Assets implements Disposable, AssetErrorListener {
+    public static final String LOGTAG = Assets.class.getName();
+    public static final Assets instance = new Assets();
+    private AssetManager assetManager;
 
-    //The asset manager
-    private AssetManager manager = new AssetManager();
+    //Singleton - prevents instanciation from other classes
+    private Assets(){
+    }
+
+    public void init(AssetManager assetManager) {
+        this.assetManager = assetManager;
+        //set asset manager error handler
+        assetManager.setErrorListener(this);
+        //load texture atlas
+        load();
+        //start loading assets and wait until finished
+        assetManager.finishLoading();
+
+        Gdx.app.debug(LOGTAG, "# of assets loaded: " + assetManager.getAssetNames().size);
+        for (String a : assetManager.getAssetNames()) {
+            Gdx.app.debug(LOGTAG, "asset: " + a);
+
+        }
+    }
 
     public AssetManager getManager() {
-        return manager;
+        return assetManager;
     }
 
     //The atlas, I renamed .txt to pack (just a habit).
@@ -31,16 +54,26 @@ public class Assets {
             new AssetDescriptor<>("textures.pack", TextureAtlas.class);
 
     //Method for loading the assets into the manager
-    public void load()
+    private void load()
     {
-        manager.load(uiAtlas);
-        manager.load(uiSkin);
-        manager.load(gameTextures);
+        assetManager.load(uiAtlas);
+        assetManager.load(uiSkin);
+        assetManager.load(gameTextures);
     }
 
     //Easy asset disposing, whenever you are done with it just dispose the manager instead of many files.
+    @Override
     public void dispose()
     {
-        manager.dispose();
+        assetManager.dispose();
+    }
+
+    @Override
+    public void error(AssetDescriptor asset, Throwable throwable) {
+        Gdx.app.error(LOGTAG, "Could not load asset '" + asset.fileName +"'", (Exception)throwable );
+    }
+
+    public void error(String filename, Class type, Throwable throwable) {
+        Gdx.app.error(LOGTAG, "Could not load asset '" + filename +"'", (Exception)throwable );
     }
 }

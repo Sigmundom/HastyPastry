@@ -11,7 +11,7 @@ public abstract class Level {
     //protected Goal goal;
 
     protected Level(){
-        obstacles = new ArrayList<Obstacle>();
+        obstacles = new ArrayList<>();
     }
 
     public Waffle getWaffle(){

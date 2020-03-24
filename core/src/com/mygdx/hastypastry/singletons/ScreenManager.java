@@ -2,7 +2,6 @@ package com.mygdx.hastypastry.singletons;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.mygdx.hastypastry.Assets;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.views.BaseView;
 
@@ -13,8 +12,6 @@ public class ScreenManager {
 
     // Reference to game
     private Game game;
-    // Reference to asset manager
-    private Assets assets;
 
     // Singleton: private constructor
     private ScreenManager() {
@@ -30,14 +27,8 @@ public class ScreenManager {
     }
 
     // Initialization with the game class
-    public void initialize(Game game, Assets assets) {
+    public void initialize(Game game) {
         this.game = game;
-        this.assets = assets;
-
-        //Tell the manager to start loading
-        assets.load();
-        //Tell the program to "loop" the loading until finished. Essentially stopping the game from continuing.
-        assets.getManager().finishLoading();
     }
 
     // Show in the game the screen which enum type is received
@@ -47,7 +38,7 @@ public class ScreenManager {
         Screen currentScreen = game.getScreen();
 
         // Show new screen
-        BaseView newScreen = screenEnum.getScreen(assets, params);
+        BaseView newScreen = screenEnum.getScreen(params);
         newScreen.buildStage();
         game.setScreen(newScreen);
 
