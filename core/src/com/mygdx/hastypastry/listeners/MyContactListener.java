@@ -11,10 +11,10 @@ public class MyContactListener implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
         if (((contact.getFixtureA().getBody().getUserData() == "waffle") && (contact.getFixtureB().getBody().getUserData() == "goal")) || ((contact.getFixtureB().getBody().getUserData() == "waffle") && (contact.getFixtureA().getBody().getUserData() == "goal"))) {
-            ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+            ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_LEVEL);
         }
         if (((contact.getFixtureA().getBody().getUserData() == "waffle") && (contact.getFixtureB().getBody().getUserData() == "deadly")) || ((contact.getFixtureB().getBody().getUserData() == "waffle") && (contact.getFixtureA().getBody().getUserData() == "deadly"))) {
-            ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+            ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_lEVEL);
         }
     }
 
