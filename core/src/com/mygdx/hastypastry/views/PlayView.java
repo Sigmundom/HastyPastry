@@ -2,13 +2,14 @@ package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.WorldObject;
@@ -28,20 +29,15 @@ public class PlayView extends BaseView {
     protected ShapeRenderer shapeRenderer = new ShapeRenderer();
     protected World world;
     protected MenuButton menuButton;
-
     protected BitmapFont font;
     protected double elapsedTime = 0.0;
     protected DecimalFormat df = new DecimalFormat("###.##");
-
+    private Table table;
+    private Label timeLabel;
     protected Game game;
 
     public PlayView(Game game) {
         super();
-
-        /*OrthographicCamera cam = new OrthographicCamera();
-        cam.setToOrtho(false, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
-        textViewport = new FitViewport(Config.WORLD_WIDTH, Config.WORLD_HEIGHT, cam);*/
-
         world = new World(new Vector2(0, -9.81f), false);
         world.setContactListener(new MyContactListener());
         this.game = game;
@@ -57,6 +53,10 @@ public class PlayView extends BaseView {
         for (WorldObject object: game.getWorldObjects()){
             object.getSprite().draw(batch);
         }
+
+        // Implementing font generator from BaseView.
+        elapsedTime += (double)delta;
+        timeLabel.setText(df.format(elapsedTime));
 
         batch.end();
 
@@ -75,20 +75,6 @@ public class PlayView extends BaseView {
             }
         }
         shapeRenderer.end();
-
-        // Implementing font generator from BaseView.
-        OrthographicCamera textCam = new OrthographicCamera(360f, 640f);
-        batch.setProjectionMatrix(textCam.combined);
-        batch.begin();
-
-        elapsedTime += (double)delta;
-
-        font = generateFont("pixelfont.TTF", 24);
-
-        font.setUseIntegerPositions(false);
-        font.draw(batch, df.format(elapsedTime), Config.WORLD_WIDTH/2 - 50, Config.WORLD_HEIGHT + 275);
-
-        batch.end();
     }
 
     protected void update() {
@@ -100,6 +86,18 @@ public class PlayView extends BaseView {
     public void buildStage() {
         menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         menuButton.setPosition(10, Config.UI_HEIGHT - menuButton.getHeight() - 10);
+
+        font = generateFont("pixelfont.TTF", 24);
+        Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.BLACK);
+
+        timeLabel = new Label("Time", labelStyle);
+        table = new Table();
+        table.top();
+        table.setFillParent(true);
+        table.add(timeLabel);
+
+        this.ui.addActor(table);
+
         this.ui.addActor(menuButton);
     }
 
