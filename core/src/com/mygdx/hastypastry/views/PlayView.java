@@ -2,8 +2,8 @@ package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -14,6 +14,8 @@ import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.listeners.MyContactListener;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.ui.MenuButton;
+
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.mygdx.hastypastry.Config.POSITION_ITERATIONS;
@@ -25,10 +27,19 @@ public class PlayView extends BaseView {
     protected ShapeRenderer shapeRenderer = new ShapeRenderer();
     protected World world;
     protected MenuButton menuButton;
+    protected BitmapFont font;
+    // protected Viewport textViewport;
+    protected double elapsedTime = 0.0;
+    protected DecimalFormat df = new DecimalFormat("###.##");
     protected Game game;
 
     public PlayView(Game game) {
         super();
+
+        /*OrthographicCamera cam = new OrthographicCamera();
+        cam.setToOrtho(false, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
+        textViewport = new FitViewport(Config.WORLD_WIDTH, Config.WORLD_HEIGHT, cam);*/
+
         world = new World(new Vector2(0, -9.81f), false);
         world.setContactListener(new MyContactListener());
         this.game = game;
@@ -44,6 +55,20 @@ public class PlayView extends BaseView {
         for (WorldObject object: game.getWorldObjects()){
             object.getSprite().draw(batch);
         }
+
+        // Implementing font generator from BaseView.
+        elapsedTime += (double)delta;
+
+        /*textViewport.apply();
+        batch.setProjectionMatrix(textViewport.getCamera().combined);*/
+
+        font = generateFont("pixelfont.TTF", 2);
+        font.setUseIntegerPositions(false);
+        // font.getData().scale(0.5f);
+        font.draw(batch, df.format(elapsedTime), 5.0f, 30.0f);
+        //System.out.println(df.format(elapsedTime));
+        font.dispose();
+
         batch.end();
 
         // Renders the shape of the bodies. Remove in production.
