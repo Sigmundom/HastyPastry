@@ -23,6 +23,7 @@ public class Game {
         worldObjects.addAll(level.getObstacles());
         worldObjects.add(this.player.getWaffle());
         worldObjects.add(this.opponent.getWaffle());
+        worldObjects.add(level.getGoal());
     }
 
     public Game(Level level) {
@@ -30,6 +31,7 @@ public class Game {
         worldObjects = new ArrayList<>();
         worldObjects.addAll(level.getObstacles());
         worldObjects.add(this.player.getWaffle());
+        worldObjects.add(level.getGoal());
     }
 
     public void initPlayView(World world) {

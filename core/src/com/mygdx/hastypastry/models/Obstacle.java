@@ -33,7 +33,11 @@ public abstract class Obstacle implements WorldObject {
         bodyDef.position.set(posX, posY);
         bodyDef.type = BodyDef.BodyType.StaticBody;
         body = world.createBody(bodyDef);
-        body.setUserData(isDeadly);
+        if (isDeadly){
+            body.setUserData("deadly");
+        } else{
+            body.setUserData("safe");
+        }
 
         Shape shape = getShape();
         FixtureDef fixtureDef = new FixtureDef();

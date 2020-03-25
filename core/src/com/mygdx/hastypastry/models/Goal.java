@@ -5,28 +5,38 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.hastypastry.Assets;
+import com.mygdx.hastypastry.interfaces.WorldObject;
 
-public class Goal {
+public class Goal implements WorldObject {
 
     private Body body;
+    private float posX, posY, width, height;
     private Sprite sprite;
 
-    public Goal(Assets assets, World world, float posX, float posY){
+    public Goal(float posX, float posY, float width, float height){
 
-        Sprite sprite = new Sprite();
-        sprite.setSize(50,50);
-        sprite.setPosition(posX - 25, posY - 25);
+        this.posX = posX;
+        this.posY = posY;
+        this.width = width;
+        this.height = height;
+        sprite = new Sprite();
+        sprite.setSize(width,height);
+        sprite.setPosition(posX - width/2, posY - height/2);
+        sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("flag"));
+    }
+
+    public void addBody(World world) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(posX, posY);
         bodyDef.type = BodyDef.BodyType.StaticBody;
         body = world.createBody(bodyDef);
-        sprite.setRegion(assets.getManager().get(Assets.gameTextures).findRegion("Flag"));
+        body.setUserData("goal");
 
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(25, 25);
-
+        Shape shape = new PolygonShape();
+        ((PolygonShape) shape).setAsBox(width/2, height/2);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 1.0f;
@@ -34,6 +44,12 @@ public class Goal {
         fixtureDef.filter.maskBits = 1;
 
         body.createFixture(fixtureDef);
+
         shape.dispose();
     }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
 }

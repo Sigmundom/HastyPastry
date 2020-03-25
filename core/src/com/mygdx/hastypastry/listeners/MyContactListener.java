@@ -12,7 +12,10 @@ public class MyContactListener implements ContactListener {
     public void beginContact(Contact contact) {
 //        System.out.println(contact.getFixtureA().getBody().getUserData());
 //        System.out.println(contact.getFixtureB().getBody().getUserData());
-        if ((boolean)contact.getFixtureA().getBody().getUserData() && (boolean)contact.getFixtureB().getBody().getUserData()) {
+        if ((contact.getFixtureA().getBody().getUserData() == "waffle") && (contact.getFixtureB().getBody().getUserData() == "goal")) {
+            ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+        }
+        if ((contact.getFixtureA().getBody().getUserData() == "waffle") && (contact.getFixtureB().getBody().getUserData() == "deadly")) {
             ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
         }
     }

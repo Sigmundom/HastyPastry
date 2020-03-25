@@ -43,7 +43,7 @@ public class Waffle implements WorldObject {
         fixturedef.filter.maskBits = 2;     //Collides with
 
         body = world.createBody(def);
-        body.setUserData(true);
+        body.setUserData("waffle");
         body.createFixture(fixturedef);
 
         body.createFixture(shape, 1.0f);
