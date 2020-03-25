@@ -104,21 +104,17 @@ public abstract class BaseView implements Screen {
     }
 
     // Scalable font generator, suitable for all screen sizes.
-    public BitmapFont generateFont(String path, int size)
+    public BitmapFont generateFont(String path, float size)
     {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(path));
         FreeTypeFontGenerator.FreeTypeFontParameter parameters = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
-        parameters.genMipMaps = true;
+        parameters.genMipMaps = false;
         parameters.color = Color.BLACK;
         parameters.size = (int) Math.ceil(size);
-        // generator.scaleForPixelHeight((int) Math.ceil(size));
-        parameters.magFilter = Texture.TextureFilter.MipMapLinearLinear;
-        parameters.minFilter = Texture.TextureFilter.Linear;
-
-        /*OrthographicCamera textCam = new OrthographicCamera();
-        textCam.setToOrtho(false, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
-        batch.setProjectionMatrix(textCam.combined);*/
+        generator.scaleForPixelHeight((int) Math.ceil(size));
+        parameters.magFilter = Texture.TextureFilter.Nearest;
+        parameters.minFilter = Texture.TextureFilter.Nearest;
 
         return generator.generateFont(parameters);
     }

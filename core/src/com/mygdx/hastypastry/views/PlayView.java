@@ -2,6 +2,7 @@ package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -27,10 +28,11 @@ public class PlayView extends BaseView {
     protected ShapeRenderer shapeRenderer = new ShapeRenderer();
     protected World world;
     protected MenuButton menuButton;
+
     protected BitmapFont font;
-    // protected Viewport textViewport;
     protected double elapsedTime = 0.0;
     protected DecimalFormat df = new DecimalFormat("###.##");
+
     protected Game game;
 
     public PlayView(Game game) {
@@ -56,20 +58,8 @@ public class PlayView extends BaseView {
             object.getSprite().draw(batch);
         }
 
-        // Implementing font generator from BaseView.
-        elapsedTime += (double)delta;
-
-        /*textViewport.apply();
-        batch.setProjectionMatrix(textViewport.getCamera().combined);*/
-
-        font = generateFont("pixelfont.TTF", 2);
-        font.setUseIntegerPositions(false);
-        // font.getData().scale(0.5f);
-        font.draw(batch, df.format(elapsedTime), 5.0f, 30.0f);
-        //System.out.println(df.format(elapsedTime));
-        font.dispose();
-
         batch.end();
+
 
         // Renders the shape of the bodies. Remove in production.
         debugRenderer.render(world, batch.getProjectionMatrix());
@@ -85,6 +75,20 @@ public class PlayView extends BaseView {
             }
         }
         shapeRenderer.end();
+
+        // Implementing font generator from BaseView.
+        OrthographicCamera textCam = new OrthographicCamera(360f, 640f);
+        batch.setProjectionMatrix(textCam.combined);
+        batch.begin();
+
+        elapsedTime += (double)delta;
+
+        font = generateFont("pixelfont.TTF", 24);
+
+        font.setUseIntegerPositions(false);
+        font.draw(batch, df.format(elapsedTime), Config.WORLD_WIDTH/2 - 50, Config.WORLD_HEIGHT + 275);
+
+        batch.end();
     }
 
     protected void update() {
