@@ -1,5 +1,5 @@
 textures.png
-size: 350, 50
+size: 400, 50
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -31,23 +31,30 @@ deadlytriangle
   orig: 50, 50
   offset: 0, 0
   index: -1
-square
+flag
   rotate: false
   xy: 200, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-triangle
+square
   rotate: false
   xy: 250, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-waffle
+triangle
   rotate: false
   xy: 300, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+waffle
+  rotate: false
+  xy: 350, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
