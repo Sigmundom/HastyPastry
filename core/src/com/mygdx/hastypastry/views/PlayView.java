@@ -33,7 +33,7 @@ public class PlayView extends BaseView {
     protected double elapsedTime = 0.0;
     protected DecimalFormat df = new DecimalFormat("###.##");
     private Table table;
-    private Label timeLabel;
+    protected Label timeLabel;
     protected Game game;
 
     public PlayView(Game game) {
@@ -56,6 +56,8 @@ public class PlayView extends BaseView {
 
         // Implementing font generator from BaseView.
         elapsedTime += (double)delta;
+        //timeLabel.setText(df.format(elapsedTime));
+        //timeLabel.setText(String.format("%6s", df.format(elapsedTime)).replace(' ', '0'));
         timeLabel.setText(df.format(elapsedTime));
 
         batch.end();
@@ -92,7 +94,7 @@ public class PlayView extends BaseView {
 
         timeLabel = new Label("Time", labelStyle);
         table = new Table();
-        table.top();
+        table.top().padLeft(Config.UI_WIDTH/2 - 40).left().padTop(10);
         table.setFillParent(true);
         table.add(timeLabel);
 
