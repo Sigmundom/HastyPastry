@@ -16,12 +16,14 @@ import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.ui.PlayButton;
+import com.mygdx.hastypastry.ui.UndoButton;
 
 import java.util.List;
 
 public class DrawView extends BaseView {
     private MenuButton menuButton;
     private PlayButton playButton;
+    private UndoButton undoButton;
     private ShapeRenderer shapeRenderer;
     private Game game;
 
@@ -73,7 +75,19 @@ public class DrawView extends BaseView {
                         return false;
                     }
                 });
+        undoButton = new UndoButton();
+        undoButton.setPosition(10,
+                Config.UI_HEIGHT - undoButton.getHeight() - menuButton.getHeight() - 15);
+        undoButton.addListener(
+                new InputListener() {
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        game.getPlayer().getDrawing().undoLine();
+                        return false;
+                    }
+                });
         this.ui.addActor(menuButton);
         this.ui.addActor(playButton);
+        this.ui.addActor(undoButton);
     }
 }
