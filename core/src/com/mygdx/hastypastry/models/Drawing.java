@@ -25,18 +25,26 @@ public class Drawing {
 
     private Stack<List<Vector2>> lines = new Stack<>();
     private List<Body> bodies;
+    private Inkbar inkbar = new Inkbar(20); //TODO: Have no constructor so this is fine?
 
     public void addLine(List<Vector2> line) {
-        lines.push(line);
+        if(inkbar.inkbarCheck()){
+            lines.push(line);
+        }
+
     }
 
     public void addPoint(Vector2 point) {
-        lines.peek().add(point);
+        System.out.println(" " + inkbar.getPercent());
+        if(inkbar.inkbarCheck()){
+            lines.peek().add(point);
+            inkbar.useInk();
+        }
     }
 
     public void undoLine(){
-        if(!lines.isEmpty()){
-            lines.pop();
+            if(!lines.isEmpty()){
+            inkbar.refillInk(lines.pop().size());
         }
     }
 

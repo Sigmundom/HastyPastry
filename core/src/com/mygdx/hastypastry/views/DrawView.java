@@ -76,8 +76,8 @@ public class DrawView extends BaseView {
                     }
                 });
         undoButton = new UndoButton();
-        undoButton.setPosition(Config.UI_WIDTH - undoButton.getWidth() - 20,
-                Config.UI_HEIGHT - undoButton.getHeight() - 10);
+        undoButton.setPosition(10,
+                Config.UI_HEIGHT - undoButton.getHeight() - menuButton.getHeight() - 15);
         undoButton.addListener(
                 new InputListener() {
                     @Override
