@@ -13,19 +13,39 @@ import java.util.Stack;
 
 import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 
-/** The Drawing is an object containing all the lines as drawn in the DrawView
+
+/* The Drawing is an object containing all the lines as drawn in the GameView
+ * It provides functionality to add lines and points, which are used by DrawingInputProcessor
+ * addBodies(world) us used bu GameView for adding the bodies to the world when the user pushes play-btn.
+ * GameView ask for all lines for drawing
+
+ * The Drawing is an object containing all the lines as drawn in the DrawView
  * @author sigmundhh */
 public class Drawing {
 
     private Stack<List<Vector2>> lines = new Stack<>();
     private List<Body> bodies;
+    private Inkbar inkbar = new Inkbar(20); //TODO: Have no constructor so this is fine?
 
     public void addLine(List<Vector2> line) {
-        lines.push(line);
+        if(inkbar.inkbarCheck()){
+            lines.push(line);
+        }
+
     }
 
     public void addPoint(Vector2 point) {
-        lines.peek().add(point);
+        System.out.println(" " + inkbar.getPercent());
+        if(inkbar.inkbarCheck()){
+            lines.peek().add(point);
+            inkbar.useInk();
+        }
+    }
+
+    public void undoLine(){
+            if(!lines.isEmpty()){
+            inkbar.refillInk(lines.pop().size());
+        }
     }
 
     public void addBody(World world) {
@@ -76,8 +96,6 @@ public class Drawing {
     public Stack<List<Vector2>> getLines() {
         return lines;
     }
-
-
 
 
 }

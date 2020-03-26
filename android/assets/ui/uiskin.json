@@ -18,6 +18,7 @@
     "container_gold_small": { "down": "container_gold", "up": "container_blue", "disabled": "container_blue", "font": "default", "fontColor": "green" }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
-    "play": {"down": "play", "up": "play", "disabled": "play"}
+    "play": {"down": "play", "up": "play", "disabled": "play"},
+    "undo": {"down": "undo", "up": "undo", "disabled": "undo"}
   }
 }
