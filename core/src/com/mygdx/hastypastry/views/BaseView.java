@@ -3,10 +3,13 @@ package com.mygdx.hastypastry.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -98,5 +101,21 @@ public abstract class BaseView implements Screen {
     public void dispose() {
         if (ui != null) ui.dispose();
         ui = null;
+    }
+
+    // Scalable font generator, suitable for all screen sizes.
+    public BitmapFont generateFont(String path, float size)
+    {
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(path));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameters = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        parameters.genMipMaps = false;
+        parameters.color = Color.BLACK;
+        parameters.size = (int) Math.ceil(size);
+        generator.scaleForPixelHeight((int) Math.ceil(size));
+        parameters.magFilter = Texture.TextureFilter.Nearest;
+        parameters.minFilter = Texture.TextureFilter.Nearest;
+
+        return generator.generateFont(parameters);
     }
 }
