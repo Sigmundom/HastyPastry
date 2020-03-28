@@ -30,7 +30,7 @@ public class PlayView extends BaseView {
     protected World world;
     protected MenuButton menuButton;
     protected BitmapFont font;
-    protected double elapsedTime = 0.0;
+    protected float elapsedTime = 0.0f;
     protected DecimalFormat df = new DecimalFormat("###.##");
     private Table table;
     protected Label timeLabel;
@@ -39,7 +39,7 @@ public class PlayView extends BaseView {
     public PlayView(Game game) {
         super();
         world = new World(new Vector2(0, -9.81f), false);
-        world.setContactListener(new MyContactListener());
+        world.setContactListener(new MyContactListener(game));
         this.game = game;
         game.initPlayView(world);
     }
@@ -54,10 +54,11 @@ public class PlayView extends BaseView {
             object.getSprite().draw(batch);
         }
 
-        // Implementing font generator from BaseView.
+        // Implementing font generator from BaseView, writing level time to screen.
+        // Sending level time to Player to be used in High Score updates.
         elapsedTime += (double)delta;
-        //timeLabel.setText(df.format(elapsedTime));
-        //timeLabel.setText(String.format("%6s", df.format(elapsedTime)).replace(' ', '0'));
+        game.getPlayer().setNewLevelTime(/*game.getGameID(),*/ elapsedTime);
+        // System.out.println(game.getPlayer().getNewLevelTime().get(game.getPlayer().getNewLevelTime().size() - 1));
         timeLabel.setText(df.format(elapsedTime));
 
         batch.end();

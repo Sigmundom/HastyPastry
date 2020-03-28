@@ -17,5 +17,10 @@ public class Level1 extends Level {
         obstacles.add(new RoundObstacle(Config.WORLD_WIDTH/2, 2, 2, false));
         obstacles.add(new SquareObstacle(3, 8, 2, 4, true));
         obstacles.add(new TriangularObstacle(10,10,6,3, false));
+
+        // Starvalues based on seconds from start to goal.
+        starValues.add(3.0f);
+        starValues.add(4.0f);
+        starValues.add(5.0f);
     }
 }
