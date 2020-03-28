@@ -1,5 +1,6 @@
 package com.mygdx.hastypastry.models;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level1;
@@ -24,24 +25,44 @@ public class Lobby {
     }
 
     private void joinLobby() {
-        // Listen for changes in lobby list
+        // Fetch list and update if name isn't already taken
         GdxFIRDatabase.inst()
                 .inReference(DB_PATH)
-                .onDataChange(Map.class)
+                .readValue(Map.class)
                 .then(new Consumer<HashMap<String, Object>>() {
                     @Override
                     public void accept(HashMap<String, Object> list) {
-                        System.out.println("change");
-                        System.out.println(list);
-                        updateLobby(list);
-                        lobbyList = list;  // Kan fjernes om vi bruka stage
+                        if (list.containsKey(playerName)) {
+                            System.out.println("Name already taken!");
+                        } else {
+                            updateLobby(list);
+                            lobbyList = list;  // Kan fjernes om vi bruka stage
+                        }
                     }
                 })
                 .then(  // Add player to lobby
                         GdxFIRDatabase.inst()
                                 .inReference(DB_PATH + "/" + playerName)
                                 .setValue("ready")
-                );
+                )
+                .then(new Consumer<Void>() {
+                    @Override
+                    public void accept(Void aVoid) {
+                        // Listen for changes in lobby list
+                        GdxFIRDatabase.inst()
+                                .inReference(DB_PATH)
+                                .onDataChange(Map.class)
+                                .then(new Consumer<HashMap<String, Object>>() {
+                                    @Override
+                                    public void accept(HashMap<String, Object> list) {
+                                        System.out.println("change");
+                                        System.out.println(list);
+                                        updateLobby(list);
+                                        lobbyList = list;  // Kan fjernes om vi bruka stage
+                                    }
+                                });
+                    }
+                });
 
         // Listen for challanges
         GdxFIRDatabase.inst()
