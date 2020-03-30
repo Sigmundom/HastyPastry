@@ -19,41 +19,55 @@ public class Level {
     private FileReader reader = new FileReader();
     private ArrayList<String> levelData = new ArrayList<>();
     private int inkLimit;
+    private ArrayList<Float> starRank = new ArrayList<>();
+    private float levelTime;
+    private String levelNumber;
 
-
+    //Read form file with FileReader class and creats all objectws and values form the file
     public Level(String level){
+        levelNumber = level;
         levelData = reader.getFileData("levels.txt");
         int start;
         String[] waffleData;
         String[] goalData;
         String[] inkData;
         String[] obstacleData;
+        String[] starData;
+        String[] timeData;
         int i = 1;
 
         for(String line : levelData) {
-            if (line.contains("Level 1")) {
+            if (line.contains(levelNumber)) {
                 System.out.println(line);
                 start = levelData.indexOf(line);
                 line = levelData.get(start+1);
                 waffleData = line.split(" ");
-                waffle = new Waffle(StringConverter(waffleData[1]), StringConverter(waffleData[2]));
+                waffle = new Waffle(StringToInt(waffleData[1]), StringToInt(waffleData[2]));
                 line = levelData.get(start+2);
                 goalData = line.split(" ");
-                goal = new Goal(StringConverter(goalData[1]), StringConverter(goalData[2]), StringConverter(goalData[3]), StringConverter(goalData[4]));
+                goal = new Goal(StringToInt(goalData[1]), StringToInt(goalData[2]), StringToInt(goalData[3]), StringToInt(goalData[4]));
                 line = levelData.get(start+3);
                 inkData = line.split(" ");
-                inkLimit = StringConverter(inkData[1]);
+                inkLimit = StringToInt(inkData[1]);
+                line = levelData.get(start+4);
+                timeData = line.split(" ");
+                levelTime = StringToFloat(timeData[1]);
                 line = levelData.get(start+5);
+                starData = line.split(" ");
+                for (int s = 1;s<starData.length-1;s++){
+                    starRank.add(StringToFloat(starData[s]));
+                }
+                line = levelData.get(start+6);
                 while (!line.contains("#")) {
                     obstacleData = line.split(" ");
                     if(obstacleData[1].contains("Round")) {
-                        obstacles.add(new RoundObstacle(StringConverter(obstacleData[2]), StringConverter(obstacleData[3]),StringConverter(obstacleData[4]), BooleanConverter(obstacleData[5])));
+                        obstacles.add(new RoundObstacle(StringToInt(obstacleData[2]), StringToInt(obstacleData[3]), StringToInt(obstacleData[4]), StringToBoolean(obstacleData[5])));
                     }
                     else if (obstacleData[1].contains("Square")){
-                        obstacles.add(new SquareObstacle(StringConverter(obstacleData[2]), StringConverter(obstacleData[3]),StringConverter(obstacleData[4]),StringConverter(obstacleData[5]) ,BooleanConverter(obstacleData[6])));
+                        obstacles.add(new SquareObstacle(StringToInt(obstacleData[2]), StringToInt(obstacleData[3]), StringToInt(obstacleData[4]), StringToInt(obstacleData[5]) , StringToBoolean(obstacleData[6])));
                     }
                     else if (obstacleData[1].contains("Triangular")){
-                        obstacles.add(new TriangularObstacle(StringConverter(obstacleData[2]), StringConverter(obstacleData[3]),StringConverter(obstacleData[4]),StringConverter(obstacleData[5]) ,BooleanConverter(obstacleData[6])));
+                        obstacles.add(new TriangularObstacle(StringToInt(obstacleData[2]), StringToInt(obstacleData[3]), StringToInt(obstacleData[4]), StringToInt(obstacleData[5]) , StringToBoolean(obstacleData[6])));
                     }
                     line = levelData.get(start+5+i);
                     i++;
@@ -63,7 +77,7 @@ public class Level {
         }
     }
 
-    private int StringConverter(String input){
+    private int StringToInt(String input){
         System.out.println(input);
         if(input.contains("middleWidth")){
             return Config.WORLD_WIDTH/2;
@@ -80,7 +94,7 @@ public class Level {
         }
     }
 
-    private boolean BooleanConverter(String input){
+    private boolean StringToBoolean(String input){
         System.out.println(input);
         if (input.contains("false")){
             return false;
@@ -89,6 +103,13 @@ public class Level {
 
             return true;
         }
+    }
+
+    private float StringToFloat(String input){
+        if (input.contains("\r")){
+            input = input.substring(0,input.length()-1);
+        }
+        return Float.parseFloat(input);
     }
 
     public int getInkLimit(){
@@ -104,4 +125,16 @@ public class Level {
     }
 
     public Goal getGoal() { return goal; }
+
+    public ArrayList<Float> getStarRank(){
+        return starRank;
+    }
+
+    public float getLevelTime(){
+        return levelTime;
+    }
+
+    public String getLevelNumber(){
+        return levelNumber;
+    }
 }

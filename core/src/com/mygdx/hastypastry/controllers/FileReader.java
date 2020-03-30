@@ -19,6 +19,7 @@ public class FileReader {
     public ArrayList<String> getFileData(String file) {
 
         FileHandle handle = Gdx.files.local(file);
+
         handle.delete();
         if(!handle.exists())
         {
