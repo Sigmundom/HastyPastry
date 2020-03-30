@@ -1,0 +1,10 @@
+Level A
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+LevelTime 100
+StarRanking 10 5 3
+Obstacle Round middleWidth 2 2 false
+Obstacle Square 3 8 2 4 true
+Obstacle Triangular 10 10 6 3 false
+#
