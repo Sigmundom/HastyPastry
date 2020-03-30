@@ -32,7 +32,7 @@ public class CompletedLevelView extends BaseView {
 
         // Creating high score button, sending game through to high score list.
         highScoreButton = new HighScoreButton("High Score");
-        highScoreButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 300);
+        highScoreButton.setPosition(Config.UI_WIDTH/2 - highScoreButton.getWidth()/2, Config.UI_HEIGHT/2 - 300);
         highScoreButton.addListener(
                 new InputListener() {
                     @Override

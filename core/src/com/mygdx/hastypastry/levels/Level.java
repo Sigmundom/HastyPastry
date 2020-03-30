@@ -10,11 +10,9 @@ public abstract class Level {
     protected ArrayList<Obstacle> obstacles;
     protected Waffle waffle;
     protected Goal goal;
-    protected ArrayList<Float> starValues;
 
     protected Level(){
         obstacles = new ArrayList<>();
-        starValues = new ArrayList<>();
     }
 
     public Waffle getWaffle(){
@@ -26,6 +24,4 @@ public abstract class Level {
     }
 
     public Goal getGoal() { return goal; }
-
-    public ArrayList<Float> getStarValues() { return starValues; }
 }

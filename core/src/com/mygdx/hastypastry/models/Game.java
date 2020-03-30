@@ -12,6 +12,7 @@ public class Game {
     private String gameID;
     private Player player;
     private Player opponent;
+    private Level level;
     private List<WorldObject> worldObjects;
     private List<List<Vector2>> finalLines;
 
@@ -19,6 +20,7 @@ public class Game {
         this.gameID = gameID;
         this.player = new Player(player, level.getWaffle());
         this.opponent = new Player(opponent, new Waffle(level.getWaffle())); //Makes deep copy of waffle
+        this.level = level;
         worldObjects = new ArrayList<>();
         worldObjects.addAll(level.getObstacles());
         worldObjects.add(this.player.getWaffle());
@@ -28,6 +30,7 @@ public class Game {
 
     public Game(Level level) {
         this.player = new Player(level.getWaffle());
+        this.level = level;
         worldObjects = new ArrayList<>();
         worldObjects.addAll(level.getObstacles());
         worldObjects.add(this.player.getWaffle());
@@ -72,6 +75,8 @@ public class Game {
         return opponent;
     }
 
+    public Level getLevel() { return level; }
+
     public List<WorldObject> getWorldObjects() {
         return worldObjects;
     }
@@ -79,4 +84,6 @@ public class Game {
     public List<List<Vector2>> getFinalLines() {
         return finalLines;
     }
+
+
 }
