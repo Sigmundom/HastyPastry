@@ -22,6 +22,7 @@ public class HighScoreListView extends BaseView {
     private Table table;
     protected Label highscoreLabel;
     protected Label levelLabel;
+    protected Label personalHighScoreLabel;
     protected Label timeLabel;
     protected float levelTime;
     protected DecimalFormat df = new DecimalFormat("###.##");
@@ -35,7 +36,6 @@ public class HighScoreListView extends BaseView {
         super();
         this.game = game;
         sprite.setSize(Config.UI_WIDTH/80, Config.UI_WIDTH/80);
-        // sprite.setOrigin(Config.UI_WIDTH/2 - sprite.getWidth()/2, Config.UI_HEIGHT/3);
         sprite.setOrigin(sprite.getWidth()/2,-15);
         playerPreferences = new PlayerPreferences();
     }
@@ -43,7 +43,7 @@ public class HighScoreListView extends BaseView {
     @Override
     public void draw(SpriteBatch batch, float delta) {
         rotationDegree = 15.0f;
-        for(float ranking : game.getLevel().getStarValues()) {
+        for(float ranking : game.getLevel().getStarRank()) {
             if(levelTime < ranking) {
                 sprite.draw(batch);
                 sprite.setPosition(Config.WORLD_WIDTH/2 - sprite.getWidth()/2, Config.WORLD_HEIGHT/2);
@@ -53,18 +53,15 @@ public class HighScoreListView extends BaseView {
         }
         batch.end();
 
-        levelTime = (float) game.getPlayer().getNewLevelTime().get(game.getPlayer().getNewLevelTime().size() - 1);
         highscoreLabel.setText("High Score");
-        levelLabel.setText(game.getLevel().getLevelID());
-        timeLabel.setText("Time: " + df.format(levelTime));
+        levelLabel.setText(game.getLevel().getLevelNumber());
 
         playerPreferences.setPrefHighScore(game);
+        personalHighScoreLabel.setText("Best: " + df.format(playerPreferences.getPersonalHighScore()));
+        levelTime = playerPreferences.getPersonalHighScore();
 
-        if(playerPreferences.newHighScore()) {
-            newHighScoreLabel.setText("New HS!");
-        }
-        System.out.println(playerPreferences.newHighScore());
-        System.out.println((playerPreferences.isHighScoreSet(game)));
+        // System.out.println(playerPreferences.newHighScore());
+        // System.out.println((playerPreferences.isHighScoreSet(game)));
     }
 
     @Override
@@ -81,19 +78,16 @@ public class HighScoreListView extends BaseView {
 
         highscoreLabel = new Label("High Score", labelStyle);
         levelLabel = new Label("LevelID", labelStyle);
-        timeLabel = new Label("Time", labelStyle);
-        newHighScoreLabel = new Label("", labelStyle);
+        personalHighScoreLabel = new Label("Personal High Score", labelStyle);
         table = new Table();
         //table.top().padLeft(Config.UI_WIDTH/2 - 100).left().padTop(10);
         table.top().padTop(30);
         table.setFillParent(true);
-        table.add(highscoreLabel).center();
+        table.add(highscoreLabel);
         table.row();
-        table.add(levelLabel).center();
+        table.add(levelLabel);
         table.row();
-        table.add(timeLabel).padTop(250);
-        table.row();
-        table.add(newHighScoreLabel).padTop(50);
+        table.add(personalHighScoreLabel).padTop(250);
 
         this.ui.addActor(table);
 

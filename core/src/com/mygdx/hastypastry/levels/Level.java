@@ -54,9 +54,10 @@ public class Level {
                 levelTime = StringToFloat(timeData[1]);
                 line = levelData.get(start+5);
                 starData = line.split(" ");
-                for (int s = 1;s<starData.length-1;s++){
+                for (int s = 1; s < starData.length; s++){
                     starRank.add(StringToFloat(starData[s]));
                 }
+                // System.out.println("StarRanks: " + starRank.get(0) + ", " + starRank.get(1) + ", " + starRank.get(2));
                 line = levelData.get(start+6);
                 while (!line.contains("#")) {
                     obstacleData = line.split(" ");

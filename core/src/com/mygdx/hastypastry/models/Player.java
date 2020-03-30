@@ -39,7 +39,7 @@ public class Player {
         newLevelTime.add(levelTime);
     }
 
-    public ArrayList<Object> getNewLevelTime() {
-        return newLevelTime;
+    public float getNewLevelTime() {
+        return (float) newLevelTime.get(newLevelTime.size()-1);
     }
 }
