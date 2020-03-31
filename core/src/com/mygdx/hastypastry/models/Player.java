@@ -1,25 +1,30 @@
 package com.mygdx.hastypastry.models;
 
+import com.mygdx.hastypastry.levels.Level;
+
 import java.util.ArrayList;
 
 public class Player {
     private String name;
     private Drawing drawing;
     private Waffle waffle;
+    private Level level;
     private ArrayList<Object> newLevelTime = new ArrayList<Object>();
 
 //    private InkBar inkBar;
 
-    public Player(String name, Waffle waffle) {
+    public Player(String name, Level level) {
         this.name = name;
-        this.waffle = waffle;
-        drawing = new Drawing();
+        this.level = level;
+        this.waffle = level.getWaffle();
+        drawing = new Drawing(level.getInkLimit());
     }
 
-    public Player(Waffle waffle) {
+    public Player(Level level) {
         this.name = "Player 1";
-        this.waffle = waffle;
-        drawing = new Drawing();
+        this.level = level;
+        this.waffle = level.getWaffle();
+        drawing = new Drawing(level.getInkLimit());
     }
 
     public Waffle getWaffle() {
