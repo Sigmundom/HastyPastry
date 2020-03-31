@@ -2,7 +2,7 @@ package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.levels.Level1;
+import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.HashMap;
@@ -76,7 +76,7 @@ public class Lobby {
                 ).then(new Consumer<Void>() {
             @Override
             public void accept(Void aVoid) {
-                Game game = new Game(gameID, playerName, opponentName, new Level1());
+                Game game = new Game(gameID, playerName, opponentName, new Level("Level 1"));
                 ScreenManager.getInstance().showScreen(ScreenEnum.DRAW, game);
             }
         });
