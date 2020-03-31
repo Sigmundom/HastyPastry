@@ -1,10 +1,12 @@
 package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.hastypastry.controllers.FileReader;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,7 +78,7 @@ public class Lobby {
                 ).then(new Consumer<Void>() {
             @Override
             public void accept(Void aVoid) {
-                Game game = new Game(gameID, playerName, opponentName, new Level("Level 1"));
+                Game game = new Game(gameID, playerName, opponentName, new Level(RandLevel()));
                 ScreenManager.getInstance().showScreen(ScreenEnum.DRAW, game);
             }
         });
@@ -114,6 +116,20 @@ public class Lobby {
             // Legg til actor her
 
         }
+    }
+
+    private String RandLevel(){
+        FileReader reader = new FileReader();
+        ArrayList<String> fileData = new ArrayList<>();
+        fileData = reader.getInternalFileData("levels.txt");
+        int i=0;
+        for(String line : fileData){
+            if(line.contains("Level")){
+                i++;
+            }
+        }
+        int rand = (int)(Math.random()*i)+1;
+        return "Level "+String.valueOf(rand);
     }
 
 }
