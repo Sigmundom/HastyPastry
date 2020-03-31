@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Lobby;
+import com.mygdx.hastypastry.models.User;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.util.Set;
@@ -33,10 +34,10 @@ public class LobbyView extends BaseView {
 
     @Override
     public void draw(SpriteBatch batch, float delta) {
-        Set<String> users = lobby.getLobbyList(name).keySet();
+//        Set<String> users = lobby.getLobbyList(name).keySet();
         int y = 12;
-        for (CharSequence user : users) {
-            font.draw(batch, user, 9, y, 5, 1, false);
+        for (User u : lobby.getLobbyList(name)) {
+            font.draw(batch, u.getName(), 9, y, 5, 1, false);
             y-= 2;
         }
     }
