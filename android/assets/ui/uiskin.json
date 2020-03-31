@@ -20,5 +20,8 @@
   "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
     "play": {"down": "play", "up": "play", "disabled": "play"},
     "undo": {"down": "undo", "up": "undo", "disabled": "undo"}
+  },
+  TextFieldStyle: {
+    "input": { "font": "default", "fontColor": "green", background: "container_gold" }
   }
 }

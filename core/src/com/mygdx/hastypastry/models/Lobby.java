@@ -1,9 +1,13 @@
 package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.levels.Level1;
 import com.mygdx.hastypastry.singletons.ScreenManager;
+import com.mygdx.hastypastry.ui.MenuButton;
 
+import java.awt.Menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,13 +21,12 @@ import pl.mk5.gdx.fireapp.functional.Consumer;
 public class Lobby {
     private final String DB_PATH = "lobby";
     private User user;
-    private Stage ui;
+    private Table lobbyTable;
     private List<User> lobbyList = new ArrayList<>();
 
-    public Lobby(String playerName, Stage ui) {
+    public Lobby(String playerName, Table lobbyTable) {
         user = new User(playerName);
-        joinLobby();
-        this.ui = ui;
+        this.lobbyTable = lobbyTable;
         GdxFIRDatabase.inst().setMapConverter(new FirebaseMapConverter() {
             @Override
             public <T> T convert(Map<String, Object> map, Class<T> aClass) {
@@ -37,7 +40,7 @@ public class Lobby {
         });
     }
 
-    private void joinLobby() {
+    public void joinLobby() {
         GdxFIRDatabase.inst().inReference(DB_PATH).readValue(List.class)
                 .then(new Consumer<List<User>>() {
                     @Override
@@ -53,13 +56,14 @@ public class Lobby {
                         if (nameTaken) {
                             System.out.println("Name is already taken!");
                         } else {
-                            lobbyList.addAll(list);
+                            updateLobbyList(list);
                             GdxFIRDatabase.promise()
                                     .then(GdxFIRDatabase.inst().inReference(DB_PATH).push().setValue(user))
     //                                .then(GdxFIRDatabase.inst().inReference(DB_PATH).onDataChange(List.class))
                                     .then(GdxFIRDatabase.inst().inReference(DB_PATH).onChildChange(List.class, ChildEventType.ADDED))
                                     .then(new Consumer<List<User>>() {
                                         @Override
+                                        @MapConversion(User.class)
                                         public void accept(List<User> list) {
                                             updateLobbyList(list);
                                         }
@@ -71,7 +75,11 @@ public class Lobby {
     }
 
     private void updateLobbyList(List<User> list) {
-        System.out.println(list);
+        for (User u : list) {
+            MenuButton userBtn = new MenuButton(u.getName(), ScreenEnum.DRAW, new Game("abc", u.getName(), user.getName(), new Level1()));
+            lobbyTable.add(userBtn);
+            lobbyTable.row();
+        }
     }
 
 //    private void joinLobby() {
