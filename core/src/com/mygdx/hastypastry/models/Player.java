@@ -1,9 +1,12 @@
 package com.mygdx.hastypastry.models;
 
+import java.util.ArrayList;
+
 public class Player {
     private String name;
     private Drawing drawing;
     private Waffle waffle;
+    private ArrayList<Object> newLevelTime = new ArrayList<Object>();
 
 //    private InkBar inkBar;
 
@@ -29,5 +32,14 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public void setNewLevelTime(/*String levelID,*/ float levelTime) {
+        //newLevelTime.add(levelID);
+        newLevelTime.add(levelTime);
+    }
+
+    public float getNewLevelTime() {
+        return (float) newLevelTime.get(newLevelTime.size()-1);
     }
 }

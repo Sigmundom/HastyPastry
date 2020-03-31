@@ -3,7 +3,7 @@ package com.mygdx.hastypastry.models;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.levels.Level1;
+import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.MenuButton;
 
