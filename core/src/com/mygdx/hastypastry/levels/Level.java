@@ -17,31 +17,45 @@ public class Level {
     private Waffle waffle;
     private Goal goal;
     private FileReader reader = new FileReader();
-    private ArrayList<String> levelData = new ArrayList<>();
     private int inkLimit;
     private ArrayList<Float> starRank = new ArrayList<>();
     private float levelTime;
     private String levelNumber;
 
-    //Read form file with FileReader class and creats all objectws and values form the file
+    //Read form file with FileReader class and creates all objects and values form the file
     public Level(String level){
+        ArrayList<String> levelData = new ArrayList<>();
+        ArrayList<String> resultData = new ArrayList<>();
         levelNumber = level;
-        levelData = reader.getFileData("levels.txt");
+        levelData = reader.getInternalFileData("levels.txt");
+        resultData = reader.getLocalFileData("results.txt");
         int start;
         String[] waffleData;
         String[] goalData;
         String[] inkData;
         String[] obstacleData;
         String[] starData;
-        String[] timeData;
+        String timeData;
         int i = 1;
 
+        //Get data from result file
+        for (String result : resultData){
+            if (result.equals(levelNumber)){
+                timeData = resultData.get(resultData.indexOf(result)+1);
+                levelTime = Float.parseFloat(timeData);
+            }
+            break;
+        }
+
+        //Get data from levels file
         for(String line : levelData) {
-            if (line.contains(levelNumber)) {
-                System.out.println(line);
+
+            if (line.equals(levelNumber)) {
+
                 start = levelData.indexOf(line);
                 line = levelData.get(start+1);
                 waffleData = line.split(" ");
+                System.out.println(line);
                 waffle = new Waffle(StringToInt(waffleData[1]), StringToInt(waffleData[2]));
                 line = levelData.get(start+2);
                 goalData = line.split(" ");
@@ -50,15 +64,11 @@ public class Level {
                 inkData = line.split(" ");
                 inkLimit = StringToInt(inkData[1]);
                 line = levelData.get(start+4);
-                timeData = line.split(" ");
-                levelTime = StringToFloat(timeData[1]);
-                line = levelData.get(start+5);
                 starData = line.split(" ");
-                for (int s = 1; s < starData.length; s++){
-                    starRank.add(StringToFloat(starData[s]));
+                for (int s = 1;s<starData.length-1;s++){
+                    starRank.add(Float.parseFloat(starData[s]));
                 }
-                // System.out.println("StarRanks: " + starRank.get(0) + ", " + starRank.get(1) + ", " + starRank.get(2));
-                line = levelData.get(start+6);
+                line = levelData.get(start+5);
                 while (!line.contains("#")) {
                     obstacleData = line.split(" ");
                     if(obstacleData[1].contains("Round")) {
@@ -87,9 +97,6 @@ public class Level {
             return WORLD_HEIGHT/2;
         }
         else {
-            if(input.contains("\r")){
-                input = input.substring(0,input.length()-1);
-            }
 
             return Integer.parseInt(input);
         }
@@ -106,12 +113,7 @@ public class Level {
         }
     }
 
-    private float StringToFloat(String input){
-        if (input.contains("\r")){
-            input = input.substring(0,input.length()-1);
-        }
-        return Float.parseFloat(input);
-    }
+
 
     public int getInkLimit(){
         return inkLimit;
