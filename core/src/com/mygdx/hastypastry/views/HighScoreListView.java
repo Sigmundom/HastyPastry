@@ -5,28 +5,24 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
-import com.mygdx.hastypastry.singletons.ScreenManager;
-import com.mygdx.hastypastry.ui.HighScoreButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.text.DecimalFormat;
 
-public class CompletedLevelView extends BaseView {
+public class HighScoreListView extends BaseView {
     private Game game;
     private MenuButton menuButton;
-    private HighScoreButton highScoreButton;
     protected BitmapFont font;
     private Table table;
-    protected Label completedLabel;
+    protected Label highscoreLabel;
     protected Label levelLabel;
+    protected Label personalHighScoreLabel;
     protected Label timeLabel;
     protected float levelTime;
     protected DecimalFormat df = new DecimalFormat("###.##");
@@ -36,8 +32,7 @@ public class CompletedLevelView extends BaseView {
     protected Label newHighScoreLabel;
     protected PlayerPreferences playerPreferences;
 
-
-    public CompletedLevelView(Game game) {
+    public HighScoreListView(Game game) {
         super();
         this.game = game;
         sprite.setSize(Config.UI_WIDTH/80, Config.UI_WIDTH/80);
@@ -46,7 +41,7 @@ public class CompletedLevelView extends BaseView {
     }
 
     @Override
-    public void draw(SpriteBatch batch, float delta){
+    public void draw(SpriteBatch batch, float delta) {
         rotationDegree = 15.0f;
         for(float ranking : game.getLevel().getStarRank()) {
             if(levelTime < ranking) {
@@ -58,64 +53,43 @@ public class CompletedLevelView extends BaseView {
         }
         batch.end();
 
-        levelTime = game.getPlayer().getNewLevelTime();
-        completedLabel.setText("Completed");
+        highscoreLabel.setText("High Score");
         levelLabel.setText(game.getLevel().getLevelNumber());
-        timeLabel.setText("Time: " + df.format(levelTime));
 
         playerPreferences.setPrefHighScore(game);
+        personalHighScoreLabel.setText("Best: " + df.format(playerPreferences.getPersonalHighScore()));
+        levelTime = playerPreferences.getPersonalHighScore();
 
-        if(playerPreferences.newHighScore()) {
-            newHighScoreLabel.setText("New HS!");
-        }
+        // System.out.println(playerPreferences.newHighScore());
+        // System.out.println((playerPreferences.isHighScoreSet(game)));
     }
 
     @Override
     public void buildStage() {
-        // Create menu button
+        // Creating menu button.
         menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
-        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
-
-        // Creating high score button, sending game through to high score list.
-        highScoreButton = new HighScoreButton("High Score");
-        highScoreButton.setPosition(Config.UI_WIDTH/2 - highScoreButton.getWidth()/2, Config.UI_HEIGHT/2 - 300);
-        highScoreButton.addListener(
-                new InputListener() {
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        if (game.isMultiplayer()) {
-                            // game.getPlayer().getDrawing().uploadLines(game.getGameID(), game.getPlayer().getName());
-                            ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
-                        } else {
-                            ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
-                        }
-                        return false;
-                    }
-                });
+        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 300);
 
         // Add button to the stage
         this.ui.addActor(menuButton);
-        this.ui.addActor(highScoreButton);
 
         font = generateFont("pixelfont.TTF", 32);
         Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.BLACK);
 
-        completedLabel = new Label("High Score", labelStyle);
+        highscoreLabel = new Label("High Score", labelStyle);
         levelLabel = new Label("LevelID", labelStyle);
-        timeLabel = new Label("Time", labelStyle);
-        newHighScoreLabel = new Label("", labelStyle);
+        personalHighScoreLabel = new Label("Personal High Score", labelStyle);
         table = new Table();
         //table.top().padLeft(Config.UI_WIDTH/2 - 100).left().padTop(10);
         table.top().padTop(30);
         table.setFillParent(true);
-        table.add(completedLabel);
+        table.add(highscoreLabel);
         table.row();
         table.add(levelLabel);
         table.row();
-        table.add(timeLabel).padTop(250);
-        table.row();
-        table.add(newHighScoreLabel).padTop(50);
+        table.add(personalHighScoreLabel).padTop(250);
 
         this.ui.addActor(table);
+
     }
 }
