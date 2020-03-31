@@ -25,7 +25,11 @@ public class Drawing {
 
     private Stack<List<Vector2>> lines = new Stack<>();
     private List<Body> bodies;
-    private Inkbar inkbar = new Inkbar(20); //TODO: Have no constructor so this is fine?
+    private Inkbar inkbar;
+
+    public Drawing(int inkLimit){
+        this.inkbar = new Inkbar(inkLimit);
+    }
 
     public void addLine(List<Vector2> line) {
         if(inkbar.inkbarCheck()){
