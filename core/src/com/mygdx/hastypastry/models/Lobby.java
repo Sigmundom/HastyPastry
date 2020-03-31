@@ -76,7 +76,7 @@ public class Lobby {
                 ).then(new Consumer<Void>() {
             @Override
             public void accept(Void aVoid) {
-                Game game = new Game(gameID, playerName, opponentName, new Level("Level A"));
+                Game game = new Game(gameID, playerName, opponentName, new Level("Level 1"));
                 ScreenManager.getInstance().showScreen(ScreenEnum.DRAW, game);
             }
         });
