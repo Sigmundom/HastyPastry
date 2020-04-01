@@ -1,9 +1,13 @@
 package com.mygdx.hastypastry.models;
 
 public class User {
+    private String FBID;
     private String name;
     private boolean ready;
     private String challenger;
+
+    // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    public User() {};
 
     public User(String name) {
         this.name = name;
@@ -35,5 +39,13 @@ public class User {
 
     public void setChallenger(String challenger) {
         this.challenger = challenger;
+    }
+
+    public String getFBID() {
+        return FBID;
+    }
+
+    public void setFBID(String FBID) {
+        this.FBID = FBID;
     }
 }
