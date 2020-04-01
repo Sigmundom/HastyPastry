@@ -65,7 +65,7 @@ public class Level {
                 inkLimit = StringToInt(inkData[1]);
                 line = levelData.get(start+4);
                 starData = line.split(" ");
-                for (int s = 1;s<starData.length-1;s++){
+                for (int s = 1;s<starData.length;s++){
                     starRank.add(Float.parseFloat(starData[s]));
                 }
                 line = levelData.get(start+5);

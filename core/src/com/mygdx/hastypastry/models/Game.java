@@ -18,8 +18,8 @@ public class Game {
 
     public Game(String gameID, String player, String opponent, Level level) {
         this.gameID = gameID;
-        this.player = new Player(player, level.getWaffle());
-        this.opponent = new Player(opponent, new Waffle(level.getWaffle())); //Makes deep copy of waffle
+        this.player = new Player(player, level);
+        this.opponent = new Player(opponent, level); //Makes deep copy of waffle
         this.level = level;
         worldObjects = new ArrayList<>();
         worldObjects.addAll(level.getObstacles());
@@ -29,7 +29,7 @@ public class Game {
     }
 
     public Game(Level level) {
-        this.player = new Player(level.getWaffle());
+        this.player = new Player(level);
         this.level = level;
         worldObjects = new ArrayList<>();
         worldObjects.addAll(level.getObstacles());
