@@ -1,4 +1,4 @@
-package com.mygdx.hastypastry;
+package com.mygdx.hastypastry.singletons;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
