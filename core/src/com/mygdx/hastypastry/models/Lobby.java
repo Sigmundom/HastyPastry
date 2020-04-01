@@ -1,8 +1,13 @@
 package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.singletons.DBManager;
+import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.LabelButton;
 
 import java.util.ArrayList;
@@ -29,7 +34,7 @@ public class Lobby {
 
     public void joinLobby(String name) {
         user = new User(name);
-        DBManager.instance.getDB().joinLobby(user);
+        DBManager.instance.getDB().joinLobby(this, user);
     }
 
     public void exitLobby() {
@@ -43,9 +48,16 @@ public class Lobby {
         }
     }
 
-    private void addUserUI(Table lobbyTable, User u) {
+    private void addUserUI(Table lobbyTable, final User u) {
         LabelButton lobbyUser = new LabelButton(u.getName());
-        lobbyTable.add(lobbyUser);
+        lobbyUser.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                DBManager.instance.getDB().challangePlayer(Lobby.this, u.getFBID(), user.getName());
+                return false;
+            }
+        });
+        lobbyTable.add(lobbyUser).growX();
         lobbyTable.row();
     }
 
@@ -70,5 +82,11 @@ public class Lobby {
 
     public List<User> getLobbyList() {
         return lobbyList;
+    }
+
+    public void startGame(String opponentName) {
+        ScreenManager.getInstance().showScreen(
+                ScreenEnum.DRAW, new Game("GameID", opponentName, user.getName(), new Level("Level 2"))
+        );
     }
 }

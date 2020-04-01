@@ -31,8 +31,8 @@ public class LobbyView extends BaseView {
 
         //Set padding
         lobbyTable.padTop(100);
-        lobbyTable.padLeft(50);
-        lobbyTable.padRight(50);
+        lobbyTable.padLeft(100);
+        lobbyTable.padRight(100);
 
         //Set alignment of contents in the table.
         lobbyTable.top();

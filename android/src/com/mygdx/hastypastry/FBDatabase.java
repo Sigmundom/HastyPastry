@@ -1,14 +1,19 @@
 package com.mygdx.hastypastry;
 
+import com.badlogic.gdx.Gdx;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
+import com.mygdx.hastypastry.levels.Level;
+import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.User;
+import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.List;
 
@@ -58,13 +63,21 @@ public class FBDatabase implements HastyPastryDatabase {
     }
 
     @Override
-    public void joinLobby(User user) {
+    public void joinLobby(final Lobby lobby, User user) {
         DatabaseReference userRef = lobbyRef.push();
         userRef.setValue(user);
-        userRef.addValueEventListener(new ValueEventListener() {
+        userRef.child("challenger").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                System.out.println(dataSnapshot.getValue());
+                final String opponentName = (String)dataSnapshot.getValue();
+                if (opponentName != "") {
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            lobby.startGame(opponentName);
+                        }
+                    });
+                }
             }
 
             @Override
@@ -78,5 +91,11 @@ public class FBDatabase implements HastyPastryDatabase {
     public void exitLobby(String FBID) {
         lobbyRef.removeEventListener(lobbyListener);
         lobbyRef.child(FBID).removeValue();
+    }
+
+    @Override
+    public void challangePlayer(Lobby lobby, String opponentFBID, String playerName) {
+        lobbyRef.child(opponentFBID).child("challenger").setValue(playerName);
+        lobby.startGame("Per");
     }
 }
