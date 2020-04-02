@@ -1,7 +1,7 @@
 package com.mygdx.hastypastry.ui;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.mygdx.hastypastry.Assets;
+import com.mygdx.hastypastry.singletons.Assets;
 
 public class HighScoreButton extends TextButton {
     public HighScoreButton(String text/*, final ScreenEnum navigateTo, final Object... params*/) {

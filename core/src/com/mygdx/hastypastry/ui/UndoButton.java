@@ -1,7 +1,7 @@
 package com.mygdx.hastypastry.ui;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.mygdx.hastypastry.Assets;
+import com.mygdx.hastypastry.singletons.Assets;
 
 public class UndoButton extends ImageButton {
 

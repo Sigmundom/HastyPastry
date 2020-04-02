@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "891339457012-n99dfqtm9at9aa4o1ur9nicr0fihqgvb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mygdx.hastypastry",
+            "certificate_hash": "c9d5d58d71d065669ba8244f3b26e4eb272d5ca8"
+          }
+        },
+        {
           "client_id": "891339457012-iu8vmmdj264jbo57shjbh5vi54gh1ehj.apps.googleusercontent.com",
           "client_type": 3
         }

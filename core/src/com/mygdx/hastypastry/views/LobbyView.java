@@ -1,44 +1,46 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.ui.MenuButton;
 
-import java.util.Set;
-
-
 public class LobbyView extends BaseView {
-    private MenuButton MenuBtn;
-    private String name;
     private Lobby lobby;
-    private BitmapFont font = new BitmapFont();
+    private Table lobbyTable;
 
-    public LobbyView(String name) {
-        this.name = name;
-        lobby = new Lobby(name, ui);
-        font.setColor(Color.BLACK);
-        font.getData().setScale(0.05f);
+    public LobbyView(Lobby lobby) {
+        this.lobby = lobby;
+
     }
 
     @Override
     public void buildStage() {
-        MenuBtn = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
-        MenuBtn.setPosition(10, Config.UI_HEIGHT- MenuBtn.getHeight() - 10);
-        this.ui.addActor(MenuBtn);
-    }
+        // Creates and adds menuButton to ui.
+        MenuButton menuBtn = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+        menuBtn.setPosition(10, Config.UI_HEIGHT- menuBtn.getHeight() - 10);
+        this.ui.addActor(menuBtn);
 
-    @Override
-    public void draw(SpriteBatch batch, float delta) {
-        Set<String> users = lobby.getLobbyList(name).keySet();
-        int y = 12;
-        for (CharSequence user : users) {
-            font.draw(batch, user, 9, y, 5, 1, false);
-            y-= 2;
-        }
+        // Creates lobbyTable
+        lobbyTable = new Table();
+
+        //Set table to fill stage
+        lobbyTable.setFillParent(true);
+
+        //Set padding
+        lobbyTable.padTop(100);
+        lobbyTable.padLeft(100);
+        lobbyTable.padRight(100);
+
+        //Set alignment of contents in the table.
+        lobbyTable.top();
+
+        // Sync lobbyTable with lobbyList
+        lobby.initLobbyTable(lobbyTable);
+
+        this.ui.addActor(lobbyTable);
     }
 
     @Override

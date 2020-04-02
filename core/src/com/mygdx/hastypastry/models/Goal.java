@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.hastypastry.Assets;
+import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 
 public class Goal implements WorldObject {

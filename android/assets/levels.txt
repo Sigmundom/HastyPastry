@@ -14,3 +14,80 @@ InkBar 40
 StarRanking 15 10 5
 Obstacle Square 12 18 12 4 true
 #
+Level 3
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+StarRanking 10 5 3
+Obstacle Square 12 18 12 4 true
+#
+Level 4
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+StarRanking 10 5 3
+Obstacle Square 12 18 12 4 true
+#
+Level 5
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+StarRanking 10 5 3
+Obstacle Square 12 18 12 4 true
+#
+Level 6
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+StarRanking 10 5 3
+Obstacle Square 12 18 12 4 true
+#
+Level 7
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+StarRanking 10 5 3
+Obstacle Square 12 18 12 4 true
+#
+Level 8
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+StarRanking 10 5 3
+Obstacle Square 12 18 12 4 true
+#
+Level 9
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+StarRanking 10 5 3
+Obstacle Square 12 18 12 4 true
+#
+Level 10
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+StarRanking 10 5 3
+Obstacle Square 12 18 12 4 true
+#
+Level 11
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+StarRanking 10 5 3
+Obstacle Square 12 18 12 4 true
+#
+Level 12
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+StarRanking 10 5 3
+Obstacle Square 12 18 12 4 true
+#
+Level 13
+Waffle middleWidth 30
+Goal 2 18 3 3
+InkBar 20
+StarRanking 10 5 3
+Obstacle Square 12 18 12 4 true
+#

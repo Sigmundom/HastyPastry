@@ -2,7 +2,7 @@ package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Shape;
-import com.mygdx.hastypastry.Assets;
+import com.mygdx.hastypastry.singletons.Assets;
 
 public class RoundObstacle extends Obstacle {
     private float radius;
