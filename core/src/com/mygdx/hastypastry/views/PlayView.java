@@ -48,7 +48,6 @@ public class PlayView extends BaseView {
     public void draw(SpriteBatch batch, float delta) {
         delta = TIME_STEP;
         update(); // world step and update positions.
-
         //Renders obstacles and waffles through levels. Utilizes the sprite draw function, since the sprite already
 //        know what it need (position and size).
         for (WorldObject object: game.getWorldObjects()){

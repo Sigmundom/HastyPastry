@@ -70,7 +70,7 @@ public class FBDatabase implements HastyPastryDatabase {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final String opponentName = (String)dataSnapshot.getValue();
-                if (opponentName != "") {
+                if (opponentName != "" && opponentName != null) {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {

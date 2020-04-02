@@ -17,14 +17,13 @@ public class FileReader {
 
         ArrayList<String> fileData = new ArrayList<>();
 
-        if(!handle.exists())
-        {
-            FileHandle fileSetup = Gdx.files.internal(file);
-            fileSetup.copyTo(handle);
+        if (!handle.exists()) {
+            FileHandle internalFile = Gdx.files.internal(file);
+            internalFile.copyTo(handle);
         }
 
         String text = handle.readString();
-        String[] split = text.split("\\r\\n");
+        String[] split = text.split("\\r?+\\n");
         for (String line : split){
             fileData.add(line);
         }
@@ -35,10 +34,11 @@ public class FileReader {
         FileHandle handle = Gdx.files.internal(file);
         ArrayList<String> fileData = new ArrayList<>();
         String text = handle.readString();
-        String[] split = text.split("(\\r\\n)");
+        String[] split = text.split("\\r?+\\n");
         for (String line : split){
             fileData.add(line);
         }
+        System.out.println(fileData);
         return fileData;
 
     }
