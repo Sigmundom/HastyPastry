@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.height = Config.UI_HEIGHT;
 		config.width = Config.UI_WIDTH;
-		new LwjglApplication(new HastyPastryGame(), config);
+		config.foregroundFPS = 60;
+		new LwjglApplication(new HastyPastryGame(new DesktopDatabase()), config);
 	}
 }
