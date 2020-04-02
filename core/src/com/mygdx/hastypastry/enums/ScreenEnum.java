@@ -7,6 +7,7 @@ import com.mygdx.hastypastry.views.CompletedLevelView;
 import com.mygdx.hastypastry.views.DrawView;
 import com.mygdx.hastypastry.views.FailedLevelView;
 import com.mygdx.hastypastry.views.HighScoreListView;
+import com.mygdx.hastypastry.views.LevelSelectView;
 import com.mygdx.hastypastry.views.LobbyView;
 import com.mygdx.hastypastry.views.LoginView;
 import com.mygdx.hastypastry.views.MainMenuView;
@@ -48,6 +49,9 @@ public enum ScreenEnum {
     },
     HIGHSCORE {
         public BaseView getScreen(Object... params) { return new HighScoreListView((Game)params[0]); }
+    },
+    LEVELSELECT {
+        public BaseView getScreen(Object... params) {return new LevelSelectView(); }
     };
 
     public abstract BaseView getScreen(Object... params);
