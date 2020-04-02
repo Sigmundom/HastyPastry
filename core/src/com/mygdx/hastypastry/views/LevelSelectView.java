@@ -14,6 +14,8 @@ import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.util.ArrayList;
 
+import static java.awt.image.ImageObserver.WIDTH;
+
 public class LevelSelectView extends BaseView {
 
     private ArrayList<String> levels;
@@ -41,7 +43,7 @@ public class LevelSelectView extends BaseView {
         // Create inner table
         Table innerTable = new Table();
         // table.setFillParent(true);
-        innerTable.setSize(Config.UI_WIDTH, Config.UI_HEIGHT);
+        // innerTable.setSize(Config.UI_WIDTH, Config.UI_HEIGHT);
 
         // Add padding
         innerTable.padTop(10);
@@ -60,7 +62,7 @@ public class LevelSelectView extends BaseView {
         ScrollPane pane = new ScrollPane(innerTable);
         // pane.setScrollingDisabled(false, true);
         pane.layout();
-        pane.setFillParent(true);
+        pane.setFillParent(true); pane.setLayoutEnabled(true);
         pane.setScrollingDisabled(true, false);
         pane.setForceScroll(false,true);
         pane.setFlickScroll(true);
@@ -76,7 +78,8 @@ public class LevelSelectView extends BaseView {
         this.ui.addActor(outerTable);
 
         // Denne scrollet alt
-        pane.setScrollPercentY(100);
+        // pane.setScrollPercentY(100);
+
         pane.act(Gdx.graphics.getDeltaTime());
         pane.updateVisualScroll();
     }
