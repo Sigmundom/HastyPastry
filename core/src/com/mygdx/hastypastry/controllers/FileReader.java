@@ -17,12 +17,6 @@ public class FileReader {
 
         ArrayList<String> fileData = new ArrayList<>();
 
-        if(!handle.exists())
-        {
-            FileHandle fileSetup = Gdx.files.internal(file);
-            fileSetup.copyTo(handle);
-        }
-
         String text = handle.readString();
         String[] split = text.split("\\r\\n");
         for (String line : split){
