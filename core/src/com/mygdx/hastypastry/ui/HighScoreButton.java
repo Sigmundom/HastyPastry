@@ -5,7 +5,7 @@ import com.mygdx.hastypastry.singletons.Assets;
 
 public class HighScoreButton extends TextButton {
     public HighScoreButton(String text/*, final ScreenEnum navigateTo, final Object... params*/) {
-        super(text, Assets.instance.getManager().get(Assets.uiSkin), "container_gold");
+        super(text, Assets.instance.getManager().get(Assets.uiSkin), "container_blue");
         /*this.addListener(
                 new InputListener() {
                     @Override

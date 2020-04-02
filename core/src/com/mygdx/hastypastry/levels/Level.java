@@ -55,7 +55,6 @@ public class Level {
                 start = levelData.indexOf(line);
                 line = levelData.get(start+1);
                 waffleData = line.split(" ");
-                System.out.println(line);
                 waffle = new Waffle(StringToInt(waffleData[1]), StringToInt(waffleData[2]));
                 line = levelData.get(start+2);
                 goalData = line.split(" ");
@@ -89,7 +88,6 @@ public class Level {
     }
 
     private int StringToInt(String input){
-        System.out.println(input);
         if(input.contains("middleWidth")){
             return Config.WORLD_WIDTH/2;
         }
@@ -103,7 +101,6 @@ public class Level {
     }
 
     private boolean StringToBoolean(String input){
-        System.out.println(input);
         if (input.contains("false")){
             return false;
         }

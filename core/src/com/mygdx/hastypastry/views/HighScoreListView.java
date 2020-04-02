@@ -59,9 +59,6 @@ public class HighScoreListView extends BaseView {
         playerPreferences.setPrefHighScore(game);
         personalHighScoreLabel.setText("Best: " + df.format(playerPreferences.getPersonalHighScore()));
         levelTime = playerPreferences.getPersonalHighScore();
-
-        // System.out.println(playerPreferences.newHighScore());
-        // System.out.println((playerPreferences.isHighScoreSet(game)));
     }
 
     @Override

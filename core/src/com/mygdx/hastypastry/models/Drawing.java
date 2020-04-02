@@ -39,7 +39,6 @@ public class Drawing {
     }
 
     public void addPoint(Vector2 point) {
-        System.out.println(" " + inkbar.getPercent());
         if(inkbar.inkbarCheck()){
             lines.peek().add(point);
             inkbar.useInk();
@@ -90,7 +89,6 @@ public class Drawing {
     }
 
     public void uploadLines(String gameID, String playerName) {
-        System.out.println(serializeLines());
         GdxFIRDatabase.inst()
                 .inReference(String.format("games/%s/%s/drawing", gameID, playerName))
                 .setValue(serializeLines());

@@ -37,18 +37,13 @@ public class PlayerPreferences {
     }
 
     public void setPrefHighScore(Game game) {
-        System.out.println("Current HS: " + getPrefs().getFloat(PREF_LEVELA_HS));
-        System.out.println(PREF_LEVELA_HS == game.getLevel().getLevelNumber());
-        System.out.println("Game HS: " + game.getPlayer().getNewLevelTime());
         newChange = false;
         if(getPrefs().getFloat(game.getLevel().getLevelNumber()) == 0.0f ||
                 getPrefs().getFloat(game.getLevel().getLevelNumber()) > game.getPlayer().getNewLevelTime()) {
-            System.out.println("du kommer deg hit..");
             getPrefs().putFloat(game.getLevel().getLevelNumber(), game.getPlayer().getNewLevelTime()).flush();
             newChange = true;
         }
         personalHighScore = getPrefs().getFloat(game.getLevel().getLevelNumber());
-        // System.out.println("personal HS: " + personalHighScore);
     }
 
     public float isHighScoreSet(Game game) {
