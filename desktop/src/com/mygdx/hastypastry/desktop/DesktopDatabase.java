@@ -5,6 +5,7 @@ import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.User;
 
 public class DesktopDatabase implements HastyPastryDatabase {
+
     @Override
     public void subscribeLobbyList(Lobby lobby) {
 

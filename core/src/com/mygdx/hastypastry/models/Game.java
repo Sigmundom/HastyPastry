@@ -9,18 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private String gameID;
+    private String matchID;
     private Player player;
     private Player opponent;
     private Level level;
     private List<WorldObject> worldObjects;
     private List<List<Vector2>> finalLines;
 
-    public Game(String gameID, String player, String opponent, Level level) {
-        this.gameID = gameID;
-        this.player = new Player(player, level);
-        this.opponent = new Player(opponent, level); //Makes deep copy of waffle
-        this.level = level;
+    public Game(Match match, boolean challenger) {
+        this.matchID = match.getMatchID();
+        this.level = new Level(match.getLevel());
+        if (challenger) {
+            this.player = new Player(match.getChallengerName(), this.level);
+            this.opponent = new Player(match.getOpponentName(), this.level); //Makes deep copy of waffle
+        } else {
+            this.player = new Player(match.getOpponentName(), this.level);
+            this.opponent = new Player(match.getChallengerName(), this.level);
+        }
         worldObjects = new ArrayList<>();
         worldObjects.addAll(level.getObstacles());
         worldObjects.add(this.player.getWaffle());
@@ -60,11 +65,11 @@ public class Game {
     }
 
     public boolean isMultiplayer() {
-        return gameID != null;
+        return matchID != null;
     }
 
-    public String getGameID() {
-        return gameID;
+    public String getMatchID() {
+        return matchID;
     }
 
     public Player getPlayer() {

@@ -1,5 +1,5 @@
 uiskin.png
-size: 205, 50
+size: 208, 50
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -31,5 +31,12 @@ undo
   xy: 155, 0
   size: 50, 50
   orig: 50, 50
+  offset: 0, 0
+  index: -1
+white
+  rotate: false
+  xy: 205, 0
+  size: 3, 3
+  orig: 3, 3
   offset: 0, 0
   index: -1

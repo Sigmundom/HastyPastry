@@ -1,6 +1,6 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
@@ -38,9 +38,10 @@ public class LobbyView extends BaseView {
         lobbyTable.top();
 
         // Sync lobbyTable with lobbyList
-        lobby.initLobbyTable(lobbyTable);
+        lobby.initLobbyView(ui, lobbyTable);
 
-        this.ui.addActor(lobbyTable);
+        // Add lobbyTable to ui
+        ui.addActor(lobbyTable);
     }
 
     @Override

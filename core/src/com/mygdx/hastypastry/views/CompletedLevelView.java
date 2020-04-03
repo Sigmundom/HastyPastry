@@ -84,7 +84,6 @@ public class CompletedLevelView extends BaseView {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                         if (game.isMultiplayer()) {
-                            // game.getPlayer().getDrawing().uploadLines(game.getGameID(), game.getPlayer().getName());
                             ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
                         } else {
                             ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);

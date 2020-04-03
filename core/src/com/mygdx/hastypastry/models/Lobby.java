@@ -3,12 +3,14 @@ package com.mygdx.hastypastry.models;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.controllers.FileReader;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.ScreenManager;
+import com.mygdx.hastypastry.ui.ChallengeBox;
 import com.mygdx.hastypastry.ui.LabelButton;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,8 @@ public class Lobby {
     private User user;
     private List<User> lobbyList = new ArrayList<>();
     private Table lobbyTable;
+    private Stage ui;
+    private ChallengeBox challenge;
 
     public Lobby() {
         // Get list of users in lobby and listens to changes
@@ -25,7 +29,7 @@ public class Lobby {
 
     public boolean isNameTaken(String name) {
         for (User u : lobbyList) {
-            if (u.getName() == name) {
+            if (u.getName().equals(name)) {
                 return true;
             }
         }
@@ -41,23 +45,26 @@ public class Lobby {
         DBManager.instance.getDB().exitLobby(user.getFBID());
     }
 
-    public void initLobbyTable(Table lobbyTable) {
+    public void initLobbyView(Stage ui, Table lobbyTable) {
+        this.ui = ui;
         this.lobbyTable = lobbyTable;
         for (User u : lobbyList) {
-            addUserUI(lobbyTable, u);
+            if (u.getFBID() != user.getFBID()){
+                addUserUI(lobbyTable, u);
+            }
         }
     }
 
     private void addUserUI(Table lobbyTable, final User u) {
-        LabelButton lobbyUser = new LabelButton(u.getName());
-        lobbyUser.addListener(new InputListener() {
+        LabelButton userButton = new LabelButton(u.getName());
+        userButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                DBManager.instance.getDB().challangePlayer(Lobby.this, u.getFBID(), user.getName());
+                DBManager.instance.getDB().challengePlayer(Lobby.this, u, user); //u is opponent
                 return false;
             }
         });
-        lobbyTable.add(lobbyUser).growX();
+        lobbyTable.add(userButton).growX();
         lobbyTable.row();
     }
 
@@ -84,12 +91,12 @@ public class Lobby {
         return lobbyList;
     }
 
-    public void startGame(String opponentName) {
+    public void startGame(Match match, boolean challenger) {
         ScreenManager.getInstance().showScreen(
-                ScreenEnum.DRAW, new Game("GameID", opponentName, user.getName(), new Level(RandLevel()))
+                ScreenEnum.DRAW, new Game(match, challenger)
         );
     }
-    private String RandLevel(){
+    private String randLevel(){
         FileReader reader = new FileReader();
         ArrayList<String> fileData = new ArrayList<>();
         fileData = reader.getInternalFileData("levels.txt");
@@ -100,7 +107,22 @@ public class Lobby {
             }
         }
         int rand = (int)(Math.random()*i)+1;
-        return "Level "+String.valueOf(rand);
+        return "Level "+ rand;
     }
 
+    public void receivedChallenge(Match match) {
+        challenge = new ChallengeBox(this, match);
+        challenge.show(ui);
+    }
+
+    public void acceptChallenge(Match match) {
+        String level = randLevel();
+        match.setLevel(level);
+        DBManager.instance.getDB().acceptChallenge(match);
+        ScreenManager.getInstance().showScreen(ScreenEnum.DRAW, new Game(match, false));
+    }
+
+    public void declineChallenge(Match match) {
+        DBManager.instance.getDB().declineChallenge(match, user);
+    }
 }

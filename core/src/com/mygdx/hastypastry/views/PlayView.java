@@ -57,7 +57,7 @@ public class PlayView extends BaseView {
         // Implementing font generator from BaseView, writing level time to screen.
         // Sending level time to Player to be used in High Score updates.
         elapsedTime += (double)delta;
-        game.getPlayer().setNewLevelTime(/*game.getGameID(),*/ elapsedTime);
+        game.getPlayer().setNewLevelTime(elapsedTime);
         timeLabel.setText(df.format(elapsedTime));
 
         batch.end();

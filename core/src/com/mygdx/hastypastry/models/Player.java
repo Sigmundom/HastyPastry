@@ -16,14 +16,14 @@ public class Player {
     public Player(String name, Level level) {
         this.name = name;
         this.level = level;
-        this.waffle = level.getWaffle();
+        this.waffle = new Waffle(level.getWaffle());
         drawing = new Drawing(level.getInkLimit());
     }
 
     public Player(Level level) {
         this.name = "Player 1";
         this.level = level;
-        this.waffle = level.getWaffle();
+        this.waffle = new Waffle(level.getWaffle());
         drawing = new Drawing(level.getInkLimit());
     }
 
