@@ -17,7 +17,6 @@ public class Game {
     private Player opponent;
     private Level level;
     private List<WorldObject> worldObjects;
-//    private List<List<Vector2>> finalLines;
     private boolean playerIsChallenger;
 
     public Game(Match match, boolean playerIsChallenger) {
@@ -53,12 +52,8 @@ public class Game {
         }
         player.getDrawing().addBody(world);
 
-//        finalLines = new ArrayList<>();
-//        finalLines.addAll(player.getDrawing().getLines());
-
         if (isMultiplayer()) {
             opponent.getDrawing().addBody(world);
-//            finalLines.addAll(opponent.getDrawing().getLines());
         }
     }
 
@@ -90,11 +85,6 @@ public class Game {
     public List<WorldObject> getWorldObjects() {
         return worldObjects;
     }
-
-//    public List<List<Vector2>> getFinalLines() {
-//        return finalLines;
-//    }
-
 
     public void ready() {
         DBManager.instance.getDB().ready(this);
