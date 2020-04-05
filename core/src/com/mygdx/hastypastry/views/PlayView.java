@@ -71,6 +71,7 @@ public class PlayView extends BaseView {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setColor(Color.BLACK);
+
         // Renders players drawing
         for (List<Vector2> line: game.getPlayer().getDrawing().getLines()) {
             for(int i = 0; i < line.size()-1; ++i) {
@@ -83,6 +84,7 @@ public class PlayView extends BaseView {
             for (List<Vector2> line: game.getOpponent().getDrawing().getLines()) {
                 for(int i = 0; i < line.size()-1; ++i) {
                     shapeRenderer.line(line.get(i), line.get(i+1));
+                    
                 }
             }
         }
@@ -115,7 +117,9 @@ public class PlayView extends BaseView {
 
     @Override
     public void hide() {
-        DBManager.instance.getDB().exitMatch(game);
+        if(game.isMultiplayer()) {
+            DBManager.instance.getDB().exitMatch(game);
+        }
     }
 
 }

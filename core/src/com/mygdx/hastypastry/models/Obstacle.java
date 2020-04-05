@@ -46,6 +46,7 @@ public abstract class Obstacle implements WorldObject {
         fixtureDef.filter.categoryBits = 2;
         fixtureDef.filter.maskBits = 1;
 
+
         body.createFixture(fixtureDef);
 
         shape.dispose();

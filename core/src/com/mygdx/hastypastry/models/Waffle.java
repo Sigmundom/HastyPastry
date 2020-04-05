@@ -13,6 +13,7 @@ public class Waffle implements WorldObject {
     private final float RADIUS = 1;
     private Body body;
     private Sprite sprite;
+    private boolean isPlayer;
 
     public Waffle(float posX, float posY) {
         sprite = new Sprite();
@@ -23,8 +24,12 @@ public class Waffle implements WorldObject {
     }
 
     // Makes a deep copy of the waffle in Level.
-    public Waffle(Waffle waffle) {
+    public Waffle(Waffle waffle, boolean isPlayer) {
         sprite = new Sprite(waffle.getSprite());
+        if(!isPlayer) {
+            sprite.setAlpha(0.3f);
+        }
+        this.isPlayer = isPlayer;
     }
 
     public void addBody(World world) {
@@ -36,17 +41,17 @@ public class Waffle implements WorldObject {
         CircleShape shape = new CircleShape();
         shape.setRadius(RADIUS);
 
+        body = world.createBody(def);
         FixtureDef fixturedef = new FixtureDef();
         fixturedef.shape = shape;
         fixturedef.density = 1.0f;
-        fixturedef.filter.categoryBits = 1; //What it is
-        fixturedef.filter.maskBits = 2;     //Collides with
 
-        body = world.createBody(def);
+        fixturedef.filter.categoryBits = 1; //What it is
+        fixturedef.filter.maskBits = (short) (isPlayer ? 2 | 4 : 2 | 8);     //Collides with
+
         body.setUserData("waffle");
         body.createFixture(fixturedef);
 
-        body.createFixture(shape, 1.0f);
         shape.dispose();
     }
 

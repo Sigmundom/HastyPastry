@@ -24,11 +24,11 @@ public class Game {
         this.playerIsChallenger = playerIsChallenger;
         this.level = new Level(match.getLevel());
         if (playerIsChallenger) {
-            this.player = new Player(match.getChallengerName(), this.level);
-            this.opponent = new Player(match.getChallengedName(), this.level); //Makes deep copy of waffle
+            this.player = new Player(match.getChallengerName(), this.level, true);
+            this.opponent = new Player(match.getChallengedName(), this.level, false); //Makes deep copy of waffle
         } else {
-            this.player = new Player(match.getChallengedName(), this.level);
-            this.opponent = new Player(match.getChallengerName(), this.level);
+            this.player = new Player(match.getChallengedName(), this.level, true);
+            this.opponent = new Player(match.getChallengerName(), this.level, false);
         }
         worldObjects = new ArrayList<>();
         worldObjects.addAll(level.getObstacles());

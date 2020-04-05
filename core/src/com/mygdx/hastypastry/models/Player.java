@@ -12,15 +12,15 @@ public class Player {
 
 //    private InkBar inkBar;
 
-    public Player(String name, Level level) {
+    public Player(String name, Level level, boolean isPlayer) {
         this.name = name;
-        this.waffle = new Waffle(level.getWaffle());
-        drawing = new Drawing(level.getInkLimit());
+        this.waffle = new Waffle(level.getWaffle(), isPlayer);
+        drawing = new Drawing(level.getInkLimit(), isPlayer);
     }
 
     public Player(Level level) {
-        this.waffle = new Waffle(level.getWaffle());
-        drawing = new Drawing(level.getInkLimit());
+        this.waffle = new Waffle(level.getWaffle(), true);
+        drawing = new Drawing(level.getInkLimit(), true);
     }
 
     public Waffle getWaffle() {
