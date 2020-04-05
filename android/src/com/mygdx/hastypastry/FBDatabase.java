@@ -6,11 +6,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
+import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.Match;
 import com.mygdx.hastypastry.models.User;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +24,8 @@ public class FBDatabase implements HastyPastryDatabase {
     private final DatabaseReference matchesRef = FirebaseDatabase.getInstance().getReference("match");
     private ChildEventListener lobbyListener;
     private ValueEventListener challengeListener;
+    private ValueEventListener responseListener;
+    private ValueEventListener drawingListener;
 
 
     public void subscribeLobbyList(final Lobby lobby) {
@@ -97,7 +103,7 @@ public class FBDatabase implements HastyPastryDatabase {
     @Override
     public void challengePlayer(final Lobby lobby, final User opponent, User player) {
         // Creates a new match and adds it to firebase.
-        String matchID = player.getFBID(); // We use challengers ID as matchID.
+        final String matchID = player.getFBID(); // We use challengers ID as matchID.
         Match match = new Match(matchID, player.getName(), opponent.getName());
         matchesRef.child(matchID).setValue(match);
 
@@ -109,29 +115,34 @@ public class FBDatabase implements HastyPastryDatabase {
         lobbyRef.child(opponent.getFBID()).child("challenge").setValue(match);
 
 
-        ValueEventListener responseListener = new ValueEventListener() {
+        responseListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // Opponent accepts challange, by selecting a Level or declines by removing the match.
                 final Match match = dataSnapshot.getValue(Match.class);
                 if (match != null) {
-                    System.out.println(match.getLevel());
-                    if (match.getLevel() != null && match.getLevel().matches("Level \\d+")) {
-                        // Opponent accepts
-                        System.out.println("Opponent accepts!");
-                        Gdx.app.postRunnable(new Runnable() {
-                            @Override
-                            public void run() {
-                                lobby.startGame(match, true);
-                            }
-                        });
+                    if (match.getLevel() != null) {
+                        if (match.getLevel().matches("Level \\d+")) {
+                            // Opponent accepts
+                            System.out.println("Opponent accepts!");
+                            matchesRef.child(matchID).removeEventListener(responseListener);
+                            Gdx.app.postRunnable(new Runnable() {
+                                @Override
+                                public void run() {
+                                    lobby.startGame(match, true);
+                                }
+                            });
+                        } else {
+                            // Invalid level
+                            System.out.println("Error: Invalid level");
+                        }
                     } else {
-                        // Invalid level
-                        System.out.println("Error: Invalid level");
+                        System.out.println("Initializing responseListener");
                     }
                 } else {
                     // Opponent declines
                     System.out.println("Opponent declines!");
+                    matchesRef.child(matchID).removeEventListener(responseListener);
                 }
             }
 
@@ -146,8 +157,57 @@ public class FBDatabase implements HastyPastryDatabase {
     @Override
     public void acceptChallenge(Match match) {
         System.out.println("ACCEPT!");
-        System.out.println(match.getLevel());
         matchesRef.child(match.getMatchID()).setValue(match);
+    }
+
+    @Override
+    public void ready(final Game game) {
+        // Refrence to match
+        DatabaseReference matchRef = matchesRef.child(game.getMatch().getMatchID());
+
+        // Drawing references
+        final DatabaseReference playerDrawingRef, opponentDrawingRef;
+//        if (game.getPlayer().getUser().isChallenger()) {
+        if (game.playerIsChallenger()) {
+            playerDrawingRef = matchRef.child("challengerDrawing");
+            opponentDrawingRef = matchRef.child("challengedDrawing");
+        } else {
+            opponentDrawingRef = matchRef.child("challengerDrawing");
+            playerDrawingRef = matchRef.child("challengedDrawing");
+        }
+
+        // Upload drawing
+        playerDrawingRef.setValue(game.getPlayer().getDrawing().serializedLines());
+
+        // Listen for opponents drawing
+        drawingListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GenericTypeIndicator<List<List<String>>> genericTypeIndicator = new GenericTypeIndicator<List<List<String>>>() {};
+                final List<List<String>> opponentDrawing = dataSnapshot.getValue(genericTypeIndicator);
+                if (opponentDrawing != null) {
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            opponentDrawingRef.removeEventListener(drawingListener);
+                            game.receivedDrawing(opponentDrawing);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        opponentDrawingRef.addValueEventListener(drawingListener);
+    }
+
+    @Override
+    public void exitMatch(final Game game) {
+        DatabaseReference matchRef = matchesRef.child(game.getMatch().getMatchID());
+        matchRef.removeValue();
     }
 
     @Override

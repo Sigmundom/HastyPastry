@@ -2,28 +2,33 @@ package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.levels.Level;
+import com.mygdx.hastypastry.singletons.DBManager;
+import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private String matchID;
+    private Match match;
     private Player player;
     private Player opponent;
     private Level level;
     private List<WorldObject> worldObjects;
-    private List<List<Vector2>> finalLines;
+//    private List<List<Vector2>> finalLines;
+    private boolean playerIsChallenger;
 
-    public Game(Match match, boolean challenger) {
-        this.matchID = match.getMatchID();
+    public Game(Match match, boolean playerIsChallenger) {
+        this.match = match;
+        this.playerIsChallenger = playerIsChallenger;
         this.level = new Level(match.getLevel());
-        if (challenger) {
+        if (playerIsChallenger) {
             this.player = new Player(match.getChallengerName(), this.level);
-            this.opponent = new Player(match.getOpponentName(), this.level); //Makes deep copy of waffle
+            this.opponent = new Player(match.getChallengedName(), this.level); //Makes deep copy of waffle
         } else {
-            this.player = new Player(match.getOpponentName(), this.level);
+            this.player = new Player(match.getChallengedName(), this.level);
             this.opponent = new Player(match.getChallengerName(), this.level);
         }
         worldObjects = new ArrayList<>();
@@ -48,12 +53,12 @@ public class Game {
         }
         player.getDrawing().addBody(world);
 
-        finalLines = new ArrayList<>();
-        finalLines.addAll(player.getDrawing().getLines());
+//        finalLines = new ArrayList<>();
+//        finalLines.addAll(player.getDrawing().getLines());
 
         if (isMultiplayer()) {
             opponent.getDrawing().addBody(world);
-            finalLines.addAll(opponent.getDrawing().getLines());
+//            finalLines.addAll(opponent.getDrawing().getLines());
         }
     }
 
@@ -65,11 +70,11 @@ public class Game {
     }
 
     public boolean isMultiplayer() {
-        return matchID != null;
+        return match != null;
     }
 
-    public String getMatchID() {
-        return matchID;
+    public Match getMatch() {
+        return match;
     }
 
     public Player getPlayer() {
@@ -86,9 +91,22 @@ public class Game {
         return worldObjects;
     }
 
-    public List<List<Vector2>> getFinalLines() {
-        return finalLines;
+//    public List<List<Vector2>> getFinalLines() {
+//        return finalLines;
+//    }
+
+
+    public void ready() {
+        DBManager.instance.getDB().ready(this);
     }
 
+    public void receivedDrawing(List<List<String>> opponentDrawing) {
+        System.out.println("Recieved drawing!");
+        opponent.getDrawing().deserializeDrawing(opponentDrawing);
+        ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, this);
+    }
 
+    public boolean playerIsChallenger() {
+        return playerIsChallenger;
+    }
 }

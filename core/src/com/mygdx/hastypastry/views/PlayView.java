@@ -15,6 +15,7 @@ import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.listeners.MyContactListener;
 import com.mygdx.hastypastry.models.Game;
+import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.text.DecimalFormat;
@@ -71,9 +72,18 @@ public class PlayView extends BaseView {
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setColor(Color.BLACK);
         // Renders players drawing
-        for (List<Vector2> line: game.getFinalLines()) {
+        for (List<Vector2> line: game.getPlayer().getDrawing().getLines()) {
             for(int i = 0; i < line.size()-1; ++i) {
                 shapeRenderer.line(line.get(i), line.get(i+1));
+            }
+        }
+        // Renders opponent drawing
+        if (game.isMultiplayer()) {
+            shapeRenderer.setColor(Color.GREEN);
+            for (List<Vector2> line: game.getOpponent().getDrawing().getLines()) {
+                for(int i = 0; i < line.size()-1; ++i) {
+                    shapeRenderer.line(line.get(i), line.get(i+1));
+                }
             }
         }
         shapeRenderer.end();
@@ -101,6 +111,11 @@ public class PlayView extends BaseView {
         this.ui.addActor(table);
 
         this.ui.addActor(menuButton);
+    }
+
+    @Override
+    public void hide() {
+        DBManager.instance.getDB().exitMatch(game);
     }
 
 }

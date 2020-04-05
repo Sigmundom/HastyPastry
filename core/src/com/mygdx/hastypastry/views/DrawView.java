@@ -68,6 +68,7 @@ public class DrawView extends BaseView {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                         if (game.isMultiplayer()) {
+                            game.ready();
                         } else {
                             ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, game);
                         }
