@@ -3,7 +3,6 @@ Waffle middleWidth 30
 Goal 16 8 3 3
 InkBar 5
 StarRanking 2.8 2.5 2.2
-Obstacle Round middleWidth 2 2 false
 Obstacle Square 3 8 2 4 true
 Obstacle Triangular 10 10 6 3 false
 #
