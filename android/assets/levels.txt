@@ -31,7 +31,7 @@ Obstacle Square 12 18 12 4 true
 Level 5
 Waffle middleWidth 30
 Goal 2 18 3 3
-InkBar 20
+InkBar 10
 StarRanking 10 5 3
 Obstacle Square 12 18 12 4 true
 #
