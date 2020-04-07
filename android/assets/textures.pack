@@ -33,7 +33,7 @@ deadlytriangle
   index: -1
 flag
   rotate: false
-  xy: 200, 0
+  xy: 199, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
@@ -47,8 +47,8 @@ square
   index: -1
 triangle
   rotate: false
-  xy: 300, 0
-  size: 50, 50
+  xy: 301, 0
+  size: 49, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
