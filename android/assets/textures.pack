@@ -13,7 +13,7 @@ circle
 deadlycircle
   rotate: false
   xy: 50, 0
-  size: 50, 50
+  size: 49, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
@@ -26,8 +26,8 @@ deadlysquare
   index: -1
 deadlytriangle
   rotate: false
-  xy: 150, 0
-  size: 50, 50
+  xy: 151, 0
+  size: 48, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
