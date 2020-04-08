@@ -63,10 +63,6 @@ public class PlayView extends BaseView {
 
         batch.end();
 
-
-        // Renders the shape of the bodies. Remove in production.
-        debugRenderer.render(world, batch.getProjectionMatrix());
-
         Gdx.gl.glLineWidth(3);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());

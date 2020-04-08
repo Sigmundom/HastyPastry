@@ -35,6 +35,11 @@ public class Game {
         worldObjects.add(this.player.getWaffle());
         worldObjects.add(this.opponent.getWaffle());
         worldObjects.add(level.getGoal());
+        // Add boundaries to the level
+        worldObjects.add(new Wall(-2 - this.player.getWaffle().getSprite().getWidth()));
+        worldObjects.add(new Wall(20 + this.player.getWaffle().getSprite().getWidth()));
+        worldObjects.add(new SquareObstacle(9, 33, 18, 2, false));
+        worldObjects.add(new SquareObstacle(9, -1, 18, 2, false));
     }
 
     public Game(Level level) {
@@ -44,6 +49,11 @@ public class Game {
         worldObjects.addAll(level.getObstacles());
         worldObjects.add(this.player.getWaffle());
         worldObjects.add(level.getGoal());
+        // Add boundaries to the level
+        worldObjects.add(new Wall(-2 - this.player.getWaffle().getSprite().getWidth()));
+        worldObjects.add(new Wall(20 + this.player.getWaffle().getSprite().getWidth()));
+        worldObjects.add(new SquareObstacle(9, 33, 18, 2, false));
+        worldObjects.add(new SquareObstacle(9, -1, 18, 2, false));
     }
 
     public void initPlayView(World world) {
