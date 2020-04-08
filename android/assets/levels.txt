@@ -67,24 +67,41 @@ Obstacle Square 12 18 12 4 true
 #
 Level 10
 Waffle middleWidth 30
-Goal 2 18 3 3
-InkBar 20
-StarRanking 10 5 3
-Obstacle Square 12 18 12 4 true
+Goal 17 4 2 2
+InkBar 25
+StarRanking 8.1 7.4 6.7
+Obstacle Round 6 10 2 true
+Obstacle Round 13 7 2 true
+Obstacle Round 10 13 2 true
+Obstacle Round 6 1 4 true
+Obstacle Triangular 18 18 15 4 false
 #
 Level 11
 Waffle middleWidth 30
-Goal 2 18 3 3
+Goal 7 2 2 2
 InkBar 20
-StarRanking 10 5 3
-Obstacle Square 12 18 12 4 true
+StarRanking 10 8 7.2
+Obstacle Triangular 2 19 4 4 false
+Obstacle Triangular 2 9 4 4 false
+Obstacle Triangular 16 24 4 4 false
+Obstacle Triangular 16 14 4 4 false
+Obstacle Triangular 16 4 4 4 false
+Obstacle Square 6 24 12 2 false
+Obstacle Square 8 14 7 2 false
+Obstacle Square 8 4 7 2 false
+Obstacle Square 10 19 7 2 false
+Obstacle Square 10 9 7 2 false
+Obstacle Square 1 12 2 28 true
+Obstacle Square 17 12 2 28 true
+Obstacle Square 9 0 18 1 false
 #
 Level 12
 Waffle middleWidth 30
-Goal 2 18 3 3
+Goal 15 3 2 2
 InkBar 20
-StarRanking 10 5 3
-Obstacle Square 12 18 12 4 true
+StarRanking 5.7 5.4 5.1
+Obstacle Square 13 17 10 2 true
+Obstacle Round 9 8 5 true
 #
 Level 13
 Waffle middleWidth 30
@@ -128,16 +145,20 @@ Obstacle Round 18 20 7 true
 #
 Level 15
 Waffle middleWidth 30
-Goal 2 18 3 3
-InkBar 20
-StarRanking 10 5 3
-Obstacle Square 12 18 12 4 true
+Goal 9 3 2 2
+InkBar 15
+StarRanking 4.2 3.7 3.2
+Obstacle Round 9 10 4 true
+Obstacle Square 2 8 1 14 false
+Obstacle Square 16 8 1 14 false
+Obstacle Square 9 1 15 1 true
 #
 Level 16
 Waffle middleWidth 30
 Goal 2 3 3 3
 InkBar 20
 StarRanking 10 8.6 7.2
+Obstacle Square 12 5 3 1 true
 Obstacle Triangular 6 20 5 2 false
 Obstacle Triangular 12 18 5 2 false
 Obstacle Triangular 6 16 5 2 false
@@ -149,7 +170,6 @@ Obstacle Triangular 12 6 5 2 false
 Obstacle Square 3 6 8 2 false
 Obstacle Square 3 0 13 2 false
 Obstacle Square 14 0 10 2 true
-Obstacle Square 12 5 3 1 true
 #
 Level 17
 Waffle 2 25
