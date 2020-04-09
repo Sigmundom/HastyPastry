@@ -36,8 +36,8 @@ public class Game {
         worldObjects.add(this.opponent.getWaffle());
         worldObjects.add(level.getGoal());
         // Add boundaries to the level
-        worldObjects.add(new Wall(-2 - this.player.getWaffle().getSprite().getWidth()));
-        worldObjects.add(new Wall(20 + this.player.getWaffle().getSprite().getWidth()));
+        worldObjects.add(new SquareObstacle(-2 - this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, true));
+        worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, true));
         worldObjects.add(new SquareObstacle(9, 33, 18, 2, false));
         worldObjects.add(new SquareObstacle(9, -1, 18, 2, false));
     }
@@ -50,8 +50,8 @@ public class Game {
         worldObjects.add(this.player.getWaffle());
         worldObjects.add(level.getGoal());
         // Add boundaries to the level
-        worldObjects.add(new Wall(-2 - this.player.getWaffle().getSprite().getWidth()));
-        worldObjects.add(new Wall(20 + this.player.getWaffle().getSprite().getWidth()));
+        worldObjects.add(new SquareObstacle(-2 - this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, true));
+        worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, true));
         worldObjects.add(new SquareObstacle(9, 33, 18, 2, false));
         worldObjects.add(new SquareObstacle(9, -1, 18, 2, false));
     }
