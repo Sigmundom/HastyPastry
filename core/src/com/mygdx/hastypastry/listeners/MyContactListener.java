@@ -37,7 +37,13 @@ public class MyContactListener implements ContactListener {
 
         }
         if (a.equals("deadly") || b.equals("deadly")) {
-            ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_lEVEL);
+            if (game.isMultiplayer()) {
+                if (a.equals("playerWaffle") || b.equals("playerWaffle")) {
+                    game.gameOver();
+                }
+            } else {
+                game.gameOver();
+            }
         }
     }
 

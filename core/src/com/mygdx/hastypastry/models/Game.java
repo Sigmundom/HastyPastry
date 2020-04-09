@@ -72,6 +72,24 @@ public class Game {
         if (isMultiplayer()) {
             opponent.getWaffle().update();
         }
+
+        if (player.getWaffle().WaffleHasStopped()) {
+            gameOver();
+        }
+    }
+
+    public void gameOver() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (isMultiplayer()) {
+            setWinner("opponent");
+            ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_MULTIPLAYER, this);
+        } else {
+            ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_lEVEL);
+        }
     }
 
     public boolean isMultiplayer() {

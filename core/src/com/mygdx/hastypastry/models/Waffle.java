@@ -68,14 +68,12 @@ public class Waffle implements WorldObject {
     public void update() {
         sprite.setPosition(body.getPosition().x - RADIUS, body.getPosition().y - RADIUS);
         sprite.setRotation((float) Math.toDegrees(body.getAngle()));
-
-        checkIfWaffleStopped();
     }
 
-    private void checkIfWaffleStopped() {
+    protected boolean WaffleHasStopped() {
         if (body.getLinearVelocity().isZero()) {
             // GameOver: Full stop
-            gameOver();
+            return true;
         }
 
         if (sprite.getY() < lowestPoint) {
@@ -95,22 +93,14 @@ public class Waffle implements WorldObject {
             // Waffle has turned since last update
             if (lowestPointOnLastTurn - lowestPoint < 0.001f) {
                 // Game Over: Not been any lower since last turn. (0.001f margin)
-                gameOver();
+                return true;
             } else {
                 // Register turn and updating lowestPointOnLastTurn
                 horizontalDirection = newHorizontalDirection;
                 lowestPointOnLastTurn = lowestPoint;
             }
         }
-    }
-
-    private void gameOver() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_lEVEL);
+        return false;
     }
 
     public Sprite getSprite() {
