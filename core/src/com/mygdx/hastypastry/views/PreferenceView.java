@@ -20,7 +20,6 @@ public class PreferenceView extends BaseView {
 
     private PlayerPreferences playerPreferences;
     private SettingsCheckBox soundEffectCheckBox;
-    // final Slider volumeMusicSlider = new Slider( 0f, 1f, 0.1f, false, skin);
 
     private BitmapFont font;
     private MenuButton menuButton;
@@ -41,8 +40,8 @@ public class PreferenceView extends BaseView {
         }
 
         soundEffectCheckBox = new SettingsCheckBox();
-        soundEffectCheckBox.setPosition(Config.UI_WIDTH - soundEffectCheckBox.getWidth() - 10,
-                Config.UI_HEIGHT - soundEffectCheckBox.getHeight() - 10);
+        soundEffectCheckBox.setPosition(Config.UI_WIDTH/2 - soundEffectCheckBox.getWidth()/2,Config.UI_HEIGHT/2);
+        soundEffectCheckBox.setChecked(true);
         soundEffectCheckBox.setChecked( playerPreferences.isSoundEffectsEnabled());
         soundEffectCheckBox.addListener(
                 new InputListener() {
