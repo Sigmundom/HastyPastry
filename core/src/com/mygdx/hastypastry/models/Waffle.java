@@ -49,7 +49,7 @@ public class Waffle implements WorldObject {
         fixturedef.filter.categoryBits = 1; //What it is
         fixturedef.filter.maskBits = (short) (isPlayer ? 2 | 4 : 2 | 8);     //Collides with
 
-        body.setUserData("waffle");
+        body.setUserData(isPlayer ? "playerWaffle" : "opponentWaffle");
         body.createFixture(fixturedef);
 
         shape.dispose();

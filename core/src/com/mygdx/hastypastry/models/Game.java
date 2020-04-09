@@ -1,6 +1,5 @@
 package com.mygdx.hastypastry.models;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.WorldObject;
@@ -18,6 +17,7 @@ public class Game {
     private Level level;
     private List<WorldObject> worldObjects;
     private boolean playerIsChallenger;
+    private String winner;
 
     public Game(Match match, boolean playerIsChallenger) {
         this.match = match;
@@ -108,5 +108,13 @@ public class Game {
 
     public boolean playerIsChallenger() {
         return playerIsChallenger;
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
+    public void setWinner(String winner) {
+        this.winner = winner;
     }
 }
