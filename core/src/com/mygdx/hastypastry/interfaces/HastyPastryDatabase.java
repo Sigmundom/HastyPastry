@@ -18,4 +18,5 @@ public interface HastyPastryDatabase {
     void ready(Game game);
     void exitMatch(Game game);
 
+    void checkVersion();
 }

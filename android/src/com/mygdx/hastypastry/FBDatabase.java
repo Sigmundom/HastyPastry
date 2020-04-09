@@ -8,11 +8,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.Match;
 import com.mygdx.hastypastry.models.User;
+import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.List;
 
@@ -208,6 +210,29 @@ public class FBDatabase implements HastyPastryDatabase {
     public void exitMatch(final Game game) {
         DatabaseReference matchRef = matchesRef.child(game.getMatch().getMatchID());
         matchRef.removeValue();
+    }
+
+    @Override
+    public void checkVersion() {
+        FirebaseDatabase.getInstance().getReference("minimumVersionCode").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int minimumVersionCode = dataSnapshot.getValue(int.class);
+                if (BuildConfig.VERSION_CODE > minimumVersionCode) {
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            ScreenManager.getInstance().showScreen(ScreenEnum.INVALID_VERSION);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
