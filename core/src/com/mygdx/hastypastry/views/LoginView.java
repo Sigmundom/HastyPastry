@@ -1,5 +1,6 @@
 package com.mygdx.hastypastry.views;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -7,10 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.Config;
+import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Lobby;
+import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.LabelButton;
 import com.mygdx.hastypastry.ui.MenuButton;
@@ -19,10 +21,12 @@ public class LoginView extends BaseView {
     private TextField input;
     private Label error;
     private Lobby lobby;
+    private PlayerPreferences playerPreferences;
 
-    public LoginView() {
+    public LoginView(Music menuMusic) {
         super();
         lobby = new Lobby();
+        menuMusic.dispose();
     }
 
     @Override

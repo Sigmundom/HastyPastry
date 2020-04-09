@@ -1,0 +1,9 @@
+{
+"com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle": {
+	"default-horizontal": {
+		"parent": "default-vertical",
+		"background": "green_button13",
+		"knob": "green_circle"
+	}
+}
+}

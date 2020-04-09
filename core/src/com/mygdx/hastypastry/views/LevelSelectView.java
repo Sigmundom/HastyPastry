@@ -1,12 +1,11 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.FileReader;
+import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.models.Game;
@@ -14,13 +13,15 @@ import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.util.ArrayList;
 
-import static java.awt.image.ImageObserver.WIDTH;
-
 public class LevelSelectView extends BaseView {
+    private PlayerPreferences playerPreferences;
 
     private ArrayList<String> levels;
 
-    public LevelSelectView() { super(); }
+    public LevelSelectView(Music menuMusic) {
+        super();
+        menuMusic.dispose();
+    }
 
     @Override
     public void buildStage() {

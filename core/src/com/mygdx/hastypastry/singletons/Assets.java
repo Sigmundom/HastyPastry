@@ -41,11 +41,21 @@ public class Assets implements Disposable, AssetErrorListener {
     //The atlas, I renamed .txt to pack (just a habit).
     public static final AssetDescriptor<TextureAtlas> uiAtlas =
             new AssetDescriptor<>("ui/uiskin.pack", TextureAtlas.class);
+    public static final AssetDescriptor<TextureAtlas> uiCheckboxAtlas =
+            new AssetDescriptor<>("ui/uicheckbox.pack", TextureAtlas.class);
+    public static  final AssetDescriptor<TextureAtlas> uiSliderAtlas =
+            new AssetDescriptor<>("ui/uislider.atlas", TextureAtlas.class);
 
     //The skin
     public static final AssetDescriptor<Skin> uiSkin =
             new AssetDescriptor<>("ui/uiskin.json", Skin.class,
                     new SkinLoader.SkinParameter("ui/uiskin.pack"));
+    public static final AssetDescriptor<Skin> uiCheckboxSkin =
+            new AssetDescriptor<>("ui/uicheckbox.json", Skin.class,
+                    new SkinLoader.SkinParameter("ui/uicheckbox.pack"));
+    public static final AssetDescriptor<Skin> uiSliderSkin =
+            new AssetDescriptor<>("ui/uislider.json", Skin.class,
+                    new SkinLoader.SkinParameter("ui/uislider.atlas"));
 
     //Obstacles and waffle
     //Loads a text-file with reference to a collection of textures ("textures.png"), and
@@ -57,7 +67,11 @@ public class Assets implements Disposable, AssetErrorListener {
     private void load()
     {
         assetManager.load(uiAtlas);
+        assetManager.load(uiCheckboxAtlas);
+        assetManager.load(uiSliderAtlas);
         assetManager.load(uiSkin);
+        assetManager.load(uiCheckboxSkin);
+        assetManager.load(uiSliderSkin);
         assetManager.load(gameTextures);
     }
 

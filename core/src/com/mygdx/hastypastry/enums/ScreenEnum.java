@@ -1,5 +1,6 @@
 package com.mygdx.hastypastry.enums;
 
+import com.badlogic.gdx.audio.Music;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.views.BaseView;
@@ -12,6 +13,7 @@ import com.mygdx.hastypastry.views.LobbyView;
 import com.mygdx.hastypastry.views.LoginView;
 import com.mygdx.hastypastry.views.MainMenuView;
 import com.mygdx.hastypastry.views.PlayView;
+import com.mygdx.hastypastry.views.PreferenceView;
 
 
 public enum ScreenEnum {
@@ -19,6 +21,11 @@ public enum ScreenEnum {
     MAIN_MENU {
         public BaseView getScreen(Object... params) {
             return new MainMenuView();
+        }
+    },
+    MAIN_MENU_RESET {
+        public BaseView getScreen(Object... params) {
+            return new MainMenuView((Music)params[0]);
         }
     },
     PLAY {
@@ -44,15 +51,19 @@ public enum ScreenEnum {
     },
     LOGIN {
         public BaseView getScreen(Object... params) {
-            return new LoginView();
+            return new LoginView((Music)params[0]);
         }
     },
     HIGHSCORE {
         public BaseView getScreen(Object... params) { return new HighScoreListView((Game)params[0]); }
     },
     LEVELSELECT {
-        public BaseView getScreen(Object... params) {return new LevelSelectView(); }
+        public BaseView getScreen(Object... params) {return new LevelSelectView((Music)params[0]); }
+    },
+    PREFERENCES {
+        public BaseView getScreen(Object... params) { return new PreferenceView((Music)params[0]);        }
     };
+
 
     public abstract BaseView getScreen(Object... params);
 }

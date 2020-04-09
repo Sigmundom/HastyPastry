@@ -22,14 +22,7 @@ public class PlayerPreferences {
     private static final String PREF_SOUND_VOL = "sound";
     private static final String PREFS_NAME = "playerprfs";
 
-    private static final String PREF_LEVELA_HS = "Level A";
-    //private static final String PREF_LEVELB_HS = "Level B";
-    //private static final String PREF_LEVELC_HS = "Level C";
-
     public PlayerPreferences() {
-        preferences = getPrefs().putFloat(PREF_LEVELA_HS, 0.0f);
-        //preferences = getPrefs().putFloat(PREF_LEVELB_HS, 0.0f);
-        //preferences = getPrefs().putFloat(PREF_LEVELC_HS, 0.0f);
     }
 
     protected Preferences getPrefs() {
@@ -74,4 +67,5 @@ public class PlayerPreferences {
     public float getPersonalHighScore() {
         return personalHighScore;
     }
+
 }
