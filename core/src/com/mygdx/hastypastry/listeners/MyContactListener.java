@@ -19,7 +19,6 @@ public class MyContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         String a = contact.getFixtureA().getBody().getUserData().toString();
         String b = contact.getFixtureB().getBody().getUserData().toString();
-        System.out.println(a + " + " + b);
         if (a.equals("goal") || b.equals("goal")) {
             // Game finished
             if (game.isMultiplayer()) {
@@ -30,7 +29,6 @@ public class MyContactListener implements ContactListener {
                     game.setWinner("opponent");
                 }
                 // Go to Completed multiplayer screen
-                System.out.println(game.getWinner());
                 ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_MULTIPLAYER, game);
             } else { // Single player
                 // Go to Completed level screen
