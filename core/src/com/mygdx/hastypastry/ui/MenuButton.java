@@ -10,7 +10,8 @@ import com.mygdx.hastypastry.singletons.ScreenManager;
 public class MenuButton extends TextButton {
 
     public MenuButton(String text, final ScreenEnum navigateTo, final Object... params) {
-        super(text, Assets.instance.getManager().get(Assets.uiSkin), "container_blue");
+        super(text, Assets.instance.getManager().get(Assets.orangeUiSkin), "default");
+//        this.pad(15);
         this.addListener(
             new InputListener() {
                 @Override
