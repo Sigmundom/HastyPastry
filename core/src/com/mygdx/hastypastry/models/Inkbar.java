@@ -3,33 +3,27 @@ package com.mygdx.hastypastry.models;
  * @author sigmundhh */
 public class Inkbar {
     private int maxAmount;
-    private int pointsUsed;
+    private int pointsLeft;
 
     public Inkbar(int maxAmount){
         this.maxAmount = maxAmount;
-        pointsUsed = 0;
+        pointsLeft = maxAmount;
     }
 
     public boolean inkbarCheck(){
-        if(pointsUsed < maxAmount){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return pointsLeft > 0;
     }
 
     public void useInk(){
-        pointsUsed++;
+        pointsLeft--;
     }
 
     public void refillInk(int amount){
-        pointsUsed -= amount;
+        pointsLeft += amount;
     }
 
-
-
-    public float getPercent(){
-        return (float)pointsUsed/maxAmount * 100;
+    public int getPointsLeft() {
+        return pointsLeft;
     }
+
 }
