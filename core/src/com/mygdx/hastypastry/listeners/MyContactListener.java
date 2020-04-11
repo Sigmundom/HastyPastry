@@ -23,13 +23,35 @@ public class MyContactListener implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        if (((contact.getFixtureA().getBody().getUserData() == "waffle") && (contact.getFixtureB().getBody().getUserData() == "goal")) || ((contact.getFixtureB().getBody().getUserData() == "waffle") && (contact.getFixtureA().getBody().getUserData() == "goal"))) {
-            ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_LEVEL, game);
+        String a = contact.getFixtureA().getBody().getUserData().toString();
+        String b = contact.getFixtureB().getBody().getUserData().toString();
+        if (a.equals("goal") || b.equals("goal")) {
+            // Game finished
             goalSound.play();
+            if (game.isMultiplayer()) {
+                // Set winner
+                if (a.equals("playerWaffle") || b.equals("playerWaffle")) {
+                    game.setWinner("player");
+                } else {
+                    game.setWinner("opponent");
+                }
+                // Go to Completed multiplayer screen
+                ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_MULTIPLAYER, game);
+            } else { // Single player
+                // Go to Completed level screen
+                ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_LEVEL, game);
+            }
+
         }
-        if (((contact.getFixtureA().getBody().getUserData() == "waffle") && (contact.getFixtureB().getBody().getUserData() == "deadly")) || ((contact.getFixtureB().getBody().getUserData() == "waffle") && (contact.getFixtureA().getBody().getUserData() == "deadly"))) {
-            ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_lEVEL);
+        if (a.equals("deadly") || b.equals("deadly")) {
             gameoverSound.play();
+            if (game.isMultiplayer()) {
+                if (a.equals("playerWaffle") || b.equals("playerWaffle")) {
+                    game.gameOver();
+                }
+            } else {
+                game.gameOver();
+            }
         }
     }
 

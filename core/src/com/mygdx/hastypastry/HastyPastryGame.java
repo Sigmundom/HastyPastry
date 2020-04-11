@@ -12,6 +12,7 @@ public class HastyPastryGame extends Game {
 
 	public HastyPastryGame(HastyPastryDatabase db) {
 		super();
+		db.checkVersion();
 		DBManager.instance.init(db);
 	}
 

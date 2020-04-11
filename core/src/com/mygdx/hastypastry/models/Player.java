@@ -8,23 +8,19 @@ public class Player {
     private String name;
     private Drawing drawing;
     private Waffle waffle;
-    private Level level;
     private ArrayList<Object> newLevelTime = new ArrayList<Object>();
 
 //    private InkBar inkBar;
 
-    public Player(String name, Level level) {
+    public Player(String name, Level level, boolean isPlayer) {
         this.name = name;
-        this.level = level;
-        this.waffle = level.getWaffle();
-        drawing = new Drawing(level.getInkLimit());
+        this.waffle = new Waffle(level.getWaffle(), isPlayer);
+        drawing = new Drawing(level.getInkLimit(), isPlayer);
     }
 
     public Player(Level level) {
-        this.name = "Player 1";
-        this.level = level;
-        this.waffle = level.getWaffle();
-        drawing = new Drawing(level.getInkLimit());
+        this.waffle = new Waffle(level.getWaffle(), true);
+        drawing = new Drawing(level.getInkLimit(), true);
     }
 
     public Waffle getWaffle() {
@@ -35,10 +31,6 @@ public class Player {
         return drawing;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setNewLevelTime(/*String levelID,*/ float levelTime) {
         //newLevelTime.add(levelID);
         newLevelTime.add(levelTime);
@@ -46,5 +38,9 @@ public class Player {
 
     public float getNewLevelTime() {
         return (float) newLevelTime.get(newLevelTime.size()-1);
+    }
+
+    public String getName() {
+        return name;
     }
 }

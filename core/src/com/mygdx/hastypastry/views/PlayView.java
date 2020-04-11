@@ -15,6 +15,7 @@ import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.listeners.MyContactListener;
 import com.mygdx.hastypastry.models.Game;
+import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.text.DecimalFormat;
@@ -57,23 +58,30 @@ public class PlayView extends BaseView {
         // Implementing font generator from BaseView, writing level time to screen.
         // Sending level time to Player to be used in High Score updates.
         elapsedTime += (double)delta;
-        game.getPlayer().setNewLevelTime(/*game.getGameID(),*/ elapsedTime);
+        game.getPlayer().setNewLevelTime(elapsedTime);
         timeLabel.setText(df.format(elapsedTime));
 
         batch.end();
-
-
-        // Renders the shape of the bodies. Remove in production.
-        debugRenderer.render(world, batch.getProjectionMatrix());
 
         Gdx.gl.glLineWidth(3);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setColor(Color.BLACK);
+
         // Renders players drawing
-        for (List<Vector2> line: game.getFinalLines()) {
+        for (List<Vector2> line: game.getPlayer().getDrawing().getLines()) {
             for(int i = 0; i < line.size()-1; ++i) {
                 shapeRenderer.line(line.get(i), line.get(i+1));
+            }
+        }
+        // Renders opponent drawing
+        if (game.isMultiplayer()) {
+            shapeRenderer.setColor(Color.GREEN);
+            for (List<Vector2> line: game.getOpponent().getDrawing().getLines()) {
+                for(int i = 0; i < line.size()-1; ++i) {
+                    shapeRenderer.line(line.get(i), line.get(i+1));
+                    
+                }
             }
         }
         shapeRenderer.end();
@@ -101,6 +109,13 @@ public class PlayView extends BaseView {
         this.ui.addActor(table);
 
         this.ui.addActor(menuButton);
+    }
+
+    @Override
+    public void hide() {
+        if(game.isMultiplayer()) {
+            DBManager.instance.getDB().exitMatch(game);
+        }
     }
 
 }

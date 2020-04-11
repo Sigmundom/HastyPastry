@@ -53,7 +53,7 @@ public abstract class BaseView implements Screen {
         // draw ui
         if (ui != null) {
             ui.getViewport().apply(); //Set the UI viewport
-//            ui.act(delta); // Don't think we need this because UI is static.
+            ui.act(delta);
             ui.draw();
         }
     }

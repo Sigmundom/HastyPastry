@@ -1,9 +1,12 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.FileReader;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
@@ -16,7 +19,7 @@ import java.util.ArrayList;
 public class LevelSelectView extends BaseView {
     private PlayerPreferences playerPreferences;
 
-    private ArrayList<String> levels;
+    private BitmapFont font = new BitmapFont();
 
     public LevelSelectView(Music menuMusic) {
         super();
@@ -25,9 +28,6 @@ public class LevelSelectView extends BaseView {
 
     @Override
     public void buildStage() {
-        // Initialize ArrayList
-        levels = new ArrayList<String>();
-
         // Find all levels
         FileReader fileReader = new FileReader();
         ArrayList<String> fileData = fileReader.getInternalFileData("levels.txt");
@@ -37,51 +37,60 @@ public class LevelSelectView extends BaseView {
         for (String line : fileData){
             if (line.contains("Level")){
                 i++;
-                levels.add("Level " + String.valueOf(i));
             }
         }
 
         // Create inner table
-        Table innerTable = new Table();
-        // table.setFillParent(true);
-        // innerTable.setSize(Config.UI_WIDTH, Config.UI_HEIGHT);
+        Table table = new Table();
 
         // Add padding
-        innerTable.padTop(10);
+        table.padTop(10);
+        table.setFillParent(false);
+        table.setSize(Config.UI_WIDTH, Config.UI_HEIGHT - 50);
 
         // Set alignment
-        innerTable.top();
+        table.top();
 
-        // Add levels to table
-        for (String level : levels){
-            MenuButton button = new MenuButton(level, ScreenEnum.DRAW, new Game(new Level(level)));
-            innerTable.row();
-            innerTable.add(button).growX().pad(25);
+        // Add levels to the columns
+        for (int j = 0; j < i; j++) {
+            MenuButton button = new MenuButton(String.valueOf(j + 1), ScreenEnum.DRAW, new Game(new Level("Level " + String.valueOf(j + 1))));
+            table.add(button).growX().pad(10);
+            int m = j % 3;
+            if (m == 2) {
+                table.row();
+            }
         }
 
-        // Create ScrollPane
-        ScrollPane pane = new ScrollPane(innerTable);
-        // pane.setScrollingDisabled(false, true);
-        pane.layout();
-        pane.setFillParent(true); pane.setLayoutEnabled(true);
-        pane.setScrollingDisabled(true, false);
-        pane.setForceScroll(false,true);
-        pane.setFlickScroll(true);
-        // pane.setSize(Config.UI_WIDTH, Config.UI_HEIGHT);
-
-        // Create outer table
-        Table outerTable = new Table();
-        outerTable.setFillParent(true);
-
-        outerTable.add(pane).fill().expand();
+        // Add menu-button
+        MenuButton menuButton = new MenuButton("     Main menu     ", ScreenEnum.MAIN_MENU);
+        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, 15);
 
         // Add table to stage
-        this.ui.addActor(outerTable);
+        this.ui.addActor(table);
 
-        // Denne scrollet alt
-        // pane.setScrollPercentY(100);
+        this.ui.addActor(menuButton);
+        // Add levels to table
+        /*
+        for (int j = 0; j < i; j++){
+            MenuButton button = new MenuButton("  " + String.valueOf(j + 1) + "  ", ScreenEnum.DRAW, new Game(new Level("Level " + String.valueOf(j + 1))));
+            table.add(button).pad(10);
+        }
+         */
+    }
 
-        pane.act(Gdx.graphics.getDeltaTime());
-        pane.updateVisualScroll();
+    @Override
+    public void draw(SpriteBatch batch, float delta){
+        // Set font parameters
+        font.setColor(Color.BLACK);
+        font.getData().setScale(0.1f);
+        font.setUseIntegerPositions(false);
+
+        // Find width of text for centering
+        String text = "Select a level";
+        GlyphLayout gl1 = new GlyphLayout();
+        gl1.setText(font, text);
+
+        // Draw the text
+        font.draw(batch, text, Config.WORLD_WIDTH/2 - gl1.width/2, Config.WORLD_HEIGHT - gl1.height);
     }
 }

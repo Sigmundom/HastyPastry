@@ -1,10 +1,13 @@
 package com.mygdx.hastypastry.models;
 
+import java.util.List;
+
 public class User {
     private String FBID;
     private String name;
     private boolean ready;
-    private String challenger;
+    private transient User challenger; // Null if you are the challanger.
+    private List<List<String>> drawing;
 
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     public User() {};
@@ -12,14 +15,13 @@ public class User {
     public User(String name) {
         this.name = name;
         ready = true;
-        challenger = "";
     }
 
-    public User(String name, boolean isReady, String challenger) {
-        this.name = name;
-        this.ready = isReady;
-        this.challenger = challenger;
-    }
+//    public User(String name, boolean isReady, User challenger) {
+//        this.name = name;
+//        this.ready = isReady;
+//        this.challenger = challenger;
+//    }
 
     public String getName() {
         return name;
@@ -33,11 +35,11 @@ public class User {
         this.ready = ready;
     }
 
-    public String getChallenger() {
+    public User getChallenger() {
         return challenger;
     }
 
-    public void setChallenger(String challenger) {
+    public void setChallenger(User challenger) {
         this.challenger = challenger;
     }
 

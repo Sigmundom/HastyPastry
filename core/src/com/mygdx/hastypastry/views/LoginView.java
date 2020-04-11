@@ -1,6 +1,7 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -16,6 +17,8 @@ import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.LabelButton;
 import com.mygdx.hastypastry.ui.MenuButton;
+
+import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 
 public class LoginView extends BaseView {
     private TextField input;
@@ -46,7 +49,7 @@ public class LoginView extends BaseView {
         label.setPosition(Config.UI_WIDTH/2, Config.UI_HEIGHT + 100);
 
         // Creates the input field.
-        input = new TextField("", Assets.instance.getManager().get(Assets.uiSkin), "input");
+        input = new TextField("", Assets.instance.getManager().get(Assets.orangeUiSkin), "login");
         input.setMessageText("Write your name here");
         input.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
@@ -79,7 +82,7 @@ public class LoginView extends BaseView {
         table.setFillParent(true);
         table.add(label).padBottom(40);
         table.row();
-        table.add(input).width(200).padBottom(10);
+        table.add(input).width(250).height(50).padBottom(10);
         table.row();
         table.add(error).padBottom(10);
         table.row();
@@ -87,11 +90,10 @@ public class LoginView extends BaseView {
 
 
         ui.addActor(table);
-
     }
 
     private void goToLobby() {
-        String name = input.getText();
+        String name = input.getText().trim();
         if (name.length() < 4) {
             error.setText("Your name have at least 4 characters!");
         } else {
@@ -102,5 +104,10 @@ public class LoginView extends BaseView {
                 ScreenManager.getInstance().showScreen(ScreenEnum.LOBBY, lobby);
             }
         }
+    }
+
+    @Override
+    public void hide() {
+        Gdx.input.setOnscreenKeyboardVisible(false);
     }
 }

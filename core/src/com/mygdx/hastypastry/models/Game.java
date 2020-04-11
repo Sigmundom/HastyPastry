@@ -1,31 +1,45 @@
 package com.mygdx.hastypastry.models;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.levels.Level;
+import com.mygdx.hastypastry.singletons.DBManager;
+import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private String gameID;
+    private Match match;
     private Player player;
     private Player opponent;
     private Level level;
     private List<WorldObject> worldObjects;
-    private List<List<Vector2>> finalLines;
+    private boolean playerIsChallenger;
+    private String winner;
 
-    public Game(String gameID, String player, String opponent, Level level) {
-        this.gameID = gameID;
-        this.player = new Player(player, level);
-        this.opponent = new Player(opponent, level); //Makes deep copy of waffle
-        this.level = level;
+    public Game(Match match, boolean playerIsChallenger) {
+        this.match = match;
+        this.playerIsChallenger = playerIsChallenger;
+        this.level = new Level(match.getLevel());
+        if (playerIsChallenger) {
+            this.player = new Player(match.getChallengerName(), this.level, true);
+            this.opponent = new Player(match.getChallengedName(), this.level, false); //Makes deep copy of waffle
+        } else {
+            this.player = new Player(match.getChallengedName(), this.level, true);
+            this.opponent = new Player(match.getChallengerName(), this.level, false);
+        }
         worldObjects = new ArrayList<>();
         worldObjects.addAll(level.getObstacles());
         worldObjects.add(this.player.getWaffle());
         worldObjects.add(this.opponent.getWaffle());
         worldObjects.add(level.getGoal());
+        // Add boundaries to the level
+        worldObjects.add(new SquareObstacle(-2 - this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, true));
+        worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, true));
+        worldObjects.add(new SquareObstacle(9, 33, 18, 2, false));
+        worldObjects.add(new SquareObstacle(9, -1, 18, 2, false));
     }
 
     public Game(Level level) {
@@ -35,6 +49,11 @@ public class Game {
         worldObjects.addAll(level.getObstacles());
         worldObjects.add(this.player.getWaffle());
         worldObjects.add(level.getGoal());
+        // Add boundaries to the level
+        worldObjects.add(new SquareObstacle(-2 - this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, true));
+        worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, true));
+        worldObjects.add(new SquareObstacle(9, 33, 18, 2, false));
+        worldObjects.add(new SquareObstacle(9, -1, 18, 2, false));
     }
 
     public void initPlayView(World world) {
@@ -43,12 +62,8 @@ public class Game {
         }
         player.getDrawing().addBody(world);
 
-        finalLines = new ArrayList<>();
-        finalLines.addAll(player.getDrawing().getLines());
-
         if (isMultiplayer()) {
             opponent.getDrawing().addBody(world);
-            finalLines.addAll(opponent.getDrawing().getLines());
         }
     }
 
@@ -57,14 +72,32 @@ public class Game {
         if (isMultiplayer()) {
             opponent.getWaffle().update();
         }
+
+        if (player.getWaffle().WaffleHasStopped()) {
+            gameOver();
+        }
+    }
+
+    public void gameOver() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (isMultiplayer()) {
+            setWinner("opponent");
+            ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_MULTIPLAYER, this);
+        } else {
+            ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_lEVEL);
+        }
     }
 
     public boolean isMultiplayer() {
-        return gameID != null;
+        return match != null;
     }
 
-    public String getGameID() {
-        return gameID;
+    public Match getMatch() {
+        return match;
     }
 
     public Player getPlayer() {
@@ -81,9 +114,25 @@ public class Game {
         return worldObjects;
     }
 
-    public List<List<Vector2>> getFinalLines() {
-        return finalLines;
+    public void ready() {
+        DBManager.instance.getDB().ready(this);
     }
 
+    public void receivedDrawing(List<List<String>> opponentDrawing) {
+        System.out.println("Recieved drawing!");
+        opponent.getDrawing().deserializeDrawing(opponentDrawing);
+        ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, this);
+    }
 
+    public boolean playerIsChallenger() {
+        return playerIsChallenger;
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
+    public void setWinner(String winner) {
+        this.winner = winner;
+    }
 }

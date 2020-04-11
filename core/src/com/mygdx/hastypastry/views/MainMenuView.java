@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.ui.ExitButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class MainMenuView extends BaseView {
@@ -15,6 +16,7 @@ public class MainMenuView extends BaseView {
     private MenuButton multiPlayerBtn;
     private MenuButton preferenceButton;
     private Music menuMusic;
+    private ExitButton exitButton;
 
     public MainMenuView() {
         super();
@@ -54,6 +56,7 @@ public class MainMenuView extends BaseView {
         singlePlayerBtn = new MenuButton("Single Player", ScreenEnum.LEVELSELECT, menuMusic);
         multiPlayerBtn = new MenuButton("Multiplayer", ScreenEnum.LOGIN, menuMusic);
         preferenceButton = new MenuButton("Settings", ScreenEnum.PREFERENCES, menuMusic);
+        exitButton = new ExitButton("Exit Game");
 
         //Add buttons to table
         mainTable.add(singlePlayerBtn).growX().pad(25);
@@ -61,6 +64,8 @@ public class MainMenuView extends BaseView {
         mainTable.add(multiPlayerBtn).growX().pad(15);
         mainTable.row();
         mainTable.add(preferenceButton).growX().pad(20);
+        mainTable.row();
+        mainTable.add(exitButton).growX().pad(25);
 
         // Add table to stage
         this.ui.addActor(mainTable);

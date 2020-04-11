@@ -26,8 +26,10 @@ public class Drawing {
     private Stack<List<Vector2>> lines = new Stack<>();
     private List<Body> bodies;
     private Inkbar inkbar;
+    private boolean isPlayer;
 
-    public Drawing(int inkLimit){
+    public Drawing(int inkLimit, boolean isPlayer){
+        this.isPlayer = isPlayer;
         this.inkbar = new Inkbar(inkLimit);
     }
 
@@ -57,7 +59,7 @@ public class Drawing {
         bodyDef.type = BodyDef.BodyType.StaticBody;
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.density = 1.0f;
-        fixtureDef.filter.categoryBits = 2;
+        fixtureDef.filter.categoryBits = (short) (isPlayer ? 4 : 8);
         fixtureDef.filter.maskBits = 1;
 
         for (List<Vector2> line : lines) {
@@ -75,7 +77,7 @@ public class Drawing {
         }
     }
 
-    private List<List<String>> serializeLines() {
+    public List<List<String>> serializedLines() {
         List<List<String>> serializedLines = new ArrayList<>();
 
         for (List<Vector2> line : lines) {
@@ -91,7 +93,7 @@ public class Drawing {
     public void uploadLines(String gameID, String playerName) {
         GdxFIRDatabase.inst()
                 .inReference(String.format("games/%s/%s/drawing", gameID, playerName))
-                .setValue(serializeLines());
+                .setValue(serializedLines());
     }
 
 
@@ -100,4 +102,15 @@ public class Drawing {
     }
 
 
+    public void deserializeDrawing(List<List<String>> opponentDrawing) {
+        System.out.println(opponentDrawing);
+        for (List<String> serializedLine : opponentDrawing) {
+            List<Vector2> deserializedLine = new ArrayList<>();
+            for (String serializedPoint : serializedLine) {
+                Vector2 deserializedPoint = new Vector2().fromString(serializedPoint);
+                deserializedLine.add(deserializedPoint);
+            }
+            lines.push(deserializedLine);
+        }
+    }
 }
