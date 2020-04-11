@@ -48,7 +48,7 @@ public class LevelSelectView extends BaseView {
 
         // Add levels to the columns
         for (int j = 0; j < i; j++) {
-            MenuButton button = new MenuButton("     " + String.valueOf(j + 1) + "     ", ScreenEnum.DRAW, new Game(new Level("Level " + String.valueOf(j + 1))));
+            MenuButton button = new MenuButton(String.valueOf(j + 1), ScreenEnum.DRAW, new Game(new Level("Level " + String.valueOf(j + 1))));
             table.add(button).growX().pad(10);
             int m = j % 3;
             if (m == 2) {

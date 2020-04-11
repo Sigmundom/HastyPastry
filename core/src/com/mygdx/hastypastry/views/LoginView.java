@@ -45,7 +45,7 @@ public class LoginView extends BaseView {
         label.setPosition(Config.UI_WIDTH/2, Config.UI_HEIGHT + 100);
 
         // Creates the input field.
-        input = new TextField("", Assets.instance.getManager().get(Assets.uiSkin), "input");
+        input = new TextField("", Assets.instance.getManager().get(Assets.orangeUiSkin), "login");
         input.setMessageText("Write your name here");
         input.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
@@ -78,7 +78,7 @@ public class LoginView extends BaseView {
         table.setFillParent(true);
         table.add(label).padBottom(40);
         table.row();
-        table.add(input).width(200).padBottom(10);
+        table.add(input).width(250).height(50).padBottom(10);
         table.row();
         table.add(error).padBottom(10);
         table.row();
