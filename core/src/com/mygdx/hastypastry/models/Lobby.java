@@ -20,6 +20,7 @@ public class Lobby {
     private Table lobbyTable;
     private Stage ui;
     private ChallengeBox challenge;
+    private User challenged;
 
     public Lobby() {
         // Get list of users in lobby and listens to changes
@@ -59,6 +60,7 @@ public class Lobby {
         userButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                challenged = u;
                 DBManager.instance.getDB().challengePlayer(Lobby.this, u, user); //u is opponent
                 return false;
             }
@@ -124,4 +126,7 @@ public class Lobby {
     public void declineChallenge(Match match) {
         DBManager.instance.getDB().declineChallenge(match, user);
     }
+
+    public User getUser() { return user; }
+    public User getChallenged() { return challenged; };
 }

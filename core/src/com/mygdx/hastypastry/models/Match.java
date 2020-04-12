@@ -9,6 +9,7 @@ public class Match {
     private List<List<String>> challengerDrawing;
     private List<List<String>> challengedDrawing;
     private String level;
+    private Lobby lobby;
 
     // Default constructor required for calls to DataSnapshot.getValue(Match.class)
     public Match() {}
@@ -30,6 +31,10 @@ public class Match {
     public void setLevel(String level) {
         this.level = level;
     }
+
+    public void setLobby(Lobby lobby) { this.lobby = lobby; }
+
+    public Lobby getLobby() { return lobby; }
 
     public String getChallengerName() {
         return challengerName;
