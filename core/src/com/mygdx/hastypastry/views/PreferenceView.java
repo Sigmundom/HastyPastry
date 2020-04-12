@@ -18,18 +18,18 @@ import com.mygdx.hastypastry.ui.SettingsCheckBox;
 public class PreferenceView extends BaseView {
     protected Texture background = new Texture("bg_menu.png");
 
-    private PlayerPreferences playerPreferences;
     private SettingsCheckBox musicCheckBox;
     private SettingsCheckBox soundEffectCheckBox;
 
     private BitmapFont font;
     private MenuButton menuButton;
     private Label settingsLabel;
+    private PlayerPreferences playerPreferences;
     private Music menuMusic;
 
-    public PreferenceView(Music menuMusic) {
+    public PreferenceView(Music menuMusic, PlayerPreferences playerPreferences) {
         super();
-        playerPreferences = new PlayerPreferences();
+        this.playerPreferences = playerPreferences;
         this.menuMusic = menuMusic;
     }
 

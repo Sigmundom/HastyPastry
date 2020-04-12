@@ -1,6 +1,7 @@
 package com.mygdx.hastypastry.enums;
 
 import com.badlogic.gdx.audio.Music;
+import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.views.BaseView;
@@ -22,12 +23,12 @@ public enum ScreenEnum {
 
     MAIN_MENU {
         public BaseView getScreen(Object... params) {
-            return new MainMenuView();
+            return new MainMenuView((PlayerPreferences)params[0]);
         }
     },
     MAIN_MENU_RESET {
         public BaseView getScreen(Object... params) {
-            return new MainMenuView((Music)params[0]);
+            return new MainMenuView((Music)params[0], (PlayerPreferences)params[0]);
         }
     },
     PLAY {
@@ -63,7 +64,8 @@ public enum ScreenEnum {
         public BaseView getScreen(Object... params) {return new LevelSelectView((Music)params[0]); }
     },
     PREFERENCES {
-        public BaseView getScreen(Object... params) { return new PreferenceView((Music)params[0]);        }
+        public BaseView getScreen(Object... params) {
+            return new PreferenceView((Music)params[0], (PlayerPreferences)params[0]); }
     },
     COMPLETED_MULTIPLAYER {
         public BaseView getScreen(Object... params) { return new CompletedMultiplayerView((Game)params[0]); }

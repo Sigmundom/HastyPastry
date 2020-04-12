@@ -1,6 +1,5 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.models.MusicAndSound;
 import com.mygdx.hastypastry.ui.ExitButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
@@ -18,15 +18,18 @@ public class MainMenuView extends BaseView {
     private MenuButton preferenceButton;
     private Music menuMusic;
     private ExitButton exitButton;
-    private PlayerPreferences playerPreferences = new PlayerPreferences();
+    private PlayerPreferences playerPreferences;
+    private MusicAndSound musicAndSound = new MusicAndSound();
 
-    public MainMenuView() {
+    public MainMenuView(PlayerPreferences playerPreferences) {
         super();
-        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("WorldTheme.mp3"));
+        this.playerPreferences = playerPreferences;
+        menuMusic = musicAndSound.getMenuMusic();
     }
 
-    public MainMenuView(Music menuMusic) {
+    public MainMenuView(Music menuMusic, PlayerPreferences playerPreferences) {
         super();
+        this.playerPreferences = playerPreferences;
         this.menuMusic = menuMusic;
         this.menuMusic.setVolume(0.7f);
     }
@@ -59,7 +62,7 @@ public class MainMenuView extends BaseView {
         //Create Buttons
         singlePlayerBtn = new MenuButton("Single Player", ScreenEnum.LEVELSELECT, menuMusic);
         multiPlayerBtn = new MenuButton("Multiplayer", ScreenEnum.LOGIN, menuMusic);
-        preferenceButton = new MenuButton("Settings", ScreenEnum.PREFERENCES, menuMusic);
+        preferenceButton = new MenuButton("Settings", ScreenEnum.PREFERENCES, menuMusic, playerPreferences);
         exitButton = new ExitButton("Exit Game");
 
         //Add buttons to table
