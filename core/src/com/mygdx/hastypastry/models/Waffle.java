@@ -1,21 +1,29 @@
 package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.interfaces.WorldObject;
+import com.mygdx.hastypastry.singletons.ScreenManager;
 
 public class Waffle implements WorldObject {
     private final float RADIUS = 1;
     private Body body;
     private Sprite sprite;
     private boolean isPlayer;
+    private float lowestPoint;
+    private float lowestPointOnLastTurn;
+    private String horizontalDirection = "none";
 
     public Waffle(float posX, float posY) {
+        this.lowestPoint = posY;
+        this.lowestPointOnLastTurn = this.lowestPoint;
         sprite = new Sprite();
         sprite.setPosition(posX - RADIUS, posY - RADIUS);
         sprite.setOrigin(RADIUS, RADIUS); //Sets the origin for rotation
@@ -26,6 +34,8 @@ public class Waffle implements WorldObject {
     // Makes a deep copy of the waffle in Level.
     public Waffle(Waffle waffle, boolean isPlayer) {
         sprite = new Sprite(waffle.getSprite());
+        this.lowestPoint = sprite.getY();
+        this.lowestPointOnLastTurn = this.lowestPoint;
         if(!isPlayer) {
             sprite.setAlpha(0.3f);
         }
@@ -49,7 +59,7 @@ public class Waffle implements WorldObject {
         fixturedef.filter.categoryBits = 1; //What it is
         fixturedef.filter.maskBits = (short) (isPlayer ? 2 | 4 : 2 | 8);     //Collides with
 
-        body.setUserData("waffle");
+        body.setUserData(isPlayer ? "playerWaffle" : "opponentWaffle");
         body.createFixture(fixturedef);
 
         shape.dispose();
@@ -59,6 +69,40 @@ public class Waffle implements WorldObject {
         sprite.setPosition(body.getPosition().x - RADIUS, body.getPosition().y - RADIUS);
         sprite.setRotation((float) Math.toDegrees(body.getAngle()));
     }
+
+    protected boolean WaffleHasStopped() {
+        if (body.getLinearVelocity().isZero()) {
+            // GameOver: Full stop
+            return true;
+        }
+
+        if (sprite.getY() < lowestPoint) {
+            lowestPoint = sprite.getY();
+        }
+        // Check if direction has changed since last update.
+        String newHorizontalDirection;
+        float xVelocity = body.getLinearVelocity().x;
+        if (xVelocity > 0) {
+            newHorizontalDirection = "right";
+        } else if (xVelocity < 0) {
+            newHorizontalDirection = "left";
+        } else {
+            newHorizontalDirection = "none";
+        }
+        if (!horizontalDirection.equals(newHorizontalDirection)) {
+            // Waffle has turned since last update
+            if (lowestPointOnLastTurn - lowestPoint < 0.001f) {
+                // Game Over: Not been any lower since last turn. (0.001f margin)
+                return true;
+            } else {
+                // Register turn and updating lowestPointOnLastTurn
+                horizontalDirection = newHorizontalDirection;
+                lowestPointOnLastTurn = lowestPoint;
+            }
+        }
+        return false;
+    }
+
     public Sprite getSprite() {
         return sprite;
     }

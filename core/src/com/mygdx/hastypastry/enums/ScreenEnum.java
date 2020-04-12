@@ -4,9 +4,11 @@ import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.views.BaseView;
 import com.mygdx.hastypastry.views.CompletedLevelView;
+import com.mygdx.hastypastry.views.CompletedMultiplayerView;
 import com.mygdx.hastypastry.views.DrawView;
 import com.mygdx.hastypastry.views.FailedLevelView;
 import com.mygdx.hastypastry.views.HighScoreListView;
+import com.mygdx.hastypastry.views.InvalidVersionView;
 import com.mygdx.hastypastry.views.LevelSelectView;
 import com.mygdx.hastypastry.views.LobbyView;
 import com.mygdx.hastypastry.views.LoginView;
@@ -51,7 +53,13 @@ public enum ScreenEnum {
         public BaseView getScreen(Object... params) { return new HighScoreListView((Game)params[0]); }
     },
     LEVELSELECT {
-        public BaseView getScreen(Object... params) {return new LevelSelectView(); }
+        public BaseView getScreen(Object... params) { return new LevelSelectView(); }
+    },
+    COMPLETED_MULTIPLAYER {
+        public BaseView getScreen(Object... params) { return new CompletedMultiplayerView((Game)params[0]); }
+    },
+    INVALID_VERSION {
+        public BaseView getScreen(Object... params) { return new InvalidVersionView(); }
     };
 
     public abstract BaseView getScreen(Object... params);

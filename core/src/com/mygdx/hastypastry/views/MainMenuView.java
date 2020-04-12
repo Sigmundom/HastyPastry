@@ -2,12 +2,14 @@ package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.ui.ExitButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class MainMenuView extends BaseView {
 
     private MenuButton singlePlayerBtn;
     private MenuButton multiPlayerBtn;
+    private ExitButton exitButton;
 
     public MainMenuView() {
         super();
@@ -32,11 +34,14 @@ public class MainMenuView extends BaseView {
         //Create Buttons
         singlePlayerBtn = new MenuButton("Single Player", ScreenEnum.LEVELSELECT);
         multiPlayerBtn = new MenuButton("Multiplayer", ScreenEnum.LOGIN);
+        exitButton = new ExitButton("Exit Game");
 
         //Add buttons to table
         mainTable.add(singlePlayerBtn).growX().pad(25);
         mainTable.row();
         mainTable.add(multiPlayerBtn).growX().pad(25);
+        mainTable.row();
+        mainTable.add(exitButton).growX().pad(25);
 
         // Add table to stage
         this.ui.addActor(mainTable);
