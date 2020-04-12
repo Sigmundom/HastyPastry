@@ -1,9 +1,0 @@
-{
-"com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle": {
-	"default": {
-		"checkboxOn": "green_boxTick",
-		"checkboxOff": "grey_circle",
-		"font": "test"
-	}
-}
-}

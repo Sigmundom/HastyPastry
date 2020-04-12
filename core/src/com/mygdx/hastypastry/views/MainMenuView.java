@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
+import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.ui.ExitButton;
 import com.mygdx.hastypastry.ui.MenuButton;
@@ -17,6 +18,7 @@ public class MainMenuView extends BaseView {
     private MenuButton preferenceButton;
     private Music menuMusic;
     private ExitButton exitButton;
+    private PlayerPreferences playerPreferences = new PlayerPreferences();
 
     public MainMenuView() {
         super();
@@ -32,10 +34,12 @@ public class MainMenuView extends BaseView {
     @Override
     public void buildStage() {
         // Add sound to main menu.
-        if(!menuMusic.isPlaying()) {
-            menuMusic.setLooping(true);
-            menuMusic.setVolume(0.7f);
-            menuMusic.play();
+        if(playerPreferences.isMusicEnabled()) {
+            if(!menuMusic.isPlaying()) {
+                menuMusic.setLooping(true);
+                menuMusic.setVolume(0.7f);
+                menuMusic.play();
+            }
         }
 
         //Create Table

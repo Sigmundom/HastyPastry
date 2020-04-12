@@ -19,6 +19,7 @@ public class PreferenceView extends BaseView {
     protected Texture background = new Texture("bg_menu.png");
 
     private PlayerPreferences playerPreferences;
+    private SettingsCheckBox musicCheckBox;
     private SettingsCheckBox soundEffectCheckBox;
 
     private BitmapFont font;
@@ -39,10 +40,28 @@ public class PreferenceView extends BaseView {
             menuMusic.play();
         }
 
+        musicCheckBox = new SettingsCheckBox();
+        musicCheckBox.setChecked((playerPreferences.isMusicEnabled()));
+
+        musicCheckBox.addListener(
+                new InputListener() {
+                    @Override
+                    public boolean handle(Event event) {
+                        boolean enabled = musicCheckBox.isChecked();
+                        playerPreferences.setMusicEnabled(enabled);
+                        if(enabled) {
+                            menuMusic.play();
+                        }
+                        else {
+                            menuMusic.stop();
+                        }
+                        System.out.println("IS MUSIC ENABLED?? " + playerPreferences.isMusicEnabled());
+                        return false;
+                    }
+                });
+
         soundEffectCheckBox = new SettingsCheckBox();
-        soundEffectCheckBox.setPosition(Config.UI_WIDTH/2 - soundEffectCheckBox.getWidth()/2,Config.UI_HEIGHT/2);
-        soundEffectCheckBox.setChecked(true);
-        soundEffectCheckBox.setChecked( playerPreferences.isSoundEffectsEnabled());
+        soundEffectCheckBox.setChecked(playerPreferences.isSoundEffectsEnabled());
         soundEffectCheckBox.addListener(
                 new InputListener() {
                     @Override
@@ -65,6 +84,10 @@ public class PreferenceView extends BaseView {
         table.top().padTop(30);
         table.setFillParent(true);
         table.add(settingsLabel);
+        table.row();
+        table.add(musicCheckBox).padTop(50).width(Config.UI_WIDTH/6f).right();
+        table.row();
+        table.add(soundEffectCheckBox).padTop(20).width(Config.UI_WIDTH/6f).right();
 
         menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU_RESET, menuMusic);
         menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 280);

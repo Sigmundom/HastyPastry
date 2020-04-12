@@ -11,8 +11,6 @@ import com.mygdx.hastypastry.models.Game;
  @author Hanna*/
 
 public class PlayerPreferences {
-    // protected Game game;
-    protected Preferences preferences;
     protected boolean newChange;
     protected float personalHighScore;
 
