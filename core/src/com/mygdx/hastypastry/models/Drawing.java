@@ -4,8 +4,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.sun.net.httpserver.Filter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +40,7 @@ public class Drawing {
         if(inkbar.inkbarCheck()){
             lines.push(line);
         }
-
+        System.out.println(lines);
     }
 
     public void addPoint(Vector2 point) {
@@ -63,13 +66,19 @@ public class Drawing {
         fixtureDef.filter.maskBits = 1;
 
         for (List<Vector2> line : lines) {
-            Body body = world.createBody(bodyDef);
-            Vector2[] vertices = new Vector2[line.size()];
-            line.toArray(vertices);
-            ChainShape shape = new ChainShape();
-            shape.createChain(vertices);
+            Shape shape;
+            if (line.size() == 1) {
+                shape = new CircleShape();
+                shape.setRadius(0.1f);
+                bodyDef.position.set(line.get(0));
+            } else {
+                Vector2[] vertices = new Vector2[line.size()];
+                line.toArray(vertices);
+                shape = new ChainShape();
+                ((ChainShape)shape).createChain(vertices);
+            }
             fixtureDef.shape = shape;
-
+            Body body = world.createBody(bodyDef);
             body.createFixture(fixtureDef);
             body.setUserData(false); //Not dangerous to collide with
             bodies.add(body);

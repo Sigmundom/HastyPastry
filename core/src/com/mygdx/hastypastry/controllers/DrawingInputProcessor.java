@@ -44,11 +44,10 @@ public class DrawingInputProcessor implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         isDrawing = true;
         // Add new line here
-        ArrayList<Vector2> line = new ArrayList<>();
+        drawing.addLine(new ArrayList<Vector2>());
         Vector3 v3 = cam.unproject(new Vector3(screenX, screenY, 0));
         lastPoint = v3;
-        line.add(new Vector2(v3.x, v3.y));
-        drawing.addLine(line);
+        drawing.addPoint(new Vector2(v3.x, v3.y));
         return false;
     }
 

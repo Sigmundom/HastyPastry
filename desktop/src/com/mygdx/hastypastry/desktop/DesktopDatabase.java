@@ -24,7 +24,7 @@ public class DesktopDatabase implements HastyPastryDatabase {
     }
 
     @Override
-    public void challengePlayer(Lobby lobby, User opponent, User player) {
+    public void challengePlayer(Lobby lobby, User opponent, User player, Match match) {
 
     }
 

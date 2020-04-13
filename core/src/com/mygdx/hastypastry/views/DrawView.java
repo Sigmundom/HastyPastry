@@ -55,8 +55,12 @@ public class DrawView extends BaseView {
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setColor(Color.BLACK);
         for (List<Vector2> line: game.getPlayer().getDrawing().getLines()) {
-            for(int i = 0; i < line.size()-1; ++i) {
-                shapeRenderer.line(line.get(i), line.get(i+1));
+            if (line.size() == 1) {
+                shapeRenderer.circle(line.get(0).x, line.get(0).y, 0.1f);
+            } else {
+                for(int i = 0; i < line.size()-1; ++i) {
+                    shapeRenderer.line(line.get(i), line.get(i+1));
+                }
             }
         }
         shapeRenderer.end();
