@@ -101,6 +101,9 @@ public class Drawing {
         return lines;
     }
 
+    public Inkbar getInkbar() {
+        return inkbar;
+    }
 
     public void deserializeDrawing(List<List<String>> opponentDrawing) {
         System.out.println(opponentDrawing);

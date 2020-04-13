@@ -38,6 +38,13 @@ public class Assets implements Disposable, AssetErrorListener {
         return assetManager;
     }
 
+    public static final AssetDescriptor<TextureAtlas> orangeUiAtlas =
+            new AssetDescriptor<>("ui/orange/skin/uiskin.atlas", TextureAtlas.class);
+
+    public static final AssetDescriptor<Skin> orangeUiSkin =
+            new AssetDescriptor<>("ui/orange/skin/uiskin.json", Skin.class,
+                    new SkinLoader.SkinParameter("ui/orange/skin/uiskin.atlas"));
+
     //The atlas, I renamed .txt to pack (just a habit).
     public static final AssetDescriptor<TextureAtlas> uiAtlas =
             new AssetDescriptor<>("ui/uiskin.pack", TextureAtlas.class);
@@ -56,6 +63,8 @@ public class Assets implements Disposable, AssetErrorListener {
     //Method for loading the assets into the manager
     private void load()
     {
+        assetManager.load(orangeUiAtlas);
+        assetManager.load(orangeUiSkin);
         assetManager.load(uiAtlas);
         assetManager.load(uiSkin);
         assetManager.load(gameTextures);

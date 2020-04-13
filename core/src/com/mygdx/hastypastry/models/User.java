@@ -6,7 +6,7 @@ public class User {
     private String FBID;
     private String name;
     private boolean ready;
-    private transient User challenger; // Null if you are the challanger.
+    private Match challenge; // Null if you are the challanger.
     private List<List<String>> drawing;
 
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -16,12 +16,6 @@ public class User {
         this.name = name;
         ready = true;
     }
-
-//    public User(String name, boolean isReady, User challenger) {
-//        this.name = name;
-//        this.ready = isReady;
-//        this.challenger = challenger;
-//    }
 
     public String getName() {
         return name;
@@ -35,12 +29,12 @@ public class User {
         this.ready = ready;
     }
 
-    public User getChallenger() {
-        return challenger;
+    public Match getChallenger() {
+        return challenge;
     }
 
-    public void setChallenger(User challenger) {
-        this.challenger = challenger;
+    public void setChallenger(Match challenger) {
+        this.challenge = challenge;
     }
 
     public String getFBID() {
