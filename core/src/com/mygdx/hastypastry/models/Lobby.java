@@ -10,6 +10,7 @@ import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.ChallengeBox;
+import com.mygdx.hastypastry.ui.RecievedChallengeBox;
 import com.mygdx.hastypastry.ui.LabelButton;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ public class Lobby {
     private Stage ui;
     private ChallengeBox challenge;
     private User challenged;
+    private RecievedChallengeBox recievedChallengeBox; // Accept or decline a challenge.
+    private ChallengeBox challengeBox; // Waiting for response / Cancel challenge.
 
     public Lobby() {
         // Get list of users in lobby and listens to changes
@@ -61,12 +64,20 @@ public class Lobby {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 challenged = u;
-                DBManager.instance.getDB().challengePlayer(Lobby.this, u, user); //u is opponent
+                challengeUser(u);
                 return false;
             }
         });
-        lobbyTable.add(userButton).growX();
+        lobbyTable.add(userButton).growX().padBottom(10);
         lobbyTable.row();
+    }
+
+    private void challengeUser(User u) {
+        final String matchID = user.getFBID(); // We use challengers ID as matchID.
+        Match match = new Match(matchID, user.getName(), u.getName());
+        DBManager.instance.getDB().challengePlayer(Lobby.this, u, user, match); //u is opponent
+        challengeBox = new ChallengeBox(Lobby.this, match, u);
+        challengeBox.show(ui);
     }
 
     public void addUser(User newUser) {
@@ -112,8 +123,8 @@ public class Lobby {
     }
 
     public void receivedChallenge(Match match) {
-        challenge = new ChallengeBox(this, match);
-        challenge.show(ui);
+        recievedChallengeBox = new RecievedChallengeBox(this, match);
+        recievedChallengeBox.show(ui);
     }
 
     public void acceptChallenge(Match match) {
@@ -128,5 +139,18 @@ public class Lobby {
     }
 
     public User getUser() { return user; }
+
     public User getChallenged() { return challenged; };
+
+    public void withdrawChallenge(Match match, User opponent) {
+        DBManager.instance.getDB().declineChallenge(match, opponent);
+    }
+
+    public void challengeCanceled() {
+        recievedChallengeBox.hide();
+    }
+
+    public void challengeDeclined() {
+        challengeBox.hide();
+    }
 }

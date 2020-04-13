@@ -15,6 +15,7 @@ import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.HighScoreButton;
+import com.mygdx.hastypastry.ui.LabelButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.text.DecimalFormat;
@@ -22,7 +23,6 @@ import java.text.DecimalFormat;
 public class CompletedLevelView extends BaseView {
     private Game game;
     private MenuButton menuButton;
-    private HighScoreButton highScoreButton;
     protected BitmapFont font;
     private Table table;
     protected Label completedLabel;
@@ -77,7 +77,7 @@ public class CompletedLevelView extends BaseView {
         menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
 
         // Creating high score button, sending game through to high score list.
-        highScoreButton = new HighScoreButton("High Score");
+        LabelButton highScoreButton = new LabelButton("High Score");
         highScoreButton.setPosition(Config.UI_WIDTH/2 - highScoreButton.getWidth()/2, Config.UI_HEIGHT/2 - 300);
         highScoreButton.addListener(
                 new InputListener() {

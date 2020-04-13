@@ -10,7 +10,7 @@ import com.mygdx.hastypastry.singletons.ScreenManager;
 
 public class ExitButton extends TextButton {
     public ExitButton(String text /*, final ScreenEnum navigateTo, final Object... params*/) {
-        super(text , Assets.instance.getManager().get(Assets.uiSkin), "container_blue");
+        super(text , Assets.instance.getManager().get(Assets.orangeUiSkin), "default");
         this.addListener(
                 new InputListener() {
                     @Override
