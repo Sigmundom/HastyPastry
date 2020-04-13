@@ -182,7 +182,7 @@ public class FBDatabase implements HastyPastryDatabase {
         }
 
         // Upload drawing
-        playerDrawingRef.setValue(game.getPlayer().getDrawing().serializedLines());
+        playerDrawingRef.setValue(game.getPlayer().getDrawing().serializeLines());
 
         // Listen for opponents drawing
         drawingListener = new ValueEventListener() {

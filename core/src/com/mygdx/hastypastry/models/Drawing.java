@@ -77,7 +77,7 @@ public class Drawing {
         }
     }
 
-    public List<List<String>> serializedLines() {
+    public List<List<String>> serializeLines() {
         List<List<String>> serializedLines = new ArrayList<>();
 
         for (List<Vector2> line : lines) {
@@ -87,13 +87,19 @@ public class Drawing {
             }
             serializedLines.add(currentLine);
         }
+        if (serializedLines.size() == 0) {
+            // Empty drawing
+            List<String> emptyLine = new ArrayList<>();
+            emptyLine.add("(-1,-1)");
+            serializedLines.add(emptyLine);
+        }
         return serializedLines;
     }
 
     public void uploadLines(String gameID, String playerName) {
         GdxFIRDatabase.inst()
                 .inReference(String.format("games/%s/%s/drawing", gameID, playerName))
-                .setValue(serializedLines());
+                .setValue(serializeLines());
     }
 
 
