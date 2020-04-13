@@ -23,7 +23,6 @@ import java.text.DecimalFormat;
 public class CompletedLevelView extends BaseView {
     private Game game;
     private MenuButton menuButton;
-    private HighScoreButton highScoreButton;
     protected BitmapFont font;
     private Table table;
     protected Label completedLabel;

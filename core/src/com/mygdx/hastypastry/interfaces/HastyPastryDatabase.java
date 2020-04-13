@@ -10,7 +10,7 @@ public interface HastyPastryDatabase {
     void subscribeLobbyList(Lobby lobby);
     void joinLobby(Lobby lobby, User user);
     void exitLobby(String FBID);
-    void challengePlayer(Lobby lobby, User opponent, User player);
+    void challengePlayer(Lobby lobby, User opponent, User player, Match match);
     void declineChallenge(Match match, User player);
     void acceptChallenge(Match match);
 

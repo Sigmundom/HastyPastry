@@ -78,14 +78,16 @@ public class FBDatabase implements HastyPastryDatabase {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final Match challenge = dataSnapshot.getValue(Match.class);
-                if (challenge != null) {
-                    Gdx.app.postRunnable(new Runnable() {
-                        @Override
-                        public void run() {
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (challenge == null) {
+                            lobby.challengeCanceled();
+                        } else {
                             lobby.receivedChallenge(challenge);
                         }
-                    });
-                }
+                    }
+                });
             }
 
             @Override
@@ -103,10 +105,10 @@ public class FBDatabase implements HastyPastryDatabase {
     }
 
     @Override
-    public void challengePlayer(final Lobby lobby, final User opponent, User player) {
+    public void challengePlayer(final Lobby lobby, User opponent, User player, Match match) {
+        final String matchID = match.getMatchID();
+
         // Creates a new match and adds it to firebase.
-        final String matchID = player.getFBID(); // We use challengers ID as matchID.
-        Match match = new Match(matchID, player.getName(), opponent.getName());
         matchesRef.child(matchID).setValue(match);
 
         // Setting player's ready field to false to prevent new challenges.
@@ -144,6 +146,7 @@ public class FBDatabase implements HastyPastryDatabase {
                 } else {
                     // Opponent declines
                     System.out.println("Opponent declines!");
+                    lobby.challengeDeclined();
                     matchesRef.child(matchID).removeEventListener(responseListener);
                 }
             }
@@ -235,8 +238,18 @@ public class FBDatabase implements HastyPastryDatabase {
         });
     }
 
+    /**
+     * @param match
+     * @param challenged
+     *
+     * Is used both when declining and canceling a challange.
+     */
     @Override
-    public void declineChallenge(Match match, User player) {
+    public void declineChallenge(Match match, User challenged) {
+        if (responseListener != null) {
+            // Removes response listener if canceled by challenger
+            matchesRef.child(match.getMatchID()).removeEventListener(responseListener);
+        }
         System.out.println("DECLINE!");
         // Remove match.
         matchesRef.child(match.getMatchID()).removeValue();
@@ -245,8 +258,8 @@ public class FBDatabase implements HastyPastryDatabase {
         lobbyRef.child(match.getMatchID()).child("ready").setValue(true);
 
         // Update player: Remove challenger and set ready to true.
-        player.setChallenger(null);
-        player.setReady(true);
-        lobbyRef.child(player.getFBID()).setValue(player);
+        challenged.setChallenger(null);
+        challenged.setReady(true);
+        lobbyRef.child(challenged.getFBID()).setValue(challenged);
     }
 }
