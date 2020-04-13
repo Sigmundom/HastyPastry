@@ -3,7 +3,6 @@ package com.mygdx.hastypastry.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
@@ -15,14 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
-import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.Assets;
-import com.mygdx.hastypastry.singletons.ScreenManager;
-
 import java.util.List;
 
 public class DrawView extends BaseView {
@@ -42,7 +37,7 @@ public class DrawView extends BaseView {
 
     @Override
     public void draw(SpriteBatch batch, float delta) {
-        updateBars();
+        updateBars(delta);
         //Renders obstacles and waffles through levels. Utilizes the sprite draw function, since the sprite already
         //know what it need (position and size).
         for (WorldObject object : game.getWorldObjects()) {
@@ -66,9 +61,9 @@ public class DrawView extends BaseView {
         shapeRenderer.end();
     }
 
-    private void updateBars() {
+    private void updateBars(float delta) {
         // Update timebar
-        timeLeft -= Config.TIME_STEP;
+        timeLeft -= delta;
         timebar.setValue(timeLeft);
 
         if (timeLeft < 0) {
