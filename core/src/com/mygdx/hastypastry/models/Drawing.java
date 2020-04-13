@@ -44,18 +44,18 @@ public class Drawing {
 
     public void addPoint(Vector3 point) {
         if(inkbar.inkbarCheck()){
-            System.out.println("Adding: " + point);
             inkbar.useInk(point.z);
             lines.peek().add(point);
         }
     }
 
     public void undoLine(){
-            if(!lines.isEmpty()){
-                for (Vector3 point : lines.pop()) {
-                    inkbar.refillInk(point.z); // Z-component represents the ink used for each point
-                }
+        if(!lines.isEmpty()){
+            for (Vector3 point : lines.pop()) {
+                inkbar.refillInk(point.z); // Z-component represents the ink used for each point
+            }
         }
+        if (lines.isEmpty()) {inkbar.reset();}
     }
 
     public void addBody(World world) {
@@ -70,10 +70,11 @@ public class Drawing {
         for (List<Vector3> line : lines) {
             Shape shape;
             if (line.size() == 1) {
+                bodyDef.position.set(line.get(0).x, line.get(0).y);
                 shape = new CircleShape();
                 shape.setRadius(0.1f);
-                bodyDef.position.set(line.get(0).x, line.get(0).y);
             } else {
+                bodyDef.position.setZero();
                 int lineSize = line.size();
 
                 if (line.get(lineSize-1).idt(line.get(lineSize-2))) {

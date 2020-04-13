@@ -46,7 +46,7 @@ public class DrawingInputProcessor implements InputProcessor {
         // Add new line here
         drawing.addLine(new ArrayList<Vector3>());
         Vector3 point = cam.unproject(new Vector3(screenX, screenY, 0));
-        point.z = 1; // z=1 means first point use 1 unit of ink
+        point.z = 0.5f; // z=0.5 means first point use 0.5 unit of ink
         lastPoint = point;
         drawing.addPoint(point);
         return false;
@@ -81,10 +81,10 @@ public class DrawingInputProcessor implements InputProcessor {
                 return false;
             }
 
-            if (inkRequired >= inkLeft) {
+            if (inkRequired > inkLeft) {
                 // Limits the line if not enough ink
-                vector.limit(inkLeft);
-                newPoint = lastPoint.add(vector.limit(inkLeft));
+                vector.setLength(inkLeft);
+                newPoint = lastPoint.add(vector);
                 newPoint.z = inkLeft;
             } else {
                 // The z-component represents the ink used for the specific line segment

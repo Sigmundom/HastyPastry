@@ -26,4 +26,7 @@ public class Inkbar {
         return inkLeft;
     }
 
+    public void reset() {
+        inkLeft = maxAmount;
+    }
 }
