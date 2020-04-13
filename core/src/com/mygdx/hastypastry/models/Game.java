@@ -115,7 +115,11 @@ public class Game {
     }
 
     public void ready() {
-        DBManager.instance.getDB().ready(this);
+        if (isMultiplayer()) {
+            DBManager.instance.getDB().ready(this);
+        } else {
+            ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, this);
+        }
     }
 
     public void receivedDrawing(List<List<String>> opponentDrawing) {
