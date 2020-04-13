@@ -1,6 +1,7 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -17,21 +18,22 @@ public class MainMenuView extends BaseView {
     private MenuButton multiPlayerBtn;
     private MenuButton preferenceButton;
     private Music menuMusic;
+    private Sound buttonSound;
     private ExitButton exitButton;
-    private PlayerPreferences playerPreferences;
+    private PlayerPreferences playerPreferences = new PlayerPreferences();
     private MusicAndSound musicAndSound = new MusicAndSound();
 
-    public MainMenuView(PlayerPreferences playerPreferences) {
+    public MainMenuView() {
         super();
-        this.playerPreferences = playerPreferences;
         menuMusic = musicAndSound.getMenuMusic();
+        buttonSound = musicAndSound.getButtonSound();
     }
 
-    public MainMenuView(Music menuMusic, PlayerPreferences playerPreferences) {
+    public MainMenuView(Music menuMusic) {
         super();
-        this.playerPreferences = playerPreferences;
         this.menuMusic = menuMusic;
         this.menuMusic.setVolume(0.7f);
+        buttonSound = musicAndSound.getButtonSound();
     }
 
     @Override
