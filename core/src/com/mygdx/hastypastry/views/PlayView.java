@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -65,24 +66,24 @@ public class PlayView extends BaseView {
         shapeRenderer.setColor(Color.BLACK);
 
         // Renders players drawing
-        for (List<Vector2> line: game.getPlayer().getDrawing().getLines()) {
+        for (List<Vector3> line: game.getPlayer().getDrawing().getLines()) {
             if (line.size() == 1) {
                 shapeRenderer.circle(line.get(0).x, line.get(0).y, 0.1f);
             } else {
                 for(int i = 0; i < line.size()-1; ++i) {
-                    shapeRenderer.line(line.get(i), line.get(i + 1));
+                    shapeRenderer.line(line.get(i).x, line.get(i).y, line.get(i + 1).x, line.get(i + 1).y);
                 }
             }
         }
         // Renders opponent drawing
         if (game.isMultiplayer()) {
             shapeRenderer.setColor(Color.GREEN);
-            for (List<Vector2> line: game.getOpponent().getDrawing().getLines()) {
+            for (List<Vector3> line: game.getOpponent().getDrawing().getLines()) {
                 if (line.size() == 1) {
                     shapeRenderer.circle(line.get(0).x, line.get(0).y, 0.1f);
                 } else {
                     for(int i = 0; i < line.size()-1; ++i) {
-                        shapeRenderer.line(line.get(i), line.get(i+1));
+                        shapeRenderer.line(line.get(i).x, line.get(i).y, line.get(i+1).x, line.get(i+1).y);
                     }
                 }
             }

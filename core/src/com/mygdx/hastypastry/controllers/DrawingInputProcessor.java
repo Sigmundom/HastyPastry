@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class DrawingInputProcessor implements InputProcessor {
     
-    private static float minDistSqrd = 0.5f;
+    private static float minDistSqrd = 0.2f;
     private Camera cam;
     private Drawing drawing;
     private Vector3 lastPoint;
@@ -44,10 +44,11 @@ public class DrawingInputProcessor implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         isDrawing = true;
         // Add new line here
-        drawing.addLine(new ArrayList<Vector2>());
-        Vector3 v3 = cam.unproject(new Vector3(screenX, screenY, 0));
-        lastPoint = v3;
-        drawing.addPoint(new Vector2(v3.x, v3.y));
+        drawing.addLine(new ArrayList<Vector3>());
+        Vector3 point = cam.unproject(new Vector3(screenX, screenY, 0));
+        point.z = 1; // z=1 means first point use 1 unit of ink
+        lastPoint = point;
+        drawing.addPoint(point);
         return false;
     }
 
@@ -60,18 +61,38 @@ public class DrawingInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        if (isDrawing) {
-            Vector3 v3 = cam.unproject(new Vector3(screenX, screenY, 0));
-            Vector2 newPoint = new Vector2(v3.x, v3.y);
+        float inkLeft = drawing.getInkbar().getInkLeft();
 
-            //determine squared distance between input and last point
-            float lenSq = v3.sub(lastPoint).len2();
+        if (isDrawing && inkLeft > 0.1f) {
+            // New point world coordinates
+            Vector3 newPoint = cam.unproject(new Vector3(screenX, screenY, 0));
 
-            //the minimum distance between input points, squared
-            if (lenSq >= minDistSqrd) {
-                drawing.addPoint(newPoint);
-                lastPoint = new Vector3(newPoint, 0);
+            // Setting the z-component equal to last point's z-component to get correct distance calculations.
+            newPoint.z = lastPoint.z;
+
+            // Vector from last point to new point.
+            Vector3 vector = newPoint.cpy().sub(lastPoint);
+
+            // One unit of ink equals one length unit.
+            float inkRequired = vector.len();
+
+            if (inkRequired < 0.1f) {
+                // Prevent to close points
+                return false;
             }
+
+            if (inkRequired >= inkLeft) {
+                // Limits the line if not enough ink
+                vector.limit(inkLeft);
+                newPoint = lastPoint.add(vector.limit(inkLeft));
+                newPoint.z = inkLeft;
+            } else {
+                // The z-component represents the ink used for the specific line segment
+                newPoint.z = inkRequired;
+            }
+
+            lastPoint = newPoint;
+            drawing.addPoint(newPoint);
         }
         return false;
     }

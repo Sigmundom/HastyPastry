@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -49,12 +49,12 @@ public class DrawView extends BaseView {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setColor(Color.BLACK);
-        for (List<Vector2> line: game.getPlayer().getDrawing().getLines()) {
+        for (List<Vector3> line: game.getPlayer().getDrawing().getLines()) {
             if (line.size() == 1) {
                 shapeRenderer.circle(line.get(0).x, line.get(0).y, 0.1f);
             } else {
                 for(int i = 0; i < line.size()-1; ++i) {
-                    shapeRenderer.line(line.get(i), line.get(i+1));
+                    shapeRenderer.line(line.get(i).x, line.get(i).y, line.get(i+1).x, line.get(i+1).y);
                 }
             }
         }
@@ -71,7 +71,7 @@ public class DrawView extends BaseView {
         }
 
         // Update inkbar
-        inkbar.setValue(game.getPlayer().getDrawing().getInkbar().getPointsLeft());
+        inkbar.setValue(game.getPlayer().getDrawing().getInkbar().getInkLeft());
     }
 
     @Override
@@ -94,7 +94,7 @@ public class DrawView extends BaseView {
 
         // Inkbar with ink icon
         float inkLimit = game.getLevel().getInkLimit();
-        inkbar = new ProgressBar(0, inkLimit, 1, false, skin, "default");
+        inkbar = new ProgressBar(0, inkLimit, 0.1f, false, skin, "default");
         inkbar.setValue(inkLimit);
         inkbar.getStyle().background.setMinHeight(20);
         inkbar.getStyle().knobBefore.setMinHeight(20);
