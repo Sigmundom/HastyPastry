@@ -109,10 +109,6 @@ public class FBDatabase implements HastyPastryDatabase {
         final String matchID = match.getMatchID();
 
         // Creates a new match and adds it to firebase.
-        final String matchID = player.getFBID(); // We use challengers ID as matchID.
-
-        Match match = new Match(matchID, player.getName(), opponent.getName());
-
         matchesRef.child(matchID).setValue(match);
 
         // Setting player's ready field to false to prevent new challenges.

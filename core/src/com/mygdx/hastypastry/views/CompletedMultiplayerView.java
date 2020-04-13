@@ -35,7 +35,7 @@ public class CompletedMultiplayerView extends BaseView {
         newRoundBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                DBManager.instance.getDB().challengePlayer(lobby, lobby.getChallenged(), lobby.getUser()); //u is opponent
+                lobby.challengeUser(lobby.getChallenged());
                 return false;
             }
         });

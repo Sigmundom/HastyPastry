@@ -72,9 +72,12 @@ public class Lobby {
         lobbyTable.row();
     }
 
-    private void challengeUser(User u) {
+    public void challengeUser(User u) {
         final String matchID = user.getFBID(); // We use challengers ID as matchID.
         Match match = new Match(matchID, user.getName(), u.getName());
+        if (match.getLobby() == null) {
+            match.setLobby(this);
+        }
         DBManager.instance.getDB().challengePlayer(Lobby.this, u, user, match); //u is opponent
         challengeBox = new ChallengeBox(Lobby.this, match, u);
         challengeBox.show(ui);
