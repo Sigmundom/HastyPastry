@@ -4,20 +4,19 @@ import java.util.List;
 
 public class Match {
     private String matchID; //Challenger's ID is used as matchID
-    private String challengerName;
-    private String challengedName;
+    private User challenger;
+    private User challenged;
     private List<List<String>> challengerDrawing;
     private List<List<String>> challengedDrawing;
     private String level;
-    private Lobby lobby;
 
     // Default constructor required for calls to DataSnapshot.getValue(Match.class)
     public Match() {}
 
-    public Match(String matchID, String challengerName, String challengedName) {
+    public Match(String matchID, User challenger, User challenged) {
         this.matchID = matchID;
-        this.challengerName = challengerName;
-        this.challengedName = challengedName;
+        this.challenger = challenger;
+        this.challenged = challenged;
     }
 
     public String getMatchID() {
@@ -30,18 +29,6 @@ public class Match {
 
     public void setLevel(String level) {
         this.level = level;
-    }
-
-    public void setLobby(Lobby lobby) { this.lobby = lobby; }
-
-    public Lobby getLobby() { return lobby; }
-
-    public String getChallengerName() {
-        return challengerName;
-    }
-
-    public String getChallengedName() {
-        return challengedName;
     }
 
     public List<List<String>> getChallengerDrawing() {
@@ -58,5 +45,13 @@ public class Match {
 
     public void setChallengedDrawing(List<List<String>> challengedDrawing) {
         this.challengedDrawing = challengedDrawing;
+    }
+
+    public User getChallenger() {
+        return challenger;
+    }
+
+    public User getChallenged() {
+        return challenged;
     }
 }

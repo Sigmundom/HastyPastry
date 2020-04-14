@@ -20,8 +20,6 @@ public class Lobby {
     private List<User> lobbyList = new ArrayList<>();
     private Table lobbyTable;
     private Stage ui;
-    private ChallengeBox challenge;
-    private User challenged;
     private RecievedChallengeBox recievedChallengeBox; // Accept or decline a challenge.
     private ChallengeBox challengeBox; // Waiting for response / Cancel challenge.
 
@@ -52,10 +50,14 @@ public class Lobby {
         this.ui = ui;
         this.lobbyTable = lobbyTable;
         for (User u : lobbyList) {
-            if (u.getFBID() != user.getFBID()){
+            if (!u.getFBID().equals(user.getFBID())) {
                 addUserUI(lobbyTable, u);
             }
         }
+    }
+
+    public void initCompleteMultiplayerView(Stage ui) {
+        this.ui = ui;
     }
 
     private void addUserUI(Table lobbyTable, final User u) {
@@ -63,7 +65,6 @@ public class Lobby {
         userButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                challenged = u;
                 challengeUser(u);
                 return false;
             }
@@ -74,10 +75,7 @@ public class Lobby {
 
     public void challengeUser(User u) {
         final String matchID = user.getFBID(); // We use challengers ID as matchID.
-        Match match = new Match(matchID, user.getName(), u.getName());
-        if (match.getLobby() == null) {
-            match.setLobby(this);
-        }
+        Match match = new Match(matchID, user, u);
         DBManager.instance.getDB().challengePlayer(Lobby.this, u, user, match); //u is opponent
         challengeBox = new ChallengeBox(Lobby.this, match, u);
         challengeBox.show(ui);
@@ -107,8 +105,9 @@ public class Lobby {
     }
 
     public void startGame(Match match, boolean challenger) {
+        DBManager.instance.getDB().startGame(user);
         ScreenManager.getInstance().showScreen(
-                ScreenEnum.DRAW, new Game(match, challenger)
+                ScreenEnum.DRAW, new Game(match, challenger, this)
         );
     }
     private String randLevel(){
@@ -134,7 +133,7 @@ public class Lobby {
         String level = randLevel();
         match.setLevel(level);
         DBManager.instance.getDB().acceptChallenge(match);
-        ScreenManager.getInstance().showScreen(ScreenEnum.DRAW, new Game(match, false));
+        startGame(match, false);
     }
 
     public void declineChallenge(Match match) {
@@ -142,8 +141,6 @@ public class Lobby {
     }
 
     public User getUser() { return user; }
-
-    public User getChallenged() { return challenged; };
 
     public void withdrawChallenge(Match match, User opponent) {
         DBManager.instance.getDB().declineChallenge(match, opponent);

@@ -18,7 +18,6 @@ import com.mygdx.hastypastry.ui.MenuButton;
 
 public class CompletedMultiplayerView extends BaseView {
     private Game game;
-    private Lobby lobby;
 
     public CompletedMultiplayerView(Game game) {
         this.game = game;
@@ -26,16 +25,17 @@ public class CompletedMultiplayerView extends BaseView {
 
     @Override
     public void buildStage() {
+        game.getLobby().initCompleteMultiplayerView(ui);
+
         // Create menu button
         MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         menuButton.setPosition(Config.UI_WIDTH/2, Config.UI_HEIGHT/2, Align.center);
 
-        lobby = game.getMatch().getLobby();
         LabelButton newRoundBtn = new LabelButton("New Round");
         newRoundBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                lobby.challengeUser(lobby.getChallenged());
+                game.getLobby().challengeUser(game.getOpponentUser());
                 return false;
             }
         });
