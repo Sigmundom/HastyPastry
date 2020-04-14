@@ -15,12 +15,12 @@ public class HastyPastryGame extends Game {
 		super();
 		db.checkVersion();
 		DBManager.instance.init(db);
-		MusicAndSound.instance.init();
 	}
 
 	@Override
 	public void create () {
 		Assets.instance.init(new AssetManager());
+		MusicAndSound.instance.init();
 		ScreenManager.getInstance().initialize(this);
 		ScreenManager.getInstance().showScreen( ScreenEnum.MAIN_MENU);
 	}

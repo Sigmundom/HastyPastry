@@ -17,7 +17,7 @@ public class ExitButton extends TextButton {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                         if(playerPreferences.isSoundEffectsEnabled()) {
-                            MusicAndSound.instance.getButtonSound().play();
+                            MusicAndSound.instance.getButtonSound().play(0.5f);
                         }
                         System.exit(0);
                         return false;

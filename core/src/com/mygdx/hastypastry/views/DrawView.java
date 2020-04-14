@@ -91,12 +91,18 @@ public class DrawView extends BaseView {
         ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle(skin.get("default", ImageButton.ImageButtonStyle.class));
         buttonStyle.imageUp = new TextureRegionDrawable(Assets.instance.getManager().get(Assets.uiAtlas).findRegion("undo"));
         ImageButton undo = new ImageButton(buttonStyle);
+
+        // Sound effects
+        if(playerPreferences.isMusicEnabled()) {
+            MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume() * 0.2f);
+        }
+
         undo.addListener(
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                         if(playerPreferences.isSoundEffectsEnabled()) {
-                            buttonSound.play();
+                            buttonSound.play(0.5f);
                         }
                         game.getPlayer().getDrawing().undoLine();
                         return false;
@@ -136,7 +142,7 @@ public class DrawView extends BaseView {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                         if(playerPreferences.isSoundEffectsEnabled()) {
-                            buttonSound.play();
+                            buttonSound.play(0.5f);
                         }
                         game.ready();
                         return false;

@@ -1,7 +1,10 @@
 package com.mygdx.hastypastry.views;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
@@ -10,6 +13,8 @@ import com.mygdx.hastypastry.ui.ExitButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class MainMenuView extends BaseView {
+    private BitmapFont title1Font, title2Font;
+    private Label titleLabel1, titleLabel2;
     protected Texture background = new Texture("bg_menu.png");
     private MenuButton singlePlayerBtn;
     private MenuButton multiPlayerBtn;
@@ -24,6 +29,15 @@ public class MainMenuView extends BaseView {
 
     @Override
     public void buildStage() {
+        // Title generation
+        title1Font = generateFont("pixelfont.TTF", 48);
+        title2Font = generateFont("pixelfont.TTF", 40);
+        Label.LabelStyle title1LabelStyle = new Label.LabelStyle(title1Font, Color.BLACK);
+        Label.LabelStyle title2LabelStyle = new Label.LabelStyle(title2Font, Color.BLACK);
+
+        titleLabel1 = new Label("HASTY", title1LabelStyle);
+        titleLabel2 = new Label("PASTRY", title2LabelStyle);
+
         //Create Table
         Table mainTable = new Table();
 
@@ -31,7 +45,7 @@ public class MainMenuView extends BaseView {
         mainTable.setFillParent(true);
 
         //Set padding
-        mainTable.padTop(100);
+        mainTable.padTop(25);
         mainTable.padLeft(50);
         mainTable.padRight(50);
 
@@ -45,13 +59,17 @@ public class MainMenuView extends BaseView {
         exitButton = new ExitButton("Exit Game");
 
         //Add buttons to table
-        mainTable.add(singlePlayerBtn).growX().pad(25).padTop(5);
+        mainTable.add(titleLabel1);
         mainTable.row();
-        mainTable.add(multiPlayerBtn).growX().pad(25).padTop(5);
+        mainTable.add(titleLabel2);
         mainTable.row();
-        mainTable.add(preferenceButton).growX().pad(25).padTop(5);
+        mainTable.add(singlePlayerBtn).growX().pad(20).padTop(25);
         mainTable.row();
-        mainTable.add(exitButton).growX().pad(25).padTop(5);
+        mainTable.add(multiPlayerBtn).growX().pad(20).padTop(5);
+        mainTable.row();
+        mainTable.add(preferenceButton).growX().pad(20).padTop(5);
+        mainTable.row();
+        mainTable.add(exitButton).growX().pad(20).padTop(5);
 
         // Add table to stage
         this.ui.addActor(mainTable);

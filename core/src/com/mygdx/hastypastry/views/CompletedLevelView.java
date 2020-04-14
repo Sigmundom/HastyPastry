@@ -75,6 +75,11 @@ public class CompletedLevelView extends BaseView {
 
     @Override
     public void buildStage() {
+        // Sound effects
+        if(playerPreferences.isMusicEnabled()) {
+            MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume());
+        }
+
         // Create menu button
         menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
@@ -87,7 +92,7 @@ public class CompletedLevelView extends BaseView {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                         if(playerPreferences.isSoundEffectsEnabled()) {
-                            buttonSound.play();
+                            buttonSound.play(0.5f);
                         }
                         if (game.isMultiplayer()) {
                             ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);

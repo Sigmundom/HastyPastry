@@ -74,7 +74,7 @@ public class LoginView extends BaseView {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 goToLobby();
                 if(playerPreferences.isSoundEffectsEnabled()) {
-                    buttonSound.play();
+                    buttonSound.play(0.5f);
                 }
                 return false;
             }

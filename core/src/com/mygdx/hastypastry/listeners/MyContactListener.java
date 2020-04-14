@@ -27,7 +27,7 @@ public class MyContactListener implements ContactListener {
         String b = contact.getFixtureB().getBody().getUserData().toString();
         if (a.equals("goal") || b.equals("goal")) {
             // Game finished
-            goalSound.play();
+            goalSound.play(0.5f);
             if (game.isMultiplayer()) {
                 // Set winner
                 if (a.equals("playerWaffle") || b.equals("playerWaffle")) {
@@ -44,7 +44,7 @@ public class MyContactListener implements ContactListener {
 
         }
         if (a.equals("deadly") || b.equals("deadly")) {
-            gameoverSound.play();
+            gameoverSound.play(0.5f);
             if (game.isMultiplayer()) {
                 if (a.equals("playerWaffle") || b.equals("playerWaffle")) {
                     game.gameOver();

@@ -19,5 +19,6 @@ public class MusicAndSound {
     public void init() {
         menuMusic = Gdx.audio.newMusic(Gdx.files.internal("8-punk.mp3"));
         buttonSound = Gdx.audio.newSound(Gdx.files.internal("button_click.ogg"));
+        buttonSound.setVolume(buttonSound.play(), 0.5f);
     }
 }

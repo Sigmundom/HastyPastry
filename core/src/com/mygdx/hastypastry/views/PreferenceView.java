@@ -58,7 +58,7 @@ public class PreferenceView extends BaseView {
                     @Override
                     public boolean handle(Event event) {
                         if(playerPreferences.isSoundEffectsEnabled()) {
-                            buttonSound.play();
+                            buttonSound.play(0.5f);
                         }
                         boolean enabled = soundEffectCheckBox.isChecked();
                         playerPreferences.setSoundEffectsEnabled(enabled);
@@ -73,7 +73,7 @@ public class PreferenceView extends BaseView {
                     @Override
                     public boolean handle(Event event) {
                         if(playerPreferences.isSoundEffectsEnabled()) {
-                            buttonSound.play();
+                            buttonSound.play(0.5f);
                         }
                         boolean enabled = musicCheckBox.isChecked();
                         playerPreferences.setMusicEnabled(enabled);
