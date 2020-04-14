@@ -29,7 +29,7 @@ public class DrawView extends BaseView {
     private Game game;
     private ProgressBar inkbar;
     private ProgressBar timebar;
-    private float timeLeft = 30;
+    private float timeLeft = 60;
 
     public DrawView(Game game) {
         super();
