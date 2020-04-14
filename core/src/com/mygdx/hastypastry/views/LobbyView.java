@@ -1,6 +1,6 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
@@ -11,7 +11,7 @@ public class LobbyView extends BaseView {
     private Lobby lobby;
     private Table lobbyTable;
 
-    public LobbyView(Lobby lobby) {
+    public LobbyView(Lobby lobby, Music menuMusic) {
         this.lobby = lobby;
 
     }

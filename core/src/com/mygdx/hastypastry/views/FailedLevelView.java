@@ -1,10 +1,10 @@
 package com.mygdx.hastypastry.views;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.ui.MenuButton;
@@ -14,7 +14,7 @@ public class FailedLevelView extends BaseView {
     private MenuButton menuButton;
     private BitmapFont font = new BitmapFont();
 
-    public FailedLevelView() { super(); }
+    public FailedLevelView(Music menuMusic) { super(); }
 
     @Override
     public void buildStage() {

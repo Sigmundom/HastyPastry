@@ -1,6 +1,7 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,6 +18,7 @@ import com.mygdx.hastypastry.listeners.MyContactListener;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.ui.MenuButton;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class PlayView extends BaseView {
     private Label timeLabel;
     protected Game game;
 
-    public PlayView(Game game) {
+    public PlayView(Game game, Music menuMusic) {
         super();
         world = new World(new Vector2(0, -9.81f), false);
         world.setContactListener(new MyContactListener(game));

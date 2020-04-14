@@ -25,13 +25,13 @@ public class LoginView extends BaseView {
     private Label error;
     private Lobby lobby;
     private PlayerPreferences playerPreferences;
-    private MusicAndSound musicAndSound;
     private Sound buttonSound;
 
     public LoginView(Music menuMusic) {
         super();
         lobby = new Lobby();
         menuMusic.dispose();
+        playerPreferences = new PlayerPreferences();
         buttonSound = (new MusicAndSound()).getButtonSound();
     }
 

@@ -1,6 +1,7 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,6 +22,7 @@ import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.MusicAndSound;
 import com.mygdx.hastypastry.singletons.Assets;
+
 import java.util.List;
 
 public class DrawView extends BaseView {
@@ -33,7 +35,7 @@ public class DrawView extends BaseView {
     private Sound buttonSound;
     private float timeLeft = 60;
 
-    public DrawView(Game game) {
+    public DrawView(Game game, Music menuMusic) {
         super();
         this.game = game;
         Box2D.init(); // To be able to make shapes before creating a world.

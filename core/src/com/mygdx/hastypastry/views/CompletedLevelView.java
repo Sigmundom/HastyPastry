@@ -1,5 +1,6 @@
 package com.mygdx.hastypastry.views;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -40,7 +41,7 @@ public class CompletedLevelView extends BaseView {
     private Sound buttonSound;
 
 
-    public CompletedLevelView(Game game) {
+    public CompletedLevelView(Game game, Music menuMusic) {
         super();
         this.game = game;
         sprite.setSize(Config.UI_WIDTH/80, Config.UI_WIDTH/80);
