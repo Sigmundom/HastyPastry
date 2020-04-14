@@ -14,7 +14,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final Assets instance = new Assets();
     private AssetManager assetManager;
 
-    //Singleton - prevents instanciation from other classes
+    //Singleton - prevents instantiation from other classes
     private Assets(){
     }
 

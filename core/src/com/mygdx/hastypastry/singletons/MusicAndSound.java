@@ -9,6 +9,7 @@ public class MusicAndSound {
     private Music menuMusic;
     private Sound buttonSound;
 
+    //Singleton - prevents instantiation from other classes
     private MusicAndSound() {
     }
 

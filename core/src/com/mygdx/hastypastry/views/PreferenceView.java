@@ -6,10 +6,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
@@ -54,24 +57,22 @@ public class PreferenceView extends BaseView {
         soundEffectCheckBox = new SettingsCheckBox();
         soundEffectCheckBox.setChecked(playerPreferences.isSoundEffectsEnabled());
         soundEffectCheckBox.addListener(
-                new InputListener() {
+                new ChangeListener() {
                     @Override
-                    public boolean handle(Event event) {
+                    public void changed(ChangeEvent event, Actor actor) {
                         if(playerPreferences.isSoundEffectsEnabled()) {
                             buttonSound.play(0.5f);
                         }
                         boolean enabled = soundEffectCheckBox.isChecked();
                         playerPreferences.setSoundEffectsEnabled(enabled);
-                        return false;
                     }
                 });
-
         musicCheckBox = new SettingsCheckBox();
         musicCheckBox.setChecked((playerPreferences.isMusicEnabled()));
         musicCheckBox.addListener(
-                new InputListener() {
+                new ChangeListener() {
                     @Override
-                    public boolean handle(Event event) {
+                    public void changed(ChangeEvent event, Actor actor) {
                         if(playerPreferences.isSoundEffectsEnabled()) {
                             buttonSound.play(0.5f);
                         }
@@ -84,7 +85,6 @@ public class PreferenceView extends BaseView {
                         else {
                             gameMusic.stop();
                         }
-                        return false;
                     }
                 });
 
@@ -127,7 +127,7 @@ public class PreferenceView extends BaseView {
         table.add(musicVolumeSlider).center().padTop(20).fillX();
 
 
-        menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU_RESET);
+        menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         menuButton.setWidth(Config.UI_WIDTH-160);
         menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 280);
         this.ui.addActor(menuButton);

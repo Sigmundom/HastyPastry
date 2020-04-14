@@ -52,4 +52,9 @@ public class DesktopDatabase implements HastyPastryDatabase {
     public void checkVersion() {
 
     }
+
+    @Override
+    public void startGame(User user) {
+
+    }
 }

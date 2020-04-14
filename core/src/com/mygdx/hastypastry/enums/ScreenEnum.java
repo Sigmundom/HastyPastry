@@ -25,11 +25,6 @@ public enum ScreenEnum {
             return new MainMenuView();
         }
     },
-    MAIN_MENU_RESET {
-        public BaseView getScreen(Object... params) {
-            return new MainMenuView();
-        }
-    },
     PLAY {
         public BaseView getScreen(Object... params) { return new PlayView((Game)params[0]); }
     },
