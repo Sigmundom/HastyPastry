@@ -16,7 +16,7 @@ public class RecievedChallengeBox extends Dialog {
         super("Challenge!", Assets.instance.getManager().get(Assets.orangeUiSkin), "dialog");
         this.lobby = lobby;
         this.match = match;
-        this.text(match.getChallengerName() + " has challenged you!");
+        this.text(match.getChallenger().getName() + " has challenged you!");
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(this.getSkin().get("default", TextButton.TextButtonStyle.class));
         this.button("Accept", true, buttonStyle); //sends "true" as the result
         this.button("Decline", false, buttonStyle); //sends "false" as the result
