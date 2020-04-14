@@ -35,7 +35,7 @@ Level 5
 Waffle 16 26
 Goal 2 11 2 2
 InkBar 15
-StarRanking 4.5 3.9 3.1
+StarRanking 3.9 3.4 2.9
 Obstacle Square 12 4 1 8 true
 Obstacle Square 12 18 1 8 true
 Obstacle Square 15 0 6 1 true
