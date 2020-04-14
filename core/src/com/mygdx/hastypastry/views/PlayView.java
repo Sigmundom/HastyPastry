@@ -1,7 +1,6 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -36,7 +35,7 @@ public class PlayView extends BaseView {
     private Label timeLabel;
     protected Game game;
 
-    public PlayView(Game game, Music menuMusic) {
+    public PlayView(Game game) {
         super();
         world = new World(new Vector2(0, -9.81f), false);
         world.setContactListener(new MyContactListener(game));

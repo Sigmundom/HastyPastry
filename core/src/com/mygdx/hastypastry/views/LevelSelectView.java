@@ -1,6 +1,5 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -8,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.FileReader;
-import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.models.Game;
@@ -17,13 +15,10 @@ import com.mygdx.hastypastry.ui.MenuButton;
 import java.util.ArrayList;
 
 public class LevelSelectView extends BaseView {
-    private PlayerPreferences playerPreferences;
-
     private BitmapFont font = new BitmapFont();
 
-    public LevelSelectView(Music menuMusic) {
+    public LevelSelectView() {
         super();
-        menuMusic.dispose();
     }
 
     @Override

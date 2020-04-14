@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.models.MusicAndSound;
+import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.ui.SettingsCheckBox;
 import com.mygdx.hastypastry.ui.SettingsSlider;
@@ -32,25 +32,24 @@ public class PreferenceView extends BaseView {
     private Label musicOnOffLabel;
     private Label musicVolumeLabel;
     private PlayerPreferences playerPreferences = new PlayerPreferences();
-    private MusicAndSound musicAndSound = new MusicAndSound();
-    private Music menuMusic;
     private Sound buttonSound;
+    private Music gameMusic;
 
-    public PreferenceView(Music menuMusic) {
+    public PreferenceView() {
         super();
-        this.menuMusic = menuMusic;
-        buttonSound = musicAndSound.getButtonSound();
+        buttonSound = MusicAndSound.instance.getButtonSound();
+        gameMusic = MusicAndSound.instance.getGameMusic();
     }
 
     @Override
     public void buildStage() {
 
-        if(playerPreferences.isMusicEnabled()) {
+        /*if(playerPreferences.isMusicEnabled()) {
             if (!menuMusic.isPlaying()) {
                 menuMusic.setLooping(true);
                 menuMusic.play();
             }
-        }
+        }*/
 
         soundEffectCheckBox = new SettingsCheckBox();
         soundEffectCheckBox.setChecked(playerPreferences.isSoundEffectsEnabled());
@@ -79,11 +78,11 @@ public class PreferenceView extends BaseView {
                         boolean enabled = musicCheckBox.isChecked();
                         playerPreferences.setMusicEnabled(enabled);
                         if(enabled) {
-                            menuMusic.setVolume(playerPreferences.getMusicVolume());
-                            menuMusic.play();
+                            gameMusic.setVolume(playerPreferences.getMusicVolume());
+                            gameMusic.play();
                         }
                         else {
-                            menuMusic.stop();
+                            gameMusic.stop();
                         }
                         return false;
                     }
@@ -96,7 +95,7 @@ public class PreferenceView extends BaseView {
                     @Override
                     public boolean handle(Event event) {
                         playerPreferences.setMusicVolume(musicVolumeSlider.getValue());
-                        menuMusic.setVolume(musicVolumeSlider.getValue());
+                        gameMusic.setVolume(musicVolumeSlider.getValue());
                         return false;
                     }
                 });
@@ -128,7 +127,7 @@ public class PreferenceView extends BaseView {
         table.add(musicVolumeSlider).center().padTop(20).fillX();
 
 
-        menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU_RESET, menuMusic);
+        menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU_RESET);
         menuButton.setWidth(Config.UI_WIDTH-160);
         menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 280);
         this.ui.addActor(menuButton);

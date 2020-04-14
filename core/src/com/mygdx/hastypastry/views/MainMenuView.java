@@ -1,14 +1,11 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.models.MusicAndSound;
 import com.mygdx.hastypastry.ui.ExitButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
@@ -17,36 +14,16 @@ public class MainMenuView extends BaseView {
     private MenuButton singlePlayerBtn;
     private MenuButton multiPlayerBtn;
     private MenuButton preferenceButton;
-    private Music menuMusic;
-    private Sound buttonSound;
+    //private Music menuMusic;
     private ExitButton exitButton;
     private PlayerPreferences playerPreferences = new PlayerPreferences();
-    private MusicAndSound musicAndSound = new MusicAndSound();
 
     public MainMenuView() {
         super();
-        menuMusic = musicAndSound.getMenuMusic();
-        buttonSound = musicAndSound.getButtonSound();
-    }
-
-    public MainMenuView(Music menuMusic) {
-        super();
-        this.menuMusic = menuMusic;
-        this.menuMusic.setVolume(playerPreferences.getMusicVolume());
-        buttonSound = musicAndSound.getButtonSound();
     }
 
     @Override
     public void buildStage() {
-        // Add sound to main menu.
-        if(playerPreferences.isMusicEnabled()) {
-            if(!menuMusic.isPlaying()) {
-                menuMusic.setLooping(true);
-                menuMusic.setVolume(playerPreferences.getMusicVolume());
-                menuMusic.play();
-            }
-        }
-
         //Create Table
         Table mainTable = new Table();
 
@@ -62,9 +39,9 @@ public class MainMenuView extends BaseView {
         mainTable.top();
 
         //Create Buttons
-        singlePlayerBtn = new MenuButton("Single Player", ScreenEnum.LEVELSELECT, menuMusic);
-        multiPlayerBtn = new MenuButton("Multiplayer", ScreenEnum.LOGIN, menuMusic);
-        preferenceButton = new MenuButton("Settings", ScreenEnum.PREFERENCES, menuMusic, playerPreferences);
+        singlePlayerBtn = new MenuButton("Single Player", ScreenEnum.LEVELSELECT);
+        multiPlayerBtn = new MenuButton("Multiplayer", ScreenEnum.LOGIN);
+        preferenceButton = new MenuButton("Settings", ScreenEnum.PREFERENCES, playerPreferences);
         exitButton = new ExitButton("Exit Game");
 
         //Add buttons to table

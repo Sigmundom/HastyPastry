@@ -1,6 +1,5 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -14,7 +13,7 @@ import com.mygdx.hastypastry.ui.MenuButton;
 public class CompletedMultiplayerView extends BaseView {
     private Game game;
 
-    public CompletedMultiplayerView(Game game, Music menuMusic) {
+    public CompletedMultiplayerView(Game game) {
         this.game = game;
     }
 

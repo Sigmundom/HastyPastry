@@ -1,6 +1,5 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -33,7 +32,7 @@ public class HighScoreListView extends BaseView {
     protected Label newHighScoreLabel;
     protected PlayerPreferences playerPreferences;
 
-    public HighScoreListView(Game game, Music menuMusic) {
+    public HighScoreListView(Game game) {
         super();
         this.game = game;
         sprite.setSize(Config.UI_WIDTH/80, Config.UI_WIDTH/80);

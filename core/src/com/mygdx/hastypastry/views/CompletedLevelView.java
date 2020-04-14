@@ -1,6 +1,5 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,7 +14,7 @@ import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
-import com.mygdx.hastypastry.models.MusicAndSound;
+import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.LabelButton;
 import com.mygdx.hastypastry.ui.MenuButton;
@@ -37,17 +36,16 @@ public class CompletedLevelView extends BaseView {
     private float rotationDegree;
     protected Label newHighScoreLabel;
     protected PlayerPreferences playerPreferences;
-    private MusicAndSound musicAndSound;
     private Sound buttonSound;
 
 
-    public CompletedLevelView(Game game, Music menuMusic) {
+    public CompletedLevelView(Game game) {
         super();
         this.game = game;
         sprite.setSize(Config.UI_WIDTH/80, Config.UI_WIDTH/80);
         sprite.setOrigin(sprite.getWidth()/2,-15);
         playerPreferences = new PlayerPreferences();
-        buttonSound = (new MusicAndSound()).getButtonSound();
+        buttonSound = MusicAndSound.instance.getButtonSound();
     }
 
     @Override

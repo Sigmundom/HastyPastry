@@ -3,6 +3,7 @@ package com.mygdx.hastypastry.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,6 +16,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
+import com.mygdx.hastypastry.controllers.PlayerPreferences;
+import com.mygdx.hastypastry.singletons.MusicAndSound;
 
 public abstract class BaseView implements Screen {
     protected DrawingInputProcessor controller;
@@ -22,6 +25,8 @@ public abstract class BaseView implements Screen {
     protected Texture background = new Texture("bg.png");
     protected SpriteBatch batch;
     protected Viewport spriteViewport;
+    private PlayerPreferences playerPreferences;
+    private Music gameMusic;
 
     public BaseView() {
         batch = new SpriteBatch();
@@ -30,6 +35,14 @@ public abstract class BaseView implements Screen {
         spriteViewport = new FitViewport(Config.WORLD_WIDTH, Config.WORLD_HEIGHT, camera); //to draw sprites
         FitViewport stageViewport = new FitViewport(Config.UI_WIDTH, Config.UI_HEIGHT); //to draw actors
         ui = new Stage(stageViewport, new SpriteBatch()); // The stage will contain UI elements
+        gameMusic = MusicAndSound.instance.getGameMusic();
+        if(playerPreferences.isMusicEnabled()) {
+            if(!gameMusic.isPlaying()) {
+                gameMusic.setLooping(true);
+                gameMusic.setVolume(playerPreferences.getMusicVolume());
+                gameMusic.play();
+            }
+        }
     }
 
     // Subclasses must load actors in this method

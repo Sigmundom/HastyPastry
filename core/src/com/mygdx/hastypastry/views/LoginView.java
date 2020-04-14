@@ -1,7 +1,6 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,8 +13,8 @@ import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Lobby;
-import com.mygdx.hastypastry.models.MusicAndSound;
 import com.mygdx.hastypastry.singletons.Assets;
+import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.LabelButton;
 import com.mygdx.hastypastry.ui.MenuButton;
@@ -27,12 +26,11 @@ public class LoginView extends BaseView {
     private PlayerPreferences playerPreferences;
     private Sound buttonSound;
 
-    public LoginView(Music menuMusic) {
+    public LoginView() {
         super();
         lobby = new Lobby();
-        menuMusic.dispose();
         playerPreferences = new PlayerPreferences();
-        buttonSound = (new MusicAndSound()).getButtonSound();
+        buttonSound = MusicAndSound.instance.getButtonSound();
     }
 
     @Override
