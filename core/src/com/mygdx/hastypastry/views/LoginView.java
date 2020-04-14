@@ -1,7 +1,8 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -13,23 +14,25 @@ import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Lobby;
+import com.mygdx.hastypastry.models.MusicAndSound;
 import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.LabelButton;
 import com.mygdx.hastypastry.ui.MenuButton;
-
-import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 
 public class LoginView extends BaseView {
     private TextField input;
     private Label error;
     private Lobby lobby;
     private PlayerPreferences playerPreferences;
+    private MusicAndSound musicAndSound;
+    private Sound buttonSound;
 
     public LoginView(Music menuMusic) {
         super();
         lobby = new Lobby();
         menuMusic.dispose();
+        buttonSound = (new MusicAndSound()).getButtonSound();
     }
 
     @Override
@@ -72,6 +75,9 @@ public class LoginView extends BaseView {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 goToLobby();
+                if(playerPreferences.isSoundEffectsEnabled()) {
+                    buttonSound.play();
+                }
                 return false;
             }
         });

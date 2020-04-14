@@ -9,7 +9,7 @@ public class MusicAndSound {
     private Sound buttonSound;
 
     public MusicAndSound() {
-        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("WorldTheme.mp3"));
+        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("8-punk.mp3"));
         buttonSound = Gdx.audio.newSound(Gdx.files.internal("button_click.ogg"));
     }
 

@@ -1,9 +1,9 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
@@ -17,11 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
-import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.models.Game;
+import com.mygdx.hastypastry.models.MusicAndSound;
 import com.mygdx.hastypastry.singletons.Assets;
-import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.List;
 
@@ -31,6 +31,9 @@ public class DrawView extends BaseView {
     private ProgressBar inkbar;
     private ProgressBar timebar;
     private float timeLeft = 30;
+    private PlayerPreferences playerPreferences;
+    private MusicAndSound musicAndSound;
+    private Sound buttonSound;
 
     public DrawView(Game game) {
         super();
@@ -38,6 +41,8 @@ public class DrawView extends BaseView {
         Box2D.init(); // To be able to make shapes before creating a world.
         shapeRenderer = new ShapeRenderer();
         controller = new DrawingInputProcessor(spriteViewport.getCamera(), game.getPlayer().getDrawing());
+        playerPreferences = new PlayerPreferences();
+        buttonSound = (new MusicAndSound()).getButtonSound();
     }
 
     @Override
@@ -88,6 +93,9 @@ public class DrawView extends BaseView {
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        if(playerPreferences.isSoundEffectsEnabled()) {
+                            buttonSound.play();
+                        }
                         game.getPlayer().getDrawing().undoLine();
                         return false;
                     }
@@ -125,6 +133,9 @@ public class DrawView extends BaseView {
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        if(playerPreferences.isSoundEffectsEnabled()) {
+                            buttonSound.play();
+                        }
                         game.ready();
                         return false;
                     }

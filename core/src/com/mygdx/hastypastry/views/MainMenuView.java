@@ -32,7 +32,7 @@ public class MainMenuView extends BaseView {
     public MainMenuView(Music menuMusic) {
         super();
         this.menuMusic = menuMusic;
-        this.menuMusic.setVolume(0.7f);
+        this.menuMusic.setVolume(playerPreferences.getMusicVolume());
         buttonSound = musicAndSound.getButtonSound();
     }
 
@@ -42,7 +42,7 @@ public class MainMenuView extends BaseView {
         if(playerPreferences.isMusicEnabled()) {
             if(!menuMusic.isPlaying()) {
                 menuMusic.setLooping(true);
-                menuMusic.setVolume(0.7f);
+                menuMusic.setVolume(playerPreferences.getMusicVolume());
                 menuMusic.play();
             }
         }
@@ -68,13 +68,13 @@ public class MainMenuView extends BaseView {
         exitButton = new ExitButton("Exit Game");
 
         //Add buttons to table
-        mainTable.add(singlePlayerBtn).growX().pad(25);
+        mainTable.add(singlePlayerBtn).growX().pad(25).padTop(5);
         mainTable.row();
-        mainTable.add(multiPlayerBtn).growX().pad(15);
+        mainTable.add(multiPlayerBtn).growX().pad(25).padTop(5);
         mainTable.row();
-        mainTable.add(preferenceButton).growX().pad(20);
+        mainTable.add(preferenceButton).growX().pad(25).padTop(5);
         mainTable.row();
-        mainTable.add(exitButton).growX().pad(25);
+        mainTable.add(exitButton).growX().pad(25).padTop(5);
 
         // Add table to stage
         this.ui.addActor(mainTable);
