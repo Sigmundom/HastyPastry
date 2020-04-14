@@ -11,7 +11,7 @@ import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.ChallengeBox;
 import com.mygdx.hastypastry.ui.RecievedChallengeBox;
-import com.mygdx.hastypastry.ui.LabelButton;
+import com.mygdx.hastypastry.ui.StyledTextButton;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class Lobby {
     }
 
     private void addUserUI(Table lobbyTable, final User u) {
-        LabelButton userButton = new LabelButton(u.getName());
+        StyledTextButton userButton = new StyledTextButton(u.getName());
         userButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -92,7 +92,7 @@ public class Lobby {
         lobbyList.remove(leavingUser);
         if (lobbyTable != null) {
             for (Actor e : lobbyTable.getChildren()) {
-                if (((LabelButton)e).getText().toString().equals(leavingUser.getName())) {
+                if (((StyledTextButton)e).getText().toString().equals(leavingUser.getName())) {
                     lobbyTable.removeActor(e);
                     break;
                 }

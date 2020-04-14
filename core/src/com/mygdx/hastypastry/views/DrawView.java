@@ -22,7 +22,6 @@ import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.ui.LabelButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.util.List;

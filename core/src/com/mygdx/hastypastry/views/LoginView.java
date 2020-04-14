@@ -16,7 +16,7 @@ import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.ScreenManager;
-import com.mygdx.hastypastry.ui.LabelButton;
+import com.mygdx.hastypastry.ui.StyledTextButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class LoginView extends BaseView {
@@ -68,7 +68,7 @@ public class LoginView extends BaseView {
         error = new Label("", style);
 
         // Creates the submit button
-        LabelButton submitBtn = new LabelButton("Join Lobby");
+        StyledTextButton submitBtn = new StyledTextButton("Join Lobby");
         submitBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
