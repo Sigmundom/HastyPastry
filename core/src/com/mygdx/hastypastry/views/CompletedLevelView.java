@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.HighScoreButton;
@@ -73,11 +74,15 @@ public class CompletedLevelView extends BaseView {
     @Override
     public void buildStage() {
         // Create menu button
-        menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+        menuButton = new MenuButton("  Menu  ", ScreenEnum.MAIN_MENU);
         menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
 
+        // Create replay-button
+        MenuButton replayButton = new MenuButton("  Replay level  ", ScreenEnum.DRAW, new Game(new Level(game.getLevel().getLevelNumber())));
+        replayButton.setPosition(Config.UI_WIDTH/2 - replayButton.getWidth()/2, Config.UI_HEIGHT/2 - 140);
+
         // Creating high score button, sending game through to high score list.
-        LabelButton highScoreButton = new LabelButton("High Score");
+        LabelButton highScoreButton = new LabelButton("  High Score  ");
         highScoreButton.setPosition(Config.UI_WIDTH/2 - highScoreButton.getWidth()/2, Config.UI_HEIGHT/2 - 300);
         highScoreButton.addListener(
                 new InputListener() {
@@ -92,8 +97,9 @@ public class CompletedLevelView extends BaseView {
                     }
                 });
 
-        // Add button to the stage
+        // Add buttons to the stage
         this.ui.addActor(menuButton);
+        this.ui.addActor(replayButton);
         this.ui.addActor(highScoreButton);
 
         font = generateFont("pixelfont.TTF", 32);

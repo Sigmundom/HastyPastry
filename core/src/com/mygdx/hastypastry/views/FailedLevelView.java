@@ -7,23 +7,34 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.levels.Level;
+import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class FailedLevelView extends BaseView {
 
+    private Game game;
     private MenuButton menuButton;
     private BitmapFont font = new BitmapFont();
 
-    public FailedLevelView() { super(); }
+    public FailedLevelView(Game game) {
+        super();
+        this.game = game;
+    }
 
     @Override
     public void buildStage() {
         // Create button
         menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
-        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 200);
+        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
 
-        // Add button to the stage
+        // Create replay-button
+        MenuButton replayButton = new MenuButton("  Replay level  ", ScreenEnum.DRAW, new Game(new Level(game.getLevel().getLevelNumber())));
+        replayButton.setPosition(Config.UI_WIDTH/2 - replayButton.getWidth()/2, Config.UI_HEIGHT/2 - 140);
+
+        // Add buttons to the stage
         this.ui.addActor(menuButton);
+        this.ui.addActor(replayButton);
     }
 
     @Override
