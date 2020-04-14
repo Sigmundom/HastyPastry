@@ -10,25 +10,22 @@
   },
   "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
     "default": { "font": "default", "fontColor": "white" },
-    "container_gold": { "background": "container_gold", "font": "default", "fontColor": "green" }
+    "container_gold": { "font": "default", "fontColor": "green" }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
     "default": { "font": "default", "fontColor": "white" },
-    "container_blue": { "down": "container_blue", "up": "container_blue", "disabled": "container_blue", "font": "default", "fontColor": "green" },
-    "container_blue_small": { "down": "container_blue", "up": "container_blue", "disabled": "container_blue", "font": "default", "fontColor": "green" }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
-    "play": {"down": "play", "up": "play", "disabled": "play"},
     "undo": {"down": "undo", "up": "undo", "disabled": "undo"}
   },
   TextFieldStyle: {
-    "input": { "font": "default", "fontColor": "green", background: "container_gold" }
+    "input": { "font": "default", "fontColor": "green" }
   },
   TintedDrawable: {
     dialogDim: { name: white, color: { r: 0, g: 0, b: 0, a: 0.45 } },
   },
   WindowStyle: {
-    default: {titleFont: default, background: container_gold, titleFontColor: white},
+    default: {titleFont: default, titleFontColor: white},
     dialog: {parent: default, stageBackground: dialogDim}
   },
 }

@@ -47,12 +47,12 @@ public class Assets implements Disposable, AssetErrorListener {
 
     //The atlas, I renamed .txt to pack (just a habit).
     public static final AssetDescriptor<TextureAtlas> uiAtlas =
-            new AssetDescriptor<>("ui/uiskin.pack", TextureAtlas.class);
+            new AssetDescriptor<>("ui/uiskin.atlas", TextureAtlas.class);
 
     //The skin
     public static final AssetDescriptor<Skin> uiSkin =
             new AssetDescriptor<>("ui/uiskin.json", Skin.class,
-                    new SkinLoader.SkinParameter("ui/uiskin.pack"));
+                    new SkinLoader.SkinParameter("ui/uiskin.atlas"));
 
     //Obstacles and waffle
     //Loads a text-file with reference to a collection of textures ("textures.png"), and
