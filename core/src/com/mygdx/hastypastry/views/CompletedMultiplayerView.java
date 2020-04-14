@@ -2,6 +2,8 @@ package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -10,6 +12,10 @@ import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
+import com.mygdx.hastypastry.models.Lobby;
+import com.mygdx.hastypastry.singletons.DBManager;
+import com.mygdx.hastypastry.singletons.ScreenManager;
+import com.mygdx.hastypastry.ui.LabelButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class CompletedMultiplayerView extends BaseView {
@@ -28,11 +34,22 @@ public class CompletedMultiplayerView extends BaseView {
             MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume());
         }
 
+        game.getLobby().initCompleteMultiplayerView(ui);
+
         // Create menu button
         MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         menuButton.setPosition(Config.UI_WIDTH/2, Config.UI_HEIGHT/2, Align.center);
 
+        LabelButton newRoundBtn = new LabelButton("New Round");
+        newRoundBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                game.getLobby().challengeUser(game.getOpponentUser());
+                return false;
+            }
+        });
         // Add button to the stage
+        this.ui.addActor(newRoundBtn);
         this.ui.addActor(menuButton);
 
         // Set up font and label style

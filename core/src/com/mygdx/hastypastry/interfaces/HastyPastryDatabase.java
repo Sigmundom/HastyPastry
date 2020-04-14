@@ -3,6 +3,7 @@ package com.mygdx.hastypastry.interfaces;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.Match;
+import com.mygdx.hastypastry.models.Player;
 import com.mygdx.hastypastry.models.User;
 
 public interface HastyPastryDatabase {
@@ -19,4 +20,6 @@ public interface HastyPastryDatabase {
     void exitMatch(Game game);
 
     void checkVersion();
+
+    void startGame(User user);
 }

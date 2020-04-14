@@ -21,6 +21,9 @@ import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
+import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.ui.LabelButton;
+import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.util.List;
 
@@ -154,10 +157,19 @@ public class DrawView extends BaseView {
         topMenu.setFillParent(true);
         topMenu.top();
 
+
         // Add components to topMenu
-        topMenu.add(undo).size(50,50).padRight(20);
-        topMenu.add(barTable);
-        topMenu.add(play).padLeft(20);
+        int padValue;
+        if (game.isMultiplayer()) {
+            padValue = 20;
+        } else {
+            padValue = 10;
+            MenuButton menu = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+            topMenu.add(menu).padRight(padValue);
+        }
+        topMenu.add(undo).size(50,50).padRight(padValue);
+        topMenu.add(barTable).padRight(padValue);
+        topMenu.add(play);
 
         // Add topMenu to ui
         ui.addActor(topMenu);

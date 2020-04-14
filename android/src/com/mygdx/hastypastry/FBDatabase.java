@@ -112,10 +112,10 @@ public class FBDatabase implements HastyPastryDatabase {
         matchesRef.child(matchID).setValue(match);
 
         // Setting player's ready field to false to prevent new challenges.
-        lobbyRef.child(player.getFBID()).child("ready").setValue(false);
+        lobbyRef.child(player.getFBID()).child("status").setValue("busy");
 
         // Updating the challenged players ready and challenger fields.
-        lobbyRef.child(opponent.getFBID()).child("ready").setValue(false);
+        lobbyRef.child(opponent.getFBID()).child("status").setValue("busy");
         lobbyRef.child(opponent.getFBID()).child("challenge").setValue(match);
 
 
@@ -238,6 +238,13 @@ public class FBDatabase implements HastyPastryDatabase {
         });
     }
 
+    @Override
+    public void startGame(User user) {
+        user.setChallenge(null);
+        user.setStatus("inGame");
+        lobbyRef.child(user.getFBID()).setValue(user);
+    }
+
     /**
      * @param match
      * @param challenged
@@ -255,11 +262,13 @@ public class FBDatabase implements HastyPastryDatabase {
         matchesRef.child(match.getMatchID()).removeValue();
 
         // Update opponent: Set opponent to ready
-        lobbyRef.child(match.getMatchID()).child("ready").setValue(true);
+        lobbyRef.child(match.getMatchID()).child("status").setValue("ready");
 
         // Update player: Remove challenger and set ready to true.
+
         challenged.setChallenge(null);
-        challenged.setReady(true);
+        challenged.setStatus("ready");
+
         lobbyRef.child(challenged.getFBID()).setValue(challenged);
     }
 }

@@ -15,7 +15,7 @@ public class ChallengeBox extends Dialog {
 
 
     public ChallengeBox(Lobby lobby, Match match, User opponent) {
-        super("Challenging " + match.getChallengedName() + "!", Assets.instance.getManager().get(Assets.orangeUiSkin), "dialog");
+        super("Challenging " + match.getChallenged().getName() + "!", Assets.instance.getManager().get(Assets.orangeUiSkin), "dialog");
         this.lobby = lobby;
         this.match = match;
         this.opponent = opponent;

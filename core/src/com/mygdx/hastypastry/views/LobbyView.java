@@ -44,7 +44,5 @@ public class LobbyView extends BaseView {
     }
 
     @Override
-    public void hide() {
-        lobby.exitLobby();
-    }
+    public void hide() {}
 }

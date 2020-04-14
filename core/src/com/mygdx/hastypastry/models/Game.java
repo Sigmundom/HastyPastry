@@ -18,17 +18,19 @@ public class Game {
     private List<WorldObject> worldObjects;
     private boolean playerIsChallenger;
     private String winner;
+    private Lobby lobby;
 
-    public Game(Match match, boolean playerIsChallenger) {
+    public Game(Match match, boolean playerIsChallenger, Lobby lobby) {
         this.match = match;
         this.playerIsChallenger = playerIsChallenger;
         this.level = new Level(match.getLevel());
+        this.lobby = lobby;
         if (playerIsChallenger) {
-            this.player = new Player(match.getChallengerName(), this.level, true);
-            this.opponent = new Player(match.getChallengedName(), this.level, false); //Makes deep copy of waffle
+            this.player = new Player(match.getChallenger().getName(), this.level, true);
+            this.opponent = new Player(match.getChallenged().getName(), this.level, false); //Makes deep copy of waffle
         } else {
-            this.player = new Player(match.getChallengedName(), this.level, true);
-            this.opponent = new Player(match.getChallengerName(), this.level, false);
+            this.player = new Player(match.getChallenged().getName(), this.level, true);
+            this.opponent = new Player(match.getChallenger().getName(), this.level, false);
         }
         worldObjects = new ArrayList<>();
         worldObjects.addAll(level.getObstacles());
@@ -88,7 +90,7 @@ public class Game {
             setWinner("opponent");
             ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_MULTIPLAYER, this);
         } else {
-            ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_lEVEL);
+            ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_LEVEL);
         }
     }
 
@@ -140,4 +142,11 @@ public class Game {
         this.winner = winner;
     }
 
+    public Lobby getLobby() {
+        return lobby;
+    }
+
+    public User getOpponentUser() {
+        return playerIsChallenger ? match.getChallenged() : match.getChallenger();
+    }
 }

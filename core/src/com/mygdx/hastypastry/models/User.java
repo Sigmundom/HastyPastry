@@ -5,7 +5,7 @@ import java.util.List;
 public class User {
     private String FBID;
     private String name;
-    private boolean ready;
+    private String status;
     private Match challenge; // Null if you are the challanger.
     private List<List<String>> drawing;
 
@@ -14,19 +14,19 @@ public class User {
 
     public User(String name) {
         this.name = name;
-        ready = true;
+        status = "ready";
     }
 
     public String getName() {
         return name;
     }
 
-    public boolean isReady() {
-        return ready;
+    public String getStatus() {
+        return status;
     }
 
-    public void setReady(boolean ready) {
-        this.ready = ready;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Match getChallenge() {
