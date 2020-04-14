@@ -1,6 +1,5 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -16,10 +15,11 @@ import com.mygdx.hastypastry.ui.MenuButton;
 import java.util.ArrayList;
 
 public class LevelSelectView extends BaseView {
-
     private BitmapFont font = new BitmapFont();
 
-    public LevelSelectView() { super(); }
+    public LevelSelectView() {
+        super();
+    }
 
     @Override
     public void buildStage() {

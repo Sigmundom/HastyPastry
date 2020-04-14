@@ -32,7 +32,6 @@ public class Player {
     }
 
     public void setNewLevelTime(/*String levelID,*/ float levelTime) {
-        //newLevelTime.add(levelID);
         newLevelTime.add(levelTime);
     }
 

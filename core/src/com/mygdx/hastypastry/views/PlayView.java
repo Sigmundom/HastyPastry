@@ -17,6 +17,7 @@ import com.mygdx.hastypastry.listeners.MyContactListener;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.ui.MenuButton;
+
 import java.text.DecimalFormat;
 import java.util.List;
 

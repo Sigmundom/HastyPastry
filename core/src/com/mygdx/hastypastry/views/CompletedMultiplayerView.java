@@ -8,8 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.hastypastry.Config;
+import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
+import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.ScreenManager;
@@ -18,13 +20,20 @@ import com.mygdx.hastypastry.ui.MenuButton;
 
 public class CompletedMultiplayerView extends BaseView {
     private Game game;
+    private PlayerPreferences playerPreferences;
 
     public CompletedMultiplayerView(Game game) {
         this.game = game;
+        playerPreferences = new PlayerPreferences();
     }
 
     @Override
     public void buildStage() {
+        // Sound effects
+        if(playerPreferences.isMusicEnabled()) {
+            MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume());
+        }
+
         game.getLobby().initCompleteMultiplayerView(ui);
 
         // Create menu button
