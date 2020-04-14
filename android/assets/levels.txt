@@ -125,7 +125,7 @@ StarRanking 8.5 7.7 7
 Obstacle Round 6 10 2 true
 Obstacle Round 13 7 2 true
 Obstacle Round 10 13 2 true
-Obstacle Round 6 1 4 true
+Obstacle Round 6 0 4 true
 Obstacle Triangular 18 18 15 4 false
 #
 Level 11
