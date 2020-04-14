@@ -1,10 +1,13 @@
 package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ import pl.mk5.gdx.fireapp.GdxFIRDatabase;
  * @author sigmundhh */
 public class Drawing {
 
-    private Stack<List<Vector2>> lines = new Stack<>();
+    private Stack<List<Vector3>> lines = new Stack<>();
     private List<Body> bodies;
     private Inkbar inkbar;
     private boolean isPlayer;
@@ -33,23 +36,26 @@ public class Drawing {
         this.inkbar = new Inkbar(inkLimit);
     }
 
-    public void addLine(List<Vector2> line) {
-        if(inkbar.inkbarCheck()){
+    public void addLine(List<Vector3> line) {
+        if(inkbar.getInkLeft() > 1){
             lines.push(line);
         }
     }
 
-    public void addPoint(Vector2 point) {
+    public void addPoint(Vector3 point) {
         if(inkbar.inkbarCheck()){
+            inkbar.useInk(point.z);
             lines.peek().add(point);
-            inkbar.useInk();
         }
     }
 
     public void undoLine(){
-            if(!lines.isEmpty()){
-            inkbar.refillInk(lines.pop().size());
+        if(!lines.isEmpty()){
+            for (Vector3 point : lines.pop()) {
+                inkbar.refillInk(point.z); // Z-component represents the ink used for each point
+            }
         }
+        if (lines.isEmpty()) {inkbar.reset();}
     }
 
     public void addBody(World world) {
@@ -61,14 +67,31 @@ public class Drawing {
         fixtureDef.filter.categoryBits = (short) (isPlayer ? 4 : 8);
         fixtureDef.filter.maskBits = 1;
 
-        for (List<Vector2> line : lines) {
-            Body body = world.createBody(bodyDef);
-            Vector2[] vertices = new Vector2[line.size()];
-            line.toArray(vertices);
-            ChainShape shape = new ChainShape();
-            shape.createChain(vertices);
-            fixtureDef.shape = shape;
+        for (List<Vector3> line : lines) {
+            Shape shape;
+            if (line.size() == 1) {
+                bodyDef.position.set(line.get(0).x, line.get(0).y);
+                shape = new CircleShape();
+                shape.setRadius(0.1f);
+            } else {
+                bodyDef.position.setZero();
+                int lineSize = line.size();
 
+                if (line.get(lineSize-1).idt(line.get(lineSize-2))) {
+                    // To fix a bug where the last point in a line often is added twice
+                    line.remove(lineSize-1);
+                    lineSize -= 1;
+                }
+
+                Vector2[] vertices = new Vector2[lineSize];
+                for (int i=0; i < lineSize; i++) {
+                    vertices[i] = new Vector2(line.get(i).x, line.get(i).y);
+                };
+                shape = new ChainShape();
+                ((ChainShape)shape).createChain(vertices);
+            }
+            fixtureDef.shape = shape;
+            Body body = world.createBody(bodyDef);
             body.createFixture(fixtureDef);
             body.setUserData(false); //Not dangerous to collide with
             bodies.add(body);
@@ -76,15 +99,21 @@ public class Drawing {
         }
     }
 
-    public List<List<String>> serializedLines() {
+    public List<List<String>> serializeLines() {
         List<List<String>> serializedLines = new ArrayList<>();
 
-        for (List<Vector2> line : lines) {
+        for (List<Vector3> line : lines) {
             List<String> currentLine = new ArrayList<>();
-            for (Vector2 point : line) {
+            for (Vector3 point : line) {
                 currentLine.add(point.toString());
             }
             serializedLines.add(currentLine);
+        }
+        if (serializedLines.size() == 0) {
+            // Empty drawing
+            List<String> emptyLine = new ArrayList<>();
+            emptyLine.add("(-1,-1, -1)");
+            serializedLines.add(emptyLine);
         }
         return serializedLines;
     }
@@ -92,11 +121,11 @@ public class Drawing {
     public void uploadLines(String gameID, String playerName) {
         GdxFIRDatabase.inst()
                 .inReference(String.format("games/%s/%s/drawing", gameID, playerName))
-                .setValue(serializedLines());
+                .setValue(serializeLines());
     }
 
 
-    public Stack<List<Vector2>> getLines() {
+    public Stack<List<Vector3>> getLines() {
         return lines;
     }
 
@@ -107,9 +136,9 @@ public class Drawing {
     public void deserializeDrawing(List<List<String>> opponentDrawing) {
         System.out.println(opponentDrawing);
         for (List<String> serializedLine : opponentDrawing) {
-            List<Vector2> deserializedLine = new ArrayList<>();
+            List<Vector3> deserializedLine = new ArrayList<>();
             for (String serializedPoint : serializedLine) {
-                Vector2 deserializedPoint = new Vector2().fromString(serializedPoint);
+                Vector3 deserializedPoint = new Vector3().fromString(serializedPoint);
                 deserializedLine.add(deserializedPoint);
             }
             lines.push(deserializedLine);

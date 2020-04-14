@@ -3,9 +3,8 @@ package com.mygdx.hastypastry.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -15,13 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.Assets;
-import com.mygdx.hastypastry.singletons.ScreenManager;
+import com.mygdx.hastypastry.ui.LabelButton;
+import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class DrawView extends BaseView {
     private Game game;
     private ProgressBar inkbar;
     private ProgressBar timebar;
-    private float timeLeft = 30;
+    private float timeLeft = 60;
 
     public DrawView(Game game) {
         super();
@@ -42,7 +41,7 @@ public class DrawView extends BaseView {
 
     @Override
     public void draw(SpriteBatch batch, float delta) {
-        updateBars();
+        updateBars(delta);
         //Renders obstacles and waffles through levels. Utilizes the sprite draw function, since the sprite already
         //know what it need (position and size).
         for (WorldObject object : game.getWorldObjects()) {
@@ -54,17 +53,21 @@ public class DrawView extends BaseView {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setColor(Color.BLACK);
-        for (List<Vector2> line: game.getPlayer().getDrawing().getLines()) {
-            for(int i = 0; i < line.size()-1; ++i) {
-                shapeRenderer.line(line.get(i), line.get(i+1));
+        for (List<Vector3> line: game.getPlayer().getDrawing().getLines()) {
+            if (line.size() == 1) {
+                shapeRenderer.circle(line.get(0).x, line.get(0).y, 0.1f);
+            } else {
+                for(int i = 0; i < line.size()-1; ++i) {
+                    shapeRenderer.line(line.get(i).x, line.get(i).y, line.get(i+1).x, line.get(i+1).y);
+                }
             }
         }
         shapeRenderer.end();
     }
 
-    private void updateBars() {
+    private void updateBars(float delta) {
         // Update timebar
-        timeLeft -= Config.TIME_STEP;
+        timeLeft -= delta;
         timebar.setValue(timeLeft);
 
         if (timeLeft < 0) {
@@ -72,7 +75,7 @@ public class DrawView extends BaseView {
         }
 
         // Update inkbar
-        inkbar.setValue(game.getPlayer().getDrawing().getInkbar().getPointsLeft());
+        inkbar.setValue(game.getPlayer().getDrawing().getInkbar().getInkLeft());
     }
 
     @Override
@@ -95,7 +98,7 @@ public class DrawView extends BaseView {
 
         // Inkbar with ink icon
         float inkLimit = game.getLevel().getInkLimit();
-        inkbar = new ProgressBar(0, inkLimit, 1, false, skin, "default");
+        inkbar = new ProgressBar(0, inkLimit, 0.1f, false, skin, "default");
         inkbar.setValue(inkLimit);
         inkbar.getStyle().background.setMinHeight(20);
         inkbar.getStyle().knobBefore.setMinHeight(20);
@@ -135,10 +138,19 @@ public class DrawView extends BaseView {
         topMenu.setFillParent(true);
         topMenu.top();
 
+
         // Add components to topMenu
-        topMenu.add(undo).size(50,50).padRight(20);
-        topMenu.add(barTable);
-        topMenu.add(play).padLeft(20);
+        int padValue;
+        if (game.isMultiplayer()) {
+            padValue = 20;
+        } else {
+            padValue = 10;
+            MenuButton menu = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+            topMenu.add(menu).padRight(padValue);
+        }
+        topMenu.add(undo).size(50,50).padRight(padValue);
+        topMenu.add(barTable).padRight(padValue);
+        topMenu.add(play);
 
         // Add topMenu to ui
         ui.addActor(topMenu);

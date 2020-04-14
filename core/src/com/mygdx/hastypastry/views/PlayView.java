@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -17,7 +17,6 @@ import com.mygdx.hastypastry.listeners.MyContactListener;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.ui.MenuButton;
-
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -26,15 +25,13 @@ import static com.mygdx.hastypastry.Config.TIME_STEP;
 import static com.mygdx.hastypastry.Config.VELOCITY_ITERATIONS;
 
 public class PlayView extends BaseView {
-    protected Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();;
-    protected ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
     protected World world;
-    protected MenuButton menuButton;
     protected BitmapFont font;
-    protected float elapsedTime = 0.0f;
-    protected DecimalFormat df = new DecimalFormat("###.##");
+    private float elapsedTime = 0.0f;
+    private DecimalFormat df = new DecimalFormat("###.##");
     private Table table;
-    protected Label timeLabel;
+    private Label timeLabel;
     protected Game game;
 
     public PlayView(Game game) {
@@ -69,18 +66,25 @@ public class PlayView extends BaseView {
         shapeRenderer.setColor(Color.BLACK);
 
         // Renders players drawing
-        for (List<Vector2> line: game.getPlayer().getDrawing().getLines()) {
-            for(int i = 0; i < line.size()-1; ++i) {
-                shapeRenderer.line(line.get(i), line.get(i+1));
+        for (List<Vector3> line: game.getPlayer().getDrawing().getLines()) {
+            if (line.size() == 1) {
+                shapeRenderer.circle(line.get(0).x, line.get(0).y, 0.1f);
+            } else {
+                for(int i = 0; i < line.size()-1; ++i) {
+                    shapeRenderer.line(line.get(i).x, line.get(i).y, line.get(i + 1).x, line.get(i + 1).y);
+                }
             }
         }
         // Renders opponent drawing
         if (game.isMultiplayer()) {
             shapeRenderer.setColor(Color.GREEN);
-            for (List<Vector2> line: game.getOpponent().getDrawing().getLines()) {
-                for(int i = 0; i < line.size()-1; ++i) {
-                    shapeRenderer.line(line.get(i), line.get(i+1));
-                    
+            for (List<Vector3> line: game.getOpponent().getDrawing().getLines()) {
+                if (line.size() == 1) {
+                    shapeRenderer.circle(line.get(0).x, line.get(0).y, 0.1f);
+                } else {
+                    for(int i = 0; i < line.size()-1; ++i) {
+                        shapeRenderer.line(line.get(i).x, line.get(i).y, line.get(i+1).x, line.get(i+1).y);
+                    }
                 }
             }
         }
@@ -94,7 +98,7 @@ public class PlayView extends BaseView {
 
     @Override
     public void buildStage() {
-        menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+        MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         menuButton.setPosition(10, Config.UI_HEIGHT - menuButton.getHeight() - 10);
 
         font = generateFont("pixelfont.TTF", 24);

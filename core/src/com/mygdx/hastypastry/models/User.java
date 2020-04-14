@@ -29,11 +29,11 @@ public class User {
         this.status = status;
     }
 
-    public Match getChallenger() {
+    public Match getChallenge() {
         return challenge;
     }
 
-    public void setChallenger(Match challenger) {
+    public void setChallenge(Match challenge) {
         this.challenge = challenge;
     }
 

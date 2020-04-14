@@ -182,7 +182,7 @@ public class FBDatabase implements HastyPastryDatabase {
         }
 
         // Upload drawing
-        playerDrawingRef.setValue(game.getPlayer().getDrawing().serializedLines());
+        playerDrawingRef.setValue(game.getPlayer().getDrawing().serializeLines());
 
         // Listen for opponents drawing
         drawingListener = new ValueEventListener() {
@@ -240,7 +240,7 @@ public class FBDatabase implements HastyPastryDatabase {
 
     @Override
     public void startGame(User user) {
-        user.setChallenger(null);
+        user.setChallenge(null);
         user.setStatus("inGame");
         lobbyRef.child(user.getFBID()).setValue(user);
     }
@@ -265,8 +265,10 @@ public class FBDatabase implements HastyPastryDatabase {
         lobbyRef.child(match.getMatchID()).child("status").setValue("ready");
 
         // Update player: Remove challenger and set ready to true.
-        challenged.setChallenger(null);
+
+        challenged.setChallenge(null);
         challenged.setStatus("ready");
+
         lobbyRef.child(challenged.getFBID()).setValue(challenged);
     }
 }
