@@ -30,7 +30,7 @@ public class LevelSelectView extends BaseView {
         // Find number of levels
         int i = 0;
         for (String line : fileData){
-            if (line.contains("Level")){
+            if (line.contains("Level")) {
                 i++;
             }
         }

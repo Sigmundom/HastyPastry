@@ -123,4 +123,16 @@ public class CompletedLevelView extends BaseView {
 
         this.ui.addActor(table);
     }
+
+    private String getNextLevel(String levelNumber) {
+        String[] string = levelNumber.trim().split("\\s+");
+        int num = Integer.parseInt(string[1]);
+        // Må endre fra 18. Eventuelt
+        if (num != 18) {
+            return "Level " + String.valueOf(num + 1);
+        }else {
+            return null;
+        }
+        // Legger til sjekk for å se om getNextLevel gir null
+    }
 }

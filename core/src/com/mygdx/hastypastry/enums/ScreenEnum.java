@@ -45,9 +45,7 @@ public enum ScreenEnum {
         public BaseView getScreen(Object... params) { return new FailedLevelView((Game)params[0]); }
     },
     LOGIN {
-        public BaseView getScreen(Object... params) {
-            return new LoginView();
-        }
+        public BaseView getScreen(Object... params) { return new LoginView(); }
     },
     HIGHSCORE {
         public BaseView getScreen(Object... params) { return new HighScoreListView((Game)params[0]); }
