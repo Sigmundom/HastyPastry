@@ -51,7 +51,7 @@ public class Lobby {
         this.lobbyTable = lobbyTable;
         for (User u : lobbyList) {
             if (!u.getFBID().equals(user.getFBID())) {
-                addUserUI(lobbyTable, u);
+                addUserUI(u);
             }
         }
     }
@@ -60,17 +60,21 @@ public class Lobby {
         this.ui = ui;
     }
 
-    private void addUserUI(Table lobbyTable, final User u) {
-        StyledTextButton userButton = new StyledTextButton(u.getName());
-        userButton.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                challengeUser(u);
-                return false;
-            }
-        });
-        lobbyTable.add(userButton).growX().padBottom(10);
-        lobbyTable.row();
+    private void addUserUI(final User u) {
+        if (lobbyTable != null) {
+            StyledTextButton userButton = new StyledTextButton(u.getName());
+            userButton.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    challengeUser(u);
+                    return false;
+                }
+            });
+            userButton.setDisabled(u.getStatus().equals("busy"));
+            u.setUserButton(userButton);
+            lobbyTable.add(userButton).growX().padBottom(10);
+            lobbyTable.row();
+        }
     }
 
     public void challengeUser(User u) {
@@ -83,20 +87,17 @@ public class Lobby {
 
     public void addUser(User newUser) {
         lobbyList.add(newUser);
-        if (lobbyTable != null) {
-            addUserUI(lobbyTable, newUser);
-        }
+        addUserUI(newUser);
     }
 
     public void removeUser(User leavingUser) {
         lobbyList.remove(leavingUser);
+        removeUserUI(leavingUser);
+    }
+
+    private void removeUserUI(User leavingUser) {
         if (lobbyTable != null) {
-            for (Actor e : lobbyTable.getChildren()) {
-                if (((StyledTextButton)e).getText().toString().equals(leavingUser.getName())) {
-                    lobbyTable.removeActor(e);
-                    break;
-                }
-            }
+            lobbyTable.removeActor(leavingUser.getUserButton());
         }
     }
 
@@ -139,10 +140,45 @@ public class Lobby {
     }
 
     public void challengeCanceled() {
-        recievedChallengeBox.hide();
+        if (recievedChallengeBox != null) {
+            recievedChallengeBox.hide();
+        }
     }
 
     public void challengeDeclined() {
         challengeBox.hide();
     }
+
+    public void updateUser(User updatedUser) {
+        User oldUser = null;
+        for (User u : lobbyList) {
+            if (u.getFBID().equals(updatedUser.getFBID())) {
+                oldUser = u;
+                break;
+            }
+        }
+
+        String oldStatus = oldUser.getStatus();
+        String newStatus = updatedUser.getStatus();
+
+        if (oldUser != null) {
+            if (oldStatus.equals("inGame") && newStatus.equals("ready")) {
+                addUserUI(updatedUser);
+            } else if (oldStatus.matches("ready|busy") && newStatus.equals("inGame")) {
+                removeUserUI(oldUser);
+            } else if (oldStatus.equals("ready") && newStatus.equals("busy")) {
+                setEnabledUserUI(oldUser, true);
+            } else if (oldStatus.equals("busy") && newStatus.equals("ready")) {
+                setEnabledUserUI(oldUser, false);
+            }
+        } else {
+        }
+    }
+
+    private void setEnabledUserUI(User user, boolean disabled) {
+        if (user.getUserButton() != null) {
+            user.getUserButton().setDisabled(disabled);
+        }
+    }
+
 }
