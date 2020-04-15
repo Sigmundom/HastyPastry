@@ -1,39 +1,27 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
-import com.mygdx.hastypastry.controllers.FileReader;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.ui.MenuButton;
 
-import java.util.ArrayList;
-
 public class LevelSelectView extends BaseView {
-
     private BitmapFont font = new BitmapFont();
 
-    public LevelSelectView() { super(); }
+    public LevelSelectView() {
+        super();
+    }
 
     @Override
     public void buildStage() {
-        // Find all levels
-        FileReader fileReader = new FileReader();
-        ArrayList<String> fileData = fileReader.getInternalFileData("levels.txt");
-
         // Find number of levels
-        int i = 0;
-        for (String line : fileData){
-            if (line.contains("Level")) {
-                i++;
-            }
-        }
+        int numberOfLevels = Level.getNumberOfLevels();
 
         // Create inner table
         Table table = new Table();
@@ -47,7 +35,7 @@ public class LevelSelectView extends BaseView {
         table.top();
 
         // Add levels to the columns
-        for (int j = 0; j < i; j++) {
+        for (int j = 0; j < numberOfLevels; j++) {
             MenuButton button = new MenuButton(String.valueOf(j + 1), ScreenEnum.DRAW, new Game(new Level("Level " + String.valueOf(j + 1))));
             table.add(button).growX().pad(10);
             int m = j % 3;
@@ -65,12 +53,6 @@ public class LevelSelectView extends BaseView {
 
         this.ui.addActor(menuButton);
         // Add levels to table
-        /*
-        for (int j = 0; j < i; j++){
-            MenuButton button = new MenuButton("  " + String.valueOf(j + 1) + "  ", ScreenEnum.DRAW, new Game(new Level("Level " + String.valueOf(j + 1))));
-            table.add(button).pad(10);
-        }
-         */
     }
 
     @Override

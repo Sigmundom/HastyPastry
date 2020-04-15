@@ -6,7 +6,7 @@ public class DBManager {
     public static final DBManager instance = new DBManager();
     private HastyPastryDatabase db;
 
-    //Singleton - prevents instanciation from other classes
+    //Singleton - prevents instantiation from other classes
     private DBManager() {
     }
 

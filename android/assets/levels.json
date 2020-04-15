@@ -1,0 +1,1332 @@
+[ {
+  "goal" : {
+    "height" : "3",
+    "posX" : "16",
+    "posY" : "8",
+    "width" : "3"
+  },
+  "inkLimit" : 5,
+  "level" : "Level 1",
+  "obstacles" : [ {
+    "height" : "4",
+    "isDeadly" : true,
+    "posX" : "3",
+    "posY" : "8",
+    "shape" : "Square",
+    "width" : "2"
+  }, {
+    "height" : "3",
+    "isDeadly" : false,
+    "posX" : "10",
+    "posY" : "10",
+    "shape" : "Triangular",
+    "width" : "6"
+  } ],
+  "starRank" : "2.8;2.5;2.2",
+  "waffle" : {
+    "posX" : 9,
+    "posY" : "27",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "3",
+    "posX" : "14",
+    "posY" : "2",
+    "width" : "3"
+  },
+  "inkLimit" : 10,
+  "level" : "Level 2",
+  "obstacles" : [ {
+    "height" : "4",
+    "isDeadly" : true,
+    "posX" : "12",
+    "posY" : "18",
+    "shape" : "Square",
+    "width" : "12"
+  } ],
+  "starRank" : "5.3;4.8;4.3",
+  "waffle" : {
+    "posX" : "9",
+    "posY" : "27",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "3",
+    "posX" : "2",
+    "posY" : "4",
+    "width" : "3"
+  },
+  "inkLimit" : 20,
+  "level" : "Level 3",
+  "obstacles" : [ {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "9",
+    "posY" : "24",
+    "shape" : "Triangular",
+    "width" : "4"
+  }, {
+    "height" : "12",
+    "isDeadly" : false,
+    "posX" : "10",
+    "posY" : "12",
+    "shape" : "Square",
+    "width" : "4"
+  }, {
+    "height" : "1",
+    "isDeadly" : false,
+    "posX" : "2",
+    "posY" : "13",
+    "shape" : "Square",
+    "width" : "12"
+  }, {
+    "height" : "1",
+    "isDeadly" : false,
+    "posX" : "15",
+    "posY" : "23",
+    "shape" : "Square",
+    "width" : "14"
+  } ],
+  "starRank" : "7.5;7;6.5",
+  "waffle" : {
+    "posX" : "9",
+    "posY" : "28",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "2",
+    "posX" : "15",
+    "posY" : "17",
+    "width" : "2"
+  },
+  "inkLimit" : 20,
+  "level" : "Level 4",
+  "obstacles" : [ {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "9",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "18"
+  }, {
+    "height" : "16",
+    "isDeadly" : false,
+    "posX" : "15",
+    "posY" : "8",
+    "shape" : "Square",
+    "width" : "2"
+  } ],
+  "starRank" : "7;6.4;5.9",
+  "waffle" : {
+    "posX" : "3",
+    "posY" : "17",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "2",
+    "posX" : "2",
+    "posY" : "11",
+    "width" : "2"
+  },
+  "inkLimit" : 15,
+  "level" : "Level 5",
+  "obstacles" : [ {
+    "height" : "8",
+    "isDeadly" : true,
+    "posX" : "12",
+    "posY" : "4",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "8",
+    "isDeadly" : true,
+    "posX" : "12",
+    "posY" : "18",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "15",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "6"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "6",
+    "posY" : "8",
+    "shape" : "Square",
+    "width" : "13"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "6",
+    "posY" : "14",
+    "shape" : "Square",
+    "width" : "13"
+  }, {
+    "height" : "8",
+    "isDeadly" : false,
+    "posX" : "6",
+    "posY" : "4",
+    "shape" : "Square",
+    "width" : "12"
+  }, {
+    "height" : "8",
+    "isDeadly" : false,
+    "posX" : "6",
+    "posY" : "18",
+    "shape" : "Square",
+    "width" : "12"
+  } ],
+  "starRank" : "3.9;3.4;2.9",
+  "waffle" : {
+    "posX" : "16",
+    "posY" : "26",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "2",
+    "posX" : "12",
+    "posY" : "4",
+    "width" : "2"
+  },
+  "inkLimit" : 20,
+  "level" : "Level 6",
+  "obstacles" : [ {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "9",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "18"
+  }, {
+    "isDeadly" : true,
+    "posX" : "10",
+    "posY" : "25",
+    "radius" : "2",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "1",
+    "posY" : "24",
+    "radius" : "3",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "14",
+    "posY" : "18",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "10",
+    "posY" : "18",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "6",
+    "posY" : "18",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "18",
+    "posY" : "21",
+    "shape" : "Triangular",
+    "width" : "8"
+  }, {
+    "height" : "32",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "16",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "32",
+    "isDeadly" : false,
+    "posX" : "18",
+    "posY" : "16",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "7",
+    "posY" : "26",
+    "shape" : "Square",
+    "width" : "14"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "16",
+    "posY" : "18",
+    "shape" : "Square",
+    "width" : "4"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "8",
+    "posY" : "18",
+    "shape" : "Square",
+    "width" : "4"
+  }, {
+    "height" : "3",
+    "isDeadly" : false,
+    "posX" : "4",
+    "posY" : "12",
+    "shape" : "Triangular",
+    "width" : "3"
+  } ],
+  "starRank" : "8;7.2;6.5",
+  "waffle" : {
+    "posX" : "16",
+    "posY" : "27",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "2",
+    "posX" : "14",
+    "posY" : "3",
+    "width" : "2"
+  },
+  "inkLimit" : 20,
+  "level" : "Level 7",
+  "obstacles" : [ {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "18",
+    "posY" : "2",
+    "shape" : "Triangular",
+    "width" : "16"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "18",
+    "posY" : "6",
+    "shape" : "Triangular",
+    "width" : "16"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "18",
+    "posY" : "10",
+    "shape" : "Triangular",
+    "width" : "16"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "18",
+    "posY" : "14",
+    "shape" : "Triangular",
+    "width" : "16"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "18",
+    "posY" : "18",
+    "shape" : "Triangular",
+    "width" : "16"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "4",
+    "shape" : "Triangular",
+    "width" : "16"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "8",
+    "shape" : "Triangular",
+    "width" : "16"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "12",
+    "shape" : "Triangular",
+    "width" : "16"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "16",
+    "shape" : "Triangular",
+    "width" : "16"
+  }, {
+    "height" : "2",
+    "isDeadly" : true,
+    "posX" : "4",
+    "posY" : "1",
+    "shape" : "Square",
+    "width" : "8"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "9",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "18"
+  } ],
+  "starRank" : "6.2;5.2;4.6",
+  "waffle" : {
+    "posX" : "9",
+    "posY" : "27",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "2",
+    "posX" : "9",
+    "posY" : "2",
+    "width" : "2"
+  },
+  "inkLimit" : 20,
+  "level" : "Level 8",
+  "obstacles" : [ {
+    "height" : "12",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "20",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "12",
+    "isDeadly" : false,
+    "posX" : "18",
+    "posY" : "20",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "2",
+    "isDeadly" : true,
+    "posX" : "9",
+    "posY" : "25",
+    "shape" : "Triangular",
+    "width" : "2"
+  }, {
+    "height" : "8",
+    "isDeadly" : true,
+    "posX" : "9",
+    "posY" : "8",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "10",
+    "isDeadly" : true,
+    "posX" : "3",
+    "posY" : "5",
+    "shape" : "Square",
+    "width" : "2"
+  }, {
+    "height" : "10",
+    "isDeadly" : true,
+    "posX" : "15",
+    "posY" : "5",
+    "shape" : "Square",
+    "width" : "2"
+  }, {
+    "isDeadly" : false,
+    "posX" : "9",
+    "posY" : "18",
+    "radius" : "6",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "0",
+    "posY" : "32",
+    "radius" : "8",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "18",
+    "posY" : "32",
+    "radius" : "8",
+    "shape" : "Round"
+  }, {
+    "height" : "6",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "12",
+    "shape" : "Triangular",
+    "width" : "11"
+  }, {
+    "height" : "6",
+    "isDeadly" : false,
+    "posX" : "18",
+    "posY" : "12",
+    "shape" : "Triangular",
+    "width" : "11"
+  }, {
+    "height" : "1",
+    "isDeadly" : false,
+    "posX" : "9",
+    "posY" : "0",
+    "shape" : "Triangular",
+    "width" : "20"
+  } ],
+  "starRank" : "6;5.4;4.9",
+  "waffle" : {
+    "posX" : "9",
+    "posY" : "28",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "3",
+    "posX" : "2",
+    "posY" : "3",
+    "width" : "3"
+  },
+  "inkLimit" : 15,
+  "level" : "Level 9",
+  "obstacles" : [ {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "21",
+    "shape" : "Triangular",
+    "width" : "10"
+  }, {
+    "height" : "3",
+    "isDeadly" : true,
+    "posX" : "18",
+    "posY" : "1",
+    "shape" : "Triangular",
+    "width" : "6"
+  }, {
+    "height" : "2",
+    "isDeadly" : true,
+    "posX" : "0",
+    "posY" : "7",
+    "shape" : "Square",
+    "width" : "30"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "18",
+    "shape" : "Square",
+    "width" : "10"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "16",
+    "shape" : "Square",
+    "width" : "14"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "14",
+    "shape" : "Square",
+    "width" : "18"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "12",
+    "shape" : "Square",
+    "width" : "22"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "10",
+    "shape" : "Square",
+    "width" : "26"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "8",
+    "shape" : "Square",
+    "width" : "30"
+  }, {
+    "height" : "2",
+    "isDeadly" : true,
+    "posX" : "18",
+    "posY" : "18",
+    "shape" : "Square",
+    "width" : "14"
+  }, {
+    "height" : "2",
+    "isDeadly" : true,
+    "posX" : "18",
+    "posY" : "16",
+    "shape" : "Square",
+    "width" : "10"
+  }, {
+    "height" : "2",
+    "isDeadly" : true,
+    "posX" : "18",
+    "posY" : "14",
+    "shape" : "Square",
+    "width" : "6"
+  }, {
+    "height" : "2",
+    "isDeadly" : true,
+    "posX" : "18",
+    "posY" : "12",
+    "shape" : "Square",
+    "width" : "2"
+  } ],
+  "starRank" : "9;7.4;6.2",
+  "waffle" : {
+    "posX" : "2",
+    "posY" : "24",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "2",
+    "posX" : "17",
+    "posY" : "4",
+    "width" : "2"
+  },
+  "inkLimit" : 25,
+  "level" : "Level 10",
+  "obstacles" : [ {
+    "isDeadly" : true,
+    "posX" : "6",
+    "posY" : "10",
+    "radius" : "2",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "7",
+    "radius" : "2",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "10",
+    "posY" : "13",
+    "radius" : "2",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "6",
+    "posY" : "0",
+    "radius" : "4",
+    "shape" : "Round"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "18",
+    "posY" : "18",
+    "shape" : "Triangular",
+    "width" : "15"
+  } ],
+  "starRank" : "8.5;7.7;7",
+  "waffle" : {
+    "posX" : "9",
+    "posY" : "27",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "2",
+    "posX" : "7",
+    "posY" : "2",
+    "width" : "2"
+  },
+  "inkLimit" : 20,
+  "level" : "Level 11",
+  "obstacles" : [ {
+    "height" : "1",
+    "isDeadly" : false,
+    "posX" : "6",
+    "posY" : "25",
+    "shape" : "Triangular",
+    "width" : "12"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "2",
+    "posY" : "19",
+    "shape" : "Triangular",
+    "width" : "4"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "2",
+    "posY" : "9",
+    "shape" : "Triangular",
+    "width" : "4"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "16",
+    "posY" : "24",
+    "shape" : "Triangular",
+    "width" : "4"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "16",
+    "posY" : "14",
+    "shape" : "Triangular",
+    "width" : "4"
+  }, {
+    "height" : "4",
+    "isDeadly" : false,
+    "posX" : "16",
+    "posY" : "4",
+    "shape" : "Triangular",
+    "width" : "4"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "6",
+    "posY" : "24",
+    "shape" : "Square",
+    "width" : "12"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "8",
+    "posY" : "14",
+    "shape" : "Square",
+    "width" : "7"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "8",
+    "posY" : "4",
+    "shape" : "Square",
+    "width" : "7"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "10",
+    "posY" : "19",
+    "shape" : "Square",
+    "width" : "7"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "10",
+    "posY" : "9",
+    "shape" : "Square",
+    "width" : "7"
+  }, {
+    "height" : "28",
+    "isDeadly" : true,
+    "posX" : "1",
+    "posY" : "12",
+    "shape" : "Square",
+    "width" : "2"
+  }, {
+    "height" : "28",
+    "isDeadly" : true,
+    "posX" : "17",
+    "posY" : "12",
+    "shape" : "Square",
+    "width" : "2"
+  }, {
+    "height" : "1",
+    "isDeadly" : false,
+    "posX" : "9",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "18"
+  } ],
+  "starRank" : "11;8.5;7.5",
+  "waffle" : {
+    "posX" : "9",
+    "posY" : "27",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "2",
+    "posX" : "15",
+    "posY" : "3",
+    "width" : "2"
+  },
+  "inkLimit" : 15,
+  "level" : "Level 12",
+  "obstacles" : [ {
+    "height" : "2",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "17",
+    "shape" : "Square",
+    "width" : "10"
+  }, {
+    "isDeadly" : true,
+    "posX" : "9",
+    "posY" : "8",
+    "radius" : "5",
+    "shape" : "Round"
+  } ],
+  "starRank" : "6.5;6;5",
+  "waffle" : {
+    "posX" : "9",
+    "posY" : "27",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "3",
+    "posX" : "16",
+    "posY" : "5",
+    "width" : "3"
+  },
+  "inkLimit" : 20,
+  "level" : "Level 13",
+  "obstacles" : [ {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "0",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "40"
+  }, {
+    "height" : "45",
+    "isDeadly" : false,
+    "posX" : "5",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "10",
+    "isDeadly" : false,
+    "posX" : "5",
+    "posY" : "31",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "35",
+    "isDeadly" : false,
+    "posX" : "9",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "12",
+    "isDeadly" : false,
+    "posX" : "9",
+    "posY" : "27",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "12",
+    "isDeadly" : false,
+    "posX" : "13",
+    "posY" : "27",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "33",
+    "isDeadly" : true,
+    "posX" : "10",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "4",
+    "isDeadly" : true,
+    "posX" : "18",
+    "posY" : "9",
+    "shape" : "Triangular",
+    "width" : "8"
+  } ],
+  "starRank" : "7.8;7.0;6.3",
+  "waffle" : {
+    "posX" : "2",
+    "posY" : "25",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "3",
+    "posX" : "9",
+    "posY" : "3",
+    "width" : "3"
+  },
+  "inkLimit" : 20,
+  "level" : "Level 14",
+  "obstacles" : [ {
+    "height" : "10",
+    "isDeadly" : true,
+    "posX" : "9",
+    "posY" : "10",
+    "shape" : "Triangular",
+    "width" : "12"
+  }, {
+    "isDeadly" : true,
+    "posX" : "0",
+    "posY" : "20",
+    "radius" : "7",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "18",
+    "posY" : "20",
+    "radius" : "7",
+    "shape" : "Round"
+  } ],
+  "starRank" : "5;4.5;3.8",
+  "waffle" : {
+    "posX" : "9",
+    "posY" : "27",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "2",
+    "posX" : "9",
+    "posY" : "3",
+    "width" : "2"
+  },
+  "inkLimit" : 15,
+  "level" : "Level 15",
+  "obstacles" : [ {
+    "isDeadly" : true,
+    "posX" : "9",
+    "posY" : "10",
+    "radius" : "4",
+    "shape" : "Round"
+  }, {
+    "height" : "14",
+    "isDeadly" : false,
+    "posX" : "2",
+    "posY" : "8",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "14",
+    "isDeadly" : false,
+    "posX" : "16",
+    "posY" : "8",
+    "shape" : "Square",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "9",
+    "posY" : "1",
+    "shape" : "Square",
+    "width" : "15"
+  } ],
+  "starRank" : "4.5;4.0;3.5",
+  "waffle" : {
+    "posX" : "9",
+    "posY" : "27",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "3",
+    "posX" : "2",
+    "posY" : "3",
+    "width" : "3"
+  },
+  "inkLimit" : 20,
+  "level" : "Level 16",
+  "obstacles" : [ {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "12",
+    "posY" : "5",
+    "shape" : "Square",
+    "width" : "3"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "6",
+    "posY" : "20",
+    "shape" : "Triangular",
+    "width" : "5"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "12",
+    "posY" : "18",
+    "shape" : "Triangular",
+    "width" : "5"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "6",
+    "posY" : "16",
+    "shape" : "Triangular",
+    "width" : "5"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "12",
+    "posY" : "14",
+    "shape" : "Triangular",
+    "width" : "5"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "6",
+    "posY" : "12",
+    "shape" : "Triangular",
+    "width" : "5"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "12",
+    "posY" : "10",
+    "shape" : "Triangular",
+    "width" : "5"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "6",
+    "posY" : "8",
+    "shape" : "Triangular",
+    "width" : "5"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "12",
+    "posY" : "6",
+    "shape" : "Triangular",
+    "width" : "5"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "3",
+    "posY" : "6",
+    "shape" : "Square",
+    "width" : "8"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "3",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "13"
+  }, {
+    "height" : "2",
+    "isDeadly" : true,
+    "posX" : "14",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "10"
+  } ],
+  "starRank" : "10;8;6",
+  "waffle" : {
+    "posX" : "9",
+    "posY" : "27",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "2",
+    "posX" : "16",
+    "posY" : "6",
+    "width" : "2"
+  },
+  "inkLimit" : 30,
+  "level" : "Level 17",
+  "obstacles" : [ {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "20",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "19",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "18",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "17",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "16",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "15",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "14",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "13",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "12",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "11",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "10",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "7",
+    "posY" : "9",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "20",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "19",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "18",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "17",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "16",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "15",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "14",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "13",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "12",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "11",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "10",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "1",
+    "isDeadly" : true,
+    "posX" : "13",
+    "posY" : "9",
+    "shape" : "Triangular",
+    "width" : "1"
+  }, {
+    "height" : "43",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "14"
+  }, {
+    "height" : "20",
+    "isDeadly" : false,
+    "posX" : "18",
+    "posY" : "18",
+    "shape" : "Square",
+    "width" : "10"
+  }, {
+    "height" : "10",
+    "isDeadly" : false,
+    "posX" : "12",
+    "posY" : "0",
+    "shape" : "Square",
+    "width" : "30"
+  }, {
+    "height" : "2",
+    "isDeadly" : false,
+    "posX" : "0",
+    "posY" : "22",
+    "shape" : "Triangular",
+    "width" : "12"
+  } ],
+  "starRank" : "6.5;5.5;4.8",
+  "waffle" : {
+    "posX" : "2",
+    "posY" : "25",
+    "radius" : 1
+  }
+}, {
+  "goal" : {
+    "height" : "2",
+    "posX" : "9",
+    "posY" : "4",
+    "width" : "2"
+  },
+  "inkLimit" : 25,
+  "level" : "Level 18",
+  "obstacles" : [ {
+    "isDeadly" : true,
+    "posX" : "4",
+    "posY" : "4",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "4",
+    "posY" : "12",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "4",
+    "posY" : "20",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : false,
+    "posX" : "4",
+    "posY" : "28",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : false,
+    "posX" : "9",
+    "posY" : "0",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : false,
+    "posX" : "9",
+    "posY" : "8",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : false,
+    "posX" : "9",
+    "posY" : "16",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "9",
+    "posY" : "24",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "14",
+    "posY" : "4",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "14",
+    "posY" : "12",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : true,
+    "posX" : "14",
+    "posY" : "20",
+    "radius" : "1",
+    "shape" : "Round"
+  }, {
+    "isDeadly" : false,
+    "posX" : "14",
+    "posY" : "28",
+    "radius" : "1",
+    "shape" : "Round"
+  } ],
+  "starRank" : "14;10;8",
+  "waffle" : {
+    "posX" : "9",
+    "posY" : "27",
+    "radius" : 1
+  }
+} ]

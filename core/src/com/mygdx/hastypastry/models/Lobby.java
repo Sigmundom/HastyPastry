@@ -5,13 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.mygdx.hastypastry.controllers.FileReader;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.ChallengeBox;
 import com.mygdx.hastypastry.ui.RecievedChallengeBox;
-import com.mygdx.hastypastry.ui.LabelButton;
+import com.mygdx.hastypastry.ui.StyledTextButton;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,14 +50,18 @@ public class Lobby {
         this.ui = ui;
         this.lobbyTable = lobbyTable;
         for (User u : lobbyList) {
-            if (u.getFBID() != user.getFBID()){
+            if (!u.getFBID().equals(user.getFBID())) {
                 addUserUI(lobbyTable, u);
             }
         }
     }
 
+    public void initCompleteMultiplayerView(Stage ui) {
+        this.ui = ui;
+    }
+
     private void addUserUI(Table lobbyTable, final User u) {
-        LabelButton userButton = new LabelButton(u.getName());
+        StyledTextButton userButton = new StyledTextButton(u.getName());
         userButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -69,9 +73,9 @@ public class Lobby {
         lobbyTable.row();
     }
 
-    private void challengeUser(User u) {
+    public void challengeUser(User u) {
         final String matchID = user.getFBID(); // We use challengers ID as matchID.
-        Match match = new Match(matchID, user.getName(), u.getName());
+        Match match = new Match(matchID, user, u);
         DBManager.instance.getDB().challengePlayer(Lobby.this, u, user, match); //u is opponent
         challengeBox = new ChallengeBox(Lobby.this, match, u);
         challengeBox.show(ui);
@@ -88,7 +92,7 @@ public class Lobby {
         lobbyList.remove(leavingUser);
         if (lobbyTable != null) {
             for (Actor e : lobbyTable.getChildren()) {
-                if (((LabelButton)e).getText().toString().equals(leavingUser.getName())) {
+                if (((StyledTextButton)e).getText().toString().equals(leavingUser.getName())) {
                     lobbyTable.removeActor(e);
                     break;
                 }
@@ -101,21 +105,14 @@ public class Lobby {
     }
 
     public void startGame(Match match, boolean challenger) {
+        DBManager.instance.getDB().startGame(user);
         ScreenManager.getInstance().showScreen(
-                ScreenEnum.DRAW, new Game(match, challenger)
+                ScreenEnum.DRAW, new Game(match, challenger, this)
         );
     }
     private String randLevel(){
-        FileReader reader = new FileReader();
-        ArrayList<String> fileData = new ArrayList<>();
-        fileData = reader.getInternalFileData("levels.txt");
-        int i=0;
-        for(String line : fileData){
-            if(line.contains("Level")){
-                i++;
-            }
-        }
-        int rand = (int)(Math.random()*i)+1;
+        int numberOfLevels = Level.getNumberOfLevels();
+        int rand = (int)(Math.random()*numberOfLevels)+1;
         return "Level "+ rand;
     }
 
@@ -128,12 +125,14 @@ public class Lobby {
         String level = randLevel();
         match.setLevel(level);
         DBManager.instance.getDB().acceptChallenge(match);
-        ScreenManager.getInstance().showScreen(ScreenEnum.DRAW, new Game(match, false));
+        startGame(match, false);
     }
 
     public void declineChallenge(Match match) {
         DBManager.instance.getDB().declineChallenge(match, user);
     }
+
+    public User getUser() { return user; }
 
     public void withdrawChallenge(Match match, User opponent) {
         DBManager.instance.getDB().declineChallenge(match, opponent);

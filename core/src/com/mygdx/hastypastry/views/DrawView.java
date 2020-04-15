@@ -1,6 +1,7 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -15,9 +16,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
+import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.Assets;
+import com.mygdx.hastypastry.singletons.MusicAndSound;
+import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.ui.MenuButton;
+
 import java.util.List;
 
 public class DrawView extends BaseView {
@@ -25,7 +31,9 @@ public class DrawView extends BaseView {
     private Game game;
     private ProgressBar inkbar;
     private ProgressBar timebar;
-    private float timeLeft = 30;
+    private PlayerPreferences playerPreferences;
+    private Sound buttonSound;
+    private float timeLeft = 60;
 
     public DrawView(Game game) {
         super();
@@ -33,6 +41,8 @@ public class DrawView extends BaseView {
         Box2D.init(); // To be able to make shapes before creating a world.
         shapeRenderer = new ShapeRenderer();
         controller = new DrawingInputProcessor(spriteViewport.getCamera(), game.getPlayer().getDrawing());
+        playerPreferences = new PlayerPreferences();
+        buttonSound = MusicAndSound.instance.getButtonSound();
     }
 
     @Override
@@ -72,6 +82,9 @@ public class DrawView extends BaseView {
 
         // Update inkbar
         inkbar.setValue(game.getPlayer().getDrawing().getInkbar().getInkLeft());
+//        if (game.getPlayer().getDrawing().getInkbar().getInkLeft() < 0.5f) {
+//            inkbar.getStyle().knobBefore = null;
+//        }
     }
 
     @Override
@@ -83,10 +96,19 @@ public class DrawView extends BaseView {
         ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle(skin.get("default", ImageButton.ImageButtonStyle.class));
         buttonStyle.imageUp = new TextureRegionDrawable(Assets.instance.getManager().get(Assets.uiAtlas).findRegion("undo"));
         ImageButton undo = new ImageButton(buttonStyle);
+
+        // Sound effects
+        if(playerPreferences.isMusicEnabled()) {
+            MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume() * 0.2f);
+        }
+
         undo.addListener(
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        if(playerPreferences.isSoundEffectsEnabled()) {
+                            buttonSound.play(0.5f);
+                        }
                         game.getPlayer().getDrawing().undoLine();
                         return false;
                     }
@@ -124,6 +146,9 @@ public class DrawView extends BaseView {
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        if(playerPreferences.isSoundEffectsEnabled()) {
+                            buttonSound.play(0.5f);
+                        }
                         game.ready();
                         return false;
                     }
@@ -134,10 +159,19 @@ public class DrawView extends BaseView {
         topMenu.setFillParent(true);
         topMenu.top();
 
+
         // Add components to topMenu
-        topMenu.add(undo).size(50,50).padRight(20);
-        topMenu.add(barTable);
-        topMenu.add(play).padLeft(20);
+        int padValue;
+        if (game.isMultiplayer()) {
+            padValue = 20;
+        } else {
+            padValue = 10;
+            MenuButton menu = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+            topMenu.add(menu).padRight(padValue);
+        }
+        topMenu.add(undo).size(50,50).padRight(padValue);
+        topMenu.add(barTable).padRight(padValue);
+        topMenu.add(play);
 
         // Add topMenu to ui
         ui.addActor(topMenu);

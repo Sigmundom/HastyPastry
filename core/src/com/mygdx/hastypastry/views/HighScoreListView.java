@@ -54,7 +54,7 @@ public class HighScoreListView extends BaseView {
         batch.end();
 
         highscoreLabel.setText("High Score");
-        levelLabel.setText(game.getLevel().getLevelNumber());
+        levelLabel.setText(game.getLevel().getLevel());
 
         playerPreferences.setPrefHighScore(game);
         personalHighScoreLabel.setText("Best: " + df.format(playerPreferences.getPersonalHighScore()));
@@ -77,7 +77,6 @@ public class HighScoreListView extends BaseView {
         levelLabel = new Label("LevelID", labelStyle);
         personalHighScoreLabel = new Label("Personal High Score", labelStyle);
         table = new Table();
-        //table.top().padLeft(Config.UI_WIDTH/2 - 100).left().padTop(10);
         table.top().padTop(30);
         table.setFillParent(true);
         table.add(highscoreLabel);

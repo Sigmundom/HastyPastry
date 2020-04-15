@@ -1,6 +1,5 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
@@ -45,7 +44,5 @@ public class LobbyView extends BaseView {
     }
 
     @Override
-    public void hide() {
-        lobby.exitLobby();
-    }
+    public void hide() {}
 }

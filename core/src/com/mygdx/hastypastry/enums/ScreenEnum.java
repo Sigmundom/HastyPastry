@@ -1,5 +1,6 @@
 package com.mygdx.hastypastry.enums;
 
+import com.badlogic.gdx.audio.Music;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.views.BaseView;
@@ -14,6 +15,7 @@ import com.mygdx.hastypastry.views.LobbyView;
 import com.mygdx.hastypastry.views.LoginView;
 import com.mygdx.hastypastry.views.MainMenuView;
 import com.mygdx.hastypastry.views.PlayView;
+import com.mygdx.hastypastry.views.PreferenceView;
 
 
 public enum ScreenEnum {
@@ -24,14 +26,10 @@ public enum ScreenEnum {
         }
     },
     PLAY {
-        public BaseView getScreen(Object... params) {
-            return new PlayView((Game)params[0]);
-        }
+        public BaseView getScreen(Object... params) { return new PlayView((Game)params[0]); }
     },
     LOBBY {
-        public BaseView getScreen(Object... params) {
-            return new LobbyView((Lobby) params[0]);
-        }
+        public BaseView getScreen(Object... params) { return new LobbyView((Lobby) params[0]); }
     },
     DRAW {
         public BaseView getScreen(Object... params) {
@@ -42,7 +40,7 @@ public enum ScreenEnum {
         public BaseView getScreen(Object... params) { return new CompletedLevelView((Game)params[0]); }
     },
     FAILED_LEVEL {
-        public BaseView getScreen(Object... params) { return new FailedLevelView((Game)params[0]); }
+        public BaseView getScreen(Object... params) { return new FailedLevelView(); }
     },
     LOGIN {
         public BaseView getScreen(Object... params) { return new LoginView(); }
@@ -51,7 +49,10 @@ public enum ScreenEnum {
         public BaseView getScreen(Object... params) { return new HighScoreListView((Game)params[0]); }
     },
     LEVELSELECT {
-        public BaseView getScreen(Object... params) { return new LevelSelectView(); }
+        public BaseView getScreen(Object... params) {return new LevelSelectView(); }
+    },
+    PREFERENCES {
+        public BaseView getScreen(Object... params) { return new PreferenceView();        }
     },
     COMPLETED_MULTIPLAYER {
         public BaseView getScreen(Object... params) { return new CompletedMultiplayerView((Game)params[0]); }
@@ -59,6 +60,7 @@ public enum ScreenEnum {
     INVALID_VERSION {
         public BaseView getScreen(Object... params) { return new InvalidVersionView(); }
     };
+
 
     public abstract BaseView getScreen(Object... params);
 }
