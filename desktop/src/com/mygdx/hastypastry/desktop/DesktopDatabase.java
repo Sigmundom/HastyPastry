@@ -1,10 +1,13 @@
 package com.mygdx.hastypastry.desktop;
 
 import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
+import com.mygdx.hastypastry.levels.LevelData;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.Match;
 import com.mygdx.hastypastry.models.User;
+
+import java.util.List;
 
 public class DesktopDatabase implements HastyPastryDatabase {
 
@@ -55,6 +58,11 @@ public class DesktopDatabase implements HastyPastryDatabase {
 
     @Override
     public void startGame(User user) {
+
+    }
+
+    @Override
+    public void uploadLevels(List<LevelData> levels) {
 
     }
 }

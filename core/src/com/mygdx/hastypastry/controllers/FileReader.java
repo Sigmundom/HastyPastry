@@ -38,7 +38,6 @@ public class FileReader {
         for (String line : split){
             fileData.add(line);
         }
-        System.out.println(fileData);
         return fileData;
 
     }
