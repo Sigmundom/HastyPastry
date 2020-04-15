@@ -9,13 +9,21 @@ import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.models.Game;
+import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class LevelSelectView extends BaseView {
     private BitmapFont font = new BitmapFont();
+    private float levelHighScore;
+    private int numLevelStars;
+    private String levelStars;
+    private PlayerPreferences playerPreferences;
 
     public LevelSelectView() {
         super();
+        levelHighScore = 0;
+        numLevelStars = 0;
+        playerPreferences = new PlayerPreferences();
     }
 
     @Override
@@ -36,7 +44,32 @@ public class LevelSelectView extends BaseView {
 
         // Add levels to the columns
         for (int j = 0; j < numberOfLevels; j++) {
-            MenuButton button = new MenuButton(String.valueOf(j + 1), ScreenEnum.DRAW, new Game(new Level("Level " + String.valueOf(j + 1))));
+            numLevelStars = 0;
+            levelHighScore = playerPreferences.getLevelHighScore("Level " + String.valueOf(j + 1));
+            System.out.println(playerPreferences.getLevelHighScore("Level " + String.valueOf(j + 1)));
+            for(float ranking : new Level("Level " + String.valueOf(j + 1)).getStarRank()) {
+                if((levelHighScore != 0) && (levelHighScore < ranking)) {
+                    numLevelStars++;
+                }
+            }
+
+            switch(numLevelStars) {
+                case 0:
+                    levelStars = "";
+                    break;
+                case 1:
+                    levelStars = "*";
+                    break;
+                case 2:
+                    levelStars = "* *";
+                    break;
+                case 3:
+                    levelStars = "* * *";
+                    break;
+            }
+
+            MenuButton button = new MenuButton(String.valueOf(j + 1) + "\n" + levelStars,
+                    ScreenEnum.DRAW, new Game(new Level("Level " + String.valueOf(j + 1))));
             table.add(button).growX().pad(10);
             int m = j % 3;
             if (m == 2) {
