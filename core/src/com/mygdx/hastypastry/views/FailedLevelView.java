@@ -7,17 +7,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.levels.Level;
+import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class FailedLevelView extends BaseView {
+
+    private Game game;
     private MenuButton menuButton;
     private BitmapFont font = new BitmapFont();
     private PlayerPreferences playerPreferences;
 
-    public FailedLevelView() {
+    public FailedLevelView(Game game) {
         super();
         playerPreferences = new PlayerPreferences();
+        this.game = game;
     }
 
     @Override
@@ -27,12 +32,20 @@ public class FailedLevelView extends BaseView {
             MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume());
         }
 
-        // Create button
+        // Create menu button
         menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
-        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 200);
 
-        // Add button to the stage
+        // Create replay-button
+        MenuButton replayButton = new MenuButton("  Replay level  ", ScreenEnum.DRAW, new Game(new Level(game.getLevel().getLevel())));
+        replayButton.setPosition(Config.UI_WIDTH/2 - replayButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
+
+        // Set width and position of menu button
+        menuButton.setWidth(replayButton.getWidth());
+        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 300);
+
+        // Add buttons to the stage
         this.ui.addActor(menuButton);
+        this.ui.addActor(replayButton);
     }
 
     @Override
