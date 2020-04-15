@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.mygdx.hastypastry.controllers.FileReader;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.ChallengeBox;
@@ -111,16 +111,8 @@ public class Lobby {
         );
     }
     private String randLevel(){
-        FileReader reader = new FileReader();
-        ArrayList<String> fileData = new ArrayList<>();
-        fileData = reader.getInternalFileData("levels.txt");
-        int i=0;
-        for(String line : fileData){
-            if(line.contains("Level")){
-                i++;
-            }
-        }
-        int rand = (int)(Math.random()*i)+1;
+        int numberOfLevels = Level.getNumberOfLevels();
+        int rand = (int)(Math.random()*numberOfLevels)+1;
         return "Level "+ rand;
     }
 

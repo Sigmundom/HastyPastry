@@ -63,7 +63,7 @@ public class CompletedLevelView extends BaseView {
 
         levelTime = game.getPlayer().getNewLevelTime();
         completedLabel.setText("Completed");
-        levelLabel.setText(game.getLevel().getLevelNumber());
+        levelLabel.setText(game.getLevel().getLevel());
         timeLabel.setText("Time: " + df.format(levelTime));
 
         playerPreferences.setPrefHighScore(game);

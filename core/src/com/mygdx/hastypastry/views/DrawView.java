@@ -82,9 +82,9 @@ public class DrawView extends BaseView {
 
         // Update inkbar
         inkbar.setValue(game.getPlayer().getDrawing().getInkbar().getInkLeft());
-        if (game.getPlayer().getDrawing().getInkbar().getInkLeft() < 0.5f) {
-            inkbar.getStyle().knobBefore = null;
-        }
+//        if (game.getPlayer().getDrawing().getInkbar().getInkLeft() < 0.5f) {
+//            inkbar.getStyle().knobBefore = null;
+//        }
     }
 
     @Override

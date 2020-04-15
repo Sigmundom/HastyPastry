@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class LevelData {
     public String level;
-    public String waffle;
-    public String goal;
+    public Map<String, Object> waffle;
+    public Map<String, Object> goal;
     public int inkLimit;
     public String starRank;
     public List<Map<String, Object>> obstacles;

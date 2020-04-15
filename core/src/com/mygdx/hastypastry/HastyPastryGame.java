@@ -37,8 +37,6 @@ public class HastyPastryGame extends Game {
 		MusicAndSound.instance.init();
 		ScreenManager.getInstance().initialize(this);
 		ScreenManager.getInstance().showScreen( ScreenEnum.MAIN_MENU);
-
-		uploadAllLevelsToFB();
 	}
 
 
@@ -48,12 +46,12 @@ public class HastyPastryGame extends Game {
 		Assets.instance.dispose();
 	}
 
-	private void uploadAllLevelsToFB() {
-		List<LevelData> levels = new ArrayList<>();
-		for (int i=1; i<=18; i++) {
-			Level level = new Level("Level "+i);
-			levels.add(level.getLevelData());
-		}
-		DBManager.instance.getDB().uploadLevels(levels);
-	}
+//	private void uploadAllLevelsToFB() {
+//		List<LevelData> levels = new ArrayList<>();
+//		for (int i=1; i<=18; i++) {
+//			Level level = new Level("Level "+i);
+//			levels.add(level.getLevelData());
+//		}
+//		DBManager.instance.getDB().uploadLevels(levels);
+//	}
 }
