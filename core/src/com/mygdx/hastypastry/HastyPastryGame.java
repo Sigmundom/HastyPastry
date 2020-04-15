@@ -9,6 +9,9 @@ import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
+/**
+ * Gets DB-class at contruction. Must have a interface to the database, because of platform independence.
+ */
 public class HastyPastryGame extends Game {
 
 	public HastyPastryGame(HastyPastryDatabase db) {

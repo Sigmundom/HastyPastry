@@ -116,6 +116,11 @@ public class Game {
         return worldObjects;
     }
 
+    /**
+     * Called when player is done drawing in DrawView.
+     * Depending on the multiplayer or not, the method will say
+     * that the player is ready in the match and waiting for the other to complete.
+     */
     public void ready() {
         if (isMultiplayer()) {
             DBManager.instance.getDB().ready(this);
@@ -125,7 +130,7 @@ public class Game {
     }
 
     public void receivedDrawing(List<List<String>> opponentDrawing) {
-        System.out.println("Recieved drawing!");
+        System.out.println("Received drawing!");
         opponent.getDrawing().deserializeDrawing(opponentDrawing);
         ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, this);
     }
