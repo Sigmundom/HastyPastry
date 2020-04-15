@@ -25,6 +25,7 @@ import java.text.DecimalFormat;
 public class CompletedLevelView extends BaseView {
     private Game game;
     private MenuButton menuButton;
+    private MenuButton replayButton;
     protected BitmapFont font;
     private Table table;
     protected Label completedLabel;
@@ -83,16 +84,33 @@ public class CompletedLevelView extends BaseView {
 
         // Create menu button
         menuButton = new MenuButton("  Menu  ", ScreenEnum.MAIN_MENU);
-        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
 
         // Create replay-button
-        MenuButton replayButton = new MenuButton("  Replay level  ", ScreenEnum.DRAW, new Game(new Level("Level 1")));
-        replayButton.setPosition(Config.UI_WIDTH/2 - replayButton.getWidth()/2, Config.UI_HEIGHT/2 - 140);
+        replayButton = new MenuButton("  Replay level  ", ScreenEnum.DRAW, new Game(new Level(game.getLevel().getLevel())));
+
+        // Set width and position of menu button
+        menuButton.setWidth(replayButton.getWidth());
+        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2 - 90, Config.UI_HEIGHT/2 - 300);
+
+        // Check current level
+        String nextLevel = getNextLevel(game.getLevel().getLevel());
+        if (nextLevel != null) {
+            replayButton.setPosition(Config.UI_WIDTH/2 - replayButton.getWidth()/2 - 90, Config.UI_HEIGHT/2 - 220);
+
+            MenuButton nextLevelButton = new MenuButton("  Next Level  ", ScreenEnum.DRAW, new Game(new Level(nextLevel)));
+            nextLevelButton.setWidth(replayButton.getWidth());
+            nextLevelButton.setPosition(Config.UI_WIDTH/2 - nextLevelButton.getWidth()/2 + 90, Config.UI_HEIGHT/2 - 220);
+
+            this.ui.addActor(nextLevelButton);
+        } else {
+            replayButton.setPosition(Config.UI_WIDTH/2 - replayButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
+        }
 
         // Creating high score button, sending game through to high score list.
-        StyledTextButton highScoreButton = new StyledTextButton("High Score");
+        StyledTextButton highScoreButton = new StyledTextButton("  High Score  ");
 
-        highScoreButton.setPosition(Config.UI_WIDTH/2 - highScoreButton.getWidth()/2, Config.UI_HEIGHT/2 - 300);
+        highScoreButton.setWidth(replayButton.getWidth());
+        highScoreButton.setPosition(Config.UI_WIDTH/2 - highScoreButton.getWidth()/2 + 90, Config.UI_HEIGHT/2 - 300);
         highScoreButton.addListener(
                 new InputListener() {
                     @Override
@@ -139,8 +157,7 @@ public class CompletedLevelView extends BaseView {
     private String getNextLevel(String levelNumber) {
         String[] string = levelNumber.trim().split("\\s+");
         int num = Integer.parseInt(string[1]);
-        // Må endre fra 18. Eventuelt
-        if (num != 18) {
+        if (num != game.getLevel().getNumberOfLevels()) {
             return "Level " + String.valueOf(num + 1);
         }else {
             return null;
