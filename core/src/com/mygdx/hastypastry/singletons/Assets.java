@@ -5,6 +5,8 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -62,6 +64,13 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final AssetDescriptor<Texture> bgMenu =
             new AssetDescriptor<>("bg_menu.png", Texture.class);
 
+    // Sound and Music
+    public static final AssetDescriptor<Music> menuMusic =
+            new AssetDescriptor<>("8-punk.mp3", Music.class);
+
+    public static final AssetDescriptor<Sound> buttonSound =
+            new AssetDescriptor<>("button_click.ogg", Sound.class);
+
     //Method for loading the assets into the manager
     private void load()
     {
@@ -71,6 +80,8 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load(gameTextures);
         assetManager.load(bg);
         assetManager.load(bgMenu);
+        assetManager.load(menuMusic);
+        assetManager.load(buttonSound);
     }
 
     //Easy asset disposing, whenever you are done with it just dispose the manager instead of many files.

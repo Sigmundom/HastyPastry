@@ -18,8 +18,8 @@ public class MusicAndSound {
     public Sound getButtonSound() { return buttonSound; }
 
     public void init() {
-        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("8-punk.mp3"));
-        buttonSound = Gdx.audio.newSound(Gdx.files.internal("button_click.ogg"));
+        menuMusic = Assets.instance.getManager().get(Assets.menuMusic);
+        buttonSound = Assets.instance.getManager().get(Assets.buttonSound);
         buttonSound.setVolume(buttonSound.play(), 0.5f);
     }
 }
