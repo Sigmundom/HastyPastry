@@ -34,7 +34,7 @@ public class CompletedMultiplayerView extends BaseView {
         game.getLobby().initCompleteMultiplayerView(ui);
 
         // Create menu button
-        MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+        MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU, game.getLobby());
         menuButton.setPosition(Config.UI_WIDTH/2, Config.UI_HEIGHT/2, Align.center);
 
         StyledTextButton newRoundBtn = new StyledTextButton("New Round");
