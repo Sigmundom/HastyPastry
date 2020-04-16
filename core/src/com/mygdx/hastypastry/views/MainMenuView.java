@@ -9,13 +9,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.ui.ExitButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class MainMenuView extends BaseView {
     private BitmapFont title1Font, title2Font;
     private Label titleLabel1, titleLabel2;
-    protected Texture background = new Texture("bg_menu.png");
+    protected Texture background = Assets.instance.getManager().get(Assets.bgMenu);
     private MenuButton singlePlayerBtn;
     private MenuButton multiPlayerBtn;
     private MenuButton preferenceButton;
