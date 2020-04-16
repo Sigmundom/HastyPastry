@@ -8,13 +8,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.hastypastry.Config;
-import com.mygdx.hastypastry.controllers.PlayerPreferences;
+import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.ui.MenuButton;
@@ -119,10 +118,10 @@ public class PreferenceView extends BaseView {
         table.add(soundOnOffLabel).left().padTop(50);
         table.add(soundEffectCheckBox).width(Config.UI_WIDTH/6f).right().padTop(50);
         table.row();
-        table.add(musicOnOffLabel).left().padTop(50);
-        table.add(musicCheckBox).width(Config.UI_WIDTH/6f).right().padTop(60);
+        table.add(musicOnOffLabel).left().padTop(30);
+        table.add(musicCheckBox).width(Config.UI_WIDTH/6f).right().padTop(30);
         table.row();
-        table.add(musicVolumeLabel).left().padTop(50);
+        table.add(musicVolumeLabel).left().padTop(30);
         table.row();
         table.add(musicVolumeSlider).center().padTop(20).fillX();
 

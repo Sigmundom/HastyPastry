@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
-import com.mygdx.hastypastry.controllers.PlayerPreferences;
+import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 
 public abstract class BaseView implements Screen {
