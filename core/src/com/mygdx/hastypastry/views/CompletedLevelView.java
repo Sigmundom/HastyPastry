@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.levels.Level;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.ScreenManager;
@@ -24,6 +25,7 @@ import java.text.DecimalFormat;
 public class CompletedLevelView extends BaseView {
     private Game game;
     private MenuButton menuButton;
+    private MenuButton replayButton;
     protected BitmapFont font;
     private Table table;
     protected Label completedLabel;
@@ -63,7 +65,7 @@ public class CompletedLevelView extends BaseView {
 
         levelTime = game.getPlayer().getNewLevelTime();
         completedLabel.setText("Completed");
-        levelLabel.setText(game.getLevel().getLevelNumber());
+        levelLabel.setText(game.getLevel().getLevel());
         timeLabel.setText("Time: " + df.format(levelTime));
 
         playerPreferences.setPrefHighScore(game);
@@ -81,12 +83,34 @@ public class CompletedLevelView extends BaseView {
         }
 
         // Create menu button
-        menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
-        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
+        menuButton = new MenuButton("  Menu  ", ScreenEnum.MAIN_MENU);
+
+        // Create replay-button
+        replayButton = new MenuButton("  Replay level  ", ScreenEnum.DRAW, new Game(new Level(game.getLevel().getLevel())));
+
+        // Set width and position of menu button
+        menuButton.setWidth(replayButton.getWidth());
+        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2 - 90, Config.UI_HEIGHT/2 - 300);
+
+        // Check current level
+        String nextLevel = getNextLevel(game.getLevel().getLevel());
+        if (nextLevel != null) {
+            replayButton.setPosition(Config.UI_WIDTH/2 - replayButton.getWidth()/2 - 90, Config.UI_HEIGHT/2 - 220);
+
+            MenuButton nextLevelButton = new MenuButton("  Next Level  ", ScreenEnum.DRAW, new Game(new Level(nextLevel)));
+            nextLevelButton.setWidth(replayButton.getWidth());
+            nextLevelButton.setPosition(Config.UI_WIDTH/2 - nextLevelButton.getWidth()/2 + 90, Config.UI_HEIGHT/2 - 220);
+
+            this.ui.addActor(nextLevelButton);
+        } else {
+            replayButton.setPosition(Config.UI_WIDTH/2 - replayButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
+        }
 
         // Creating high score button, sending game through to high score list.
-        StyledTextButton highScoreButton = new StyledTextButton("High Score");
-        highScoreButton.setPosition(Config.UI_WIDTH/2 - highScoreButton.getWidth()/2, Config.UI_HEIGHT/2 - 300);
+        StyledTextButton highScoreButton = new StyledTextButton("  High Score  ");
+
+        highScoreButton.setWidth(replayButton.getWidth());
+        highScoreButton.setPosition(Config.UI_WIDTH/2 - highScoreButton.getWidth()/2 + 90, Config.UI_HEIGHT/2 - 300);
         highScoreButton.addListener(
                 new InputListener() {
                     @Override
@@ -103,8 +127,9 @@ public class CompletedLevelView extends BaseView {
                     }
                 });
 
-        // Add button to the stage
+        // Add buttons to the stage
         this.ui.addActor(menuButton);
+        this.ui.addActor(replayButton);
         this.ui.addActor(highScoreButton);
 
         font = generateFont("pixelfont.TTF", 32);
@@ -127,5 +152,16 @@ public class CompletedLevelView extends BaseView {
         table.add(newHighScoreLabel).padTop(50);
 
         this.ui.addActor(table);
+    }
+
+    private String getNextLevel(String levelNumber) {
+        String[] string = levelNumber.trim().split("\\s+");
+        int num = Integer.parseInt(string[1]);
+        if (num != game.getLevel().getNumberOfLevels()) {
+            return "Level " + String.valueOf(num + 1);
+        }else {
+            return null;
+        }
+        // Legger til sjekk for å se om getNextLevel gir null
     }
 }

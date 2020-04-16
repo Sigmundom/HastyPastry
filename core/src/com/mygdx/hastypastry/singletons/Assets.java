@@ -49,11 +49,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final AssetDescriptor<TextureAtlas> uiAtlas =
             new AssetDescriptor<>("ui/uiskin.atlas", TextureAtlas.class);
 
-    //The skin
-    public static final AssetDescriptor<Skin> uiSkin =
-            new AssetDescriptor<>("ui/uiskin.json", Skin.class,
-                    new SkinLoader.SkinParameter("ui/uiskin.atlas"));
-
     //Obstacles and waffle
     //Loads a text-file with reference to a collection of textures ("textures.png"), and
     //information about size and coordinates in collection.
@@ -73,7 +68,6 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load(orangeUiAtlas);
         assetManager.load(orangeUiSkin);
         assetManager.load(uiAtlas);
-        assetManager.load(uiSkin);
         assetManager.load(gameTextures);
         assetManager.load(bg);
         assetManager.load(bgMenu);

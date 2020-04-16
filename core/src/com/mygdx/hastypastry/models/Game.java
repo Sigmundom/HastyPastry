@@ -90,7 +90,7 @@ public class Game {
             setWinner("opponent");
             ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_MULTIPLAYER, this);
         } else {
-            ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_LEVEL);
+            ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_LEVEL, this);
         }
     }
 

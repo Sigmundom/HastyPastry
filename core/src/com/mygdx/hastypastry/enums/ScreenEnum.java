@@ -32,20 +32,16 @@ public enum ScreenEnum {
         public BaseView getScreen(Object... params) { return new LobbyView((Lobby) params[0]); }
     },
     DRAW {
-        public BaseView getScreen(Object... params) {
-            return new DrawView((Game)params[0]);
-        }
+        public BaseView getScreen(Object... params) { return new DrawView((Game)params[0]); }
     },
     COMPLETED_LEVEL {
         public BaseView getScreen(Object... params) { return new CompletedLevelView((Game)params[0]); }
     },
     FAILED_LEVEL {
-        public BaseView getScreen(Object... params) { return new FailedLevelView(); }
+        public BaseView getScreen(Object... params) { return new FailedLevelView((Game)params[0]); }
     },
     LOGIN {
-        public BaseView getScreen(Object... params) {
-            return new LoginView();
-        }
+        public BaseView getScreen(Object... params) { return new LoginView(); }
     },
     HIGHSCORE {
         public BaseView getScreen(Object... params) { return new HighScoreListView((Game)params[0]); }

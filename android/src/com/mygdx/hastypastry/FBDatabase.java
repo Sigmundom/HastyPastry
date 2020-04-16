@@ -10,6 +10,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
+import com.mygdx.hastypastry.levels.LevelData;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.Match;
@@ -50,6 +51,9 @@ public class FBDatabase implements HastyPastryDatabase {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                User updatedUser = dataSnapshot.getValue(User.class);
+
+                lobby.updateUser(updatedUser);
             }
 
             @Override
@@ -287,6 +291,12 @@ public class FBDatabase implements HastyPastryDatabase {
         user.setChallenge(null);
         user.setStatus("inGame");
         lobbyRef.child(user.getFBID()).setValue(user);
+    }
+
+    @Override
+    public void uploadLevels(List<LevelData> levels) {
+        DatabaseReference levelsRef = FirebaseDatabase.getInstance().getReference("levels");
+        levelsRef.setValue(levels);
     }
 
     /**

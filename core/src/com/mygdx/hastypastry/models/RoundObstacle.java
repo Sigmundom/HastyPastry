@@ -22,4 +22,8 @@ public class RoundObstacle extends Obstacle {
         shape.setRadius(radius);
         return shape;
     }
+
+    public float getRadius() {
+        return radius;
+    }
 }

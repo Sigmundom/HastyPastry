@@ -34,16 +34,16 @@ public class PlayerPreferences {
 
     public void setPrefHighScore(Game game) {
         newChange = false;
-        if(getPrefs().getFloat(game.getLevel().getLevelNumber()) == 0.0f ||
-                getPrefs().getFloat(game.getLevel().getLevelNumber()) > game.getPlayer().getNewLevelTime()) {
-            getPrefs().putFloat(game.getLevel().getLevelNumber(), game.getPlayer().getNewLevelTime()).flush();
+        if(getPrefs().getFloat(game.getLevel().getLevel()) == 0.0f ||
+                getPrefs().getFloat(game.getLevel().getLevel()) > game.getPlayer().getNewLevelTime()) {
+            getPrefs().putFloat(game.getLevel().getLevel(), game.getPlayer().getNewLevelTime()).flush();
             newChange = true;
         }
-        personalHighScore = getPrefs().getFloat(game.getLevel().getLevelNumber());
+        personalHighScore = getPrefs().getFloat(game.getLevel().getLevel());
     }
 
     public float isHighScoreSet(Game game) {
-        return getPrefs().getFloat(game.getLevel().getLevelNumber());
+        return getPrefs().getFloat(game.getLevel().getLevel());
     }
 
 

@@ -55,4 +55,6 @@ public abstract class Obstacle implements WorldObject {
     public Sprite getSprite() {
         return sprite;
     }
+
+    public boolean isDeadly() { return isDeadly; }
 }

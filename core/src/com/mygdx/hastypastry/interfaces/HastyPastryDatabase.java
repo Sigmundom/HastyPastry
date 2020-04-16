@@ -1,10 +1,13 @@
 package com.mygdx.hastypastry.interfaces;
 
+import com.mygdx.hastypastry.levels.LevelData;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.Match;
 import com.mygdx.hastypastry.models.Player;
 import com.mygdx.hastypastry.models.User;
+
+import java.util.List;
 
 public interface HastyPastryDatabase {
     // Lobby methods
@@ -22,4 +25,6 @@ public interface HastyPastryDatabase {
     void checkVersion();
 
     void startGame(User user);
+
+    void uploadLevels(List<LevelData> levels);
 }
