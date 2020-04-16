@@ -194,7 +194,7 @@
 }, {
   "goal" : {
     "height" : "2",
-    "posX" : "11.9",
+    "posX" : "12",
     "posY" : "4",
     "width" : "2"
   },
@@ -221,13 +221,13 @@
     "shape" : "Round"
   }, {
     "isDeadly" : true,
-    "posX" : "14.2",
+    "posX" : "14.1",
     "posY" : "18",
     "radius" : "1",
     "shape" : "Round"
   }, {
     "isDeadly" : true,
-    "posX" : "9.8",
+    "posX" : "9.9",
     "posY" : "18",
     "radius" : "1",
     "shape" : "Round"
