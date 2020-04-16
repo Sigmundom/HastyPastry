@@ -99,7 +99,7 @@ public class PlayView extends BaseView {
 
     @Override
     public void buildStage() {
-        MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+        MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU, game.getLobby());
         menuButton.setPosition(10, Config.UI_HEIGHT - menuButton.getHeight() - 10);
 
         font = generateFont("pixelfont.TTF", 24);
