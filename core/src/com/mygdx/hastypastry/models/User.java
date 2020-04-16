@@ -48,11 +48,11 @@ public class User {
         this.FBID = FBID;
     }
 
-    public StyledTextButton getUserButton() {
+    protected StyledTextButton getUserButton() {
         return userButton;
     }
 
-    public void setUserButton(StyledTextButton userButton) {
+    protected void setUserButton(StyledTextButton userButton) {
         this.userButton = userButton;
     }
 }

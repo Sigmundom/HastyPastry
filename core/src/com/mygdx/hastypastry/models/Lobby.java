@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level;
@@ -161,6 +162,9 @@ public class Lobby {
         String oldStatus = oldUser.getStatus();
         String newStatus = updatedUser.getStatus();
 
+        oldUser.setStatus(newStatus);
+        oldUser.setChallenge(updatedUser.getChallenge());
+
         if (oldUser != null) {
             if (oldStatus.equals("inGame") && newStatus.equals("ready")) {
                 addUserUI(updatedUser);
@@ -169,15 +173,19 @@ public class Lobby {
             } else if (oldStatus.equals("ready") && newStatus.equals("busy")) {
                 setEnabledUserUI(oldUser, true);
             } else if (oldStatus.equals("busy") && newStatus.equals("ready")) {
+                System.out.println("Ready!");
                 setEnabledUserUI(oldUser, false);
             }
         } else {
+            System.out.println("OldUser is null!");
         }
     }
 
     private void setEnabledUserUI(User user, boolean disabled) {
         if (user.getUserButton() != null) {
+            System.out.println("hey!");
             user.getUserButton().setDisabled(disabled);
+            user.getUserButton().setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
         }
     }
 
