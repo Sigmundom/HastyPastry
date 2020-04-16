@@ -30,7 +30,7 @@ public class MenuButton extends TextButton {
                     if(playerPreferences.isSoundEffectsEnabled()) {
                         MusicAndSound.instance.getButtonSound().play(0.5f);
                     }
-                    if(navigateTo == ScreenEnum.MAIN_MENU && (params.length > 0) && params[0] instanceof Lobby) {
+                    if(navigateTo == ScreenEnum.MAIN_MENU && params.length > 0 && params[0] instanceof Lobby) {
                         ((Lobby)params[0]).exitLobby();
                     }
                     ScreenManager.getInstance().showScreen(navigateTo, params);

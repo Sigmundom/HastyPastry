@@ -1,67 +1,81 @@
 textures.png
-size: 200, 1290
+size: 1437, 200
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+black
+  rotate: false
+  xy: 0, 0
+  size: 3, 3
+  orig: 3, 3
+  offset: 0, 0
+  index: -1
 circle
   rotate: false
-  xy: 0, 90
+  xy: 3, 0
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 deadlycircle
   rotate: false
-  xy: 0, 290
+  xy: 203, 0
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 deadlysquare
   rotate: false
-  xy: 0, 490
+  xy: 403, 0
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 deadlytriangle
   rotate: false
-  xy: 0, 690
+  xy: 603, 0
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
+flag
+  rotate: false
+  xy: 803, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
 ink
   rotate: false
-  xy: 0, 0
+  xy: 853, 0
   size: 44, 50
   orig: 44, 50
   offset: 0, 0
   index: -1
 square
   rotate: false
-  xy: 0, 890
+  xy: 897, 0
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 star
   rotate: false
-  xy: 94, 0
+  xy: 1097, 0
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 triangle
   rotate: false
-  xy: 0, 1090
+  xy: 1187, 0
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 waffle
   rotate: false
-  xy: 44, 0
+  xy: 1387, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
