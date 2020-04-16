@@ -18,6 +18,11 @@ public class MenuButton extends TextButton {
             new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    return true;
+                }
+
+                @Override
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                     if(playerPreferences.isMusicEnabled()) {
                         MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume());
                     }
@@ -25,7 +30,6 @@ public class MenuButton extends TextButton {
                         MusicAndSound.instance.getButtonSound().play(0.5f);
                     }
                     ScreenManager.getInstance().showScreen(navigateTo, params);
-                    return false;
                 }
             }
         );

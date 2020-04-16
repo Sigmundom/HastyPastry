@@ -43,6 +43,9 @@ public class FBDatabase implements HastyPastryDatabase {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                User updatedUser = dataSnapshot.getValue(User.class);
+
+                lobby.updateUser(updatedUser);
             }
 
             @Override
