@@ -33,8 +33,8 @@ deadlysquare
   index: -1
 deadlytriangle
   rotate: false
-  xy: 603, 0
-  size: 200, 200
+  xy: 604, 0
+  size: 198, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
