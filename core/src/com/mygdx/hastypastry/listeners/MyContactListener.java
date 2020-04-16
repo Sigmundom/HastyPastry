@@ -49,7 +49,7 @@ public class MyContactListener implements ContactListener {
                 if (a.equals("playerWaffle") || b.equals("playerWaffle")) {
                     game.gameOver();
                 } else if (a.equals("opponentWaffle") || b.equals("opponentWaffle")) {
-                    game.getOpponent().getWaffle().setIsDead(true);
+                    game.getOpponent().getWaffle().setIsDead();
                 }
             } else {
                 game.gameOver();
