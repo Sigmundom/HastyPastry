@@ -1,16 +1,13 @@
 package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.interfaces.WorldObject;
-import com.mygdx.hastypastry.singletons.ScreenManager;
 
 public class Waffle implements WorldObject {
     private final float RADIUS = 1;
@@ -20,6 +17,7 @@ public class Waffle implements WorldObject {
     private float lowestPoint;
     private float lowestPointOnLastTurn;
     private String horizontalDirection = "none";
+    private boolean isDead = false;
 
     public Waffle(float posX, float posY) {
         this.lowestPoint = posY;
@@ -66,8 +64,10 @@ public class Waffle implements WorldObject {
     }
 
     public void update() {
-        sprite.setPosition(body.getPosition().x - RADIUS, body.getPosition().y - RADIUS);
-        sprite.setRotation((float) Math.toDegrees(body.getAngle()));
+        if (!isDead) {
+            sprite.setPosition(body.getPosition().x - RADIUS, body.getPosition().y - RADIUS);
+            sprite.setRotation((float) Math.toDegrees(body.getAngle()));
+        }
     }
 
     protected boolean WaffleHasStopped() {
@@ -101,6 +101,11 @@ public class Waffle implements WorldObject {
             }
         }
         return false;
+    }
+
+    public void setIsDead() {
+        this.isDead = true;
+        body.setActive(false);
     }
 
     public Sprite getSprite() {
