@@ -33,11 +33,12 @@ public class DrawView extends BaseView {
     private ProgressBar timebar;
     private PlayerPreferences playerPreferences;
     private Sound buttonSound;
-    private float timeLeft = 60;
+    private float timeLeft;
 
     public DrawView(Game game) {
         super();
         this.game = game;
+        this.timeLeft = game.getLevel().getTimeLimit();
         Box2D.init(); // To be able to make shapes before creating a world.
         shapeRenderer = new ShapeRenderer();
         controller = new DrawingInputProcessor(spriteViewport.getCamera(), game.getPlayer().getDrawing());
@@ -125,7 +126,7 @@ public class DrawView extends BaseView {
         ink.setSize(15,15);
 
         // Timebar with clock icon
-        timebar = new ProgressBar(0, 30, 1, false, skin, "default");
+        timebar = new ProgressBar(0, game.getLevel().getTimeLimit(), 1, false, skin, "default");
         timebar.setValue(timeLeft);
 
         Image clock = new Image(Assets.instance.getManager().get(Assets.uiAtlas).findRegion("time"));
