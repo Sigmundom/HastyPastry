@@ -1,5 +1,6 @@
 package com.mygdx.hastypastry.views;
 
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
@@ -18,8 +19,9 @@ public class LobbyView extends BaseView {
     @Override
     public void buildStage() {
         // Creates and adds menuButton to ui.
-        MenuButton menuBtn = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+        MenuButton menuBtn = new MenuButton("Menu", ScreenEnum.MAIN_MENU, lobby);
         menuBtn.setPosition(10, Config.UI_HEIGHT- menuBtn.getHeight() - 10);
+
         this.ui.addActor(menuBtn);
 
         // Creates lobbyTable
