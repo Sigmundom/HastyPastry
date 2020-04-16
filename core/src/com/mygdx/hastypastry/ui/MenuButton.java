@@ -5,9 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.models.Lobby;
-import com.mygdx.hastypastry.singletons.MusicAndSound;
-import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.singletons.Assets;
+import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
 public class MenuButton extends TextButton {
