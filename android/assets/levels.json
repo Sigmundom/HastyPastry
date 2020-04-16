@@ -208,7 +208,7 @@
     "width" : "18"
   }, {
     "isDeadly" : true,
-    "posX" : "10",
+    "posX" : "9.8",
     "posY" : "25",
     "radius" : "2",
     "shape" : "Round"
