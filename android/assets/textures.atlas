@@ -20,7 +20,7 @@ circle
 deadlycircle
   rotate: false
   xy: 203, 0
-  size: 200, 200
+  size: 199, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
@@ -41,7 +41,7 @@ deadlytriangle
 flag
   rotate: false
   xy: 803, 0
-  size: 50, 50
+  size: 49, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
