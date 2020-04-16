@@ -241,7 +241,7 @@
     "height" : "4",
     "isDeadly" : false,
     "posX" : "18",
-    "posY" : "21",
+    "posY" : "20.9",
     "shape" : "Triangular",
     "width" : "8"
   }, {
@@ -287,7 +287,7 @@
     "shape" : "Triangular",
     "width" : "3"
   } ],
-  "starRank" : "8;7.2;3.7",
+  "starRank" : "8;6.5;3.7",
   "waffle" : {
     "posX" : "16",
     "posY" : "27",
