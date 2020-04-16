@@ -6,6 +6,7 @@
     "width" : "3"
   },
   "inkLimit" : 5,
+  "timeLimit" : 20,
   "level" : "Level 1",
   "obstacles" : [ {
     "height" : "4",

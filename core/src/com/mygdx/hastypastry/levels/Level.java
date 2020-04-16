@@ -17,6 +17,7 @@ public class Level {
     private Waffle waffle;
     private Goal goal;
     private int inkLimit;
+    private int timeLimit;
     private List<Float> starRank = new ArrayList<>();
     private String level;
     private JsonValue levelData;
@@ -36,6 +37,12 @@ public class Level {
                 goalJson.getFloat("width"), goalJson.getFloat("height"));
 
         inkLimit = levelData.getInt("inkLimit");
+
+        try {
+            timeLimit = levelData.getInt("timeLimit");
+        } catch (Exception e) {
+            timeLimit = 60;
+        }
 
         String[] starData = levelData.getString("starRank").split(";");
         for (int i = 0;i<3;i++){
@@ -94,5 +101,9 @@ public class Level {
     public static int getNumberOfLevels() {
         JsonReader reader = new JsonReader();
         return reader.parse(Gdx.files.internal("levels.json")).size;
+    }
+
+    public int getTimeLimit() {
+        return timeLimit;
     }
 }
