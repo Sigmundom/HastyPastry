@@ -48,6 +48,8 @@ public class MyContactListener implements ContactListener {
             if (game.isMultiplayer()) {
                 if (a.equals("playerWaffle") || b.equals("playerWaffle")) {
                     game.gameOver();
+                } else if (a.equals("opponentWaffle") || b.equals("opponentWaffle")) {
+                    game.getOpponent().getWaffle().setIsDead();
                 }
             } else {
                 game.gameOver();
