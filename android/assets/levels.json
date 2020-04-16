@@ -209,7 +209,7 @@
     "width" : "18"
   }, {
     "isDeadly" : true,
-    "posX" : "9.8",
+    "posX" : "10",
     "posY" : "25",
     "radius" : "2",
     "shape" : "Round"
@@ -221,13 +221,13 @@
     "shape" : "Round"
   }, {
     "isDeadly" : true,
-    "posX" : "14",
+    "posX" : "14.2",
     "posY" : "18",
     "radius" : "1",
     "shape" : "Round"
   }, {
     "isDeadly" : true,
-    "posX" : "10",
+    "posX" : "9.8",
     "posY" : "18",
     "radius" : "1",
     "shape" : "Round"
