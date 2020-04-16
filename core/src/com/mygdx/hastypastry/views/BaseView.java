@@ -17,12 +17,13 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
+import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 
 public abstract class BaseView implements Screen {
     protected DrawingInputProcessor controller;
     protected Stage ui;
-    protected Texture background = new Texture("bg.png");
+    protected Texture background = Assets.instance.getManager().get(Assets.bg);
     protected SpriteBatch batch;
     protected Viewport spriteViewport;
     private PlayerPreferences playerPreferences;

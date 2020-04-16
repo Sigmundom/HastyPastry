@@ -3,9 +3,9 @@ package com.mygdx.hastypastry.ui;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.ScreenManager;
@@ -30,7 +30,7 @@ public class MenuButton extends TextButton {
                     if(playerPreferences.isSoundEffectsEnabled()) {
                         MusicAndSound.instance.getButtonSound().play(0.5f);
                     }
-                    if(navigateTo == ScreenEnum.MAIN_MENU && (params.length > 0) && params[0] instanceof Lobby) {
+                    if(navigateTo == ScreenEnum.MAIN_MENU && params.length > 0 && params[0] instanceof Lobby) {
                         ((Lobby)params[0]).exitLobby();
                     }
                     ScreenManager.getInstance().showScreen(navigateTo, params);

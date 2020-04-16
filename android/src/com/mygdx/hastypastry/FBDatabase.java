@@ -22,6 +22,10 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+/**
+ * Communication with Firebase
+ * Must be located in /android folder
+ */
 public class FBDatabase implements HastyPastryDatabase {
     private final DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("lobby");
     private final DatabaseReference matchesRef = FirebaseDatabase.getInstance().getReference("match");
@@ -30,7 +34,11 @@ public class FBDatabase implements HastyPastryDatabase {
     private ValueEventListener responseListener;
     private ValueEventListener drawingListener;
 
-
+    /**
+     * Called from lobby-class during initialisation.
+     * Makes sure that Lobby-Class is updated on changes of Lobby participants, challenges, and matches.
+     * @param lobby
+     */
     public void subscribeLobbyList(final Lobby lobby) {
         lobbyListener = new ChildEventListener() {
             @Override
@@ -72,6 +80,14 @@ public class FBDatabase implements HastyPastryDatabase {
         lobbyRef.addChildEventListener(lobbyListener);
     }
 
+    /**
+     * Called from Lobby when a user presses the join lobby button in the login view.
+     * Listens for challenges to the user, by listening to changes to the value.
+     * The challenge will be a field that has a value when a challenge is posed to the player.
+     *
+     * @param lobby
+     * @param user
+     */
     @Override
     public void joinLobby(final Lobby lobby, User user) {
         DatabaseReference userRef = lobbyRef.push();
@@ -102,12 +118,29 @@ public class FBDatabase implements HastyPastryDatabase {
         userRef.child("challenge").addValueEventListener(challengeListener);
     }
 
+
+    /**
+     * Important to remove the player and it's listeners when the player exits the lobby.
+     * @param FBID
+     */
     public void exitLobby(String FBID) {
         lobbyRef.removeEventListener(lobbyListener);
         lobbyRef.child(FBID).child("challenge").removeEventListener(challengeListener);
         lobbyRef.child(FBID).removeValue();
     }
 
+
+    /**
+     * Used by Lobby class to pose a challenge to another player
+     * Will thereafter wait for a response, by listening for changes to the value.
+     * Depending of the actions of the opponent, the challenged can be denied or accepted.
+     * In our case, if the level is set by the opponent, the challenge is accepted
+     * If the opponent deletes the match, it is denied.
+     * @param lobby
+     * @param opponent
+     * @param player
+     * @param match
+     */
     @Override
     public void challengePlayer(final Lobby lobby, User opponent, User player, Match match) {
         final String matchID = match.getMatchID();
@@ -118,7 +151,7 @@ public class FBDatabase implements HastyPastryDatabase {
         // Setting player's ready field to false to prevent new challenges.
         lobbyRef.child(player.getFBID()).child("status").setValue("busy");
 
-        // Updating the challenged players ready and challenger fields.
+        // Updating the challenged player's ready and challenger fields.
         lobbyRef.child(opponent.getFBID()).child("status").setValue("busy");
         lobbyRef.child(opponent.getFBID()).child("challenge").setValue(match);
 
@@ -126,7 +159,7 @@ public class FBDatabase implements HastyPastryDatabase {
         responseListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Opponent accepts challange, by selecting a Level or declines by removing the match.
+                // Opponent accepts challenge, by selecting a Level or declines by removing the match.
                 final Match match = dataSnapshot.getValue(Match.class);
                 if (match != null) {
                     if (match.getLevel() != null) {
@@ -163,15 +196,26 @@ public class FBDatabase implements HastyPastryDatabase {
         matchesRef.child(matchID).addValueEventListener(responseListener);
     }
 
+    /**
+     * Method for acepting the challenge by setting the value of Match to a match object
+     * @param match
+     */
     @Override
     public void acceptChallenge(Match match) {
         System.out.println("ACCEPT!");
         matchesRef.child(match.getMatchID()).setValue(match);
     }
 
+
+    /**
+     * Called when the player presses the "play" button in the DrawView in multiplayer.
+     * It adds a listener that listens for a changed opponent drawing.
+     * In the case that you are last, the onDataChange in the listener will be fired at once.
+     * @param game
+     */
     @Override
     public void ready(final Game game) {
-        // Refrence to match
+        // Reference to match
         DatabaseReference matchRef = matchesRef.child(game.getMatch().getMatchID());
 
         // Drawing references
@@ -188,7 +232,7 @@ public class FBDatabase implements HastyPastryDatabase {
         // Upload drawing
         playerDrawingRef.setValue(game.getPlayer().getDrawing().serializeLines());
 
-        // Listen for opponents drawing
+        // Listen for opponent's drawing
         drawingListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -259,7 +303,7 @@ public class FBDatabase implements HastyPastryDatabase {
      * @param match
      * @param challenged
      *
-     * Is used both when declining and canceling a challange.
+     * Is used both when declining and canceling a challenge.
      */
     @Override
     public void declineChallenge(Match match, User challenged) {

@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
@@ -52,7 +53,14 @@ public class Assets implements Disposable, AssetErrorListener {
     //Loads a text-file with reference to a collection of textures ("textures.png"), and
     //information about size and coordinates in collection.
     public static final AssetDescriptor<TextureAtlas> gameTextures =
-            new AssetDescriptor<>("textures.pack", TextureAtlas.class);
+            new AssetDescriptor<>("textures.atlas", TextureAtlas.class);
+
+    // Backgrounds
+    public static final AssetDescriptor<Texture> bg =
+            new AssetDescriptor<>("bg.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> bgMenu =
+            new AssetDescriptor<>("bg_menu.png", Texture.class);
 
     //Method for loading the assets into the manager
     private void load()
@@ -61,6 +69,8 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load(orangeUiSkin);
         assetManager.load(uiAtlas);
         assetManager.load(gameTextures);
+        assetManager.load(bg);
+        assetManager.load(bgMenu);
     }
 
     //Easy asset disposing, whenever you are done with it just dispose the manager instead of many files.

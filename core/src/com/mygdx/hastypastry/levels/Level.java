@@ -23,7 +23,7 @@ public class Level {
 
     public Level(String level){
         this.level = level;
-        int index = Integer.parseInt(String.valueOf(level.charAt(level.length()-1))) - 1;
+        int index = Integer.parseInt(level.split(" ")[1])-1;
 
         JsonReader jsonReader = new JsonReader();
         levelData = jsonReader.parse(Gdx.files.internal("levels.json")).get(index);

@@ -2,6 +2,9 @@ package com.mygdx.hastypastry.singletons;
 
 import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
 
+/**
+ * Holds referance to DB object
+ */
 public class DBManager {
     public static final DBManager instance = new DBManager();
     private HastyPastryDatabase db;

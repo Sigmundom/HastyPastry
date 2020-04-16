@@ -46,7 +46,6 @@ public class LevelSelectView extends BaseView {
         for (int j = 0; j < numberOfLevels; j++) {
             numLevelStars = 0;
             levelHighScore = playerPreferences.getLevelHighScore("Level " + String.valueOf(j + 1));
-            System.out.println(playerPreferences.getLevelHighScore("Level " + String.valueOf(j + 1)));
             for(float ranking : new Level("Level " + String.valueOf(j + 1)).getStarRank()) {
                 if((levelHighScore != 0) && (levelHighScore < ranking)) {
                     numLevelStars++;
