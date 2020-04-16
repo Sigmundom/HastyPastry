@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
-import com.mygdx.hastypastry.controllers.PlayerPreferences;
+import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.Assets;

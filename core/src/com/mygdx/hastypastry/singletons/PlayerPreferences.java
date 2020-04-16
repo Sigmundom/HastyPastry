@@ -1,4 +1,4 @@
-package com.mygdx.hastypastry.controllers;
+package com.mygdx.hastypastry.singletons;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -7,6 +7,10 @@ import com.mygdx.hastypastry.models.Game;
 /** Class for setting and updating user preferences. This info is
  * stored in Android's SharedPreferences, meaning that user settings
  * and high scores survive app updates, but are deleted when uninstalling.
+ *
+ * Android's Shared Preferences is a Singleton, meaning that the getPreferences
+ * method opens the storage file the once - the first time you call the method.
+ * https://developer.android.com/training/data-storage/shared-preferences
  *
  @author Hanna*/
 
@@ -88,5 +92,7 @@ public class PlayerPreferences {
     public float getPersonalHighScore() {
         return personalHighScore;
     }
+
+    public float getLevelHighScore(String levelID) { return getPrefs().getFloat(levelID); }
 
 }
