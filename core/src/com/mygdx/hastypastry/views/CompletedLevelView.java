@@ -52,6 +52,7 @@ public class CompletedLevelView extends BaseView {
 
     @Override
     public void draw(SpriteBatch batch, float delta){
+        levelTime = game.getPlayer().getNewLevelTime();
         rotationDegree = 15.0f;
         for(float ranking : game.getLevel().getStarRank()) {
             if(levelTime < ranking) {
@@ -63,7 +64,6 @@ public class CompletedLevelView extends BaseView {
         }
         batch.end();
 
-        levelTime = game.getPlayer().getNewLevelTime();
         completedLabel.setText("Completed");
         levelLabel.setText(game.getLevel().getLevel());
         timeLabel.setText("Time: " + df.format(levelTime));

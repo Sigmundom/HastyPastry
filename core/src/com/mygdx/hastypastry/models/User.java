@@ -8,6 +8,7 @@ public class User {
     private String status;
     private Match challenge; // Null if you are the challanger.
     private List<List<String>> drawing;
+    private float newestHighScore;
 
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     public User() {};
@@ -44,4 +45,8 @@ public class User {
     public void setFBID(String FBID) {
         this.FBID = FBID;
     }
+
+    public void setNewestHighScore(float newestHighScore) { this.newestHighScore = newestHighScore; }
+
+    public float getNewestHighScore() { return newestHighScore; }
 }
