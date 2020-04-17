@@ -92,6 +92,7 @@ public class Game {
             // Singleplayer
             if (player.getWaffle().WaffleHasStopped()) {
                 // You died
+                setMessage("Your waffle is stuck!");
                 gameOver();
             }
         }

@@ -7,21 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
-import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.ui.ExitButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class MainMenuView extends BaseView {
-    private BitmapFont title1Font, title2Font;
-    private Label titleLabel1, titleLabel2;
     protected Texture background = Assets.instance.getManager().get(Assets.bgMenu);
-    private MenuButton singlePlayerBtn;
-    private MenuButton multiPlayerBtn;
-    private MenuButton preferenceButton;
-    //private Music menuMusic;
-    private ExitButton exitButton;
 
     public MainMenuView() {
         super();
@@ -30,13 +22,13 @@ public class MainMenuView extends BaseView {
     @Override
     public void buildStage() {
         // Title generation
-        title1Font = generateFont("pixelfont.TTF", 48);
-        title2Font = generateFont("pixelfont.TTF", 40);
+        BitmapFont title1Font = generateFont("pixelfont.TTF", 48);
+        BitmapFont title2Font = generateFont("pixelfont.TTF", 40);
         Label.LabelStyle title1LabelStyle = new Label.LabelStyle(title1Font, Color.BLACK);
         Label.LabelStyle title2LabelStyle = new Label.LabelStyle(title2Font, Color.BLACK);
 
-        titleLabel1 = new Label("HASTY", title1LabelStyle);
-        titleLabel2 = new Label("PASTRY", title2LabelStyle);
+        Label titleLabel1 = new Label("HASTY", title1LabelStyle);
+        Label titleLabel2 = new Label("PASTRY", title2LabelStyle);
 
         //Create Table
         Table mainTable = new Table();
@@ -53,10 +45,11 @@ public class MainMenuView extends BaseView {
         mainTable.top();
 
         //Create Buttons
-        singlePlayerBtn = new MenuButton("Single Player", ScreenEnum.LEVELSELECT);
-        multiPlayerBtn = new MenuButton("Multiplayer", ScreenEnum.LOGIN);
-        preferenceButton = new MenuButton("Settings", ScreenEnum.PREFERENCES);
-        exitButton = new ExitButton("Exit Game");
+        MenuButton singlePlayerBtn = new MenuButton("Single Player", ScreenEnum.LEVELSELECT);
+        MenuButton multiPlayerBtn = new MenuButton("Multiplayer", ScreenEnum.LOGIN);
+        MenuButton preferenceButton = new MenuButton("Settings", ScreenEnum.PREFERENCES);
+        //private Music menuMusic;
+        ExitButton exitButton = new ExitButton("Exit Game");
 
         //Add buttons to table
         mainTable.add(titleLabel1);

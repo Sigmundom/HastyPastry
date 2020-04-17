@@ -6,13 +6,7 @@ import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 
-public class PlayButtonListener extends InputListener {
-    private Game game;
-
-    public PlayButtonListener(Game game) {
-        this.game = game;
-    }
-
+public class MyButtonListener extends InputListener {
     @Override
     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         return true;
@@ -23,6 +17,5 @@ public class PlayButtonListener extends InputListener {
         if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
             MusicAndSound.instance.getButtonSound().play(0.5f);
         }
-        game.ready();
     }
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
+import com.mygdx.hastypastry.listeners.MyButtonListener;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level;
@@ -24,20 +25,16 @@ import java.text.DecimalFormat;
 
 public class CompletedLevelView extends BaseView {
     private Game game;
-    private MenuButton menuButton;
-    private MenuButton replayButton;
     protected BitmapFont font;
     private Table table;
-    protected Label completedLabel;
-    protected Label levelLabel;
-    protected Label timeLabel;
-    protected float levelTime;
-    protected DecimalFormat df = new DecimalFormat("###.##");
+    private Label completedLabel;
+    private Label levelLabel;
+    private Label timeLabel;
+    private float levelTime;
+    private DecimalFormat df = new DecimalFormat("###.##");
     private Texture texture = new Texture("star.png");
     private Sprite sprite = new Sprite(texture);
-    private float rotationDegree;
-    protected Label newHighScoreLabel;
-    private Sound buttonSound;
+    private Label newHighScoreLabel;
 
 
     public CompletedLevelView(Game game) {
@@ -45,12 +42,11 @@ public class CompletedLevelView extends BaseView {
         this.game = game;
         sprite.setSize(Config.UI_WIDTH/80, Config.UI_WIDTH/80);
         sprite.setOrigin(sprite.getWidth()/2,-15);
-        buttonSound = MusicAndSound.instance.getButtonSound();
     }
 
     @Override
     public void draw(SpriteBatch batch, float delta){
-        rotationDegree = 15.0f;
+        float rotationDegree = 15.0f;
         for(float ranking : game.getLevel().getStarRank()) {
             if(levelTime < ranking) {
                 sprite.draw(batch);
@@ -81,10 +77,10 @@ public class CompletedLevelView extends BaseView {
         }
 
         // Create menu button
-        menuButton = new MenuButton("  Menu  ", ScreenEnum.MAIN_MENU);
+        MenuButton menuButton = new MenuButton("  Menu  ", ScreenEnum.MAIN_MENU);
 
         // Create replay-button
-        replayButton = new MenuButton("  Replay level  ", ScreenEnum.DRAW, new Game(new Level(game.getLevel().getLevel())));
+        MenuButton replayButton = new MenuButton("  Replay level  ", ScreenEnum.DRAW, new Game(new Level(game.getLevel().getLevel())));
 
         // Set width and position of menu button
         menuButton.setWidth(replayButton.getWidth());
@@ -109,21 +105,13 @@ public class CompletedLevelView extends BaseView {
 
         highScoreButton.setWidth(replayButton.getWidth());
         highScoreButton.setPosition(Config.UI_WIDTH/2 - highScoreButton.getWidth()/2 + 90, Config.UI_HEIGHT/2 - 300);
-        highScoreButton.addListener(
-                new InputListener() {
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
-                            buttonSound.play(0.5f);
-                        }
-                        if (game.isMultiplayer()) {
-                            ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
-                        } else {
-                            ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
-                        }
-                        return false;
-                    }
-                });
+        highScoreButton.addListener(new MyButtonListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
+            }
+        });
 
         // Add buttons to the stage
         this.ui.addActor(menuButton);
@@ -155,8 +143,8 @@ public class CompletedLevelView extends BaseView {
     private String getNextLevel(String levelNumber) {
         String[] string = levelNumber.trim().split("\\s+");
         int num = Integer.parseInt(string[1]);
-        if (num != game.getLevel().getNumberOfLevels()) {
-            return "Level " + String.valueOf(num + 1);
+        if (num != Level.getNumberOfLevels()) {
+            return "Level " + (num + 1);
         }else {
             return null;
         }

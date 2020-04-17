@@ -8,7 +8,6 @@ import com.mygdx.hastypastry.ui.MenuButton;
 
 public class LobbyView extends BaseView {
     private Lobby lobby;
-    private Table lobbyTable;
 
     public LobbyView(Lobby lobby) {
         this.lobby = lobby;
@@ -24,7 +23,7 @@ public class LobbyView extends BaseView {
         this.ui.addActor(menuBtn);
 
         // Creates lobbyTable
-        lobbyTable = new Table();
+        Table lobbyTable = new Table();
 
         //Set table to fill stage
         lobbyTable.setFillParent(true);
