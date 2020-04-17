@@ -30,7 +30,6 @@ public class MultiPlayerHighScoreView extends BaseView {
     public MultiPlayerHighScoreView(Game game) {
         super();
         this.game = game;
-        playerPreferences = new PlayerPreferences();
     }
 
     @Override
@@ -44,7 +43,7 @@ public class MultiPlayerHighScoreView extends BaseView {
         levelLabel.setText(game.getLevel().getLevel());
 
         playerPreferences.setPrefHighScore(game);
-        personalHighScoreLabel.setText("Best: " + df.format(playerPreferences.getPersonalHighScore()));
+        personalHighScoreLabel.setText("Best: " + df.format(PlayerPreferences.instance.getPersonalHighScore()));
         levelTime = playerPreferences.getPersonalHighScore();
     }
 

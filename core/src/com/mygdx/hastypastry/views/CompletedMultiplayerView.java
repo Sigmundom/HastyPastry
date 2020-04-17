@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 public class CompletedMultiplayerView extends BaseView {
     private Game game;
     protected DecimalFormat df = new DecimalFormat("###.##");
+    private Label playerLabel, opponentLabel;
 
     public CompletedMultiplayerView(Game game) {
         super();
@@ -75,11 +76,22 @@ public class CompletedMultiplayerView extends BaseView {
         Label.LabelStyle messageLabelStyle = new Label.LabelStyle(messageFont, Color.BLACK);
         Label messageLabel = new Label(game.getMessage(), messageLabelStyle);
 
-        /*Label resultLabel = new Label(text, labelStyle);
-        Label playerLabel = new Label(game.getPlayer().getName() +
-                ": " + df.format(game.getPlayer().getNewLevelTime()), labelStyle);
-        Label opponentLabel = new Label(game.getOpponent().getName() +
-                ": " + df.format(game.getOpponent().getNewLevelTime()), labelStyle);*/
+        if(game.getPlayer().getNewLevelTime() == 0.0f) {
+            playerLabel = new Label(game.getPlayer().getName() +
+                    ": DNF", resultLabelStyle);
+        }
+        else {
+            playerLabel = new Label(game.getPlayer().getName() +
+                    ": " + df.format(game.getPlayer().getNewLevelTime()), resultLabelStyle);
+        }
+        if(game.getOpponent().getNewLevelTime() == 0.0f) {
+            opponentLabel = new Label(game.getOpponent().getName() +
+                    ": DNF", resultLabelStyle);
+        }
+        else{
+            opponentLabel = new Label(game.getOpponent().getName() +
+                    ": " + df.format(game.getOpponent().getNewLevelTime()), resultLabelStyle);
+        }
 
         // Creates table
         Table table = new Table();
@@ -88,12 +100,13 @@ public class CompletedMultiplayerView extends BaseView {
         table.add(resultLabel).padBottom(40);
         table.row();
         table.add(messageLabel);
+        table.row();
 
-        /*table.add(resultLabel);
+        table.add(resultLabel);
         table.row();
         table.add(playerLabel).padTop(50);
         table.row();
-        table.add(opponentLabel).padTop(50);*/
+        table.add(opponentLabel).padTop(20);
 
         // Adds table to ui
         this.ui.addActor(table);
