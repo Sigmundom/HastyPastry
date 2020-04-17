@@ -6,11 +6,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
-import com.mygdx.hastypastry.levels.LevelData;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.Match;
@@ -33,6 +31,9 @@ public class FBDatabase implements HastyPastryDatabase {
     private ValueEventListener challengeListener;
     private ValueEventListener responseListener;
     private ValueEventListener drawingListener;
+    private DatabaseReference matchRef;
+    private User user;
+    private Lobby lobby;
 
     /**
      * Called from lobby-class during initialisation.
@@ -40,6 +41,7 @@ public class FBDatabase implements HastyPastryDatabase {
      * @param lobby
      */
     public void subscribeLobbyList(final Lobby lobby) {
+        this.lobby = lobby;
         lobbyListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -85,11 +87,11 @@ public class FBDatabase implements HastyPastryDatabase {
      * Listens for challenges to the user, by listening to changes to the value.
      * The challenge will be a field that has a value when a challenge is posed to the player.
      *
-     * @param lobby
      * @param user
      */
     @Override
-    public void joinLobby(final Lobby lobby, User user) {
+    public void joinLobby(User user) {
+        this.user = user;
         DatabaseReference userRef = lobbyRef.push();
         user.setFBID(userRef.getKey());
         userRef.setValue(user);
@@ -121,12 +123,23 @@ public class FBDatabase implements HastyPastryDatabase {
 
     /**
      * Important to remove the player and it's listeners when the player exits the lobby.
-     * @param FBID
      */
-    public void exitLobby(String FBID) {
-        lobbyRef.removeEventListener(lobbyListener);
-        lobbyRef.child(FBID).child("challenge").removeEventListener(challengeListener);
-        lobbyRef.child(FBID).removeValue();
+    public void exitLobby() {
+        if (user != null) {
+            // Remove the user from lobby and possible hosted matches
+            lobbyRef.child(user.getFBID()).removeValue();
+            matchesRef.child(user.getFBID()).removeValue();
+
+            if (challengeListener != null) {
+                lobbyRef.child(user.getFBID()).child("challenge").removeEventListener(challengeListener);
+            }
+        }
+        exitMatch();
+        if (lobbyListener != null) {
+            lobbyRef.removeEventListener(lobbyListener);
+        }
+        user = null;
+        lobby = null;
     }
 
 
@@ -136,20 +149,18 @@ public class FBDatabase implements HastyPastryDatabase {
      * Depending of the actions of the opponent, the challenged can be denied or accepted.
      * In our case, if the level is set by the opponent, the challenge is accepted
      * If the opponent deletes the match, it is denied.
-     * @param lobby
      * @param opponent
-     * @param player
-     * @param match
      */
     @Override
-    public void challengePlayer(final Lobby lobby, User opponent, User player, Match match) {
-        final String matchID = match.getMatchID();
-
+    public void challengePlayer(User opponent) {
+        exitMatch(); // Clean-up after previous match if any.
+        matchRef = matchesRef.push();
+        Match match = new Match(matchRef.getKey(), user, opponent);
         // Creates a new match and adds it to firebase.
-        matchesRef.child(matchID).setValue(match);
+        matchRef.setValue(match);
 
         // Setting player's ready field to false to prevent new challenges.
-        lobbyRef.child(player.getFBID()).child("status").setValue("busy");
+        lobbyRef.child(user.getFBID()).child("status").setValue("busy");
 
         // Updating the challenged player's ready and challenger fields.
         lobbyRef.child(opponent.getFBID()).child("status").setValue("busy");
@@ -166,7 +177,7 @@ public class FBDatabase implements HastyPastryDatabase {
                         if (match.getLevel().matches("Level \\d+")) {
                             // Opponent accepts
                             System.out.println("Opponent accepts!");
-                            matchesRef.child(matchID).removeEventListener(responseListener);
+                            matchRef.removeEventListener(responseListener);
                             Gdx.app.postRunnable(new Runnable() {
                                 @Override
                                 public void run() {
@@ -184,7 +195,7 @@ public class FBDatabase implements HastyPastryDatabase {
                     // Opponent declines
                     System.out.println("Opponent declines!");
                     lobby.challengeDeclined();
-                    matchesRef.child(matchID).removeEventListener(responseListener);
+                    matchRef.removeEventListener(responseListener);
                 }
             }
 
@@ -193,7 +204,7 @@ public class FBDatabase implements HastyPastryDatabase {
 
             }
         };
-        matchesRef.child(matchID).addValueEventListener(responseListener);
+        matchRef.addValueEventListener(responseListener);
     }
 
     /**
@@ -215,52 +226,26 @@ public class FBDatabase implements HastyPastryDatabase {
      */
     @Override
     public void ready(final Game game) {
-        // Reference to match
+        // Define database references
         DatabaseReference matchRef = matchesRef.child(game.getMatch().getMatchID());
-
-        // Drawing references
-        final DatabaseReference playerDrawingRef, opponentDrawingRef;
-//        if (game.getPlayer().getUser().isChallenger()) {
-        if (game.playerIsChallenger()) {
-            playerDrawingRef = matchRef.child("challengerDrawing");
-            opponentDrawingRef = matchRef.child("challengedDrawing");
-        } else {
-            opponentDrawingRef = matchRef.child("challengerDrawing");
-            playerDrawingRef = matchRef.child("challengedDrawing");
-        }
+        DatabaseReference playerDrawingRef = game.playerIsChallenger() ? matchRef.child("challengerDrawing") : matchRef.child("challengedDrawing");
 
         // Upload drawing
         playerDrawingRef.setValue(game.getPlayer().getDrawing().serializeLines());
 
         // Listen for opponent's drawing
-        drawingListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<List<List<String>>> genericTypeIndicator = new GenericTypeIndicator<List<List<String>>>() {};
-                final List<List<String>> opponentDrawing = dataSnapshot.getValue(genericTypeIndicator);
-                if (opponentDrawing != null) {
-                    Gdx.app.postRunnable(new Runnable() {
-                        @Override
-                        public void run() {
-                            opponentDrawingRef.removeEventListener(drawingListener);
-                            game.receivedDrawing(opponentDrawing);
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        };
-        opponentDrawingRef.addValueEventListener(drawingListener);
     }
 
     @Override
-    public void exitMatch(final Game game) {
-        DatabaseReference matchRef = matchesRef.child(game.getMatch().getMatchID());
-        matchRef.removeValue();
+    public void exitMatch() {
+        if (matchRef != null) {
+            matchRef.removeValue();
+            if (drawingListener != null) {
+                matchRef.removeEventListener(drawingListener);
+            }
+        }
+        matchRef = null;
+        drawingListener = null;
     }
 
     @Override
@@ -287,42 +272,98 @@ public class FBDatabase implements HastyPastryDatabase {
     }
 
     @Override
-    public void startGame(User user) {
-        user.setChallenge(null);
-        user.setStatus("inGame");
-        lobbyRef.child(user.getFBID()).setValue(user);
+    public void withdrawChallenge(User opponent) {
+        //Remove response listener
+        matchRef.removeEventListener(responseListener);
+
+        // Remove match
+        matchRef.removeValue();
+
+        // Update user: Set status to ready
+        lobbyRef.child(user.getFBID()).child("status").setValue("ready");
+
+        // Update opponent: Remove challenge and set ready to true.
+        opponent.setChallenge(null);
+        opponent.setStatus("ready");
+        lobby.setEnabledUserUI(opponent, false);
+
+        lobbyRef.child(opponent.getFBID()).setValue(opponent);
     }
 
     @Override
-    public void uploadLevels(List<LevelData> levels) {
-        DatabaseReference levelsRef = FirebaseDatabase.getInstance().getReference("levels");
-        levelsRef.setValue(levels);
+    public void startGame(final Game game) {
+        // Update user status in lobby
+        user.setChallenge(null);
+        user.setStatus("inGame");
+        lobbyRef.child(user.getFBID()).setValue(user);
+
+        // Listen for when opponent is ready
+        matchRef = matchesRef.child(game.getMatch().getMatchID());
+        drawingListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Receives an updated match object
+                final Match updatedMatch = dataSnapshot.getValue(Match.class);
+
+                if (updatedMatch != null) {
+                    // Tries to retrieve the opponents drawing
+                    final List<List<String>> opponentDrawing;
+                    if (game.playerIsChallenger()) {
+                        opponentDrawing = updatedMatch.getChallengedDrawing();
+                    } else {
+                        opponentDrawing = updatedMatch.getChallengerDrawing();
+                    }
+
+                    if (opponentDrawing != null) {
+                        Gdx.app.postRunnable(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.receivedDrawing(opponentDrawing);
+                            }
+                        });
+                    }
+                } else if (!game.getOpponent().getWaffle().isDead()){
+                    // Match doesn't exist in FB and opponent hasn't died, it means the opponent has left the game.
+                    // Clean-up and end game
+                    exitMatch();
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            game.setResult("Oh no!");
+                            game.setMessage("Your opponent left!");
+                            game.gameOver();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        matchRef.addValueEventListener(drawingListener);
     }
 
     /**
      * @param match
-     * @param challenged
      *
      * Is used both when declining and canceling a challenge.
      */
     @Override
-    public void declineChallenge(Match match, User challenged) {
-        if (responseListener != null) {
-            // Removes response listener if canceled by challenger
-            matchesRef.child(match.getMatchID()).removeEventListener(responseListener);
-        }
+    public void declineChallenge(Match match) {
         System.out.println("DECLINE!");
         // Remove match.
         matchesRef.child(match.getMatchID()).removeValue();
 
         // Update opponent: Set opponent to ready
-        lobbyRef.child(match.getMatchID()).child("status").setValue("ready");
+        lobbyRef.child(match.getChallenger().getFBID()).child("status").setValue("ready");
 
         // Update player: Remove challenger and set ready to true.
 
-        challenged.setChallenge(null);
-        challenged.setStatus("ready");
+        user.setChallenge(null);
+        user.setStatus("ready");
 
-        lobbyRef.child(challenged.getFBID()).setValue(challenged);
+        lobbyRef.child(user.getFBID()).setValue(user);
     }
 }

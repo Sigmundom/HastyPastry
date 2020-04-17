@@ -1,13 +1,10 @@
 package com.mygdx.hastypastry.desktop;
 
 import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
-import com.mygdx.hastypastry.levels.LevelData;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.Match;
 import com.mygdx.hastypastry.models.User;
-
-import java.util.List;
 
 public class DesktopDatabase implements HastyPastryDatabase {
 
@@ -22,12 +19,7 @@ public class DesktopDatabase implements HastyPastryDatabase {
     }
 
     @Override
-    public void exitLobby(String FBID) {
-
-    }
-
-    @Override
-    public void challengePlayer(Lobby lobby, User opponent, User player, Match match) {
+    public void challengePlayer(Lobby lobby, User opponent, Match match) {
 
     }
 
@@ -42,27 +34,27 @@ public class DesktopDatabase implements HastyPastryDatabase {
     }
 
     @Override
+    public void exitLobby() {
+
+    }
+
+    @Override
+    public void startGame(Game game) {
+
+    }
+
+    @Override
     public void ready(Game game) {
 
     }
 
     @Override
-    public void exitMatch(Game game) {
+    public void exitMatch() {
 
     }
 
     @Override
     public void checkVersion() {
-
-    }
-
-    @Override
-    public void startGame(User user) {
-
-    }
-
-    @Override
-    public void uploadLevels(List<LevelData> levels) {
 
     }
 }

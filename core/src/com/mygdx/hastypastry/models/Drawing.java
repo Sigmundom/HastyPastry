@@ -14,9 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import pl.mk5.gdx.fireapp.GdxFIRDatabase;
-
-
 /* The Drawing is an object containing all the lines as drawn in the GameView
  * It provides functionality to add lines and points, which are used by DrawingInputProcessor
  * addBodies(world) us used bu GameView for adding the bodies to the world when the user pushes play-btn.
@@ -118,13 +115,6 @@ public class Drawing {
         return serializedLines;
     }
 
-    public void uploadLines(String gameID, String playerName) {
-        GdxFIRDatabase.inst()
-                .inReference(String.format("games/%s/%s/drawing", gameID, playerName))
-                .setValue(serializeLines());
-    }
-
-
     public Stack<List<Vector3>> getLines() {
         return lines;
     }
@@ -134,7 +124,6 @@ public class Drawing {
     }
 
     public void deserializeDrawing(List<List<String>> opponentDrawing) {
-        System.out.println(opponentDrawing);
         for (List<String> serializedLine : opponentDrawing) {
             List<Vector3> deserializedLine = new ArrayList<>();
             for (String serializedPoint : serializedLine) {

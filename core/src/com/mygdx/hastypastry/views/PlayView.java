@@ -99,7 +99,7 @@ public class PlayView extends BaseView {
 
     @Override
     public void buildStage() {
-        MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU, game.getLobby());
+        MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         menuButton.setPosition(10, Config.UI_HEIGHT - menuButton.getHeight() - 10);
 
         font = generateFont("pixelfont.TTF", 24);
@@ -115,12 +115,4 @@ public class PlayView extends BaseView {
 
         this.ui.addActor(menuButton);
     }
-
-    @Override
-    public void hide() {
-        if(game.isMultiplayer()) {
-            DBManager.instance.getDB().exitMatch(game);
-        }
-    }
-
 }

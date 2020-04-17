@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
+import com.mygdx.hastypastry.listeners.PlayButtonListener;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.models.Game;
@@ -143,17 +144,7 @@ public class DrawView extends BaseView {
 
         // Play button
         ImageButton play = new ImageButton(skin, "right");
-        play.addListener(
-                new InputListener() {
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        if(playerPreferences.isSoundEffectsEnabled()) {
-                            buttonSound.play(0.5f);
-                        }
-                        game.ready();
-                        return false;
-                    }
-                });
+        play.addListener(new PlayButtonListener(game, playerPreferences));
 
         // Initialize topMenu
         Table topMenu = new Table();
