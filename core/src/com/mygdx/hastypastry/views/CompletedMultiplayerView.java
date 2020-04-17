@@ -11,6 +11,7 @@ import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.User;
+import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.ui.MenuButton;
@@ -76,6 +77,7 @@ public class CompletedMultiplayerView extends BaseView {
         Label.LabelStyle messageLabelStyle = new Label.LabelStyle(messageFont, Color.BLACK);
         Label messageLabel = new Label(game.getMessage(), messageLabelStyle);
 
+        DBManager.instance.getDB().updateLeaderBoard(game);
         if(game.getPlayer().getNewLevelTime() == 0.0f) {
             playerLabel = new Label(game.getPlayer().getName() +
                     ": DNF", resultLabelStyle);

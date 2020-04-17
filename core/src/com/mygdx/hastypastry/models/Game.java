@@ -201,6 +201,10 @@ public class Game {
         return lobby;
     }
 
+    public User getPlayerUser() {
+        return playerIsChallenger ? match.getChallenger() : match.getChallenged();
+    }
+
     public User getOpponentUser() {
         return playerIsChallenger ? match.getChallenged() : match.getChallenger();
     }

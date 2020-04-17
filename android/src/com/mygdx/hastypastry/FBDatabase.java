@@ -27,6 +27,7 @@ import java.util.List;
 public class FBDatabase implements HastyPastryDatabase {
     private final DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("lobby");
     private final DatabaseReference matchesRef = FirebaseDatabase.getInstance().getReference("match");
+    private final DatabaseReference levelRef = FirebaseDatabase.getInstance().getReference("levels");
     private ChildEventListener lobbyListener;
     private ValueEventListener challengeListener;
     private ValueEventListener responseListener;
@@ -367,7 +368,25 @@ public class FBDatabase implements HastyPastryDatabase {
         lobbyRef.child(user.getFBID()).setValue(user);
     }
 
-    public void updateHighScores(Game game) {
+    /*public ArrayList<String[]> getHighScores() {
+        ArrayList<String[]> leaderBoard = new ArrayList<>();
+        for(int i = 0; i < 5; i++) {
+            String[] uniqueTime = {levelRef.child(Integer.toString(i)).child("name").,
+                levelRef.child(Integer.toString(i)).child("time")};
+        }
 
+
+
+        return leaderBoard;
+    }*/
+
+    @Override
+    public void updateLeaderBoard(Game game) {
+        System.out.println(Integer.toString(Integer.parseInt(game.getLevel().getLevel().split(" ")[1]) - 1));
+        levelRef.child((Integer.toString(Integer.parseInt(game.getLevel().getLevel().split(" ")[1]) - 1)))
+                .child("leaderboard").child("0").child("name").setValue(game.getPlayerUser().getName());
+        levelRef.child((Integer.toString(Integer.parseInt(game.getLevel().getLevel().split(" ")[1]) - 1)))
+                .child("leaderboard").child("0").child("time").setValue(game.getPlayerUser().getNewestHighScore());
+        //levelRef.orderByChild("time").limitToLast(5);*/
     }
 }

@@ -28,14 +28,7 @@
     "posX" : 9,
     "posY" : "27",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "3",
@@ -58,14 +51,7 @@
     "posX" : "9",
     "posY" : "27",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "3",
@@ -109,14 +95,7 @@
     "posX" : "9",
     "posY" : "28",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "2",
@@ -146,14 +125,7 @@
     "posX" : "3",
     "posY" : "17",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "2",
@@ -218,14 +190,7 @@
     "posX" : "16",
     "posY" : "26",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "2",
@@ -327,14 +292,7 @@
     "posX" : "16",
     "posY" : "27",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "2",
@@ -427,14 +385,7 @@
     "posX" : "9",
     "posY" : "27",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "2",
@@ -531,14 +482,7 @@
     "posX" : "9",
     "posY" : "28",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "3",
@@ -645,14 +589,7 @@
     "posX" : "2",
     "posY" : "24",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "2",
@@ -699,14 +636,7 @@
     "posX" : "9",
     "posY" : "27",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "2",
@@ -820,14 +750,7 @@
     "posX" : "9",
     "posY" : "27",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "2",
@@ -856,14 +779,7 @@
     "posX" : "9",
     "posY" : "27",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "3",
@@ -935,14 +851,7 @@
     "posX" : "2",
     "posY" : "25",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "3",
@@ -977,14 +886,7 @@
     "posX" : "9",
     "posY" : "27",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "2",
@@ -1027,14 +929,7 @@
     "posX" : "9",
     "posY" : "27",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "3",
@@ -1134,14 +1029,7 @@
     "posX" : "9",
     "posY" : "27",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "2",
@@ -1353,14 +1241,7 @@
     "posX" : "2",
     "posY" : "25",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 }, {
   "goal" : {
     "height" : "2",
@@ -1448,12 +1329,5 @@
     "posX" : "9",
     "posY" : "27",
     "radius" : 1
-  },
-  "leaderboard" : [ {
-    "name" : "test1",
-    "time" : "2.5"
-  }, {
-    "name" : "test2",
-    "time" : "3.0"
-  } ]
+  }
 } ]

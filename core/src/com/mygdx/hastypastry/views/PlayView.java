@@ -58,12 +58,20 @@ public class PlayView extends BaseView {
         if(game.isMultiplayer()) {
             if(!game.getPlayer().getWaffle().isDead()) {
                 game.getPlayer().setNewLevelTime(elapsedTime);
+                game.getPlayerUser().setNewestHighScore(elapsedTime);
             }
-            else { game.getPlayer().setNewLevelTime(0.0f); }
+            else {
+                game.getPlayer().setNewLevelTime(0.0f);
+                game.getPlayerUser().setNewestHighScore(0.0f);
+            }
             if (!game.getOpponent().getWaffle().isDead()) {
                 game.getOpponent().setNewLevelTime(elapsedTime);
+                game.getOpponentUser().setNewestHighScore(elapsedTime);
             }
-            else { game.getOpponent().setNewLevelTime(0.0f); }
+            else {
+                game.getOpponent().setNewLevelTime(0.0f);
+                game.getOpponentUser().setNewestHighScore(0.0f);
+            }
         }
         else { game.getPlayer().setNewLevelTime(elapsedTime); }
         timeLabel.setText(df.format(elapsedTime));
