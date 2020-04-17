@@ -1,30 +1,25 @@
 package com.mygdx.hastypastry.interfaces;
 
-import com.mygdx.hastypastry.levels.LevelData;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.Match;
-import com.mygdx.hastypastry.models.Player;
 import com.mygdx.hastypastry.models.User;
-
-import java.util.List;
 
 public interface HastyPastryDatabase {
     // Lobby methods
     void subscribeLobbyList(Lobby lobby);
-    void joinLobby(Lobby lobby, User user);
-    void exitLobby(String FBID);
-    void challengePlayer(Lobby lobby, User opponent, User player, Match match);
-    void declineChallenge(Match match, User player);
+    void joinLobby(User user);
+    void challengePlayer(User opponent);
+    void declineChallenge(Match match);
     void acceptChallenge(Match match);
+    void exitLobby();
 
     // In-game methods
+    void startGame(Game game);
     void ready(Game game);
-    void exitMatch(Game game);
+    void exitMatch();
 
     void checkVersion();
 
-    void startGame(User user);
-
-    void uploadLevels(List<LevelData> levels);
+    void withdrawChallenge(User opponent);
 }

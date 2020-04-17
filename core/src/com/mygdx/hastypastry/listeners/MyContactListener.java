@@ -31,12 +31,11 @@ public class MyContactListener implements ContactListener {
             if (game.isMultiplayer()) {
                 // Set winner
                 if (a.equals("playerWaffle") || b.equals("playerWaffle")) {
-                    game.setWinner("player");
+                    game.setResult("You won!");
                 } else {
-                    game.setWinner("opponent");
+                    game.setResult("You lost!");
                 }
-                // Go to Completed multiplayer screen
-                ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_MULTIPLAYER, game);
+                game.gameOver();
             } else { // Single player
                 // Go to Completed level screen
                 ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_LEVEL, game);
@@ -47,11 +46,12 @@ public class MyContactListener implements ContactListener {
             gameoverSound.play(0.5f);
             if (game.isMultiplayer()) {
                 if (a.equals("playerWaffle") || b.equals("playerWaffle")) {
-                    game.gameOver();
+                    game.playerDied("You hit a dangerous object!");
                 } else if (a.equals("opponentWaffle") || b.equals("opponentWaffle")) {
-                    game.getOpponent().getWaffle().setIsDead();
+                    game.opponentDied();
                 }
             } else {
+                game.setMessage("You hit a dangerous object!");
                 game.gameOver();
             }
         }

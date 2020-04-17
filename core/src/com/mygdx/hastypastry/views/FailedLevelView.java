@@ -60,15 +60,13 @@ public class FailedLevelView extends BaseView {
         GlyphLayout gl1 = new GlyphLayout();
         gl1.setText(font, text);
 
-        // Tips
-        String tips = "Tips: \nDon't hit the red obstacles. \nThey are deadly!";
         GlyphLayout gl2 = new GlyphLayout();
-        gl2.setText(font, tips);
+        gl2.setText(font, game.getMessage());
 
 
 
         // Draw the text
         font.draw(batch, text, Config.WORLD_WIDTH/2 - gl1.width/2, Config.WORLD_HEIGHT/2);
-        font.draw(batch, tips, Config.WORLD_WIDTH/2 - gl2.width/2, Config.WORLD_HEIGHT/2 - 2);
+        font.draw(batch, game.getMessage(), Config.WORLD_WIDTH/2 - gl2.width/2, Config.WORLD_HEIGHT/2 - 2);
     }
 }

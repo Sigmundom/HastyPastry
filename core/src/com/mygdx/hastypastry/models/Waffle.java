@@ -71,6 +71,10 @@ public class Waffle implements WorldObject {
     }
 
     protected boolean WaffleHasStopped() {
+        if (isDead) {
+            // Don't bother if waffle already is registered dead.
+            return false;
+        }
         if (body.getLinearVelocity().isZero()) {
             // GameOver: Full stop
             return true;
@@ -105,10 +109,14 @@ public class Waffle implements WorldObject {
 
     public void setIsDead() {
         this.isDead = true;
-        body.setActive(false);
+        body.setType(BodyDef.BodyType.StaticBody);
     }
 
     public Sprite getSprite() {
         return sprite;
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 }

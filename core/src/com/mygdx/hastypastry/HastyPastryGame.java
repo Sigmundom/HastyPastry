@@ -33,14 +33,6 @@ public class HastyPastryGame extends Game {
 	public void dispose() {
 		// Disposing AssetManager disposes everything. Easy =)
 		Assets.instance.dispose();
+		DBManager.instance.getDB().exitLobby();
 	}
-
-//	private void uploadAllLevelsToFB() {
-//		List<LevelData> levels = new ArrayList<>();
-//		for (int i=1; i<=18; i++) {
-//			Level level = new Level("Level "+i);
-//			levels.add(level.getLevelData());
-//		}
-//		DBManager.instance.getDB().uploadLevels(levels);
-//	}
 }

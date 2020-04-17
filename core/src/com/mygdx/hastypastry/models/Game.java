@@ -17,7 +17,8 @@ public class Game {
     private Level level;
     private List<WorldObject> worldObjects;
     private boolean playerIsChallenger;
-    private String winner;
+    private String result = "";
+    private String message;
     private Lobby lobby;
 
     public Game(Match match, boolean playerIsChallenger, Lobby lobby) {
@@ -70,24 +71,58 @@ public class Game {
     }
 
     public void update() {
+        // Updates waffle(s)
         player.getWaffle().update();
         if (isMultiplayer()) {
             opponent.getWaffle().update();
         }
 
-        if (player.getWaffle().WaffleHasStopped()) {
+        // Check if waffle(s) is stuck
+        if (isMultiplayer()) {
+            if (opponent.getWaffle().WaffleHasStopped()) {
+                // Opponent died
+                opponentDied();
+            }
+
+            if (player.getWaffle().WaffleHasStopped()) {
+                // You died
+                playerDied("You waffle is stuck!");
+            }
+        } else {
+            // Singleplayer
+            if (player.getWaffle().WaffleHasStopped()) {
+                // You died
+                gameOver();
+            }
+        }
+    }
+
+    public void opponentDied() {
+        opponent.getWaffle().setIsDead();
+        if (player.getWaffle().isDead()) {
+            // Both players are dead
+            gameOver();
+        }
+    }
+
+    public void playerDied(String message) {
+        player.getWaffle().setIsDead();
+        setMessage(message);
+        setResult("You lost!");
+        if (opponent.getWaffle().isDead()) {
+            // Both players are dead
             gameOver();
         }
     }
 
     public void gameOver() {
+        setResult(result);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         if (isMultiplayer()) {
-            setWinner("opponent");
             ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_MULTIPLAYER, this);
         } else {
             ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_LEVEL, this);
@@ -123,28 +158,43 @@ public class Game {
      */
     public void ready() {
         if (isMultiplayer()) {
+            player.setReady();
             DBManager.instance.getDB().ready(this);
+            if (opponent.isReady()) {
+               play();
+            }
         } else {
-            ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, this);
+            play();
         }
     }
 
-    public void receivedDrawing(List<List<String>> opponentDrawing) {
-        System.out.println("Received drawing!");
-        opponent.getDrawing().deserializeDrawing(opponentDrawing);
+    private void play() {
         ScreenManager.getInstance().showScreen(ScreenEnum.PLAY, this);
+    }
+
+    public void receivedDrawing(List<List<String>> opponentDrawing) {
+        if (!opponent.isReady()) {
+            System.out.println("Received drawing!");
+            opponent.setReady();
+            opponent.getDrawing().deserializeDrawing(opponentDrawing);
+            if (player.isReady()) {
+                play();
+            }
+        } else {
+            System.out.println("Received drawing AGAIN!");
+        }
     }
 
     public boolean playerIsChallenger() {
         return playerIsChallenger;
     }
 
-    public String getWinner() {
-        return winner;
+    public String getResult() {
+        return result;
     }
 
-    public void setWinner(String winner) {
-        this.winner = winner;
+    public void setResult(String result) {
+        this.result = result;
     }
 
     public Lobby getLobby() {
@@ -153,5 +203,13 @@ public class Game {
 
     public User getOpponentUser() {
         return playerIsChallenger ? match.getChallenged() : match.getChallenger();
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

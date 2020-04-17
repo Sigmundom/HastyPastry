@@ -1,6 +1,5 @@
 package com.mygdx.hastypastry.models;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -40,11 +39,7 @@ public class Lobby {
 
     public void joinLobby(String name) {
         user = new User(name);
-        DBManager.instance.getDB().joinLobby(this, user);
-    }
-
-    public void exitLobby() {
-        DBManager.instance.getDB().exitLobby(user.getFBID());
+        DBManager.instance.getDB().joinLobby(user);
     }
 
     public void initLobbyView(Stage ui, Table lobbyTable) {
@@ -55,6 +50,15 @@ public class Lobby {
                 addUserUI(u);
             }
         }
+    }
+
+    public boolean lobbyListContains(User user) {
+        for (User u : lobbyList) {
+            if (u.getFBID().equals(user.getFBID())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void initCompleteMultiplayerView(Stage ui) {
@@ -78,11 +82,9 @@ public class Lobby {
         }
     }
 
-    public void challengeUser(User u) {
-        final String matchID = user.getFBID(); // We use challengers ID as matchID.
-        Match match = new Match(matchID, user, u);
-        DBManager.instance.getDB().challengePlayer(Lobby.this, u, user, match); //u is opponent
-        challengeBox = new ChallengeBox(Lobby.this, match, u);
+    public void challengeUser(User opponent) {
+        DBManager.instance.getDB().challengePlayer(opponent); //u is opponent
+        challengeBox = new ChallengeBox(Lobby.this, opponent);
         challengeBox.show(ui);
     }
 
@@ -106,10 +108,11 @@ public class Lobby {
         return lobbyList;
     }
 
-    public void startGame(Match match, boolean challenger) {
-        DBManager.instance.getDB().startGame(user);
+    public void startGame(Match match, boolean playerIsChallenger) {
+        Game game = new Game(match, playerIsChallenger, this);
+        DBManager.instance.getDB().startGame(game);
         ScreenManager.getInstance().showScreen(
-                ScreenEnum.DRAW, new Game(match, challenger, this)
+                ScreenEnum.DRAW, game
         );
     }
     private String randLevel(){
@@ -131,14 +134,10 @@ public class Lobby {
     }
 
     public void declineChallenge(Match match) {
-        DBManager.instance.getDB().declineChallenge(match, user);
+        DBManager.instance.getDB().declineChallenge(match);
     }
 
     public User getUser() { return user; }
-
-    public void withdrawChallenge(Match match, User opponent) {
-        DBManager.instance.getDB().declineChallenge(match, opponent);
-    }
 
     public void challengeCanceled() {
         if (recievedChallengeBox != null) {
@@ -151,41 +150,44 @@ public class Lobby {
     }
 
     public void updateUser(User updatedUser) {
-        User oldUser = null;
+        User user = null;
         for (User u : lobbyList) {
             if (u.getFBID().equals(updatedUser.getFBID())) {
-                oldUser = u;
+                user = u;
                 break;
             }
         }
 
-        String oldStatus = oldUser.getStatus();
+        String oldStatus = user.getStatus();
         String newStatus = updatedUser.getStatus();
 
-        oldUser.setStatus(newStatus);
-        oldUser.setChallenge(updatedUser.getChallenge());
+        user.setStatus(newStatus);
+        user.setChallenge(updatedUser.getChallenge());
 
-        if (oldUser != null) {
+        if (user != null) {
             if (oldStatus.equals("inGame") && newStatus.equals("ready")) {
-                addUserUI(updatedUser);
+                addUserUI(user);
             } else if (oldStatus.matches("ready|busy") && newStatus.equals("inGame")) {
-                removeUserUI(oldUser);
+                removeUserUI(user);
             } else if (oldStatus.equals("ready") && newStatus.equals("busy")) {
-                setEnabledUserUI(oldUser, true);
+                setEnabledUserUI(user, true);
             } else if (oldStatus.equals("busy") && newStatus.equals("ready")) {
                 System.out.println("Ready!");
-                setEnabledUserUI(oldUser, false);
+                setEnabledUserUI(user, false);
             }
         } else {
             System.out.println("OldUser is null!");
         }
     }
 
-    private void setEnabledUserUI(User user, boolean disabled) {
+    public void setEnabledUserUI(User user, boolean disabled) {
+        System.out.println(user.getName() + disabled);
         if (user.getUserButton() != null) {
             System.out.println("hey!");
             user.getUserButton().setDisabled(disabled);
             user.getUserButton().setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
+        } else {
+            System.out.println("hmm!");
         }
     }
 

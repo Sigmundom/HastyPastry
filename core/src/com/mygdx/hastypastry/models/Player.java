@@ -3,12 +3,14 @@ package com.mygdx.hastypastry.models;
 import com.mygdx.hastypastry.levels.Level;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private String name;
     private Drawing drawing;
     private Waffle waffle;
-    private ArrayList<Object> newLevelTime = new ArrayList<Object>();
+    private List<Float> newLevelTime = new ArrayList<>();
+    private boolean isReady = false;
 
 //    private InkBar inkBar;
 
@@ -31,7 +33,7 @@ public class Player {
         return drawing;
     }
 
-    public void setNewLevelTime(/*String levelID,*/ float levelTime) {
+    public void setNewLevelTime(float levelTime) {
         newLevelTime.add(levelTime);
     }
 
@@ -41,5 +43,13 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isReady() {
+        return isReady;
+    }
+
+    public void setReady() {
+        isReady = true;
     }
 }

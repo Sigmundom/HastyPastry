@@ -19,7 +19,7 @@ public class LobbyView extends BaseView {
     @Override
     public void buildStage() {
         // Creates and adds menuButton to ui.
-        MenuButton menuBtn = new MenuButton("Menu", ScreenEnum.MAIN_MENU, lobby);
+        MenuButton menuBtn = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         menuBtn.setPosition(10, Config.UI_HEIGHT- menuBtn.getHeight() - 10);
 
         this.ui.addActor(menuBtn);
