@@ -23,13 +23,11 @@ public class LoginView extends BaseView {
     private TextField input;
     private Label error;
     private Lobby lobby;
-    private PlayerPreferences playerPreferences;
     private Sound buttonSound;
 
     public LoginView() {
         super();
         lobby = new Lobby();
-        playerPreferences = new PlayerPreferences();
         buttonSound = MusicAndSound.instance.getButtonSound();
     }
 
@@ -73,7 +71,7 @@ public class LoginView extends BaseView {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 goToLobby();
-                if(playerPreferences.isSoundEffectsEnabled()) {
+                if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
                     buttonSound.play(0.5f);
                 }
                 return false;

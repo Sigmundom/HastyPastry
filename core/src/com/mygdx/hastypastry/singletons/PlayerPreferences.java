@@ -15,8 +15,9 @@ import com.mygdx.hastypastry.models.Game;
  @author Hanna*/
 
 public class PlayerPreferences {
+    public static PlayerPreferences instance = new PlayerPreferences();
     protected boolean newChange;
-    protected Preferences preferences;
+    private static Preferences preferences;
     protected float personalHighScore;
 
     private static final String PREF_MUSIC_VOLUME = "volume";
@@ -25,11 +26,11 @@ public class PlayerPreferences {
     private static final String PREF_SOUND_VOL = "sound";
     private static final String PREFS_NAME = "playerprfs";
 
-    public PlayerPreferences() {
+    private PlayerPreferences() {
     }
 
     // Should work for both checkboxes, sliders and high score storage.
-    protected Preferences getPrefs() {
+    public Preferences getPrefs() {
         if(preferences == null) {
             preferences = Gdx.app.getPreferences(PREFS_NAME);
         }

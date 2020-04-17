@@ -23,21 +23,18 @@ public class SinglePlayerHighScoreView extends BaseView {
     protected Label highscoreLabel;
     protected Label levelLabel;
     protected Label personalHighScoreLabel;
-    protected Label timeLabel;
     protected float levelTime;
     protected DecimalFormat df = new DecimalFormat("###.##");
     private Texture texture = new Texture("star.png");
     private Sprite sprite = new Sprite(texture);
     private float rotationDegree;
-    protected Label newHighScoreLabel;
-    protected PlayerPreferences playerPreferences;
+
 
     public SinglePlayerHighScoreView(Game game) {
         super();
         this.game = game;
         sprite.setSize(Config.UI_WIDTH/80, Config.UI_WIDTH/80);
         sprite.setOrigin(sprite.getWidth()/2,-15);
-        playerPreferences = new PlayerPreferences();
     }
 
     @Override
@@ -56,9 +53,9 @@ public class SinglePlayerHighScoreView extends BaseView {
         highscoreLabel.setText("High Score");
         levelLabel.setText(game.getLevel().getLevel());
 
-        playerPreferences.setPrefHighScore(game);
-        personalHighScoreLabel.setText("Best: " + df.format(playerPreferences.getPersonalHighScore()));
-        levelTime = playerPreferences.getPersonalHighScore();
+        PlayerPreferences.instance.setPrefHighScore(game);
+        personalHighScoreLabel.setText("Best: " + df.format(PlayerPreferences.instance.getPersonalHighScore()));
+        levelTime = PlayerPreferences.instance.getPersonalHighScore();
     }
 
     @Override

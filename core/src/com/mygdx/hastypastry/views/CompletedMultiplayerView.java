@@ -20,20 +20,18 @@ import java.text.DecimalFormat;
 
 public class CompletedMultiplayerView extends BaseView {
     private Game game;
-    private PlayerPreferences playerPreferences;
     protected DecimalFormat df = new DecimalFormat("###.##");
 
     public CompletedMultiplayerView(Game game) {
         super();
         this.game = game;
-        playerPreferences = new PlayerPreferences();
     }
 
     @Override
     public void buildStage() {
         // Sound effects
-        if(playerPreferences.isMusicEnabled()) {
-            MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume());
+        if(PlayerPreferences.instance.isMusicEnabled()) {
+            MusicAndSound.instance.getGameMusic().setVolume(PlayerPreferences.instance.getMusicVolume());
         }
 
         game.getLobby().initCompleteMultiplayerView(ui);

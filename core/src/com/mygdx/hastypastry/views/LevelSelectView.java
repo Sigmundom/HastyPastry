@@ -17,13 +17,11 @@ public class LevelSelectView extends BaseView {
     private float levelHighScore;
     private int numLevelStars;
     private String levelStars;
-    private PlayerPreferences playerPreferences;
 
     public LevelSelectView() {
         super();
         levelHighScore = 0;
         numLevelStars = 0;
-        playerPreferences = new PlayerPreferences();
     }
 
     @Override
@@ -45,7 +43,7 @@ public class LevelSelectView extends BaseView {
         // Add levels to the columns
         for (int j = 0; j < numberOfLevels; j++) {
             numLevelStars = 0;
-            levelHighScore = playerPreferences.getLevelHighScore("Level " + String.valueOf(j + 1));
+            levelHighScore = PlayerPreferences.instance.getLevelHighScore("Level " + String.valueOf(j + 1));
             for(float ranking : new Level("Level " + String.valueOf(j + 1)).getStarRank()) {
                 if((levelHighScore != 0) && (levelHighScore < ranking)) {
                     numLevelStars++;

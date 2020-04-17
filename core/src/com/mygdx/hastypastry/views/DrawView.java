@@ -32,7 +32,6 @@ public class DrawView extends BaseView {
     private Game game;
     private ProgressBar inkbar;
     private ProgressBar timebar;
-    private PlayerPreferences playerPreferences;
     private Sound buttonSound;
     private float timeLeft;
 
@@ -43,7 +42,6 @@ public class DrawView extends BaseView {
         Box2D.init(); // To be able to make shapes before creating a world.
         shapeRenderer = new ShapeRenderer();
         controller = new DrawingInputProcessor(spriteViewport.getCamera(), game.getPlayer().getDrawing());
-        playerPreferences = new PlayerPreferences();
         buttonSound = MusicAndSound.instance.getButtonSound();
     }
 
@@ -100,15 +98,15 @@ public class DrawView extends BaseView {
         ImageButton undo = new ImageButton(buttonStyle);
 
         // Sound effects
-        if(playerPreferences.isMusicEnabled()) {
-            MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume() * 0.2f);
+        if(PlayerPreferences.instance.isMusicEnabled()) {
+            MusicAndSound.instance.getGameMusic().setVolume(PlayerPreferences.instance.getMusicVolume() * 0.2f);
         }
 
         undo.addListener(
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        if(playerPreferences.isSoundEffectsEnabled()) {
+                        if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
                             buttonSound.play(0.5f);
                         }
                         game.getPlayer().getDrawing().undoLine();
@@ -144,7 +142,7 @@ public class DrawView extends BaseView {
 
         // Play button
         ImageButton play = new ImageButton(skin, "right");
-        play.addListener(new PlayButtonListener(game, playerPreferences));
+        play.addListener(new PlayButtonListener(game));
 
         // Initialize topMenu
         Table topMenu = new Table();

@@ -28,12 +28,10 @@ public class FailedLevelView extends BaseView {
     private Label failedLabel;
     private Label levelLabel;
     private Label descLabel;
-    private PlayerPreferences playerPreferences;
     private Sound buttonSound;
 
     public FailedLevelView(Game game) {
         super();
-        playerPreferences = new PlayerPreferences();
         buttonSound = MusicAndSound.instance.getButtonSound();
         this.game = game;
     }
@@ -73,8 +71,8 @@ public class FailedLevelView extends BaseView {
         table.add(descLabel).padTop(200);
 
         // Sound effects
-        if(playerPreferences.isMusicEnabled()) {
-            MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume());
+        if(PlayerPreferences.instance.isMusicEnabled()) {
+            MusicAndSound.instance.getGameMusic().setVolume(PlayerPreferences.instance.getMusicVolume());
         }
 
         // Create menu button
@@ -94,7 +92,7 @@ public class FailedLevelView extends BaseView {
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        if(playerPreferences.isSoundEffectsEnabled()) {
+                        if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
                             buttonSound.play(0.5f);
                         }
                         if (game.isMultiplayer()) {

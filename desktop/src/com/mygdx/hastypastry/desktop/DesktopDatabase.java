@@ -14,17 +14,17 @@ public class DesktopDatabase implements HastyPastryDatabase {
     }
 
     @Override
-    public void joinLobby(Lobby lobby, User user) {
+    public void joinLobby(User user) {
 
     }
 
     @Override
-    public void challengePlayer(Lobby lobby, User opponent, Match match) {
+    public void challengePlayer(User opponent) {
 
     }
 
     @Override
-    public void declineChallenge(Match match, User player) {
+    public void declineChallenge(Match match) {
 
     }
 
@@ -55,6 +55,11 @@ public class DesktopDatabase implements HastyPastryDatabase {
 
     @Override
     public void checkVersion() {
+
+    }
+
+    @Override
+    public void withdrawChallenge(User opponent) {
 
     }
 }

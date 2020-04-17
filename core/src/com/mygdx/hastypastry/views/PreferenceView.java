@@ -33,7 +33,6 @@ public class PreferenceView extends BaseView {
     private Label soundOnOffLabel;
     private Label musicOnOffLabel;
     private Label musicVolumeLabel;
-    private PlayerPreferences playerPreferences = new PlayerPreferences();
     private Sound buttonSound;
     private Music gameMusic;
 
@@ -46,7 +45,7 @@ public class PreferenceView extends BaseView {
     @Override
     public void buildStage() {
 
-        /*if(playerPreferences.isMusicEnabled()) {
+        /*if(PlayerPreferences.instance.isMusicEnabled()) {
             if (!menuMusic.isPlaying()) {
                 menuMusic.setLooping(true);
                 menuMusic.play();
@@ -54,31 +53,31 @@ public class PreferenceView extends BaseView {
         }*/
 
         soundEffectCheckBox = new SettingsCheckBox();
-        soundEffectCheckBox.setChecked(playerPreferences.isSoundEffectsEnabled());
+        soundEffectCheckBox.setChecked(PlayerPreferences.instance.isSoundEffectsEnabled());
         soundEffectCheckBox.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        if(playerPreferences.isSoundEffectsEnabled()) {
+                        if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
                             buttonSound.play(0.5f);
                         }
                         boolean enabled = soundEffectCheckBox.isChecked();
-                        playerPreferences.setSoundEffectsEnabled(enabled);
+                        PlayerPreferences.instance.setSoundEffectsEnabled(enabled);
                     }
                 });
         musicCheckBox = new SettingsCheckBox();
-        musicCheckBox.setChecked((playerPreferences.isMusicEnabled()));
+        musicCheckBox.setChecked((PlayerPreferences.instance.isMusicEnabled()));
         musicCheckBox.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        if(playerPreferences.isSoundEffectsEnabled()) {
+                        if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
                             buttonSound.play(0.5f);
                         }
                         boolean enabled = musicCheckBox.isChecked();
-                        playerPreferences.setMusicEnabled(enabled);
+                        PlayerPreferences.instance.setMusicEnabled(enabled);
                         if(enabled) {
-                            gameMusic.setVolume(playerPreferences.getMusicVolume());
+                            gameMusic.setVolume(PlayerPreferences.instance.getMusicVolume());
                             gameMusic.play();
                         }
                         else {
@@ -88,12 +87,12 @@ public class PreferenceView extends BaseView {
                 });
 
         musicVolumeSlider = new SettingsSlider();
-        musicVolumeSlider.setValue(playerPreferences.getMusicVolume());
+        musicVolumeSlider.setValue(PlayerPreferences.instance.getMusicVolume());
         musicVolumeSlider.addListener(
                 new InputListener() {
                     @Override
                     public boolean handle(Event event) {
-                        playerPreferences.setMusicVolume(musicVolumeSlider.getValue());
+                        PlayerPreferences.instance.setMusicVolume(musicVolumeSlider.getValue());
                         gameMusic.setVolume(musicVolumeSlider.getValue());
                         return false;
                     }
