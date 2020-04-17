@@ -8,18 +8,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.hastypastry.Config;
-import com.mygdx.hastypastry.models.User;
-import com.mygdx.hastypastry.singletons.DBManager;
-import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
+import com.mygdx.hastypastry.models.User;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
-import com.mygdx.hastypastry.ui.StyledTextButton;
+import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.ui.MenuButton;
+import com.mygdx.hastypastry.ui.StyledTextButton;
+
+import java.text.DecimalFormat;
 
 public class CompletedMultiplayerView extends BaseView {
     private Game game;
     private PlayerPreferences playerPreferences;
+    protected DecimalFormat df = new DecimalFormat("###.##");
 
     public CompletedMultiplayerView(Game game) {
         super();
@@ -75,6 +77,12 @@ public class CompletedMultiplayerView extends BaseView {
         Label.LabelStyle messageLabelStyle = new Label.LabelStyle(messageFont, Color.BLACK);
         Label messageLabel = new Label(game.getMessage(), messageLabelStyle);
 
+        /*Label resultLabel = new Label(text, labelStyle);
+        Label playerLabel = new Label(game.getPlayer().getName() +
+                ": " + df.format(game.getPlayer().getNewLevelTime()), labelStyle);
+        Label opponentLabel = new Label(game.getOpponent().getName() +
+                ": " + df.format(game.getOpponent().getNewLevelTime()), labelStyle);*/
+
         // Creates table
         Table table = new Table();
         table.top().padTop(30);
@@ -82,6 +90,12 @@ public class CompletedMultiplayerView extends BaseView {
         table.add(resultLabel).padBottom(40);
         table.row();
         table.add(messageLabel);
+
+        /*table.add(resultLabel);
+        table.row();
+        table.add(playerLabel).padTop(50);
+        table.row();
+        table.add(opponentLabel).padTop(50);*/
 
         // Adds table to ui
         this.ui.addActor(table);

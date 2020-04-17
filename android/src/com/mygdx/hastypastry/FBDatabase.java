@@ -1,5 +1,8 @@
 package com.mygdx.hastypastry;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.badlogic.gdx.Gdx;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -16,9 +19,6 @@ import com.mygdx.hastypastry.models.User;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 /**
  * Communication with Firebase
@@ -365,5 +365,9 @@ public class FBDatabase implements HastyPastryDatabase {
         user.setStatus("ready");
 
         lobbyRef.child(user.getFBID()).setValue(user);
+    }
+
+    public void updateHighScores(Game game) {
+
     }
 }

@@ -15,7 +15,7 @@ import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.text.DecimalFormat;
 
-public class HighScoreListView extends BaseView {
+public class SinglePlayerHighScoreView extends BaseView {
     private Game game;
     private MenuButton menuButton;
     protected BitmapFont font;
@@ -32,7 +32,7 @@ public class HighScoreListView extends BaseView {
     protected Label newHighScoreLabel;
     protected PlayerPreferences playerPreferences;
 
-    public HighScoreListView(Game game) {
+    public SinglePlayerHighScoreView(Game game) {
         super();
         this.game = game;
         sprite.setSize(Config.UI_WIDTH/80, Config.UI_WIDTH/80);

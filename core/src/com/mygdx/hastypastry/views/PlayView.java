@@ -57,6 +57,7 @@ public class PlayView extends BaseView {
         // Sending level time to Player to be used in High Score updates.
         elapsedTime += (double)delta;
         game.getPlayer().setNewLevelTime(elapsedTime);
+        game.getOpponent().setNewLevelTime(elapsedTime);
         timeLabel.setText(df.format(elapsedTime));
 
         batch.end();
