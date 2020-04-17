@@ -22,7 +22,6 @@ public class MainMenuView extends BaseView {
     private MenuButton preferenceButton;
     //private Music menuMusic;
     private ExitButton exitButton;
-    private PlayerPreferences playerPreferences = new PlayerPreferences();
 
     public MainMenuView() {
         super();
@@ -56,7 +55,7 @@ public class MainMenuView extends BaseView {
         //Create Buttons
         singlePlayerBtn = new MenuButton("Single Player", ScreenEnum.LEVELSELECT);
         multiPlayerBtn = new MenuButton("Multiplayer", ScreenEnum.LOGIN);
-        preferenceButton = new MenuButton("Settings", ScreenEnum.PREFERENCES, playerPreferences);
+        preferenceButton = new MenuButton("Settings", ScreenEnum.PREFERENCES);
         exitButton = new ExitButton("Exit Game");
 
         //Add buttons to table

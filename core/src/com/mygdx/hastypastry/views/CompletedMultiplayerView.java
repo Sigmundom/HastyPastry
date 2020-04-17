@@ -9,29 +9,26 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.models.User;
-import com.mygdx.hastypastry.singletons.DBManager;
-import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
+import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.ui.StyledTextButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
 public class CompletedMultiplayerView extends BaseView {
     private Game game;
-    private PlayerPreferences playerPreferences;
 
     public CompletedMultiplayerView(Game game) {
         super();
         this.game = game;
-        playerPreferences = new PlayerPreferences();
     }
 
     @Override
     public void buildStage() {
         // Sound effects
-        if(playerPreferences.isMusicEnabled()) {
-            MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume());
+        if(PlayerPreferences.instance.isMusicEnabled()) {
+            MusicAndSound.instance.getGameMusic().setVolume(PlayerPreferences.instance.getMusicVolume());
         }
 
         game.getLobby().initCompleteMultiplayerView(ui);

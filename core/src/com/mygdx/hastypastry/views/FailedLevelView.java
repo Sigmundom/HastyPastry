@@ -17,19 +17,17 @@ public class FailedLevelView extends BaseView {
     private Game game;
     private MenuButton menuButton;
     private BitmapFont font = new BitmapFont();
-    private PlayerPreferences playerPreferences;
 
     public FailedLevelView(Game game) {
         super();
-        playerPreferences = new PlayerPreferences();
         this.game = game;
     }
 
     @Override
     public void buildStage() {
         // Sound effects
-        if(playerPreferences.isMusicEnabled()) {
-            MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume());
+        if(PlayerPreferences.instance.isMusicEnabled()) {
+            MusicAndSound.instance.getGameMusic().setVolume(PlayerPreferences.instance.getMusicVolume());
         }
 
         // Create menu button

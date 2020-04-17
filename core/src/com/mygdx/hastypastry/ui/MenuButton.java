@@ -12,7 +12,6 @@ import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
 public class MenuButton extends TextButton {
-    private PlayerPreferences playerPreferences = new PlayerPreferences();
 
     public MenuButton(String text, final ScreenEnum navigateTo, final Object... params) {
         super(text, Assets.instance.getManager().get(Assets.orangeUiSkin), "default");
@@ -25,10 +24,10 @@ public class MenuButton extends TextButton {
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    if(playerPreferences.isMusicEnabled()) {
-                        MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume());
+                    if(PlayerPreferences.instance.isMusicEnabled()) {
+                        MusicAndSound.instance.getGameMusic().setVolume(PlayerPreferences.instance.getMusicVolume());
                     }
-                    if(playerPreferences.isSoundEffectsEnabled()) {
+                    if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
                         MusicAndSound.instance.getButtonSound().play(0.5f);
                     }
                     if(navigateTo == ScreenEnum.MAIN_MENU) {

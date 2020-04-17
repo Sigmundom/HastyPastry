@@ -8,7 +8,6 @@ import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.Assets;
 
 public class ExitButton extends TextButton {
-    private PlayerPreferences playerPreferences = new PlayerPreferences();
 
     public ExitButton(String text /*, final ScreenEnum navigateTo, final Object... params*/) {
         super(text , Assets.instance.getManager().get(Assets.orangeUiSkin), "default");
@@ -16,7 +15,7 @@ public class ExitButton extends TextButton {
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        if(playerPreferences.isSoundEffectsEnabled()) {
+                        if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
                             MusicAndSound.instance.getButtonSound().play(0.5f);
                         }
                         System.exit(0);

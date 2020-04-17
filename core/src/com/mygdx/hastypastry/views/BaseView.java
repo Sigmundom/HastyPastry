@@ -26,7 +26,6 @@ public abstract class BaseView implements Screen {
     protected Texture background = Assets.instance.getManager().get(Assets.bg);
     protected SpriteBatch batch;
     protected Viewport spriteViewport;
-    private PlayerPreferences playerPreferences;
     private Music gameMusic;
 
     public BaseView() {
@@ -36,12 +35,11 @@ public abstract class BaseView implements Screen {
         spriteViewport = new FitViewport(Config.WORLD_WIDTH, Config.WORLD_HEIGHT, camera); //to draw sprites
         FitViewport stageViewport = new FitViewport(Config.UI_WIDTH, Config.UI_HEIGHT); //to draw actors
         ui = new Stage(stageViewport, new SpriteBatch()); // The stage will contain UI elements
-        playerPreferences = new PlayerPreferences();
         gameMusic = MusicAndSound.instance.getGameMusic();
-        if(playerPreferences.isMusicEnabled()) {
+        if(PlayerPreferences.instance.isMusicEnabled()) {
             if(!gameMusic.isPlaying()) {
                 gameMusic.setLooping(true);
-                gameMusic.setVolume(playerPreferences.getMusicVolume());
+                gameMusic.setVolume(PlayerPreferences.instance.getMusicVolume());
                 gameMusic.play();
             }
         }

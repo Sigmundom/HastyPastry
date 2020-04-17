@@ -37,7 +37,6 @@ public class CompletedLevelView extends BaseView {
     private Sprite sprite = new Sprite(texture);
     private float rotationDegree;
     protected Label newHighScoreLabel;
-    protected PlayerPreferences playerPreferences;
     private Sound buttonSound;
 
 
@@ -46,7 +45,6 @@ public class CompletedLevelView extends BaseView {
         this.game = game;
         sprite.setSize(Config.UI_WIDTH/80, Config.UI_WIDTH/80);
         sprite.setOrigin(sprite.getWidth()/2,-15);
-        playerPreferences = new PlayerPreferences();
         buttonSound = MusicAndSound.instance.getButtonSound();
     }
 
@@ -68,9 +66,9 @@ public class CompletedLevelView extends BaseView {
         levelLabel.setText(game.getLevel().getLevel());
         timeLabel.setText("Time: " + df.format(levelTime));
 
-        playerPreferences.setPrefHighScore(game);
+        PlayerPreferences.instance.setPrefHighScore(game);
 
-        if(playerPreferences.newHighScore()) {
+        if(PlayerPreferences.instance.newHighScore()) {
             newHighScoreLabel.setText("New HS!");
         }
     }
@@ -78,8 +76,8 @@ public class CompletedLevelView extends BaseView {
     @Override
     public void buildStage() {
         // Sound effects
-        if(playerPreferences.isMusicEnabled()) {
-            MusicAndSound.instance.getGameMusic().setVolume(playerPreferences.getMusicVolume());
+        if(PlayerPreferences.instance.isMusicEnabled()) {
+            MusicAndSound.instance.getGameMusic().setVolume(PlayerPreferences.instance.getMusicVolume());
         }
 
         // Create menu button
@@ -115,7 +113,7 @@ public class CompletedLevelView extends BaseView {
                 new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        if(playerPreferences.isSoundEffectsEnabled()) {
+                        if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
                             buttonSound.play(0.5f);
                         }
                         if (game.isMultiplayer()) {

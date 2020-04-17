@@ -8,11 +8,9 @@ import com.mygdx.hastypastry.singletons.PlayerPreferences;
 
 public class PlayButtonListener extends InputListener {
     private Game game;
-    private PlayerPreferences playerPreferences;
 
-    public PlayButtonListener(Game game, PlayerPreferences playerPreferences) {
+    public PlayButtonListener(Game game) {
         this.game = game;
-        this.playerPreferences = playerPreferences;
     }
 
     @Override
@@ -22,7 +20,7 @@ public class PlayButtonListener extends InputListener {
 
     @Override
     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-        if(playerPreferences.isSoundEffectsEnabled()) {
+        if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
             MusicAndSound.instance.getButtonSound().play(0.5f);
         }
         game.ready();
