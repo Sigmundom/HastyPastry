@@ -1,5 +1,6 @@
 package com.mygdx.hastypastry.models;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.mygdx.hastypastry.ui.StyledTextButton;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class User {
     private String status;
     private Match challenge; // Null if you are the challenger.
     private List<List<String>> drawing;
-    private StyledTextButton userButton;
+    private Container<StyledTextButton> userUI;
 
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     public User() {};
@@ -53,11 +54,11 @@ public class User {
         this.FBID = FBID;
     }
 
-    protected StyledTextButton getUserButton() {
-        return userButton;
+    protected Container<StyledTextButton> getUserUI() {
+        return userUI;
     }
 
-    protected void setUserButton(StyledTextButton userButton) {
-        this.userButton = userButton;
+    public void setUserUI(Container<StyledTextButton> userUI) {
+        this.userUI = userUI;
     }
 }

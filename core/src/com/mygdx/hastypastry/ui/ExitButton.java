@@ -14,8 +14,8 @@ public class ExitButton extends StyledTextButton {
         super(text);
         this.addListener(new MyButtonListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
                 System.exit(0);
             }
         });

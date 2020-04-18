@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.hastypastry.Config;
+import com.mygdx.hastypastry.listeners.MyButtonListener;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Lobby;
@@ -67,14 +68,11 @@ public class LoginView extends BaseView {
 
         // Creates the submit button
         StyledTextButton submitBtn = new StyledTextButton("Join Lobby");
-        submitBtn.addListener(new InputListener() {
+        submitBtn.addListener(new MyButtonListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
                 goToLobby();
-                if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
-                    buttonSound.play(0.5f);
-                }
-                return false;
             }
         });
 

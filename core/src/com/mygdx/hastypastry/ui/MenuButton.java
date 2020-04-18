@@ -18,8 +18,8 @@ public class MenuButton extends TextButton {
         super(text, Assets.instance.getManager().get(Assets.orangeUiSkin), "default");
         this.addListener(new MyButtonListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
                 if(PlayerPreferences.instance.isMusicEnabled()) {
                     MusicAndSound.instance.getGameMusic().setVolume(PlayerPreferences.instance.getMusicVolume());
                 }
@@ -27,6 +27,7 @@ public class MenuButton extends TextButton {
                     DBManager.instance.getDB().exitLobby();
                 }
                 ScreenManager.getInstance().showScreen(navigateTo, params);
+
             }
         });
     }

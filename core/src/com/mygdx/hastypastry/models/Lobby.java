@@ -1,15 +1,17 @@
 package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.levels.Level;
+import com.mygdx.hastypastry.listeners.MyButtonListener;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.ChallengeBox;
+import com.mygdx.hastypastry.ui.LobbyUser;
 import com.mygdx.hastypastry.ui.RecievedChallengeBox;
 import com.mygdx.hastypastry.ui.StyledTextButton;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.util.List;
 public class Lobby {
     private User user;
     private List<User> lobbyList = new ArrayList<>();
-    private Table lobbyTable;
+    private VerticalGroup lobbyListUI;
     private Stage ui;
     private RecievedChallengeBox recievedChallengeBox; // Accept or decline a challenge.
     private ChallengeBox challengeBox; // Waiting for response / Cancel challenge.
@@ -42,9 +44,9 @@ public class Lobby {
         DBManager.instance.getDB().joinLobby(user);
     }
 
-    public void initLobbyView(Stage ui, Table lobbyTable) {
+    public void initLobbyView(Stage ui, VerticalGroup lobbyListUI) {
         this.ui = ui;
-        this.lobbyTable = lobbyTable;
+        this.lobbyListUI = lobbyListUI;
         for (User u : lobbyList) {
             if (!u.getFBID().equals(user.getFBID())) {
                 addUserUI(u);
@@ -65,20 +67,9 @@ public class Lobby {
         this.ui = ui;
     }
 
-    private void addUserUI(final User u) {
-        if (lobbyTable != null) {
-            StyledTextButton userButton = new StyledTextButton(u.getName());
-            userButton.addListener(new InputListener() {
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    challengeUser(u);
-                    return false;
-                }
-            });
-            userButton.setDisabled(u.getStatus().equals("busy"));
-            u.setUserButton(userButton);
-            lobbyTable.add(userButton).growX().padBottom(10);
-            lobbyTable.row();
+    private void addUserUI(final User user) {
+        if (lobbyListUI != null) {
+            lobbyListUI.addActor(new LobbyUser(this, user));
         }
     }
 
@@ -99,8 +90,8 @@ public class Lobby {
     }
 
     private void removeUserUI(User leavingUser) {
-        if (lobbyTable != null) {
-            lobbyTable.removeActor(leavingUser.getUserButton());
+        if (lobbyListUI != null) {
+            lobbyListUI.removeActor(leavingUser.getUserUI());
         }
     }
 
@@ -182,10 +173,10 @@ public class Lobby {
 
     public void setEnabledUserUI(User user, boolean disabled) {
         System.out.println(user.getName() + disabled);
-        if (user.getUserButton() != null) {
+        if (user.getUserUI() != null) {
             System.out.println("hey!");
-            user.getUserButton().setDisabled(disabled);
-            user.getUserButton().setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
+            user.getUserUI().getActor().setDisabled(disabled);
+            user.getUserUI().getActor().setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
         } else {
             System.out.println("hmm!");
         }

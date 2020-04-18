@@ -104,8 +104,8 @@ public class DrawView extends BaseView {
 
         undo.addListener(new MyButtonListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
                 game.getPlayer().getDrawing().undoLine();
             }
         });
@@ -140,8 +140,8 @@ public class DrawView extends BaseView {
         ImageButton play = new ImageButton(skin, "right");
         play.addListener(new MyButtonListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
                 game.ready();
             }
         });

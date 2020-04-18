@@ -26,7 +26,6 @@ import java.text.DecimalFormat;
 public class CompletedLevelView extends BaseView {
     private Game game;
     protected BitmapFont font;
-    private Table table;
     private Label completedLabel;
     private Label levelLabel;
     private Label timeLabel;
@@ -107,8 +106,8 @@ public class CompletedLevelView extends BaseView {
         highScoreButton.setPosition(Config.UI_WIDTH/2 - highScoreButton.getWidth()/2 + 90, Config.UI_HEIGHT/2 - 300);
         highScoreButton.addListener(new MyButtonListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
                 ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
             }
         });
@@ -125,7 +124,7 @@ public class CompletedLevelView extends BaseView {
         levelLabel = new Label("LevelID", labelStyle);
         timeLabel = new Label("Time", labelStyle);
         newHighScoreLabel = new Label("", labelStyle);
-        table = new Table();
+        Table table = new Table();
         //table.top().padLeft(Config.UI_WIDTH/2 - 100).left().padTop(10);
         table.top().padTop(30);
         table.setFillParent(true);
