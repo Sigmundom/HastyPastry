@@ -14,46 +14,29 @@ public class LobbyView extends BaseView {
 
     public LobbyView(Lobby lobby) {
         this.lobby = lobby;
-
     }
 
     @Override
     public void buildStage() {
-//        Table container = new Table();
-//        container.setFillParent(true);
         // Creates lobbyTable
         VerticalGroup lobbyListUI = new VerticalGroup();
-
-
-        //Set padding
         lobbyListUI.pad(100,0,100,0);
+        lobbyListUI.space(10); // Space between items
+        lobbyListUI.top(); //Set alignment of contents in the group.
 
-        lobbyListUI.space(10);
-
-        //Set alignment of contents in the table.
-        lobbyListUI.top();
-
-        // Sync lobbyTable with lobbyList
+        // Connect the lobbyView to the lobby model
         lobby.initLobbyView(ui, lobbyListUI);
 
-        //
+        // Puts the lobbyListUI in a Scroll Pane
         ScrollPane scrollPane = new ScrollPane(lobbyListUI, Assets.instance.getManager().get(Assets.orangeUiSkin), "no-bg");
         scrollPane.setFillParent(true);
 
-        //Set table to fill scrollPane
-//        lobbyTable.setFillParent(true);
-
-        // Add lobbyTable to ui
-//        container.add(scrollPane).grow();
+        // Add lobbyList to ui
         ui.addActor(scrollPane);
 
         // Creates and adds menuButton to ui.
         MenuButton menuBtn = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
         menuBtn.setPosition(10, Config.UI_HEIGHT- menuBtn.getHeight() - 10);
-
         this.ui.addActor(menuBtn);
     }
-
-    @Override
-    public void hide() {}
 }

@@ -163,7 +163,6 @@ public class Lobby {
             } else if (oldStatus.equals("ready") && newStatus.equals("busy")) {
                 setEnabledUserUI(user, true);
             } else if (oldStatus.equals("busy") && newStatus.equals("ready")) {
-                System.out.println("Ready!");
                 setEnabledUserUI(user, false);
             }
         } else {
@@ -172,13 +171,11 @@ public class Lobby {
     }
 
     public void setEnabledUserUI(User user, boolean disabled) {
-        System.out.println(user.getName() + disabled);
         if (user.getUserUI() != null) {
-            System.out.println("hey!");
             user.getUserUI().getActor().setDisabled(disabled);
             user.getUserUI().getActor().setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
         } else {
-            System.out.println("hmm!");
+            System.out.println("Tried to update an User without an UI!");
         }
     }
 
