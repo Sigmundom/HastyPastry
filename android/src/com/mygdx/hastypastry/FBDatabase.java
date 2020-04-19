@@ -1,5 +1,7 @@
 package com.mygdx.hastypastry;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -20,6 +22,8 @@ import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * Communication with Firebase
  * Must be located in /android folder
@@ -32,9 +36,12 @@ public class FBDatabase implements HastyPastryDatabase {
     private ValueEventListener challengeListener;
     private ValueEventListener responseListener;
     private ValueEventListener drawingListener;
+    private ValueEventListener leaderboardListener;
     private DatabaseReference matchRef;
     private User user;
     private Lobby lobby;
+    private Game game;
+    private int level;
 
     /**
      * Called from lobby-class during initialisation.
@@ -340,7 +347,6 @@ public class FBDatabase implements HastyPastryDatabase {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         };
         matchRef.addValueEventListener(drawingListener);
@@ -368,25 +374,61 @@ public class FBDatabase implements HastyPastryDatabase {
         lobbyRef.child(user.getFBID()).setValue(user);
     }
 
-    /*public ArrayList<String[]> getHighScores() {
-        ArrayList<String[]> leaderBoard = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
-            String[] uniqueTime = {levelRef.child(Integer.toString(i)).child("name").,
-                levelRef.child(Integer.toString(i)).child("time")};
-        }
-
-
-
-        return leaderBoard;
-    }*/
-
     @Override
     public void updateLeaderBoard(Game game) {
-        System.out.println(Integer.toString(Integer.parseInt(game.getLevel().getLevel().split(" ")[1]) - 1));
-        levelRef.child((Integer.toString(Integer.parseInt(game.getLevel().getLevel().split(" ")[1]) - 1)))
-                .child("leaderboard").child("0").child("name").setValue(game.getPlayerUser().getName());
-        levelRef.child((Integer.toString(Integer.parseInt(game.getLevel().getLevel().split(" ")[1]) - 1)))
-                .child("leaderboard").child("0").child("time").setValue(game.getPlayerUser().getNewestHighScore());
-        //levelRef.orderByChild("time").limitToLast(5);*/
+        this.game = game;
+        level = Integer.parseInt(game.getLevel().getLevel().split(" ")[1]) - 1;
+        levelRef.child((Integer.toString(level))).child("leaderboard").child(user.getFBID()).child("name").setValue(game.getPlayerUser().getName());
+        levelRef.child((Integer.toString(level))).child("leaderboard").child(user.getFBID()).child("time").setValue(game.getPlayerUser().getNewestHighScore());
+        levelRef.child((Integer.toString(level))).orderByChild("time").limitToLast(5);
+
+        setLocalLeaderBoard(levelRef);
+    }
+
+    public void setLocalLeaderBoard(DatabaseReference ref) {
+        readLeaderBoard(new OnGetDataListener() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                //whatever you need to do with the data
+                if (dataSnapshot.child(Integer.toString(level)).child("leaderboard").hasChild(user.getFBID())) {
+                    game.getLeaderBoard().setChange(true);
+                }
+                for(DataSnapshot child : dataSnapshot.child(Integer.toString(level)).child("leaderboard").getChildren()) {
+                    game.getLeaderBoard().setLeaderBoard(child.child("name").getValue(String.class), child.child("time").getValue(Float.class));
+                    Log.d("TAG", child.child("name").getValue(String.class));
+                }
+            }
+            @Override
+            public void onStart() {
+                //whatever you need to do onStart
+                Log.d("ONSTART", "Started");
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+    }
+
+    public void readLeaderBoard(final OnGetDataListener listener) {
+        listener.onStart();
+        //Query query = leaderboardRef.orderByChild("time").limitToLast(5);
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                listener.onSuccess(dataSnapshot);
+                Log.d(TAG, "Data fetched successfully.");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        levelRef.addValueEventListener(postListener);
     }
 }

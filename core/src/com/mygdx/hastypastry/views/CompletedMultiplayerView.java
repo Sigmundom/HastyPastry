@@ -1,5 +1,6 @@
 package com.mygdx.hastypastry.views;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,10 +11,11 @@ import com.badlogic.gdx.utils.Align;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
+import com.mygdx.hastypastry.models.LeaderBoard;
 import com.mygdx.hastypastry.models.User;
-import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
+import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.ui.StyledTextButton;
 
@@ -23,24 +25,74 @@ public class CompletedMultiplayerView extends BaseView {
     private Game game;
     protected DecimalFormat df = new DecimalFormat("###.##");
     private Label playerLabel, opponentLabel;
+    private LeaderBoard leaderBoard;
+    private Sound buttonSound;
 
     public CompletedMultiplayerView(Game game) {
         super();
         this.game = game;
+        this.leaderBoard = game.getLeaderBoard();
+        buttonSound = MusicAndSound.instance.getButtonSound();
     }
 
     @Override
     public void buildStage() {
         // Sound effects
-        if(PlayerPreferences.instance.isMusicEnabled()) {
+        if (PlayerPreferences.instance.isMusicEnabled()) {
             MusicAndSound.instance.getGameMusic().setVolume(PlayerPreferences.instance.getMusicVolume());
         }
 
         game.getLobby().initCompleteMultiplayerView(ui);
 
+        // Set up font and label style for result
+        BitmapFont resultFont = generateFont("pixelfont.TTF", 32);
+        Label.LabelStyle resultLabelStyle = new Label.LabelStyle(resultFont, Color.BLACK);
+
+        // Creates the label
+        Label resultLabel = new Label(game.getResult(), resultLabelStyle);
+
+        // Set up font and label style for message
+        BitmapFont messageFont = generateFont("pixelfont.TTF", 16);
+        Label.LabelStyle messageLabelStyle = new Label.LabelStyle(messageFont, Color.BLACK);
+        Label messageLabel = new Label(game.getMessage(), messageLabelStyle);
+
+        // Viewing high scores for player and opponent, and sending it to Firebase
+        if (game.getPlayer().getNewLevelTime() == 0.0f || game.getResult() == "You lost!") {
+            playerLabel = new Label(game.getPlayer().getName() +
+                    ": DNF", resultLabelStyle);
+        } else {
+            playerLabel = new Label(game.getPlayer().getName() +
+                    ": " + df.format(game.getPlayer().getNewLevelTime()), resultLabelStyle);
+        }
+        if (game.getOpponent().getNewLevelTime() == 0.0f || game.getResult() == "You won!") {
+            opponentLabel = new Label(game.getOpponent().getName() +
+                    ": DNF", resultLabelStyle);
+        } else {
+            opponentLabel = new Label(game.getOpponent().getName() +
+                    ": " + df.format(game.getOpponent().getNewLevelTime()), resultLabelStyle);
+        }
+
+        // Creates table
+        Table table = new Table();
+        table.top().padTop(30);
+        table.setFillParent(true);
+        table.add(resultLabel).padBottom(40);
+        table.row();
+        table.add(messageLabel);
+        table.row();
+
+        table.add(resultLabel);
+        table.row();
+        table.add(playerLabel).padTop(50);
+        table.row();
+        table.add(opponentLabel).padTop(20);
+
+        // Adds table to ui
+        this.ui.addActor(table);
+
         // Create menu button
         MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
-        menuButton.setPosition(Config.UI_WIDTH/2, Config.UI_HEIGHT/2, Align.center);
+        menuButton.setPosition(Config.UI_WIDTH / 2, Config.UI_HEIGHT / 2, Align.center);
         ui.addActor(menuButton);
 
         if (!game.getResult().equals("Oh no!")) {
@@ -65,52 +117,22 @@ public class CompletedMultiplayerView extends BaseView {
             ui.addActor(newRoundBtn);
         }
 
-        // Set up font and label style for result
-        BitmapFont resultFont = generateFont("pixelfont.TTF", 32);
-        Label.LabelStyle resultLabelStyle = new Label.LabelStyle(resultFont, Color.BLACK);
+        // Creating high score button, sending game through to high score list.
+        StyledTextButton highScoreButton = new StyledTextButton("  High Score  ");
 
-        // Creates the label
-        Label resultLabel = new Label(game.getResult(), resultLabelStyle);
-
-        // Set up font and label style for message
-        BitmapFont messageFont = generateFont("pixelfont.TTF", 16);
-        Label.LabelStyle messageLabelStyle = new Label.LabelStyle(messageFont, Color.BLACK);
-        Label messageLabel = new Label(game.getMessage(), messageLabelStyle);
-
-        DBManager.instance.getDB().updateLeaderBoard(game);
-        if(game.getPlayer().getNewLevelTime() == 0.0f) {
-            playerLabel = new Label(game.getPlayer().getName() +
-                    ": DNF", resultLabelStyle);
-        }
-        else {
-            playerLabel = new Label(game.getPlayer().getName() +
-                    ": " + df.format(game.getPlayer().getNewLevelTime()), resultLabelStyle);
-        }
-        if(game.getOpponent().getNewLevelTime() == 0.0f) {
-            opponentLabel = new Label(game.getOpponent().getName() +
-                    ": DNF", resultLabelStyle);
-        }
-        else{
-            opponentLabel = new Label(game.getOpponent().getName() +
-                    ": " + df.format(game.getOpponent().getNewLevelTime()), resultLabelStyle);
-        }
-
-        // Creates table
-        Table table = new Table();
-        table.top().padTop(30);
-        table.setFillParent(true);
-        table.add(resultLabel).padBottom(40);
-        table.row();
-        table.add(messageLabel);
-        table.row();
-
-        table.add(resultLabel);
-        table.row();
-        table.add(playerLabel).padTop(50);
-        table.row();
-        table.add(opponentLabel).padTop(20);
-
-        // Adds table to ui
-        this.ui.addActor(table);
+        // highScoreButton.setWidth(menuButton.getWidth());
+        highScoreButton.setPosition(Config.UI_WIDTH / 2 - highScoreButton.getWidth() / 2 + 90, Config.UI_HEIGHT / 2 - 300);
+        highScoreButton.addListener(
+                new InputListener() {
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        if (PlayerPreferences.instance.isSoundEffectsEnabled()) {
+                            buttonSound.play(0.5f);
+                        }
+                        ScreenManager.getInstance().showScreen(ScreenEnum.LEADERBOARD, game);
+                        return false;
+                    }
+                });
+        this.ui.addActor(highScoreButton);
     }
 }

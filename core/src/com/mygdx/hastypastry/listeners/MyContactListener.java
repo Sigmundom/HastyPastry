@@ -35,6 +35,7 @@ public class MyContactListener implements ContactListener {
                 } else {
                     game.setResult("You lost!");
                 }
+                game.getLeaderBoard().updateLeaderBoard();
                 game.gameOver();
             } else { // Single player
                 // Go to Completed level screen

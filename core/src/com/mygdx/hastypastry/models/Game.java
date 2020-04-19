@@ -20,6 +20,7 @@ public class Game {
     private String result = "";
     private String message;
     private Lobby lobby;
+    private LeaderBoard leaderBoard;
 
     public Game(Match match, boolean playerIsChallenger, Lobby lobby) {
         this.match = match;
@@ -43,6 +44,9 @@ public class Game {
         worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, true));
         worldObjects.add(new SquareObstacle(9, 33, 18, 2, false));
         worldObjects.add(new SquareObstacle(9, -1, 18, 2, false));
+
+        //Initializing the leaderboard forgiven level.
+        leaderBoard = new LeaderBoard(this);
     }
 
     public Game(Level level) {
@@ -216,4 +220,6 @@ public class Game {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public LeaderBoard getLeaderBoard() { return leaderBoard; }
 }
