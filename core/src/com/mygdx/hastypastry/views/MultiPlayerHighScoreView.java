@@ -3,21 +3,26 @@ package com.mygdx.hastypastry.views;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
+import com.mygdx.hastypastry.models.LeaderBoardEntry;
+import com.mygdx.hastypastry.models.User;
 import com.mygdx.hastypastry.ui.MenuButton;
+import com.mygdx.hastypastry.ui.StyledTextButton;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class MultiPlayerHighScoreView extends BaseView {
     private Game game;
     private MenuButton menuButton;
     protected BitmapFont font;
+    protected BitmapFont roundFont;
     protected BitmapFont leaderboardFont;
     private Table table;
     protected Label leaderboardLabel;
@@ -25,7 +30,7 @@ public class MultiPlayerHighScoreView extends BaseView {
     protected Label roundScoreLabel;
     //protected Label tempLabel;
     protected DecimalFormat df = new DecimalFormat("###.##");
-    private Map<String, Float> leaderBoard;
+    private ArrayList<LeaderBoardEntry> leaderBoard;
     private ArrayList<Label> labelArray;
     private int tableCounter;
 
@@ -37,8 +42,6 @@ public class MultiPlayerHighScoreView extends BaseView {
 
     @Override
     public void draw(SpriteBatch batch, float delta) {
-        tableCounter = 1;
-
         leaderboardLabel.setText("Leaderboard");
         levelLabel.setText(game.getLevel().getLevel());
 
@@ -53,7 +56,7 @@ public class MultiPlayerHighScoreView extends BaseView {
     public void buildStage() {
         // Creating menu button.
         menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
-        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 300);
+        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
 
         // Add button to the stage
         this.ui.addActor(menuButton);
@@ -61,23 +64,26 @@ public class MultiPlayerHighScoreView extends BaseView {
         font = generateFont("pixelfont.TTF", 32);
         Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.BLACK);
 
-        leaderboardFont = generateFont("pixelfont.TTF", 20);
+        roundFont = generateFont("pixelfont.TTF", 20);
+        Label.LabelStyle roundLabelStyle = new Label.LabelStyle(roundFont, Color.BLACK);
+
+        leaderboardFont = generateFont("pixelfont.TTF", 24);
         Label.LabelStyle leaderboardLabelStyle = new Label.LabelStyle(leaderboardFont, Color.BLACK);
 
         leaderboardLabel = new Label("High Score", labelStyle);
         levelLabel = new Label("LevelID", labelStyle);
-        roundScoreLabel = new Label("This round:", leaderboardLabelStyle);
+        roundScoreLabel = new Label("This round:", roundLabelStyle);
 
         labelArray = new ArrayList<>();
-        //tempLabel = new Label("", leaderboardLabelStyle);
 
-        System.out.println("leaderboard is this big: " + leaderBoard.size());
-        for(Map.Entry<String, Float> entry : leaderBoard.entrySet()) {
-            // System.out.println(tableCounter + " " + entry.getKey());
-            //tempLabel.setText((tableCounter) + "  " + entry.getKey() + " " + df.format(entry.getValue()));
-            labelArray.add(new Label((tableCounter) + "  " + entry.getKey() + " " + df.format(entry.getValue()), leaderboardLabelStyle));
-            System.out.println("labelarray is this big: " + labelArray.size());
-            tableCounter++;
+        if(!leaderBoard.isEmpty()) {
+            tableCounter = 1;
+            labelArray.clear();
+            for (LeaderBoardEntry entry : leaderBoard) {
+                labelArray.add(new Label((tableCounter) + "  " + entry.getName() + " " + df.format(entry.getTime()), leaderboardLabelStyle));
+                tableCounter++;
+
+            }
         }
 
         table = new Table();
@@ -85,15 +91,40 @@ public class MultiPlayerHighScoreView extends BaseView {
         table.setFillParent(true);
         table.add(leaderboardLabel);
         table.row();
-        table.add(levelLabel);
+        table.add(levelLabel).padBottom(50);
         table.row();
-        for(Label label : labelArray) {
-            table.add(label).padTop(10);
-            table.row();
+        if(!labelArray.isEmpty()) {
+            for (int i = 0; i<5; i++) {
+                table.add(labelArray.get(i)).padTop(10);
+                table.row();
+            }
         }
         table.add(roundScoreLabel).padTop(50);
 
         this.ui.addActor(table);
+
+        if (!game.getResult().equals("Oh no!")) {
+            // If result is 'Oh no!' it means your opponent left
+            final StyledTextButton newRoundBtn = new StyledTextButton("New Round");
+            newRoundBtn.setPosition(Config.UI_WIDTH/2 - newRoundBtn.getWidth()/2, Config.UI_HEIGHT/2 - 290);
+            newRoundBtn.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    System.out.println(game.getOpponentUser().getFBID() + "    " + game.getOpponentUser());
+                    for (User u : game.getLobby().getLobbyList()) {
+                        System.out.println(u.getFBID() + "    " + u);
+                    }
+                    if (game.getLobby().lobbyListContains(game.getOpponentUser())) {
+                        game.getLobby().challengeUser(game.getOpponentUser());
+                    } else {
+                        newRoundBtn.remove();
+                    }
+                    return false;
+                }
+            });
+            // Add button to the stage
+            ui.addActor(newRoundBtn);
+        }
 
     }
 }

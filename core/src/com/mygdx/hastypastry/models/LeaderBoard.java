@@ -2,13 +2,13 @@ package com.mygdx.hastypastry.models;
 
 import com.mygdx.hastypastry.singletons.DBManager;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class LeaderBoard {
     private Game game;
     private boolean change;
-    private Map<String, Float> leaderBoard = new HashMap<>();
+    private ArrayList<LeaderBoardEntry> leaderBoard = new ArrayList<>();
 
     public LeaderBoard(Game game) {
         this.game = game;
@@ -22,10 +22,11 @@ public class LeaderBoard {
     }
 
     public void setLeaderBoard(String name, float time) {
-        leaderBoard.put(name, time);
+        leaderBoard.add(new LeaderBoardEntry(name, time));
+        Collections.sort(leaderBoard);
     }
 
-    public Map<String, Float> getLeaderBoard() { return leaderBoard; }
+    public ArrayList<LeaderBoardEntry> getLeaderBoard() { return leaderBoard; }
 
     public void setChange(boolean change) { this.change = change; }
 

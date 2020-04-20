@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
 import com.mygdx.hastypastry.models.Game;
+import com.mygdx.hastypastry.models.LeaderBoardEntry;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.models.Match;
 import com.mygdx.hastypastry.models.User;
@@ -378,9 +379,10 @@ public class FBDatabase implements HastyPastryDatabase {
     public void updateLeaderBoard(Game game) {
         this.game = game;
         level = Integer.parseInt(game.getLevel().getLevel().split(" ")[1]) - 1;
-        levelRef.child((Integer.toString(level))).child("leaderboard").child(user.getFBID()).child("name").setValue(game.getPlayerUser().getName());
-        levelRef.child((Integer.toString(level))).child("leaderboard").child(user.getFBID()).child("time").setValue(game.getPlayerUser().getNewestHighScore());
-        levelRef.child((Integer.toString(level))).orderByChild("time").limitToLast(5);
+
+        LeaderBoardEntry entry = new LeaderBoardEntry(game.getPlayerUser().getName(), game.getPlayerUser().getNewestHighScore());
+        levelRef.child((Integer.toString(level))).child("leaderboard").child(user.getFBID()).setValue(entry);
+        //levelRef.child((Integer.toString(level))).orderByChild("time");
 
         setLocalLeaderBoard(levelRef);
     }
@@ -394,8 +396,10 @@ public class FBDatabase implements HastyPastryDatabase {
                     game.getLeaderBoard().setChange(true);
                 }
                 for(DataSnapshot child : dataSnapshot.child(Integer.toString(level)).child("leaderboard").getChildren()) {
-                    game.getLeaderBoard().setLeaderBoard(child.child("name").getValue(String.class), child.child("time").getValue(Float.class));
-                    Log.d("TAG", child.child("name").getValue(String.class));
+                    String name = child.child("name").getValue(String.class);
+                    Log.d("TAG", "Entry name: " + name);
+                    float time = child.child("time").getValue(Float.class);
+                    game.getLeaderBoard().setLeaderBoard(name, time);
                 }
             }
             @Override
@@ -413,7 +417,6 @@ public class FBDatabase implements HastyPastryDatabase {
 
     public void readLeaderBoard(final OnGetDataListener listener) {
         listener.onStart();
-        //Query query = leaderboardRef.orderByChild("time").limitToLast(5);
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
