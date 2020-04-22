@@ -133,7 +133,7 @@ public class CompletedLevelView extends BaseView {
         table.row();
         table.add(timeLabel).padTop(90);
         table.row();
-        table.add(newHighScoreLabel).padTop(250);
+        table.add(newHighScoreLabel).padTop(180);
 
         this.ui.addActor(table);
     }

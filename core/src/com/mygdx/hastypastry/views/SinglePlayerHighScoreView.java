@@ -5,13 +5,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
-import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
+import com.mygdx.hastypastry.singletons.PlayerPreferences;
+import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.MenuButton;
+import com.mygdx.hastypastry.ui.StyledTextButton;
 
 import java.text.DecimalFormat;
 
@@ -57,8 +61,21 @@ public class SinglePlayerHighScoreView extends BaseView {
     @Override
     public void buildStage() {
         // Creating menu button.
-        MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
-        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 300);
+        MenuButton menuButton = new MenuButton("     Menu     ", ScreenEnum.MAIN_MENU);
+        menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2 + 90, Config.UI_HEIGHT/2 - 300);
+
+        // Creating back button.
+        final StyledTextButton backBtn = new StyledTextButton("     Back     ");
+        backBtn.setPosition(Config.UI_WIDTH/2 - backBtn.getWidth()/2 - 90, Config.UI_HEIGHT/2 - 300);
+        backBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_LEVEL, game);
+                return false;
+            }
+        });
+        // Add button to the stage
+        ui.addActor(backBtn);
 
         // Add button to the stage
         this.ui.addActor(menuButton);

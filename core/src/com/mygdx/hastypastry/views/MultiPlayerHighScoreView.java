@@ -47,7 +47,7 @@ public class MultiPlayerHighScoreView extends BaseView {
     @Override
     public void buildStage() {
         // Creating menu button.
-        menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+        menuButton = new MenuButton("     Menu     ", ScreenEnum.MAIN_MENU);
         menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, Config.UI_HEIGHT/2 - 220);
 
         // Add button to the stage
@@ -91,20 +91,17 @@ public class MultiPlayerHighScoreView extends BaseView {
 
         this.ui.addActor(table);
 
-        if (!game.getResult().equals("Oh no!")) {
-            // If result is 'Oh no!' it means your opponent left
-            final StyledTextButton backBtn = new StyledTextButton("Back");
-            backBtn.setPosition(Config.UI_WIDTH/2 - backBtn.getWidth()/2, Config.UI_HEIGHT/2 - 290);
-            backBtn.addListener(new InputListener() {
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_MULTIPLAYER, game);
-                    return false;
-                }
-            });
-            // Add button to the stage
-            ui.addActor(backBtn);
-        }
+        final StyledTextButton backBtn = new StyledTextButton("     Back     ");
+        backBtn.setPosition(Config.UI_WIDTH/2 - backBtn.getWidth()/2, Config.UI_HEIGHT/2 - 290);
+        backBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_MULTIPLAYER, game);
+                return false;
+            }
+        });
+        // Add button to the stage
+        ui.addActor(backBtn);
 
     }
 }

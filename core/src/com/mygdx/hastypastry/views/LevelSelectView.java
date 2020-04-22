@@ -2,13 +2,13 @@ package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.models.Level;
 import com.mygdx.hastypastry.models.Game;
+import com.mygdx.hastypastry.models.Level;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.ui.MenuButton;
 
@@ -17,6 +17,7 @@ public class LevelSelectView extends BaseView {
     private float levelHighScore;
     private int numLevelStars;
     private String levelStars;
+    private Label selectLabel;
 
     public LevelSelectView() {
         super();
@@ -26,6 +27,18 @@ public class LevelSelectView extends BaseView {
 
     @Override
     public void buildStage() {
+        // Generate table for title.
+        Table titleTable = new Table();
+        titleTable.top().padTop(30);
+        titleTable.setFillParent(true);
+
+        // Generating font.
+        font = generateFont("pixelfont.TTF", 28);
+        Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.BLACK);
+
+        selectLabel = new Label("Select a level", labelStyle);
+        titleTable.add(selectLabel);
+
         // Find number of levels
         int numberOfLevels = Level.getNumberOfLevels();
 
@@ -33,7 +46,7 @@ public class LevelSelectView extends BaseView {
         Table table = new Table();
 
         // Add padding
-        table.padTop(10);
+        table.padTop(25);
         table.setFillParent(false);
         table.setSize(Config.UI_WIDTH, Config.UI_HEIGHT - 50);
 
@@ -79,6 +92,7 @@ public class LevelSelectView extends BaseView {
         menuButton.setPosition(Config.UI_WIDTH/2 - menuButton.getWidth()/2, 15);
 
         // Add table to stage
+        this.ui.addActor(titleTable);
         this.ui.addActor(table);
 
         this.ui.addActor(menuButton);
@@ -88,16 +102,6 @@ public class LevelSelectView extends BaseView {
     @Override
     public void draw(SpriteBatch batch, float delta){
         // Set font parameters
-        font.setColor(Color.BLACK);
-        font.getData().setScale(0.1f);
-        font.setUseIntegerPositions(false);
-
-        // Find width of text for centering
-        String text = "Select a level";
-        GlyphLayout gl1 = new GlyphLayout();
-        gl1.setText(font, text);
-
-        // Draw the text
-        font.draw(batch, text, Config.WORLD_WIDTH/2 - gl1.width/2, Config.WORLD_HEIGHT - gl1.height);
+        selectLabel.setText("Select a level");
     }
 }
