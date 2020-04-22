@@ -1,7 +1,5 @@
 package com.mygdx.hastypastry.models;
 
-import com.mygdx.hastypastry.levels.Level;
-
 import java.util.ArrayList;
 import java.util.List;
 

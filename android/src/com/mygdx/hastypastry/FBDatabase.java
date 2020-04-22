@@ -17,8 +17,8 @@ import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.LeaderBoardEntry;
 import com.mygdx.hastypastry.models.Lobby;
-import com.mygdx.hastypastry.models.Match;
-import com.mygdx.hastypastry.models.User;
+import com.mygdx.hastypastry.models.dbmodels.Match;
+import com.mygdx.hastypastry.models.dbmodels.User;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.List;
@@ -331,8 +331,9 @@ public class FBDatabase implements HastyPastryDatabase {
                             }
                         });
                     }
-                } else if (!game.getOpponent().getWaffle().isDead()){
-                    // Match doesn't exist in FB and opponent hasn't died, it means the opponent has left the game.
+                } else if (game.getResult().equals("") && !game.getOpponent().getWaffle().isDead()){
+                    // Match doesn't exist in FB, no result and opponent hasn't died.
+                    // It should mean that your opponent left the game.
                     // Clean-up and end game
                     exitMatch();
                     Gdx.app.postRunnable(new Runnable() {

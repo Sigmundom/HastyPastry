@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.levels.Level;
+import com.mygdx.hastypastry.models.Level;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;

@@ -1,24 +1,24 @@
 package com.mygdx.hastypastry.models;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.levels.Level;
+import com.mygdx.hastypastry.models.dbmodels.Match;
+import com.mygdx.hastypastry.models.dbmodels.User;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.ChallengeBox;
+import com.mygdx.hastypastry.ui.LobbyUser;
 import com.mygdx.hastypastry.ui.RecievedChallengeBox;
-import com.mygdx.hastypastry.ui.StyledTextButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lobby {
-    private User user;
-    private List<User> lobbyList = new ArrayList<>();
-    private Table lobbyTable;
+    private com.mygdx.hastypastry.models.dbmodels.User user;
+    private List<com.mygdx.hastypastry.models.dbmodels.User> lobbyList = new ArrayList<>();
+    private VerticalGroup lobbyListUI;
     private Stage ui;
     private RecievedChallengeBox recievedChallengeBox; // Accept or decline a challenge.
     private ChallengeBox challengeBox; // Waiting for response / Cancel challenge.
@@ -29,7 +29,7 @@ public class Lobby {
     }
 
     public boolean isNameTaken(String name) {
-        for (User u : lobbyList) {
+        for (com.mygdx.hastypastry.models.dbmodels.User u : lobbyList) {
             if (u.getName().equals(name)) {
                 return true;
             }
@@ -38,22 +38,22 @@ public class Lobby {
     }
 
     public void joinLobby(String name) {
-        user = new User(name);
+        user = new com.mygdx.hastypastry.models.dbmodels.User(name);
         DBManager.instance.getDB().joinLobby(user);
     }
 
-    public void initLobbyView(Stage ui, Table lobbyTable) {
+    public void initLobbyView(Stage ui, VerticalGroup lobbyListUI) {
         this.ui = ui;
-        this.lobbyTable = lobbyTable;
-        for (User u : lobbyList) {
+        this.lobbyListUI = lobbyListUI;
+        for (com.mygdx.hastypastry.models.dbmodels.User u : lobbyList) {
             if (!u.getFBID().equals(user.getFBID())) {
                 addUserUI(u);
             }
         }
     }
 
-    public boolean lobbyListContains(User user) {
-        for (User u : lobbyList) {
+    public boolean lobbyListContains(com.mygdx.hastypastry.models.dbmodels.User user) {
+        for (com.mygdx.hastypastry.models.dbmodels.User u : lobbyList) {
             if (u.getFBID().equals(user.getFBID())) {
                 return true;
             }
@@ -65,50 +65,39 @@ public class Lobby {
         this.ui = ui;
     }
 
-    private void addUserUI(final User u) {
-        if (lobbyTable != null) {
-            StyledTextButton userButton = new StyledTextButton(u.getName());
-            userButton.addListener(new InputListener() {
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    challengeUser(u);
-                    return false;
-                }
-            });
-            userButton.setDisabled(u.getStatus().equals("busy"));
-            u.setUserButton(userButton);
-            lobbyTable.add(userButton).growX().padBottom(10);
-            lobbyTable.row();
+    private void addUserUI(final com.mygdx.hastypastry.models.dbmodels.User user) {
+        if (lobbyListUI != null) {
+            lobbyListUI.addActor(new LobbyUser(this, user));
         }
     }
 
-    public void challengeUser(User opponent) {
+    public void challengeUser(com.mygdx.hastypastry.models.dbmodels.User opponent) {
         DBManager.instance.getDB().challengePlayer(opponent); //u is opponent
         challengeBox = new ChallengeBox(Lobby.this, opponent);
         challengeBox.show(ui);
     }
 
-    public void addUser(User newUser) {
+    public void addUser(com.mygdx.hastypastry.models.dbmodels.User newUser) {
         lobbyList.add(newUser);
         addUserUI(newUser);
     }
 
-    public void removeUser(User leavingUser) {
+    public void removeUser(com.mygdx.hastypastry.models.dbmodels.User leavingUser) {
         lobbyList.remove(leavingUser);
         removeUserUI(leavingUser);
     }
 
-    private void removeUserUI(User leavingUser) {
-        if (lobbyTable != null) {
-            lobbyTable.removeActor(leavingUser.getUserButton());
+    private void removeUserUI(com.mygdx.hastypastry.models.dbmodels.User leavingUser) {
+        if (lobbyListUI != null) {
+            lobbyListUI.removeActor(leavingUser.getUserUI());
         }
     }
 
-    public List<User> getLobbyList() {
+    public List<com.mygdx.hastypastry.models.dbmodels.User> getLobbyList() {
         return lobbyList;
     }
 
-    public void startGame(Match match, boolean playerIsChallenger) {
+    public void startGame(com.mygdx.hastypastry.models.dbmodels.Match match, boolean playerIsChallenger) {
         Game game = new Game(match, playerIsChallenger, this);
         DBManager.instance.getDB().startGame(game);
         ScreenManager.getInstance().showScreen(
@@ -121,12 +110,12 @@ public class Lobby {
         return "Level "+ rand;
     }
 
-    public void receivedChallenge(Match match) {
+    public void receivedChallenge(com.mygdx.hastypastry.models.dbmodels.Match match) {
         recievedChallengeBox = new RecievedChallengeBox(this, match);
         recievedChallengeBox.show(ui);
     }
 
-    public void acceptChallenge(Match match) {
+    public void acceptChallenge(com.mygdx.hastypastry.models.dbmodels.Match match) {
         String level = randLevel();
         match.setLevel(level);
         DBManager.instance.getDB().acceptChallenge(match);
@@ -137,7 +126,7 @@ public class Lobby {
         DBManager.instance.getDB().declineChallenge(match);
     }
 
-    public User getUser() { return user; }
+    public com.mygdx.hastypastry.models.dbmodels.User getUser() { return user; }
 
     public void challengeCanceled() {
         if (recievedChallengeBox != null) {
@@ -149,9 +138,9 @@ public class Lobby {
         challengeBox.hide();
     }
 
-    public void updateUser(User updatedUser) {
-        User user = null;
-        for (User u : lobbyList) {
+    public void updateUser(com.mygdx.hastypastry.models.dbmodels.User updatedUser) {
+        com.mygdx.hastypastry.models.dbmodels.User user = null;
+        for (com.mygdx.hastypastry.models.dbmodels.User u : lobbyList) {
             if (u.getFBID().equals(updatedUser.getFBID())) {
                 user = u;
                 break;
@@ -172,7 +161,6 @@ public class Lobby {
             } else if (oldStatus.equals("ready") && newStatus.equals("busy")) {
                 setEnabledUserUI(user, true);
             } else if (oldStatus.equals("busy") && newStatus.equals("ready")) {
-                System.out.println("Ready!");
                 setEnabledUserUI(user, false);
             }
         } else {
@@ -181,13 +169,11 @@ public class Lobby {
     }
 
     public void setEnabledUserUI(User user, boolean disabled) {
-        System.out.println(user.getName() + disabled);
-        if (user.getUserButton() != null) {
-            System.out.println("hey!");
-            user.getUserButton().setDisabled(disabled);
-            user.getUserButton().setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
+        if (user.getUserUI() != null) {
+            user.getUserUI().getActor().setDisabled(disabled);
+            user.getUserUI().getActor().setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
         } else {
-            System.out.println("hmm!");
+            System.out.println("Tried to update an User without an UI!");
         }
     }
 

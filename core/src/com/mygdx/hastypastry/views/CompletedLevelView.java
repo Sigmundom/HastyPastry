@@ -1,19 +1,18 @@
 package com.mygdx.hastypastry.views;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.Config;
+import com.mygdx.hastypastry.listeners.MyButtonListener;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.levels.Level;
+import com.mygdx.hastypastry.models.Level;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.ScreenManager;
@@ -24,20 +23,15 @@ import java.text.DecimalFormat;
 
 public class CompletedLevelView extends BaseView {
     private Game game;
-    private MenuButton menuButton;
-    private MenuButton replayButton;
     protected BitmapFont font;
-    private Table table;
-    protected Label completedLabel;
-    protected Label levelLabel;
-    protected Label timeLabel;
-    protected float levelTime;
-    protected DecimalFormat df = new DecimalFormat("###.##");
+    private Label completedLabel;
+    private Label levelLabel;
+    private Label timeLabel;
+    private float levelTime;
+    private DecimalFormat df = new DecimalFormat("###.##");
     private Texture texture = new Texture("star.png");
     private Sprite sprite = new Sprite(texture);
-    private float rotationDegree;
-    protected Label newHighScoreLabel;
-    private Sound buttonSound;
+    private Label newHighScoreLabel;
 
 
     public CompletedLevelView(Game game) {
@@ -45,13 +39,12 @@ public class CompletedLevelView extends BaseView {
         this.game = game;
         sprite.setSize(Config.UI_WIDTH/80, Config.UI_WIDTH/80);
         sprite.setOrigin(sprite.getWidth()/2,-15);
-        buttonSound = MusicAndSound.instance.getButtonSound();
     }
 
     @Override
     public void draw(SpriteBatch batch, float delta){
         levelTime = game.getPlayer().getNewLevelTime();
-        rotationDegree = 15.0f;
+        float rotationDegree = 15.0f;
         for(float ranking : game.getLevel().getStarRank()) {
             if(levelTime < ranking) {
                 sprite.draw(batch);
@@ -81,10 +74,10 @@ public class CompletedLevelView extends BaseView {
         }
 
         // Create menu button
-        menuButton = new MenuButton("  Menu  ", ScreenEnum.MAIN_MENU);
+        MenuButton menuButton = new MenuButton("  Menu  ", ScreenEnum.MAIN_MENU);
 
         // Create replay-button
-        replayButton = new MenuButton("  Replay level  ", ScreenEnum.DRAW, new Game(new Level(game.getLevel().getLevel())));
+        MenuButton replayButton = new MenuButton("  Replay level  ", ScreenEnum.DRAW, new Game(new Level(game.getLevel().getLevel())));
 
         // Set width and position of menu button
         menuButton.setWidth(replayButton.getWidth());
@@ -109,21 +102,13 @@ public class CompletedLevelView extends BaseView {
 
         highScoreButton.setWidth(replayButton.getWidth());
         highScoreButton.setPosition(Config.UI_WIDTH/2 - highScoreButton.getWidth()/2 + 90, Config.UI_HEIGHT/2 - 300);
-        highScoreButton.addListener(
-                new InputListener() {
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
-                            buttonSound.play(0.5f);
-                        }
-                        if (game.isMultiplayer()) {
-                            ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
-                        } else {
-                            ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
-                        }
-                        return false;
-                    }
-                });
+        highScoreButton.addListener(new MyButtonListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
+            }
+        });
 
         // Add buttons to the stage
         this.ui.addActor(menuButton);
@@ -137,7 +122,7 @@ public class CompletedLevelView extends BaseView {
         levelLabel = new Label("LevelID", labelStyle);
         timeLabel = new Label("Time", labelStyle);
         newHighScoreLabel = new Label("", labelStyle);
-        table = new Table();
+        Table table = new Table();
         //table.top().padLeft(Config.UI_WIDTH/2 - 100).left().padTop(10);
         table.top().padTop(30);
         table.setFillParent(true);
@@ -155,8 +140,8 @@ public class CompletedLevelView extends BaseView {
     private String getNextLevel(String levelNumber) {
         String[] string = levelNumber.trim().split("\\s+");
         int num = Integer.parseInt(string[1]);
-        if (num != game.getLevel().getNumberOfLevels()) {
-            return "Level " + String.valueOf(num + 1);
+        if (num != Level.getNumberOfLevels()) {
+            return "Level " + (num + 1);
         }else {
             return null;
         }

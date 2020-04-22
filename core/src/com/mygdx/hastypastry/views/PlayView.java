@@ -30,7 +30,6 @@ public class PlayView extends BaseView {
     protected BitmapFont font;
     private float elapsedTime = 0.0f;
     private DecimalFormat df = new DecimalFormat("###.##");
-    private Table table;
     private Label timeLabel;
     protected Game game;
 
@@ -123,7 +122,7 @@ public class PlayView extends BaseView {
         Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.BLACK);
 
         timeLabel = new Label("Time", labelStyle);
-        table = new Table();
+        Table table = new Table();
         table.top().padLeft(Config.UI_WIDTH/2 - 40).left().padTop(10);
         table.setFillParent(true);
         table.add(timeLabel);

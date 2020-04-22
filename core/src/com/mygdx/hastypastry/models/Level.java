@@ -1,4 +1,4 @@
-package com.mygdx.hastypastry.levels;
+package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;

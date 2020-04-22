@@ -1,4 +1,4 @@
-package com.mygdx.hastypastry.models;
+package com.mygdx.hastypastry.models.dbmodels;
 
 import java.util.List;
 

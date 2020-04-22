@@ -1,5 +1,6 @@
-package com.mygdx.hastypastry.models;
+package com.mygdx.hastypastry.models.dbmodels;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.mygdx.hastypastry.ui.StyledTextButton;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class User {
     private List<List<String>> drawing;
     private float newestHighScore;
     private StyledTextButton userButton;
+    private Container<StyledTextButton> userUI;
 
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     public User() {};
@@ -62,8 +64,12 @@ public class User {
         return userButton;
     }
 
-    protected void setUserButton(StyledTextButton userButton) {
-        this.userButton = userButton;
+    public Container<StyledTextButton> getUserUI() {
+        return userUI;
+    }
+
+    public void setUserUI(Container<StyledTextButton> userUI) {
+        this.userUI = userUI;
     }
 
 }

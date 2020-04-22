@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -16,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
-import com.mygdx.hastypastry.listeners.PlayButtonListener;
+import com.mygdx.hastypastry.listeners.MyButtonListener;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.models.Game;
@@ -90,7 +91,7 @@ public class DrawView extends BaseView {
     @Override
     public void buildStage() {
         // References to resources
-        Skin skin = Assets.instance.getManager().get(Assets.orangeUiSkin);
+        final Skin skin = Assets.instance.getManager().get(Assets.orangeUiSkin);
 
         // UndoButton
         ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle(skin.get("default", ImageButton.ImageButtonStyle.class));
@@ -102,17 +103,13 @@ public class DrawView extends BaseView {
             MusicAndSound.instance.getGameMusic().setVolume(PlayerPreferences.instance.getMusicVolume() * 0.2f);
         }
 
-        undo.addListener(
-                new InputListener() {
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        if(PlayerPreferences.instance.isSoundEffectsEnabled()) {
-                            buttonSound.play(0.5f);
-                        }
-                        game.getPlayer().getDrawing().undoLine();
-                        return false;
-                    }
-                });
+        undo.addListener(new MyButtonListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.getPlayer().getDrawing().undoLine();
+            }
+        });
 
         // Inkbar with ink icon
         float inkLimit = game.getLevel().getInkLimit();
@@ -141,8 +138,16 @@ public class DrawView extends BaseView {
         barTable.add(ink).size(15,15).padLeft(-20);
 
         // Play button
-        ImageButton play = new ImageButton(skin, "right");
-        play.addListener(new PlayButtonListener(game));
+        final ImageButton play = new ImageButton(skin, "right");
+        play.addListener(new MyButtonListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                play.setTouchable(Touchable.disabled);
+                play.setColor(1,1,1,0.5f);
+                game.ready();
+            }
+        });
 
         // Initialize topMenu
         Table topMenu = new Table();

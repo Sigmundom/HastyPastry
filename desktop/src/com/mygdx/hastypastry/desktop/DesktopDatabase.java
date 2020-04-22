@@ -3,8 +3,8 @@ package com.mygdx.hastypastry.desktop;
 import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
-import com.mygdx.hastypastry.models.Match;
-import com.mygdx.hastypastry.models.User;
+import com.mygdx.hastypastry.models.dbmodels.Match;
+import com.mygdx.hastypastry.models.dbmodels.User;
 
 public class DesktopDatabase implements HastyPastryDatabase {
 
