@@ -31,6 +31,7 @@ public class CompletedLevelView extends BaseView {
     private DecimalFormat df = new DecimalFormat("###.##");
     private Texture texture = new Texture("star.png");
     private Sprite sprite = new Sprite(texture);
+    private float rotationDegree;
     private Label newHighScoreLabel;
 
 
@@ -44,11 +45,11 @@ public class CompletedLevelView extends BaseView {
     @Override
     public void draw(SpriteBatch batch, float delta){
         levelTime = game.getPlayer().getNewLevelTime();
-        float rotationDegree = 15.0f;
+        rotationDegree = 15.0f;
         for(float ranking : game.getLevel().getStarRank()) {
             if(levelTime < ranking) {
                 sprite.draw(batch);
-                sprite.setPosition(Config.WORLD_WIDTH/2 - sprite.getWidth()/2, Config.WORLD_HEIGHT/2 + 50);
+                sprite.setPosition(Config.WORLD_WIDTH/2 - sprite.getWidth()/2, Config.WORLD_HEIGHT/2);
                 sprite.setRotation(rotationDegree);
                 rotationDegree -= 15.0f;
             }
@@ -130,9 +131,9 @@ public class CompletedLevelView extends BaseView {
         table.row();
         table.add(levelLabel);
         table.row();
-        table.add(timeLabel).padTop(200);
+        table.add(timeLabel).padTop(90);
         table.row();
-        table.add(newHighScoreLabel).padTop(50);
+        table.add(newHighScoreLabel).padTop(250);
 
         this.ui.addActor(table);
     }
