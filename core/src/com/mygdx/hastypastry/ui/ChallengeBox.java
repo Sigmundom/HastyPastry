@@ -3,8 +3,7 @@ package com.mygdx.hastypastry.ui;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.hastypastry.models.Lobby;
-import com.mygdx.hastypastry.models.Match;
-import com.mygdx.hastypastry.models.User;
+import com.mygdx.hastypastry.models.dbmodels.User;
 import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.singletons.DBManager;
 

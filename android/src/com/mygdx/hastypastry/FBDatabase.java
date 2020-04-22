@@ -11,8 +11,8 @@ import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.HastyPastryDatabase;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
-import com.mygdx.hastypastry.models.Match;
-import com.mygdx.hastypastry.models.User;
+import com.mygdx.hastypastry.models.dbmodels.Match;
+import com.mygdx.hastypastry.models.dbmodels.User;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
 import java.util.List;

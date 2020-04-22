@@ -3,7 +3,8 @@ package com.mygdx.hastypastry.models;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.WorldObject;
-import com.mygdx.hastypastry.levels.Level;
+import com.mygdx.hastypastry.models.dbmodels.Match;
+import com.mygdx.hastypastry.models.dbmodels.User;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private Match match;
+    private com.mygdx.hastypastry.models.dbmodels.Match match;
     private Player player;
     private Player opponent;
     private Level level;
@@ -21,7 +22,7 @@ public class Game {
     private String message;
     private Lobby lobby;
 
-    public Game(Match match, boolean playerIsChallenger, Lobby lobby) {
+    public Game(com.mygdx.hastypastry.models.dbmodels.Match match, boolean playerIsChallenger, Lobby lobby) {
         this.match = match;
         this.playerIsChallenger = playerIsChallenger;
         this.level = new Level(match.getLevel());

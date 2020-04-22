@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.mygdx.hastypastry.listeners.MyButtonListener;
 import com.mygdx.hastypastry.models.Lobby;
-import com.mygdx.hastypastry.models.User;
+import com.mygdx.hastypastry.models.dbmodels.User;
 
 public class LobbyUser extends Container<StyledTextButton> {
 

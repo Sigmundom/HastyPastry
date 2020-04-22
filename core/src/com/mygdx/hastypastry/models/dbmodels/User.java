@@ -1,4 +1,4 @@
-package com.mygdx.hastypastry.models;
+package com.mygdx.hastypastry.models.dbmodels;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.mygdx.hastypastry.ui.StyledTextButton;
@@ -54,7 +54,7 @@ public class User {
         this.FBID = FBID;
     }
 
-    protected Container<StyledTextButton> getUserUI() {
+    public Container<StyledTextButton> getUserUI() {
         return userUI;
     }
 
