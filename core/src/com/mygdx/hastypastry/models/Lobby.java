@@ -118,8 +118,7 @@ public class Lobby {
     private String randLevel(){
         int numberOfLevels = Level.getNumberOfLevels();
         int rand = (int)(Math.random()*numberOfLevels)+1;
-        //return "Level "+ rand;
-        return "Level 1";
+        return "Level "+ rand;
     }
 
     public void receivedChallenge(Match match) {

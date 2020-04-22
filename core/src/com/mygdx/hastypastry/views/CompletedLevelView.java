@@ -55,7 +55,7 @@ public class CompletedLevelView extends BaseView {
         for(float ranking : game.getLevel().getStarRank()) {
             if(levelTime < ranking) {
                 sprite.draw(batch);
-                sprite.setPosition(Config.WORLD_WIDTH/2 - sprite.getWidth()/2, Config.WORLD_HEIGHT/2);
+                sprite.setPosition(Config.WORLD_WIDTH/2 - sprite.getWidth()/2, Config.WORLD_HEIGHT/2 + 50);
                 sprite.setRotation(rotationDegree);
                 rotationDegree -= 15.0f;
             }
@@ -145,7 +145,7 @@ public class CompletedLevelView extends BaseView {
         table.row();
         table.add(levelLabel);
         table.row();
-        table.add(timeLabel).padTop(250);
+        table.add(timeLabel).padTop(200);
         table.row();
         table.add(newHighScoreLabel).padTop(50);
 

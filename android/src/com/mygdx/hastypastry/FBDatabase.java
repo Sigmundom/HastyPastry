@@ -382,7 +382,6 @@ public class FBDatabase implements HastyPastryDatabase {
 
         LeaderBoardEntry entry = new LeaderBoardEntry(game.getPlayerUser().getName(), game.getPlayerUser().getNewestHighScore());
         levelRef.child((Integer.toString(level))).child("leaderboard").child(user.getFBID()).setValue(entry);
-        //levelRef.child((Integer.toString(level))).orderByChild("time");
 
         setLocalLeaderBoard(levelRef);
     }
@@ -392,6 +391,8 @@ public class FBDatabase implements HastyPastryDatabase {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
                 //whatever you need to do with the data
+                game.getLeaderBoard().getLeaderBoard().clear();
+
                 if (dataSnapshot.child(Integer.toString(level)).child("leaderboard").hasChild(user.getFBID())) {
                     game.getLeaderBoard().setChange(true);
                 }

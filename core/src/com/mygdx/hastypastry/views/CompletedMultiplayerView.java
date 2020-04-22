@@ -67,9 +67,6 @@ public class CompletedMultiplayerView extends BaseView {
         if (game.getOpponent().getNewLevelTime() == 0.0f || game.getResult() == "You won!") {
             opponentLabel = new Label(game.getOpponent().getName() +
                     ": DNF", resultLabelStyle);
-        } else {
-            opponentLabel = new Label(game.getOpponent().getName() +
-                    ": " + df.format(game.getOpponent().getNewLevelTime()), resultLabelStyle);
         }
 
         // Creates table
@@ -92,12 +89,13 @@ public class CompletedMultiplayerView extends BaseView {
 
         // Create menu button
         MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
-        menuButton.setPosition(Config.UI_WIDTH / 2, Config.UI_HEIGHT / 2, Align.center);
+        menuButton.setPosition(Config.UI_WIDTH / 2, Config.UI_HEIGHT / 2 - 220, Align.center);
         ui.addActor(menuButton);
 
         if (!game.getResult().equals("Oh no!")) {
             // If result is 'Oh no!' it means your opponent left
             final StyledTextButton newRoundBtn = new StyledTextButton("New Round");
+            newRoundBtn.setPosition(Config.UI_WIDTH / 2 - newRoundBtn.getWidth() / 2 - 90, Config.UI_HEIGHT / 2 - 300);
             newRoundBtn.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

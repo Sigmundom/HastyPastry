@@ -32,6 +32,7 @@ public class MyContactListener implements ContactListener {
                 // Set winner
                 if (a.equals("playerWaffle") || b.equals("playerWaffle")) {
                     game.setResult("You won!");
+                    game.getOpponent().getWaffle().setIsDead();
                 } else {
                     game.setResult("You lost!");
                 }
