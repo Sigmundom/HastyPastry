@@ -16,6 +16,8 @@ public class User {
     private String status;
     private Match challenge; // Null if you are the challenger.
     private List<List<String>> drawing;
+    private float newestHighScore;
+    private StyledTextButton userButton;
     private Container<StyledTextButton> userUI;
 
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -54,6 +56,14 @@ public class User {
         this.FBID = FBID;
     }
 
+    public void setNewestHighScore(float newestHighScore) { this.newestHighScore = newestHighScore; }
+
+    public float getNewestHighScore() { return newestHighScore; }
+
+    protected StyledTextButton getUserButton() {
+        return userButton;
+    }
+
     public Container<StyledTextButton> getUserUI() {
         return userUI;
     }
@@ -61,4 +71,5 @@ public class User {
     public void setUserUI(Container<StyledTextButton> userUI) {
         this.userUI = userUI;
     }
+
 }

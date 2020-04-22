@@ -9,6 +9,7 @@ import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.singletons.Assets;
+import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 

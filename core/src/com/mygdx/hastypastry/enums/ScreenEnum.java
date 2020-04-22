@@ -1,6 +1,5 @@
 package com.mygdx.hastypastry.enums;
 
-import com.badlogic.gdx.audio.Music;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.views.BaseView;
@@ -8,7 +7,8 @@ import com.mygdx.hastypastry.views.CompletedLevelView;
 import com.mygdx.hastypastry.views.CompletedMultiplayerView;
 import com.mygdx.hastypastry.views.DrawView;
 import com.mygdx.hastypastry.views.FailedLevelView;
-import com.mygdx.hastypastry.views.HighScoreListView;
+import com.mygdx.hastypastry.views.MultiPlayerHighScoreView;
+import com.mygdx.hastypastry.views.SinglePlayerHighScoreView;
 import com.mygdx.hastypastry.views.InvalidVersionView;
 import com.mygdx.hastypastry.views.LevelSelectView;
 import com.mygdx.hastypastry.views.LobbyView;
@@ -44,7 +44,10 @@ public enum ScreenEnum {
         public BaseView getScreen(Object... params) { return new LoginView(); }
     },
     HIGHSCORE {
-        public BaseView getScreen(Object... params) { return new HighScoreListView((Game)params[0]); }
+        public BaseView getScreen(Object... params) { return new SinglePlayerHighScoreView((Game)params[0]); }
+    },
+    LEADERBOARD {
+        public BaseView getScreen(Object... params) { return  new MultiPlayerHighScoreView((Game)params[0]); }
     },
     LEVELSELECT {
         public BaseView getScreen(Object... params) {return new LevelSelectView(); }

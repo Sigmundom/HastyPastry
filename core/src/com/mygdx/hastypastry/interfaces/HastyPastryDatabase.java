@@ -22,4 +22,7 @@ public interface HastyPastryDatabase {
     void checkVersion();
 
     void withdrawChallenge(User opponent);
+
+    void updateLeaderBoard(Game game);
+
 }
