@@ -1337,4 +1337,35 @@
     "posY" : "27",
     "radius" : 1
   }
-} ]
+}, {
+    "goal" : {
+      "height" : "2",
+      "posX" : "15",
+      "posY" : "1",
+      "width" : "2"
+    },
+    "inkLimit" : 30,
+    "timeLimit" : 60,
+    "level" : "Level 19",
+    "obstacles" : [ {
+      "height" : "26",
+      "isDeadly" : false,
+      "posX" : "6",
+      "posY" : "32",
+      "shape" : "Square",
+      "width" : "2"
+    }, {
+      "height" : "36",
+      "isDeadly" : false,
+      "posX" : "12",
+      "posY" : "0",
+      "shape" : "Square",
+      "width" : "2"
+    } ],
+    "starRank" : "6.6;6.0;5.6",
+    "waffle" : {
+      "posX": "2",
+      "posY": "27",
+      "radius": 1
+    }
+}]
