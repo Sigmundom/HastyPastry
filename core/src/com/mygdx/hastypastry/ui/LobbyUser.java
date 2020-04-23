@@ -21,6 +21,6 @@ public class LobbyUser extends Container<StyledTextButton> {
         button.setDisabled(user.getStatus().equals("busy"));
         this.setActor(button);
         this.width(200);
-        user.setUserUI(this);
+        this.setName(user.getFBID());
     }
 }

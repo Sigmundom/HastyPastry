@@ -1,5 +1,6 @@
 package com.mygdx.hastypastry.models;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
@@ -11,13 +12,14 @@ import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.ChallengeBox;
 import com.mygdx.hastypastry.ui.LobbyUser;
 import com.mygdx.hastypastry.ui.RecievedChallengeBox;
+import com.mygdx.hastypastry.ui.StyledTextButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lobby {
-    private com.mygdx.hastypastry.models.dbmodels.User user;
-    private List<com.mygdx.hastypastry.models.dbmodels.User> lobbyList = new ArrayList<>();
+    private User user;
+    private List<User> lobbyList = new ArrayList<>();
     private VerticalGroup lobbyListUI;
     private Stage ui;
     private RecievedChallengeBox recievedChallengeBox; // Accept or decline a challenge.
@@ -29,7 +31,7 @@ public class Lobby {
     }
 
     public boolean isNameTaken(String name) {
-        for (com.mygdx.hastypastry.models.dbmodels.User u : lobbyList) {
+        for (User u : lobbyList) {
             if (u.getName().equals(name)) {
                 return true;
             }
@@ -38,22 +40,22 @@ public class Lobby {
     }
 
     public void joinLobby(String name) {
-        user = new com.mygdx.hastypastry.models.dbmodels.User(name);
+        user = new User(name);
         DBManager.instance.getDB().joinLobby(user);
     }
 
     public void initLobbyView(Stage ui, VerticalGroup lobbyListUI) {
         this.ui = ui;
         this.lobbyListUI = lobbyListUI;
-        for (com.mygdx.hastypastry.models.dbmodels.User u : lobbyList) {
-            if (!u.getFBID().equals(user.getFBID())) {
+        for (User u : lobbyList) {
+            if (!u.getFBID().equals(user.getFBID()) && !u.getStatus().equals("inGame")) {
                 addUserUI(u);
             }
         }
     }
 
-    public boolean lobbyListContains(com.mygdx.hastypastry.models.dbmodels.User user) {
-        for (com.mygdx.hastypastry.models.dbmodels.User u : lobbyList) {
+    public boolean lobbyListContains(User user) {
+        for (User u : lobbyList) {
             if (u.getFBID().equals(user.getFBID())) {
                 return true;
             }
@@ -65,39 +67,39 @@ public class Lobby {
         this.ui = ui;
     }
 
-    private void addUserUI(final com.mygdx.hastypastry.models.dbmodels.User user) {
+    private void addUserUI(final User user) {
         if (lobbyListUI != null) {
             lobbyListUI.addActor(new LobbyUser(this, user));
         }
     }
 
-    public void challengeUser(com.mygdx.hastypastry.models.dbmodels.User opponent) {
+    public void challengeUser(User opponent) {
         DBManager.instance.getDB().challengePlayer(opponent); //u is opponent
         challengeBox = new ChallengeBox(Lobby.this, opponent);
         challengeBox.show(ui);
     }
 
-    public void addUser(com.mygdx.hastypastry.models.dbmodels.User newUser) {
+    public void addUser(User newUser) {
         lobbyList.add(newUser);
         addUserUI(newUser);
     }
 
-    public void removeUser(com.mygdx.hastypastry.models.dbmodels.User leavingUser) {
+    public void removeUser(User leavingUser) {
         lobbyList.remove(leavingUser);
         removeUserUI(leavingUser);
     }
 
-    private void removeUserUI(com.mygdx.hastypastry.models.dbmodels.User leavingUser) {
+    private void removeUserUI(User leavingUser) {
         if (lobbyListUI != null) {
-            lobbyListUI.removeActor(leavingUser.getUserUI());
+            lobbyListUI.removeActor(lobbyListUI.findActor(leavingUser.getFBID()));
         }
     }
 
-    public List<com.mygdx.hastypastry.models.dbmodels.User> getLobbyList() {
+    public List<User> getLobbyList() {
         return lobbyList;
     }
 
-    public void startGame(com.mygdx.hastypastry.models.dbmodels.Match match, boolean playerIsChallenger) {
+    public void startGame(Match match, boolean playerIsChallenger) {
         Game game = new Game(match, playerIsChallenger, this);
         DBManager.instance.getDB().startGame(game);
         ScreenManager.getInstance().showScreen(
@@ -110,12 +112,12 @@ public class Lobby {
         return "Level "+ rand;
     }
 
-    public void receivedChallenge(com.mygdx.hastypastry.models.dbmodels.Match match) {
+    public void receivedChallenge(Match match) {
         recievedChallengeBox = new RecievedChallengeBox(this, match);
         recievedChallengeBox.show(ui);
     }
 
-    public void acceptChallenge(com.mygdx.hastypastry.models.dbmodels.Match match) {
+    public void acceptChallenge(Match match) {
         String level = randLevel();
         match.setLevel(level);
         DBManager.instance.getDB().acceptChallenge(match);
@@ -126,7 +128,7 @@ public class Lobby {
         DBManager.instance.getDB().declineChallenge(match);
     }
 
-    public com.mygdx.hastypastry.models.dbmodels.User getUser() { return user; }
+    public User getUser() { return user; }
 
     public void challengeCanceled() {
         if (recievedChallengeBox != null) {
@@ -138,9 +140,9 @@ public class Lobby {
         challengeBox.hide();
     }
 
-    public void updateUser(com.mygdx.hastypastry.models.dbmodels.User updatedUser) {
-        com.mygdx.hastypastry.models.dbmodels.User user = null;
-        for (com.mygdx.hastypastry.models.dbmodels.User u : lobbyList) {
+    public void updateUser(User updatedUser) {
+        User user = null;
+        for (User u : lobbyList) {
             if (u.getFBID().equals(updatedUser.getFBID())) {
                 user = u;
                 break;
@@ -169,9 +171,10 @@ public class Lobby {
     }
 
     public void setEnabledUserUI(User user, boolean disabled) {
-        if (user.getUserUI() != null) {
-            user.getUserUI().getActor().setDisabled(disabled);
-            user.getUserUI().getActor().setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
+        LobbyUser userUI = lobbyListUI.findActor(user.getFBID());
+        if (userUI != null) {
+            userUI.getActor().setDisabled(disabled);
+            userUI.getActor().setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
         } else {
             System.out.println("Tried to update an User without an UI!");
         }
