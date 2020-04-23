@@ -53,6 +53,7 @@ public class LoginView extends BaseView {
         // Creates the input field.
         input = new TextField("", Assets.instance.getManager().get(Assets.orangeUiSkin), "login");
         input.setMessageText("Write your name here");
+        input.setMaxLength(10);
         input.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
