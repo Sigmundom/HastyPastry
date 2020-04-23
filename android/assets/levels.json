@@ -1349,14 +1349,14 @@
     "level" : "Level 19",
     "obstacles" : [ {
       "height" : "26",
-      "isDeadly" : false,
+      "type" : "normal",
       "posX" : "6",
       "posY" : "32",
       "shape" : "Square",
       "width" : "2"
     }, {
       "height" : "36",
-      "isDeadly" : false,
+      "type" : "normal",
       "posX" : "12",
       "posY" : "0",
       "shape" : "Square",
