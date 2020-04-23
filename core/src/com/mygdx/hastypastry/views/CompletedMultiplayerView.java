@@ -24,7 +24,7 @@ import java.text.DecimalFormat;
 public class CompletedMultiplayerView extends BaseView {
     private Game game;
     protected DecimalFormat df = new DecimalFormat("###.##");
-    private Label playerLabel, opponentLabel;
+    private Label playerLabel, playerTimeLabel, opponentLabel, opponentTimeLabel;
     private LeaderBoard leaderBoard;
     private Sound buttonSound;
 
@@ -45,7 +45,7 @@ public class CompletedMultiplayerView extends BaseView {
         game.getLobby().initCompleteMultiplayerView(ui);
 
         // Set up font and label style for result
-        BitmapFont resultFont = generateFont("pixelfont.TTF", 32);
+        BitmapFont resultFont = generateFont("pixelfont.TTF", 30);
         Label.LabelStyle resultLabelStyle = new Label.LabelStyle(resultFont, Color.BLACK);
 
         // Creates the label
@@ -58,15 +58,15 @@ public class CompletedMultiplayerView extends BaseView {
 
         // Viewing high scores for player and opponent, and sending it to Firebase
         if (game.getPlayer().getNewLevelTime() == 0.0f || game.getResult() == "You lost!") {
-            playerLabel = new Label(game.getPlayer().getName() +
-                    ": DNF", resultLabelStyle);
+            playerLabel = new Label(game.getPlayer().getName() + ":", resultLabelStyle);
+            playerTimeLabel = new Label("DNF", resultLabelStyle);
         } else {
-            playerLabel = new Label(game.getPlayer().getName() +
-                    ": " + df.format(game.getPlayer().getNewLevelTime()), resultLabelStyle);
+            playerLabel = new Label(game.getPlayer().getName() + ":", resultLabelStyle);
+            playerTimeLabel = new Label(df.format(game.getPlayer().getNewLevelTime()), resultLabelStyle);
         }
         if (game.getOpponent().getNewLevelTime() == 0.0f || game.getResult() == "You won!") {
-            opponentLabel = new Label(game.getOpponent().getName() +
-                    ": DNF", resultLabelStyle);
+            opponentLabel = new Label(game.getOpponent().getName() + ":", resultLabelStyle);
+            opponentTimeLabel = new Label("DNF", resultLabelStyle);
         }
 
         // Creates table
@@ -82,7 +82,11 @@ public class CompletedMultiplayerView extends BaseView {
         table.row();
         table.add(playerLabel).padTop(50);
         table.row();
-        table.add(opponentLabel).padTop(20);
+        table.add(playerTimeLabel).padTop(10);
+        table.row();
+        table.add(opponentLabel).padTop(30);
+        table.row();
+        table.add(opponentTimeLabel).padTop(10);
 
         // Adds table to ui
         this.ui.addActor(table);
