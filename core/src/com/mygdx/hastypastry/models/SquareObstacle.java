@@ -8,14 +8,16 @@ public class SquareObstacle extends Obstacle{
     private float width, height;
 
     // Fixture and shape is defined here, while the rest is common for all obstacles and defined in superclass.
-    public SquareObstacle(float posX, float posY, float width, float height, boolean isDeadly){
-        super(posX, posY, width, height, isDeadly);
+    public SquareObstacle(float posX, float posY, float width, float height, String type){
+        super(posX, posY, width, height, type);
         this.width = width;
         this.height = height;
 
-        if (isDeadly){
+        if (this.isDeadly()){
             sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("deadlysquare"));
-        } else {
+        } else if (this.isBouncing()) {
+            sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("bouncingsquare"));
+        } else  {
             sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("square"));
         }
     }

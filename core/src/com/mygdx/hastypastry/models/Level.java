@@ -3,12 +3,6 @@ package com.mygdx.hastypastry.models;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.mygdx.hastypastry.models.Goal;
-import com.mygdx.hastypastry.models.Obstacle;
-import com.mygdx.hastypastry.models.RoundObstacle;
-import com.mygdx.hastypastry.models.SquareObstacle;
-import com.mygdx.hastypastry.models.TriangularObstacle;
-import com.mygdx.hastypastry.models.Waffle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +14,13 @@ public class Level {
     private int timeLimit;
     private List<Float> starRank = new ArrayList<>();
     private String level;
-    private JsonValue levelData;
 
     public Level(String level){
         this.level = level;
         int index = Integer.parseInt(level.split(" ")[1])-1;
 
         JsonReader jsonReader = new JsonReader();
-        levelData = jsonReader.parse(Gdx.files.internal("levels.json")).get(index);
+        JsonValue levelData = jsonReader.parse(Gdx.files.internal("levels.json")).get(index);
 
         JsonValue waffleJson = levelData.get("waffle");
         waffle = new Waffle(waffleJson.getFloat("posX"), waffleJson.getFloat("posY"));
@@ -49,25 +42,24 @@ public class Level {
             starRank.add(Float.parseFloat(starData[i]));
         }
 
-        String shape;
+        String shape, type;
         float posX, posY, width, height, radius;
-        boolean isDeadly;
         for (JsonValue obstacleJson : levelData.get("obstacles")) {
             shape = obstacleJson.getString("shape");
             posX = obstacleJson.getFloat("posX");
             posY = obstacleJson.getFloat("posY");
-            isDeadly = obstacleJson.getBoolean("isDeadly");
+            type = obstacleJson.getString("type");
 
             if (shape.equals("Round")) {
                 radius = obstacleJson.getFloat("radius");
-                obstacles.add(new RoundObstacle(posX, posY, radius, isDeadly));
+                obstacles.add(new RoundObstacle(posX, posY, radius, type));
             } else {
                 width = obstacleJson.getFloat("width");
                 height = obstacleJson.getFloat("height");
                 if (shape.equals("Square")) {
-                    obstacles.add(new SquareObstacle(posX, posY, width, height, isDeadly));
+                    obstacles.add(new SquareObstacle(posX, posY, width, height, type));
                 } else if (shape.equals("Triangular")) {
-                    obstacles.add(new TriangularObstacle(posX, posY, width, height,isDeadly));
+                    obstacles.add(new TriangularObstacle(posX, posY, width, height,type));
                 } else {
                     System.out.println("Shape is '"+ shape + "', but must be one of: Square, Triangular or Round");
                 }

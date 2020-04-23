@@ -62,4 +62,9 @@ public class DesktopDatabase implements HastyPastryDatabase {
     public void withdrawChallenge(User opponent) {
 
     }
+
+    @Override
+    public void updateLeaderBoard(Game game) {
+
+    }
 }

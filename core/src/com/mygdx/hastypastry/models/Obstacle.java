@@ -10,21 +10,25 @@ import com.mygdx.hastypastry.interfaces.WorldObject;
 
 public abstract class Obstacle implements WorldObject {
 
-    protected Body body;
+    private Body body;
+    private float posX;
+    private float posY;
     protected Sprite sprite;
-    protected float posX;
-    protected float posY;
-    protected boolean isDeadly;
+    protected String type;
 
-    protected Obstacle(float posX, float posY, float width, float height, boolean isDeadly) {
+    protected Obstacle(float posX, float posY, float width, float height, String type) {
         this.posX = posX;
         this.posY = posY;
-        this.isDeadly = isDeadly;
+        this.type = type;
         sprite = new Sprite();
         sprite.setSize(width, height);
         sprite.setPosition(posX - width/2, posY - height/2);
 
     }
+
+    public boolean isDeadly() {return type.equals("deadly");}
+
+    public boolean isBouncing() {return type.equals("bouncing");}
 
     protected abstract Shape getShape();
 
@@ -33,9 +37,9 @@ public abstract class Obstacle implements WorldObject {
         bodyDef.position.set(posX, posY);
         bodyDef.type = BodyDef.BodyType.StaticBody;
         body = world.createBody(bodyDef);
-        if (isDeadly){
+        if (isDeadly()){
             body.setUserData("deadly");
-        } else{
+        } else {
             body.setUserData("safe");
         }
 
@@ -45,6 +49,9 @@ public abstract class Obstacle implements WorldObject {
         fixtureDef.density = 1.0f;
         fixtureDef.filter.categoryBits = 2;
         fixtureDef.filter.maskBits = 1;
+        if (isBouncing()) {
+            fixtureDef.restitution = 1.5f;
+        }
 
 
         body.createFixture(fixtureDef);
@@ -55,6 +62,4 @@ public abstract class Obstacle implements WorldObject {
     public Sprite getSprite() {
         return sprite;
     }
-
-    public boolean isDeadly() { return isDeadly; }
 }

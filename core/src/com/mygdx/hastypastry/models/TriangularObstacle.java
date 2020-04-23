@@ -7,13 +7,15 @@ import com.mygdx.hastypastry.singletons.Assets;
 public class TriangularObstacle extends Obstacle{
     private float width, height;
 
-    public TriangularObstacle(float posX, float posY, float width, float height, Boolean isDeadly){
-        super(posX, posY, width, height, isDeadly);
+    public TriangularObstacle(float posX, float posY, float width, float height, String type){
+        super(posX, posY, width, height, type);
         this.width = width;
         this.height = height;
 
-        if (isDeadly){
+        if (this.isDeadly()){
             sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("deadlytriangle"));
+        } else if (this.isBouncing()) {
+            sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("bouncingtriangle"));
         } else {
             sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("triangle"));
         }

@@ -10,14 +10,14 @@
   "level" : "Level 1",
   "obstacles" : [ {
     "height" : "4",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "3",
     "posY" : "8",
     "shape" : "Square",
     "width" : "2"
   }, {
     "height" : "3",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "10",
     "posY" : "10",
     "shape" : "Triangular",
@@ -40,7 +40,7 @@
   "level" : "Level 2",
   "obstacles" : [ {
     "height" : "4",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "12",
     "posY" : "18",
     "shape" : "Square",
@@ -63,28 +63,28 @@
   "level" : "Level 3",
   "obstacles" : [ {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "9",
     "posY" : "24",
     "shape" : "Triangular",
     "width" : "4"
   }, {
     "height" : "12",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "10",
     "posY" : "12",
     "shape" : "Square",
     "width" : "4"
   }, {
     "height" : "1",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "2",
     "posY" : "13",
     "shape" : "Square",
     "width" : "12"
   }, {
     "height" : "1",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "15",
     "posY" : "23",
     "shape" : "Square",
@@ -107,23 +107,30 @@
   "level" : "Level 4",
   "obstacles" : [ {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "9",
     "posY" : "0",
     "shape" : "Square",
     "width" : "18"
   }, {
     "height" : "16",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "15",
     "posY" : "8",
     "shape" : "Square",
     "width" : "2"
+  }, {
+    "height" : "2",
+    "type" : "bouncing",
+    "posX" : "8",
+    "posY" : "3",
+    "shape": "Square",
+    "width": "3"
   } ],
   "starRank" : "7;6.4;5.9",
   "waffle" : {
     "posX" : "3",
-    "posY" : "17",
+    "posY" : "15",
     "radius" : 1
   }
 }, {
@@ -137,49 +144,49 @@
   "level" : "Level 5",
   "obstacles" : [ {
     "height" : "8",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "12",
     "posY" : "4",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "8",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "12",
     "posY" : "18",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "15",
     "posY" : "0",
     "shape" : "Square",
     "width" : "6"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "6",
     "posY" : "8",
     "shape" : "Square",
     "width" : "13"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "6",
     "posY" : "14",
     "shape" : "Square",
     "width" : "13"
   }, {
     "height" : "8",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "6",
     "posY" : "4",
     "shape" : "Square",
     "width" : "12"
   }, {
     "height" : "8",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "6",
     "posY" : "18",
     "shape" : "Square",
@@ -202,86 +209,86 @@
   "level" : "Level 6",
   "obstacles" : [ {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "9",
     "posY" : "0",
     "shape" : "Square",
     "width" : "18"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "10",
     "posY" : "25",
     "radius" : "2",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "1",
     "posY" : "24",
     "radius" : "3",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "14.1",
     "posY" : "18",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "9.9",
     "posY" : "18",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "6",
     "posY" : "18",
     "radius" : "1",
     "shape" : "Round"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "18",
     "posY" : "20.9",
     "shape" : "Triangular",
     "width" : "8"
   }, {
     "height" : "32",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "16",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "32",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "18",
     "posY" : "16",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "7",
     "posY" : "26",
     "shape" : "Square",
     "width" : "14"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "16",
     "posY" : "18",
     "shape" : "Square",
     "width" : "4"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "8",
     "posY" : "18",
     "shape" : "Square",
     "width" : "4"
   }, {
     "height" : "3",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "4",
     "posY" : "12",
     "shape" : "Triangular",
@@ -304,77 +311,77 @@
   "level" : "Level 7",
   "obstacles" : [ {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "18",
     "posY" : "2",
     "shape" : "Triangular",
     "width" : "16"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "18",
     "posY" : "6",
     "shape" : "Triangular",
     "width" : "16"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "18",
     "posY" : "10",
     "shape" : "Triangular",
     "width" : "16"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "18",
     "posY" : "14",
     "shape" : "Triangular",
     "width" : "16"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "18",
     "posY" : "18",
     "shape" : "Triangular",
     "width" : "16"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "4",
     "shape" : "Triangular",
     "width" : "16"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "8",
     "shape" : "Triangular",
     "width" : "16"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "12",
     "shape" : "Triangular",
     "width" : "16"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "16",
     "shape" : "Triangular",
     "width" : "16"
   }, {
     "height" : "2",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "4",
     "posY" : "1",
     "shape" : "Square",
     "width" : "8"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "9",
     "posY" : "0",
     "shape" : "Square",
@@ -397,81 +404,81 @@
   "level" : "Level 8",
   "obstacles" : [ {
     "height" : "12",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "20",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "12",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "18",
     "posY" : "20",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "2",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "9",
     "posY" : "25",
     "shape" : "Triangular",
     "width" : "2"
   }, {
     "height" : "8",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "9",
     "posY" : "8",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "10",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "3",
     "posY" : "5",
     "shape" : "Square",
     "width" : "2"
   }, {
     "height" : "10",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "15",
     "posY" : "5",
     "shape" : "Square",
     "width" : "2"
   }, {
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "9",
     "posY" : "18",
     "radius" : "6",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "0",
     "posY" : "32",
     "radius" : "8",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "18",
     "posY" : "32",
     "radius" : "8",
     "shape" : "Round"
   }, {
     "height" : "6",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "12",
     "shape" : "Triangular",
     "width" : "11"
   }, {
     "height" : "6",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "18",
     "posY" : "12",
     "shape" : "Triangular",
     "width" : "11"
   }, {
     "height" : "1",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "9",
     "posY" : "0",
     "shape" : "Triangular",
@@ -494,91 +501,91 @@
   "level" : "Level 9",
   "obstacles" : [ {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "21",
     "shape" : "Triangular",
     "width" : "10"
   }, {
     "height" : "3",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "18",
     "posY" : "1",
     "shape" : "Triangular",
     "width" : "6"
   }, {
     "height" : "2",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "0",
     "posY" : "7",
     "shape" : "Square",
     "width" : "30"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "18",
     "shape" : "Square",
     "width" : "10"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "16",
     "shape" : "Square",
     "width" : "14"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "14",
     "shape" : "Square",
     "width" : "18"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "12",
     "shape" : "Square",
     "width" : "22"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "10",
     "shape" : "Square",
     "width" : "26"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "8",
     "shape" : "Square",
     "width" : "30"
   }, {
     "height" : "2",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "18",
     "posY" : "18",
     "shape" : "Square",
     "width" : "14"
   }, {
     "height" : "2",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "18",
     "posY" : "16",
     "shape" : "Square",
     "width" : "10"
   }, {
     "height" : "2",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "18",
     "posY" : "14",
     "shape" : "Square",
     "width" : "6"
   }, {
     "height" : "2",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "18",
     "posY" : "12",
     "shape" : "Square",
@@ -600,32 +607,32 @@
   "inkLimit" : 25,
   "level" : "Level 10",
   "obstacles" : [ {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "6",
     "posY" : "10",
     "radius" : "2",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "7",
     "radius" : "2",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "10",
     "posY" : "13",
     "radius" : "2",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "6",
     "posY" : "0",
     "radius" : "4",
     "shape" : "Round"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "18",
     "posY" : "18",
     "shape" : "Triangular",
@@ -648,98 +655,98 @@
   "level" : "Level 11",
   "obstacles" : [ {
     "height" : "1",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "6",
     "posY" : "25",
     "shape" : "Triangular",
     "width" : "12"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "2",
     "posY" : "19",
     "shape" : "Triangular",
     "width" : "4"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "2",
     "posY" : "9",
     "shape" : "Triangular",
     "width" : "4"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "16",
     "posY" : "24",
     "shape" : "Triangular",
     "width" : "4"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "16",
     "posY" : "14",
     "shape" : "Triangular",
     "width" : "4"
   }, {
     "height" : "4",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "16",
     "posY" : "4",
     "shape" : "Triangular",
     "width" : "4"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "6",
     "posY" : "24",
     "shape" : "Square",
     "width" : "12"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "8",
     "posY" : "14",
     "shape" : "Square",
     "width" : "7"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "8",
     "posY" : "4",
     "shape" : "Square",
     "width" : "7"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "10",
     "posY" : "19",
     "shape" : "Square",
     "width" : "7"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "10",
     "posY" : "9",
     "shape" : "Square",
     "width" : "7"
   }, {
     "height" : "28",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "1",
     "posY" : "12",
     "shape" : "Square",
     "width" : "2"
   }, {
     "height" : "28",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "17",
     "posY" : "12",
     "shape" : "Square",
     "width" : "2"
   }, {
     "height" : "1",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "9",
     "posY" : "0",
     "shape" : "Square",
@@ -762,13 +769,13 @@
   "level" : "Level 12",
   "obstacles" : [ {
     "height" : "2",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "17",
     "shape" : "Square",
     "width" : "10"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "9",
     "posY" : "8",
     "radius" : "5",
@@ -791,56 +798,56 @@
   "level" : "Level 13",
   "obstacles" : [ {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "0",
     "posY" : "0",
     "shape" : "Square",
     "width" : "40"
   }, {
     "height" : "45",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "5",
     "posY" : "0",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "10",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "5",
     "posY" : "31",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "35",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "9",
     "posY" : "0",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "12",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "9",
     "posY" : "27",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "12",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "13",
     "posY" : "27",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "33",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "10",
     "posY" : "0",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "4",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "18",
     "posY" : "9",
     "shape" : "Triangular",
@@ -863,19 +870,19 @@
   "level" : "Level 14",
   "obstacles" : [ {
     "height" : "10",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "9",
     "posY" : "10",
     "shape" : "Triangular",
     "width" : "12"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "0",
     "posY" : "20",
     "radius" : "7",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "18",
     "posY" : "20",
     "radius" : "7",
@@ -897,28 +904,28 @@
   "inkLimit" : 15,
   "level" : "Level 15",
   "obstacles" : [ {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "9",
     "posY" : "10",
     "radius" : "4",
     "shape" : "Round"
   }, {
     "height" : "14",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "2",
     "posY" : "8",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "14",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "16",
     "posY" : "8",
     "shape" : "Square",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "9",
     "posY" : "1",
     "shape" : "Square",
@@ -941,84 +948,84 @@
   "level" : "Level 16",
   "obstacles" : [ {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "12",
     "posY" : "5",
     "shape" : "Square",
     "width" : "3"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "6",
     "posY" : "20",
     "shape" : "Triangular",
     "width" : "5"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "12",
     "posY" : "18",
     "shape" : "Triangular",
     "width" : "5"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "6",
     "posY" : "16",
     "shape" : "Triangular",
     "width" : "5"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "12",
     "posY" : "14",
     "shape" : "Triangular",
     "width" : "5"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "6",
     "posY" : "12",
     "shape" : "Triangular",
     "width" : "5"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "12",
     "posY" : "10",
     "shape" : "Triangular",
     "width" : "5"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "6",
     "posY" : "8",
     "shape" : "Triangular",
     "width" : "5"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "12",
     "posY" : "6",
     "shape" : "Triangular",
     "width" : "5"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "3",
     "posY" : "6",
     "shape" : "Square",
     "width" : "8"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "3",
     "posY" : "0",
     "shape" : "Square",
     "width" : "13"
   }, {
     "height" : "2",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "14",
     "posY" : "0",
     "shape" : "Square",
@@ -1041,196 +1048,196 @@
   "level" : "Level 17",
   "obstacles" : [ {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "20",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "19",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "18",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "17",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "16",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "15",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "14",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "13",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "12",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "11",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "10",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "7",
     "posY" : "9",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "20",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "19",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "18",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "17",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "16",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "15",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "14",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "13",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "12",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "11",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "10",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "1",
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "13",
     "posY" : "9",
     "shape" : "Triangular",
     "width" : "1"
   }, {
     "height" : "43",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "0",
     "shape" : "Square",
     "width" : "14"
   }, {
     "height" : "20",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "18",
     "posY" : "18",
     "shape" : "Square",
     "width" : "10"
   }, {
     "height" : "10",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "12",
     "posY" : "0",
     "shape" : "Square",
     "width" : "30"
   }, {
     "height" : "2",
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "0",
     "posY" : "22",
     "shape" : "Triangular",
@@ -1252,73 +1259,73 @@
   "inkLimit" : 25,
   "level" : "Level 18",
   "obstacles" : [ {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "4",
     "posY" : "4",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "4",
     "posY" : "12",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "4",
     "posY" : "20",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "4",
     "posY" : "28",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "9",
     "posY" : "0",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "9",
     "posY" : "8",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "9",
     "posY" : "16",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "9",
     "posY" : "24",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "14",
     "posY" : "4",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "14",
     "posY" : "12",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : true,
+    "type" : "deadly",
     "posX" : "14",
     "posY" : "20",
     "radius" : "1",
     "shape" : "Round"
   }, {
-    "isDeadly" : false,
+    "type" : "normal",
     "posX" : "14",
     "posY" : "28",
     "radius" : "1",

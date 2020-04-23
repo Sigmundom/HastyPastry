@@ -18,6 +18,7 @@ public class Waffle implements WorldObject {
     private float lowestPointOnLastTurn;
     private String horizontalDirection = "none";
     private boolean isDead = false;
+    private int chances = 1;
 
     public Waffle(float posX, float posY) {
         this.lowestPoint = posY;
@@ -77,6 +78,7 @@ public class Waffle implements WorldObject {
         }
         if (body.getLinearVelocity().isZero()) {
             // GameOver: Full stop
+            System.out.println("FULL STOP");
             return true;
         }
 
@@ -95,9 +97,14 @@ public class Waffle implements WorldObject {
         }
         if (!horizontalDirection.equals(newHorizontalDirection)) {
             // Waffle has turned since last update
-            if (lowestPointOnLastTurn - lowestPoint < 0.001f) {
-                // Game Over: Not been any lower since last turn. (0.001f margin)
-                return true;
+            if (Math.abs(lowestPointOnLastTurn - lowestPoint) < 0.001f) {
+                // Not been any lower since last turn. (0.001f margin)
+                System.out.println("Ohh " + chances);
+                if (chances == 0) {
+                    return true;
+                }
+                chances -= 1;
+                lowestPoint = sprite.getY();
             } else {
                 // Register turn and updating lowestPointOnLastTurn
                 horizontalDirection = newHorizontalDirection;

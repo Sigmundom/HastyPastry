@@ -1,81 +1,95 @@
 textures.png
-size: 1437, 200
+size: 200, 2030
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-black
+bouncingcircle
   rotate: false
-  xy: 0, 0
-  size: 3, 3
-  orig: 3, 3
+  xy: 0, 230
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+bouncingsquare
+  rotate: false
+  xy: 0, 430
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+bouncingtriangle
+  rotate: false
+  xy: 0, 630
+  size: 200, 200
+  orig: 200, 200
   offset: 0, 0
   index: -1
 circle
   rotate: false
-  xy: 3, 0
+  xy: 0, 830
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 deadlycircle
   rotate: false
-  xy: 203, 0
-  size: 199, 200
+  xy: 0, 1030
+  size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 deadlysquare
   rotate: false
-  xy: 403, 0
+  xy: 0, 1230
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 deadlytriangle
   rotate: false
-  xy: 604, 0
-  size: 198, 200
+  xy: 0, 1430
+  size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 flag
   rotate: false
-  xy: 803, 0
-  size: 49, 50
+  xy: 44, 0
+  size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 ink
   rotate: false
-  xy: 853, 0
+  xy: 0, 0
   size: 44, 50
   orig: 44, 50
   offset: 0, 0
   index: -1
 square
   rotate: false
-  xy: 897, 0
+  xy: 0, 1630
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 star
   rotate: false
-  xy: 1097, 0
-  size: 90, 90
-  orig: 90, 90
+  xy: 0, 50
+  size: 180, 180
+  orig: 180, 180
   offset: 0, 0
   index: -1
 triangle
   rotate: false
-  xy: 1187, 0
+  xy: 0, 1830
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 waffle
   rotate: false
-  xy: 1387, 0
+  xy: 94, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0

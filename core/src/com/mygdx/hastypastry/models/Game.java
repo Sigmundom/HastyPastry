@@ -41,10 +41,10 @@ public class Game {
         worldObjects.add(this.opponent.getWaffle());
         worldObjects.add(level.getGoal());
         // Add boundaries to the level
-        worldObjects.add(new SquareObstacle(-2 - this.player.getWaffle().getSprite().getWidth(), 16, 2, 75, true));
-        worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 75, true));
-        worldObjects.add(new SquareObstacle(9, 33, 18, 2, false));
-        worldObjects.add(new SquareObstacle(9, -1, 18, 2, false));
+        worldObjects.add(new SquareObstacle(-2 - this.player.getWaffle().getSprite().getWidth(), 16, 2, 75, "deadly"));
+        worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 75, "deadly"));
+        worldObjects.add(new SquareObstacle(9, 33, 18, 2, "normal"));
+        worldObjects.add(new SquareObstacle(9, -1, 18, 2, "normal"));
 
         //Initializing the leaderboard forgiven level.
         leaderBoard = new LeaderBoard(this);
@@ -58,10 +58,10 @@ public class Game {
         worldObjects.add(this.player.getWaffle());
         worldObjects.add(level.getGoal());
         // Add boundaries to the level
-        worldObjects.add(new SquareObstacle(-2 - this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, true));
-        worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, true));
-        worldObjects.add(new SquareObstacle(9, 33, 18, 2, false));
-        worldObjects.add(new SquareObstacle(9, -1, 18, 2, false));
+        worldObjects.add(new SquareObstacle(-2 - this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, "deadly"));
+        worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, "deadly"));
+        worldObjects.add(new SquareObstacle(9, 33, 18, 2, "normal"));
+        worldObjects.add(new SquareObstacle(9, -1, 18, 2, "normal"));
     }
 
     public void initPlayView(World world) {

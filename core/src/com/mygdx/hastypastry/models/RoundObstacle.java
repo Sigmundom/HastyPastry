@@ -7,11 +7,13 @@ import com.mygdx.hastypastry.singletons.Assets;
 public class RoundObstacle extends Obstacle {
     private float radius;
 
-    public RoundObstacle(float posX, float posY, float radius, boolean isDeadly){
-        super(posX, posY, 2*radius, 2*radius, isDeadly);
+    public RoundObstacle(float posX, float posY, float radius, String type){
+        super(posX, posY, 2*radius, 2*radius, type);
         this.radius = radius;
-        if (isDeadly){
+        if (this.isDeadly()){
             sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("deadlycircle"));
+        } else if (this.isBouncing()) {
+            sprite.setRegion((Assets.instance.getManager().get(Assets.gameTextures).findRegion("bouncingcircle")));
         } else {
             sprite.setRegion(Assets.instance.getManager().get(Assets.gameTextures).findRegion("circle"));
         }
