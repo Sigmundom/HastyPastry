@@ -134,6 +134,7 @@ public class FBDatabase implements HastyPastryDatabase {
      * Important to remove the player and it's listeners when the player exits the lobby.
      */
     public void exitLobby() {
+        exitMatch();
         if (user != null) {
             // Remove the user from lobby and possible hosted matches
             lobbyRef.child(user.getFBID()).removeValue();
@@ -143,7 +144,6 @@ public class FBDatabase implements HastyPastryDatabase {
                 lobbyRef.child(user.getFBID()).child("challenge").removeEventListener(challengeListener);
             }
         }
-        exitMatch();
         if (lobbyListener != null) {
             lobbyRef.removeEventListener(lobbyListener);
         }
@@ -253,6 +253,9 @@ public class FBDatabase implements HastyPastryDatabase {
                 matchRef.removeEventListener(drawingListener);
             }
         }
+        if (user != null) {
+            lobbyRef.child(user.getFBID()).child("status").setValue("ready");
+        }
         matchRef = null;
         drawingListener = null;
     }
@@ -263,7 +266,7 @@ public class FBDatabase implements HastyPastryDatabase {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int minimumVersionCode = dataSnapshot.getValue(int.class);
-                if (BuildConfig.VERSION_CODE > minimumVersionCode) {
+                if (BuildConfig.VERSION_CODE < minimumVersionCode) {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {

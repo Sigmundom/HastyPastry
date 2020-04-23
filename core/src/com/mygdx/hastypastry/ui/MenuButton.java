@@ -6,10 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.hastypastry.listeners.MyButtonListener;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
-import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.singletons.Assets;
-import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.ScreenManager;
 
@@ -26,6 +24,8 @@ public class MenuButton extends TextButton {
                 }
                 if(navigateTo == ScreenEnum.MAIN_MENU) {
                     DBManager.instance.getDB().exitLobby();
+                } else if (navigateTo == ScreenEnum.LOBBY) {
+                    DBManager.instance.getDB().exitMatch();
                 }
                 ScreenManager.getInstance().showScreen(navigateTo, params);
 

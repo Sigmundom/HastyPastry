@@ -87,9 +87,14 @@ public class CompletedMultiplayerView extends BaseView {
         // Adds table to ui
         this.ui.addActor(table);
 
+        // Create go to lobby button
+        MenuButton lobbyButton = new MenuButton("Lobby", ScreenEnum.LOBBY, game.getLobby());
+        lobbyButton.setPosition(Config.UI_WIDTH/2-90, Config.UI_HEIGHT / 2 -220, Align.center);
+        ui.addActor(lobbyButton);
+
         // Create menu button
         MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
-        menuButton.setPosition(Config.UI_WIDTH / 2, Config.UI_HEIGHT / 2 - 220, Align.center);
+        menuButton.setPosition(Config.UI_WIDTH / 2 + 90, Config.UI_HEIGHT / 2 - 220, Align.center);
         ui.addActor(menuButton);
 
         if (!game.getResult().equals("Oh no!")) {

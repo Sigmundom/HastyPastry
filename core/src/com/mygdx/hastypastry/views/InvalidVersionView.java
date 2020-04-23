@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.mygdx.hastypastry.enums.ScreenEnum;
+import com.mygdx.hastypastry.ui.MenuButton;
 
 public class InvalidVersionView extends BaseView {
     @Override
@@ -19,12 +21,16 @@ public class InvalidVersionView extends BaseView {
         Label.LabelStyle bodyLabelStyle = new Label.LabelStyle(bodyFont, Color.BLACK);
         Label bodyLabel = new Label("To keep playing, you must\nget the latest version\nof the game", bodyLabelStyle);
 
+        MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+
         // Creates table
         Table table = new Table();
         table.setFillParent(true);
         table.add(headerLabel).padBottom(30);
         table.row();
-        table.add(bodyLabel);
+        table.add(bodyLabel).padBottom(30);
+        table.row();
+        table.add(menuButton);
 
         // Adds table to ui
         this.ui.addActor(table);

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.listeners.MyButtonListener;
+import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Lobby;
@@ -28,6 +29,7 @@ public class LoginView extends BaseView {
 
     public LoginView() {
         super();
+        DBManager.instance.getDB().checkVersion();
         lobby = new Lobby();
         buttonSound = MusicAndSound.instance.getButtonSound();
     }
