@@ -1,7 +1,6 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
@@ -15,27 +14,24 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.hastypastry.Config;
-import com.mygdx.hastypastry.controllers.DrawingInputProcessor;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 
-public abstract class BaseView implements Screen {
-    protected DrawingInputProcessor controller;
+public abstract class AbstractView implements Screen {
     protected Stage ui;
     protected Texture background = Assets.instance.getManager().get(Assets.bg);
     protected SpriteBatch batch;
-    protected Viewport spriteViewport;
-    private Music gameMusic;
+    Viewport spriteViewport;
 
-    public BaseView() {
+    public AbstractView() {
         batch = new SpriteBatch();
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
         spriteViewport = new FitViewport(Config.WORLD_WIDTH, Config.WORLD_HEIGHT, camera); //to draw sprites
         FitViewport stageViewport = new FitViewport(Config.UI_WIDTH, Config.UI_HEIGHT); //to draw actors
         ui = new Stage(stageViewport, new SpriteBatch()); // The stage will contain UI elements
-        gameMusic = MusicAndSound.instance.getGameMusic();
+        Music gameMusic = MusicAndSound.instance.getGameMusic();
         if(PlayerPreferences.instance.isMusicEnabled()) {
             if(!gameMusic.isPlaying()) {
                 gameMusic.setLooping(true);
@@ -82,14 +78,7 @@ public abstract class BaseView implements Screen {
 
     @Override
     public void show() {
-        InputMultiplexer input = new InputMultiplexer(); //To handle 2 controllers at once.
-        // Add controllers related to ui
-        input.addProcessor(ui);
-        if (controller != null) {
-            // Add custom controller like lobby or drawing controller
-            input.addProcessor(controller);
-        }
-        Gdx.input.setInputProcessor(input);
+        Gdx.input.setInputProcessor(ui);
     }
 
     @Override

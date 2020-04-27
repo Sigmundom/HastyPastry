@@ -5,14 +5,12 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.singletons.Assets;
 
 public class Goal implements WorldObject {
 
-    private Body body;
     private float posX, posY, width, height;
     private Sprite sprite;
 
@@ -32,11 +30,11 @@ public class Goal implements WorldObject {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(posX, posY);
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        body = world.createBody(bodyDef);
+        Body body = world.createBody(bodyDef);
         body.setUserData("goal");
 
-        Shape shape = new PolygonShape();
-        ((PolygonShape) shape).setAsBox(width/2, height/2);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width/2, height/2);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 1.0f;

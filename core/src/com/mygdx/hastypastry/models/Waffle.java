@@ -10,7 +10,7 @@ import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 
 public class Waffle implements WorldObject {
-    private final float RADIUS = 1;
+    private final static float RADIUS = 1;
     private Body body;
     private Sprite sprite;
     private boolean isPlayer;
@@ -64,14 +64,14 @@ public class Waffle implements WorldObject {
         shape.dispose();
     }
 
-    public void update() {
+    void update() {
         if (!isDead) {
             sprite.setPosition(body.getPosition().x - RADIUS, body.getPosition().y - RADIUS);
             sprite.setRotation((float) Math.toDegrees(body.getAngle()));
         }
     }
 
-    protected boolean WaffleHasStopped() {
+    boolean waffleHasStopped() {
         if (isDead) {
             // Don't bother if waffle already is registered dead.
             return false;

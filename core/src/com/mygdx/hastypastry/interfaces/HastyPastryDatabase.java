@@ -12,6 +12,7 @@ public interface HastyPastryDatabase {
     void challengePlayer(User opponent);
     void declineChallenge(Match match);
     void acceptChallenge(Match match);
+    void withdrawChallenge(User opponent);
     void exitLobby();
 
     // In-game methods
@@ -19,10 +20,7 @@ public interface HastyPastryDatabase {
     void ready(Game game);
     void exitMatch();
 
-    void checkVersion();
-
-    void withdrawChallenge(User opponent);
-
     void updateLeaderBoard(Game game);
 
+    void checkVersion();
 }

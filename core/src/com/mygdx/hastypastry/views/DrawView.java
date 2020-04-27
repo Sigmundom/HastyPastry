@@ -1,14 +1,13 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -28,12 +27,11 @@ import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.util.List;
 
-public class DrawView extends BaseView {
+public class DrawView extends AbstractView {
     private ShapeRenderer shapeRenderer;
     private Game game;
     private ProgressBar inkbar;
     private ProgressBar timebar;
-    private Sound buttonSound;
     private float timeLeft;
 
     public DrawView(Game game) {
@@ -42,8 +40,6 @@ public class DrawView extends BaseView {
         this.timeLeft = game.getLevel().getTimeLimit();
         Box2D.init(); // To be able to make shapes before creating a world.
         shapeRenderer = new ShapeRenderer();
-        controller = new DrawingInputProcessor(spriteViewport.getCamera(), game.getPlayer().getDrawing());
-        buttonSound = MusicAndSound.instance.getButtonSound();
     }
 
     @Override
@@ -170,5 +166,15 @@ public class DrawView extends BaseView {
 
         // Add topMenu to ui
         ui.addActor(topMenu);
+    }
+
+    @Override
+    public void show() {
+        InputMultiplexer input = new InputMultiplexer(); //To handle 2 controllers at once.
+        // Add controllers related to ui
+        input.addProcessor(ui);
+        // Add custom controller like lobby or drawing controller
+        input.addProcessor(new DrawingInputProcessor(spriteViewport.getCamera(), game.getPlayer().getDrawing()));
+        Gdx.input.setInputProcessor(input);
     }
 }

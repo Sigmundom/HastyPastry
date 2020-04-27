@@ -1,6 +1,5 @@
 package com.mygdx.hastypastry.models;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
@@ -12,7 +11,6 @@ import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.ChallengeBox;
 import com.mygdx.hastypastry.ui.LobbyUser;
 import com.mygdx.hastypastry.ui.RecievedChallengeBox;
-import com.mygdx.hastypastry.ui.StyledTextButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,13 +147,13 @@ public class Lobby {
             }
         }
 
-        String oldStatus = user.getStatus();
-        String newStatus = updatedUser.getStatus();
-
-        user.setStatus(newStatus);
-        user.setChallenge(updatedUser.getChallenge());
-
         if (user != null) {
+            String oldStatus = user.getStatus();
+            String newStatus = updatedUser.getStatus();
+
+            user.setStatus(newStatus);
+            user.setChallenge(updatedUser.getChallenge());
+
             if (oldStatus.equals("inGame") && newStatus.equals("ready")) {
                 addUserUI(user);
             } else if (oldStatus.matches("ready|busy") && newStatus.equals("inGame")) {

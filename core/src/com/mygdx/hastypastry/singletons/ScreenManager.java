@@ -3,7 +3,7 @@ package com.mygdx.hastypastry.singletons;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.mygdx.hastypastry.enums.ScreenEnum;
-import com.mygdx.hastypastry.views.BaseView;
+import com.mygdx.hastypastry.views.AbstractView;
 
 public class ScreenManager {
 
@@ -14,9 +14,7 @@ public class ScreenManager {
     private Game game;
 
     // Singleton: private constructor
-    private ScreenManager() {
-        super();
-    }
+    private ScreenManager() {}
 
     // Singleton: retrieve instance
     public static ScreenManager getInstance() {
@@ -38,7 +36,7 @@ public class ScreenManager {
         Screen currentScreen = game.getScreen();
 
         // Show new screen
-        BaseView newScreen = screenEnum.getScreen(params);
+        AbstractView newScreen = screenEnum.getScreen(params);
         newScreen.buildStage();
         game.setScreen(newScreen);
 

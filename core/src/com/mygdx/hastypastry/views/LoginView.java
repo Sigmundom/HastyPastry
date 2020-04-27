@@ -5,14 +5,12 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.listeners.MyButtonListener;
 import com.mygdx.hastypastry.singletons.DBManager;
-import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.singletons.Assets;
@@ -21,17 +19,15 @@ import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.StyledTextButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
-public class LoginView extends BaseView {
+public class LoginView extends AbstractView {
     private TextField input;
     private Label error;
     private Lobby lobby;
-    private Sound buttonSound;
 
     public LoginView() {
         super();
         DBManager.instance.getDB().checkVersion();
         lobby = new Lobby();
-        buttonSound = MusicAndSound.instance.getButtonSound();
     }
 
     @Override

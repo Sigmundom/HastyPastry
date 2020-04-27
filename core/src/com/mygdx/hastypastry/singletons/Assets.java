@@ -95,8 +95,4 @@ public class Assets implements Disposable, AssetErrorListener {
     public void error(AssetDescriptor asset, Throwable throwable) {
         Gdx.app.error(LOGTAG, "Could not load asset '" + asset.fileName +"'", (Exception)throwable );
     }
-
-    public void error(String filename, Class type, Throwable throwable) {
-        Gdx.app.error(LOGTAG, "Could not load asset '" + filename +"'", (Exception)throwable );
-    }
 }

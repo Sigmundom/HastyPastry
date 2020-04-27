@@ -21,10 +21,10 @@ public class TriangularObstacle extends Obstacle{
         }
     }
 
-    protected Shape getShape() {
-        Shape shape = new PolygonShape();
+    protected Shape generateShape() {
+        PolygonShape shape = new PolygonShape();
         float[] vertices = {-width/2, -height/2, width/2, -height/2, 0, height/2};
-        ((PolygonShape) shape).set(vertices);
+        shape.set(vertices);
         return shape;
     }
 }

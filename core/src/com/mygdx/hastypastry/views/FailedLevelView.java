@@ -18,7 +18,7 @@ import com.mygdx.hastypastry.singletons.ScreenManager;
 import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.ui.StyledTextButton;
 
-public class FailedLevelView extends BaseView {
+public class FailedLevelView extends AbstractView {
 
     private Game game;
     private MenuButton menuButton;

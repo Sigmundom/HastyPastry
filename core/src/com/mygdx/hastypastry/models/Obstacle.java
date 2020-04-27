@@ -10,7 +10,6 @@ import com.mygdx.hastypastry.interfaces.WorldObject;
 
 public abstract class Obstacle implements WorldObject {
 
-    private Body body;
     private float posX;
     private float posY;
     protected Sprite sprite;
@@ -23,27 +22,26 @@ public abstract class Obstacle implements WorldObject {
         sprite = new Sprite();
         sprite.setSize(width, height);
         sprite.setPosition(posX - width/2, posY - height/2);
-
     }
 
-    public boolean isDeadly() {return type.equals("deadly");}
+    boolean isDeadly() {return type.equals("deadly");}
 
-    public boolean isBouncing() {return type.equals("bouncing");}
+    boolean isBouncing() {return type.equals("bouncing");}
 
-    protected abstract Shape getShape();
+    protected abstract Shape generateShape();
 
     public void addBody(World world) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(posX, posY);
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        body = world.createBody(bodyDef);
+        Body body = world.createBody(bodyDef);
         if (isDeadly()){
             body.setUserData("deadly");
         } else {
             body.setUserData("safe");
         }
 
-        Shape shape = getShape();
+        Shape shape = generateShape();
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 1.0f;

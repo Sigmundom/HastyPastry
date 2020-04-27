@@ -22,7 +22,7 @@ public class SquareObstacle extends Obstacle{
         }
     }
 
-    protected Shape getShape(){
+    protected Shape generateShape(){
         Shape shape = new PolygonShape();
         ((PolygonShape) shape).setAsBox(width/2, height/2);
         return shape;

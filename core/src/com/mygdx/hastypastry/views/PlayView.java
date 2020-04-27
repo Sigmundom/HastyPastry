@@ -24,7 +24,7 @@ import static com.mygdx.hastypastry.Config.POSITION_ITERATIONS;
 import static com.mygdx.hastypastry.Config.TIME_STEP;
 import static com.mygdx.hastypastry.Config.VELOCITY_ITERATIONS;
 
-public class PlayView extends BaseView {
+public class PlayView extends AbstractView {
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     protected World world;
     protected BitmapFont font;

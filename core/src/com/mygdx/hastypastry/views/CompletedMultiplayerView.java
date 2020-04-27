@@ -21,7 +21,7 @@ import com.mygdx.hastypastry.ui.StyledTextButton;
 
 import java.text.DecimalFormat;
 
-public class CompletedMultiplayerView extends BaseView {
+public class CompletedMultiplayerView extends AbstractView {
     private Game game;
     protected DecimalFormat df = new DecimalFormat("###.##");
     private Label playerLabel, playerTimeLabel, opponentLabel, opponentTimeLabel;
