@@ -24,11 +24,10 @@ import java.util.Stack;
 public class Drawing {
 
     private Stack<List<Vector3>> lines = new Stack<>();
-    private List<Body> bodies;
     private Inkbar inkbar;
     private boolean isPlayer;
 
-    public Drawing(int inkLimit, boolean isPlayer){
+    Drawing(int inkLimit, boolean isPlayer){
         this.isPlayer = isPlayer;
         this.inkbar = new Inkbar(inkLimit);
     }
@@ -55,8 +54,8 @@ public class Drawing {
         if (lines.isEmpty()) {inkbar.reset();}
     }
 
-    public void addBody(World world) {
-        bodies = new ArrayList<>();
+    void addBody(World world) {
+        List<Body> bodies = new ArrayList<>();
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         FixtureDef fixtureDef = new FixtureDef();
@@ -123,7 +122,7 @@ public class Drawing {
         return inkbar;
     }
 
-    public void deserializeDrawing(List<List<String>> opponentDrawing) {
+    void deserializeLines(List<List<String>> opponentDrawing) {
         for (List<String> serializedLine : opponentDrawing) {
             List<Vector3> deserializedLine = new ArrayList<>();
             for (String serializedPoint : serializedLine) {

@@ -29,7 +29,7 @@ import static android.content.ContentValues.TAG;
  * Communication with Firebase
  * Must be located in /android folder
  */
-public class FBDatabase implements HastyPastryDatabase {
+public class AndroidDatabase implements HastyPastryDatabase {
     private final DatabaseReference lobbyRef = FirebaseDatabase.getInstance().getReference("lobby");
     private final DatabaseReference matchesRef = FirebaseDatabase.getInstance().getReference("match");
     private final DatabaseReference levelRef = FirebaseDatabase.getInstance().getReference("levels");
@@ -37,7 +37,6 @@ public class FBDatabase implements HastyPastryDatabase {
     private ValueEventListener challengeListener;
     private ValueEventListener responseListener;
     private ValueEventListener drawingListener;
-    private ValueEventListener leaderboardListener;
     private DatabaseReference matchRef;
     private User user;
     private Lobby lobby;

@@ -1,7 +1,6 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -12,11 +11,10 @@ import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.ui.ExitButton;
 import com.mygdx.hastypastry.ui.MenuButton;
 
-public class MainMenuView extends BaseView {
-    protected Texture background = Assets.instance.getManager().get(Assets.bgMenu);
-
+public class MainMenuView extends AbstractView {
     public MainMenuView() {
         super();
+        background = Assets.instance.getManager().get(Assets.bgMenu);
     }
 
     @Override

@@ -8,12 +8,11 @@ import com.mygdx.hastypastry.models.dbmodels.Match;
 import com.mygdx.hastypastry.models.dbmodels.User;
 import com.mygdx.hastypastry.singletons.DBManager;
 import com.mygdx.hastypastry.singletons.ScreenManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private com.mygdx.hastypastry.models.dbmodels.Match match;
+    private Match match;
     private Player player;
     private Player opponent;
     private Level level;
@@ -24,7 +23,7 @@ public class Game {
     private Lobby lobby;
     private LeaderBoard leaderBoard;
 
-    public Game(com.mygdx.hastypastry.models.dbmodels.Match match, boolean playerIsChallenger, Lobby lobby) {
+    public Game(Match match, boolean playerIsChallenger, Lobby lobby) {
         this.match = match;
         this.playerIsChallenger = playerIsChallenger;
         this.level = new Level(match.getLevel());
@@ -83,12 +82,12 @@ public class Game {
 
         // Check if waffle(s) is / are stuck or out of bounds
         if (isMultiplayer()) {
-            if (opponent.getWaffle().WaffleHasStopped()) {
+            if (opponent.getWaffle().waffleHasStopped()) {
                 // Opponent died
                 opponentDied();
             }
 
-            if (player.getWaffle().WaffleHasStopped()) {
+            if (player.getWaffle().waffleHasStopped()) {
                 // You died
                 playerDied("Your waffle is stuck!");
             }
@@ -101,7 +100,7 @@ public class Game {
             }
         } else {
             // Singleplayer
-            if (player.getWaffle().WaffleHasStopped()) {
+            if (player.getWaffle().waffleHasStopped()) {
                 // You died
                 setMessage("Your waffle is stuck!");
                 gameOver();
@@ -194,7 +193,7 @@ public class Game {
         if (!opponent.isReady()) {
             System.out.println("Received drawing!");
             opponent.setReady();
-            opponent.getDrawing().deserializeDrawing(opponentDrawing);
+            opponent.getDrawing().deserializeLines(opponentDrawing);
             if (player.isReady()) {
                 play();
             }

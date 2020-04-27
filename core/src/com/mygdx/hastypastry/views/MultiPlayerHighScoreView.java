@@ -18,7 +18,7 @@ import com.mygdx.hastypastry.ui.StyledTextButton;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class MultiPlayerHighScoreView extends BaseView {
+public class MultiPlayerHighScoreView extends AbstractView {
     private Game game;
     private MenuButton menuButton;
     protected BitmapFont font;

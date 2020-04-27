@@ -12,7 +12,7 @@ import com.mygdx.hastypastry.models.Level;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.ui.MenuButton;
 
-public class LevelSelectView extends BaseView {
+public class LevelSelectView extends AbstractView {
     private BitmapFont font = new BitmapFont();
     private float levelHighScore;
     private int numLevelStars;

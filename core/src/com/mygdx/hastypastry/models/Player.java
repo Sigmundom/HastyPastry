@@ -10,15 +10,13 @@ public class Player {
     private List<Float> newLevelTime = new ArrayList<>();
     private boolean isReady = false;
 
-//    private InkBar inkBar;
-
-    public Player(String name, Level level, boolean isPlayer) {
+    Player(String name, Level level, boolean isPlayer) {
         this.name = name;
         this.waffle = new Waffle(level.getWaffle(), isPlayer);
         drawing = new Drawing(level.getInkLimit(), isPlayer);
     }
 
-    public Player(Level level) {
+    Player(Level level) {
         this.waffle = new Waffle(level.getWaffle(), true);
         drawing = new Drawing(level.getInkLimit(), true);
     }
@@ -36,18 +34,18 @@ public class Player {
     }
 
     public float getNewLevelTime() {
-        return (float) newLevelTime.get(newLevelTime.size()-1);
+        return newLevelTime.get(newLevelTime.size()-1);
     }
 
     public String getName() {
         return name;
     }
 
-    public boolean isReady() {
+    boolean isReady() {
         return isReady;
     }
 
-    public void setReady() {
+    void setReady() {
         isReady = true;
     }
 }

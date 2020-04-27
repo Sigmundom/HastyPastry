@@ -20,7 +20,7 @@ import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.ui.SettingsCheckBox;
 import com.mygdx.hastypastry.ui.SettingsSlider;
 
-public class PreferenceView extends BaseView {
+public class PreferenceView extends AbstractView {
     protected Texture background = new Texture("bg_menu.png");
 
     private SettingsCheckBox soundEffectCheckBox;

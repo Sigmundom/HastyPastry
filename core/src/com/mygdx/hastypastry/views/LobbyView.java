@@ -1,7 +1,6 @@
 package com.mygdx.hastypastry.views;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
@@ -9,7 +8,7 @@ import com.mygdx.hastypastry.models.Lobby;
 import com.mygdx.hastypastry.singletons.Assets;
 import com.mygdx.hastypastry.ui.MenuButton;
 
-public class LobbyView extends BaseView {
+public class LobbyView extends AbstractView {
     private Lobby lobby;
 
     public LobbyView(Lobby lobby) {

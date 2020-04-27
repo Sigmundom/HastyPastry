@@ -19,7 +19,7 @@ import com.mygdx.hastypastry.ui.StyledTextButton;
 
 import java.text.DecimalFormat;
 
-public class SinglePlayerHighScoreView extends BaseView {
+public class SinglePlayerHighScoreView extends AbstractView {
     private Game game;
     private Label highscoreLabel;
     private Label levelLabel;

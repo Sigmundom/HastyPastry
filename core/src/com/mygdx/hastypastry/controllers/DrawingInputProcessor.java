@@ -2,7 +2,6 @@ package com.mygdx.hastypastry.controllers;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.hastypastry.models.Drawing;
 import java.util.ArrayList;
@@ -12,15 +11,13 @@ import java.util.ArrayList;
  * @author sigmundhh */
 
 public class DrawingInputProcessor implements InputProcessor {
-    
-    private static float minDistSqrd = 0.2f;
-    private Camera cam;
+    private Camera camera;
     private Drawing drawing;
     private Vector3 lastPoint;
     private boolean isDrawing = false;
 
-    public DrawingInputProcessor(Camera cam, Drawing drawing){
-        this.cam = cam;
+    public DrawingInputProcessor(Camera camera, Drawing drawing){
+        this.camera = camera;
         this.drawing = drawing;
     }
 
@@ -45,7 +42,7 @@ public class DrawingInputProcessor implements InputProcessor {
         isDrawing = true;
         // Add new line here
         drawing.addLine(new ArrayList<Vector3>());
-        Vector3 point = cam.unproject(new Vector3(screenX, screenY, 0));
+        Vector3 point = camera.unproject(new Vector3(screenX, screenY, 0));
         point.z = 0.5f; // z=0.5 means first point use 0.5 unit of ink
         lastPoint = point;
         drawing.addPoint(point);
@@ -65,7 +62,7 @@ public class DrawingInputProcessor implements InputProcessor {
 
         if (isDrawing && inkLeft > 0.1f) {
             // New point world coordinates
-            Vector3 newPoint = cam.unproject(new Vector3(screenX, screenY, 0));
+            Vector3 newPoint = camera.unproject(new Vector3(screenX, screenY, 0));
 
             // Setting the z-component equal to last point's z-component to get correct distance calculations.
             newPoint.z = lastPoint.z;

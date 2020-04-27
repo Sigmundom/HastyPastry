@@ -2,7 +2,7 @@ package com.mygdx.hastypastry.enums;
 
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.Lobby;
-import com.mygdx.hastypastry.views.BaseView;
+import com.mygdx.hastypastry.views.AbstractView;
 import com.mygdx.hastypastry.views.CompletedLevelView;
 import com.mygdx.hastypastry.views.CompletedMultiplayerView;
 import com.mygdx.hastypastry.views.DrawView;
@@ -21,47 +21,47 @@ import com.mygdx.hastypastry.views.PreferenceView;
 public enum ScreenEnum {
 
     MAIN_MENU {
-        public BaseView getScreen(Object... params) {
+        public AbstractView getScreen(Object... params) {
             return new MainMenuView();
         }
     },
     PLAY {
-        public BaseView getScreen(Object... params) { return new PlayView((Game)params[0]); }
+        public AbstractView getScreen(Object... params) { return new PlayView((Game)params[0]); }
     },
     LOBBY {
-        public BaseView getScreen(Object... params) { return new LobbyView((Lobby) params[0]); }
+        public AbstractView getScreen(Object... params) { return new LobbyView((Lobby) params[0]); }
     },
     DRAW {
-        public BaseView getScreen(Object... params) { return new DrawView((Game)params[0]); }
+        public AbstractView getScreen(Object... params) { return new DrawView((Game)params[0]); }
     },
     COMPLETED_LEVEL {
-        public BaseView getScreen(Object... params) { return new CompletedLevelView((Game)params[0]); }
+        public AbstractView getScreen(Object... params) { return new CompletedLevelView((Game)params[0]); }
     },
     FAILED_LEVEL {
-        public BaseView getScreen(Object... params) { return new FailedLevelView((Game)params[0]); }
+        public AbstractView getScreen(Object... params) { return new FailedLevelView((Game)params[0]); }
     },
     LOGIN {
-        public BaseView getScreen(Object... params) { return new LoginView(); }
+        public AbstractView getScreen(Object... params) { return new LoginView(); }
     },
     HIGHSCORE {
-        public BaseView getScreen(Object... params) { return new SinglePlayerHighScoreView((Game)params[0]); }
+        public AbstractView getScreen(Object... params) { return new SinglePlayerHighScoreView((Game)params[0]); }
     },
     LEADERBOARD {
-        public BaseView getScreen(Object... params) { return  new MultiPlayerHighScoreView((Game)params[0]); }
+        public AbstractView getScreen(Object... params) { return  new MultiPlayerHighScoreView((Game)params[0]); }
     },
     LEVELSELECT {
-        public BaseView getScreen(Object... params) {return new LevelSelectView(); }
+        public AbstractView getScreen(Object... params) {return new LevelSelectView(); }
     },
     PREFERENCES {
-        public BaseView getScreen(Object... params) { return new PreferenceView();        }
+        public AbstractView getScreen(Object... params) { return new PreferenceView();        }
     },
     COMPLETED_MULTIPLAYER {
-        public BaseView getScreen(Object... params) { return new CompletedMultiplayerView((Game)params[0]); }
+        public AbstractView getScreen(Object... params) { return new CompletedMultiplayerView((Game)params[0]); }
     },
     INVALID_VERSION {
-        public BaseView getScreen(Object... params) { return new InvalidVersionView(); }
+        public AbstractView getScreen(Object... params) { return new InvalidVersionView(); }
     };
 
 
-    public abstract BaseView getScreen(Object... params);
+    public abstract AbstractView getScreen(Object... params);
 }

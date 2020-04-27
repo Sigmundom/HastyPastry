@@ -19,13 +19,9 @@ public class RoundObstacle extends Obstacle {
         }
     }
 
-    protected Shape getShape() {
+    protected Shape generateShape() {
         Shape shape = new CircleShape();
         shape.setRadius(radius);
         return shape;
-    }
-
-    public float getRadius() {
-        return radius;
     }
 }

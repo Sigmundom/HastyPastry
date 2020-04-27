@@ -15,6 +15,6 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		
-		initialize(new HastyPastryGame(new FBDatabase()), config);
+		initialize(new HastyPastryGame(new AndroidDatabase()), config);
 	}
 }

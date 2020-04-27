@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.ui.MenuButton;
 
-public class InvalidVersionView extends BaseView {
+public class InvalidVersionView extends AbstractView {
     @Override
     public void buildStage() {
         // Set up font and label style

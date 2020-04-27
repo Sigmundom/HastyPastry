@@ -21,7 +21,7 @@ import com.mygdx.hastypastry.ui.MenuButton;
 
 import java.text.DecimalFormat;
 
-public class CompletedLevelView extends BaseView {
+public class CompletedLevelView extends AbstractView {
     private Game game;
     protected BitmapFont font;
     private Label completedLabel;

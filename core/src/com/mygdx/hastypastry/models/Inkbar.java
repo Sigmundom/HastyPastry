@@ -5,20 +5,20 @@ public class Inkbar {
     private int maxAmount;
     private float inkLeft;
 
-    public Inkbar(int maxAmount){
+    Inkbar(int maxAmount){
         this.maxAmount = maxAmount;
         inkLeft = maxAmount;
     }
 
-    public boolean inkbarCheck(){
+    boolean inkbarCheck(){
         return inkLeft > 0;
     }
 
-    public void useInk(float inkRequired){
-        inkLeft -= inkRequired;
+    void useInk(float amount){
+        inkLeft -= amount;
     }
 
-    public void refillInk(float amount){
+    void refillInk(float amount){
         inkLeft += amount;
     }
 
@@ -26,7 +26,7 @@ public class Inkbar {
         return inkLeft;
     }
 
-    public void reset() {
+    void reset() {
         inkLeft = maxAmount;
     }
 }

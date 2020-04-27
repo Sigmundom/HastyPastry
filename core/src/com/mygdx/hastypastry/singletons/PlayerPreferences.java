@@ -16,9 +16,9 @@ import com.mygdx.hastypastry.models.Game;
 
 public class PlayerPreferences {
     public static PlayerPreferences instance = new PlayerPreferences();
-    protected boolean newChange;
+    private boolean newChange;
     private static Preferences preferences;
-    protected float personalHighScore;
+    private float personalHighScore;
 
     private static final String PREF_MUSIC_VOLUME = "volume";
     private static final String PREF_MUSIC_ENABLED = "music.enabled";
@@ -30,7 +30,7 @@ public class PlayerPreferences {
     }
 
     // Should work for both checkboxes, sliders and high score storage.
-    public Preferences getPrefs() {
+    private Preferences getPrefs() {
         if(preferences == null) {
             preferences = Gdx.app.getPreferences(PREFS_NAME);
         }
@@ -46,11 +46,6 @@ public class PlayerPreferences {
         }
         personalHighScore = getPrefs().getFloat(game.getLevel().getLevel());
     }
-
-    public float isHighScoreSet(Game game) {
-        return getPrefs().getFloat(game.getLevel().getLevel());
-    }
-
 
     public boolean isSoundEffectsEnabled() {
         return getPrefs().getBoolean(PREF_SOUND_ENABLED, true);
@@ -76,15 +71,6 @@ public class PlayerPreferences {
 
     public void setMusicVolume(float volume) {
         getPrefs().putFloat(PREF_MUSIC_VOLUME, volume);
-        getPrefs().flush();
-    }
-
-    public float getSoundVolume() {
-        return getPrefs().getFloat(PREF_SOUND_VOL, 0.5f);
-    }
-
-    public void setSoundVolume(float volume) {
-        getPrefs().putFloat(PREF_SOUND_VOL, volume);
         getPrefs().flush();
     }
 
