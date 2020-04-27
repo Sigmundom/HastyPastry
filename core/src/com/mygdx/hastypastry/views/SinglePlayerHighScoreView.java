@@ -37,11 +37,19 @@ public class SinglePlayerHighScoreView extends AbstractView {
         sprite.setOrigin(sprite.getWidth()/2,-15);
     }
 
+    /**
+     * Draws the number of stars the user has on a level according to the
+     * specified star rankings for said level.
+     * Also sets text for specified labels.
+     *
+     * @param batch Spritebatch to draw new models/sprites.
+     * @param delta The number of seconds that have passed since the last frame.
+     */
     @Override
     public void draw(SpriteBatch batch, float delta) {
         float rotationDegree = 15.0f;
         for(float ranking : game.getLevel().getStarRank()) {
-            if(levelTime < ranking) {
+            if(levelTime < ranking && !game.getPlayer().getWaffle().isDead()) {
                 sprite.draw(batch);
                 sprite.setPosition(Config.WORLD_WIDTH/2 - sprite.getWidth()/2, Config.WORLD_HEIGHT/2);
                 sprite.setRotation(rotationDegree);
@@ -53,9 +61,20 @@ public class SinglePlayerHighScoreView extends AbstractView {
         highscoreLabel.setText("High Score");
         levelLabel.setText(game.getLevel().getLevel());
 
-        PlayerPreferences.instance.setPrefHighScore(game);
-        personalHighScoreLabel.setText("Best: " + df.format(PlayerPreferences.instance.getPersonalHighScore()));
+        // Sends time to preferences if it is a new high score.
+        if(!game.getPlayer().getWaffle().isDead()) {
+            PlayerPreferences.instance.setPrefHighScore(game);
+        }
+
         levelTime = PlayerPreferences.instance.getPersonalHighScore();
+
+        // Writes personal high score to screen.
+        if(levelTime == 0.0f) {
+            personalHighScoreLabel.setText("No score yet");
+        }
+        else {
+            personalHighScoreLabel.setText("Best: " + df.format(levelTime));
+        }
     }
 
     @Override
@@ -70,7 +89,12 @@ public class SinglePlayerHighScoreView extends AbstractView {
         backBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_LEVEL, game);
+                if(game.getPlayer().getWaffle().isDead()) {
+                    ScreenManager.getInstance().showScreen(ScreenEnum.FAILED_LEVEL, game);
+                }
+                else {
+                    ScreenManager.getInstance().showScreen(ScreenEnum.COMPLETED_LEVEL, game);
+                }
                 return false;
             }
         });
@@ -80,6 +104,7 @@ public class SinglePlayerHighScoreView extends AbstractView {
         // Add button to the stage
         this.ui.addActor(menuButton);
 
+        // Creating screen text through labels.
         BitmapFont font = generateFont("pixelfont.TTF", 32);
         Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.BLACK);
 

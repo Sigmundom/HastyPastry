@@ -5,6 +5,10 @@ import com.mygdx.hastypastry.singletons.DBManager;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Generates an arraylist with LeaderBoardEntry.
+ */
+
 public class LeaderBoard {
     private Game game;
     private boolean change;
@@ -15,12 +19,12 @@ public class LeaderBoard {
         change = false;
     }
 
+    // Calls Firebase to update leaderboard for current level.
     public void updateLeaderBoard() {
-        if(game.getResult() == "You won!") {
-            DBManager.instance.getDB().updateLeaderBoard(game);
-        }
+        DBManager.instance.getDB().updateLeaderBoard(game);
     }
 
+    // Sorts leaderboard for current based on time. See LeaderBoardEntry.
     public void setLeaderBoard(String name, float time) {
         leaderBoard.add(new LeaderBoardEntry(name, time));
         Collections.sort(leaderBoard);

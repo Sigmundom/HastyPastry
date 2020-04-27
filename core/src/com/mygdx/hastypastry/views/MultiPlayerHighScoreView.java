@@ -22,7 +22,6 @@ public class MultiPlayerHighScoreView extends AbstractView {
     private Game game;
     private MenuButton menuButton;
     protected BitmapFont font;
-    protected BitmapFont roundFont;
     protected BitmapFont leaderboardFont;
     private Table table;
     protected Label leaderboardLabel;
@@ -64,13 +63,14 @@ public class MultiPlayerHighScoreView extends AbstractView {
 
         labelArray = new ArrayList<>();
 
+        // Writing the 7 best scores stored in the database leaderboard.
         if(!leaderBoard.isEmpty()) {
+            System.out.println(leaderBoard.get(0).getName());
             tableCounter = 1;
             labelArray.clear();
             for (int i = 0 ; (i<7 && i<leaderBoard.size()) ; i++) {
                 labelArray.add(new Label((tableCounter) + "  " + leaderBoard.get(i).getName() + " " + df.format(leaderBoard.get(i).getTime()), leaderboardLabelStyle));
                 tableCounter++;
-
             }
         }
 
@@ -87,10 +87,10 @@ public class MultiPlayerHighScoreView extends AbstractView {
                 table.row();
             }
         }
-        //table.add(roundScoreLabel).padTop(50);
 
         this.ui.addActor(table);
 
+        // Adding back button.
         final StyledTextButton backBtn = new StyledTextButton("     Back     ");
         backBtn.setPosition(Config.UI_WIDTH/2 - backBtn.getWidth()/2, Config.UI_HEIGHT/2 - 290);
         backBtn.addListener(new InputListener() {

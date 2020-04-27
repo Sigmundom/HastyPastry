@@ -378,17 +378,27 @@ public class AndroidDatabase implements HastyPastryDatabase {
         lobbyRef.child(user.getFBID()).setValue(user);
     }
 
+    /**
+     * @param game
+     * Class for writing to leaderboard.
+     */
     @Override
     public void updateLeaderBoard(Game game) {
         this.game = game;
         level = Integer.parseInt(game.getLevel().getLevel().split(" ")[1]) - 1;
 
-        LeaderBoardEntry entry = new LeaderBoardEntry(game.getPlayerUser().getName(), game.getPlayerUser().getNewestHighScore());
-        levelRef.child((Integer.toString(level))).child("leaderboard").child(user.getFBID()).setValue(entry);
+        if(game.getResult() == "You won!") {
+            LeaderBoardEntry entry = new LeaderBoardEntry(game.getPlayerUser().getName(), game.getPlayerUser().getNewestHighScore());
+            levelRef.child((Integer.toString(level))).child("leaderboard").child(user.getFBID()).setValue(entry);
+        }
 
         setLocalLeaderBoard(levelRef);
     }
 
+    /**
+     *@param ref
+     * Generates leaderboard as arraylist in local match.
+     */
     public void setLocalLeaderBoard(DatabaseReference ref) {
         readLeaderBoard(new OnGetDataListener() {
             @Override
@@ -419,6 +429,11 @@ public class AndroidDatabase implements HastyPastryDatabase {
         });
     }
 
+    /**
+     *@param listener
+     * Class for checking if connection has been made with Firebase, listener
+     * then notifies class who wishes to read database leaderboard.
+     */
     public void readLeaderBoard(final OnGetDataListener listener) {
         listener.onStart();
 

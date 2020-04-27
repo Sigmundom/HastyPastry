@@ -3,6 +3,10 @@ package com.mygdx.hastypastry.singletons;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
+/**
+ * Singleton class for generating game music and button sound.
+ */
+
 public class MusicAndSound {
     public static final MusicAndSound instance = new MusicAndSound();
     private Music menuMusic;

@@ -9,10 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.hastypastry.Config;
-import com.mygdx.hastypastry.models.dbmodels.User;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.models.Game;
 import com.mygdx.hastypastry.models.LeaderBoard;
+import com.mygdx.hastypastry.models.dbmodels.User;
 import com.mygdx.hastypastry.singletons.MusicAndSound;
 import com.mygdx.hastypastry.singletons.PlayerPreferences;
 import com.mygdx.hastypastry.singletons.ScreenManager;
@@ -91,20 +91,40 @@ public class CompletedMultiplayerView extends AbstractView {
         // Adds table to ui
         this.ui.addActor(table);
 
+        // Creating high score button, sending game through to high score list.
+        StyledTextButton highScoreButton = new StyledTextButton("  High Score  ");
+
+        highScoreButton.setPosition(Config.UI_WIDTH / 2 - highScoreButton.getWidth() / 2 + 90, Config.UI_HEIGHT / 2 - 310);
+        highScoreButton.addListener(
+                new InputListener() {
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        if (PlayerPreferences.instance.isSoundEffectsEnabled()) {
+                            buttonSound.play(0.5f);
+                        }
+                        ScreenManager.getInstance().showScreen(ScreenEnum.LEADERBOARD, game);
+                        return false;
+                    }
+                });
+        this.ui.addActor(highScoreButton);
+
         // Create go to lobby button
         MenuButton lobbyButton = new MenuButton("Lobby", ScreenEnum.LOBBY, game.getLobby());
+        lobbyButton.setWidth(highScoreButton.getWidth());
         lobbyButton.setPosition(Config.UI_WIDTH/2-90, Config.UI_HEIGHT / 2 -220, Align.center);
         ui.addActor(lobbyButton);
 
         // Create menu button
         MenuButton menuButton = new MenuButton("Menu", ScreenEnum.MAIN_MENU);
+        menuButton.setWidth(highScoreButton.getWidth());
         menuButton.setPosition(Config.UI_WIDTH / 2 + 90, Config.UI_HEIGHT / 2 - 220, Align.center);
         ui.addActor(menuButton);
 
         if (!game.getResult().equals("Oh no!")) {
             // If result is 'Oh no!' it means your opponent left
             final StyledTextButton newRoundBtn = new StyledTextButton("New Round");
-            newRoundBtn.setPosition(Config.UI_WIDTH / 2 - newRoundBtn.getWidth() / 2 - 90, Config.UI_HEIGHT / 2 - 300);
+            newRoundBtn.setWidth(highScoreButton.getWidth());
+            newRoundBtn.setPosition(Config.UI_WIDTH / 2 - newRoundBtn.getWidth() / 2 - 90, Config.UI_HEIGHT / 2 - 310);
             newRoundBtn.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -123,23 +143,5 @@ public class CompletedMultiplayerView extends AbstractView {
             // Add button to the stage
             ui.addActor(newRoundBtn);
         }
-
-        // Creating high score button, sending game through to high score list.
-        StyledTextButton highScoreButton = new StyledTextButton("  High Score  ");
-
-        // highScoreButton.setWidth(menuButton.getWidth());
-        highScoreButton.setPosition(Config.UI_WIDTH / 2 - highScoreButton.getWidth() / 2 + 90, Config.UI_HEIGHT / 2 - 300);
-        highScoreButton.addListener(
-                new InputListener() {
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        if (PlayerPreferences.instance.isSoundEffectsEnabled()) {
-                            buttonSound.play(0.5f);
-                        }
-                        ScreenManager.getInstance().showScreen(ScreenEnum.LEADERBOARD, game);
-                        return false;
-                    }
-                });
-        this.ui.addActor(highScoreButton);
     }
 }

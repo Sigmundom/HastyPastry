@@ -96,7 +96,7 @@ public class FailedLevelView extends AbstractView {
                             buttonSound.play(0.5f);
                         }
                         if (game.isMultiplayer()) {
-                            ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
+                            ScreenManager.getInstance().showScreen(ScreenEnum.LEADERBOARD, game);
                         } else {
                             ScreenManager.getInstance().showScreen(ScreenEnum.HIGHSCORE, game);
                         }

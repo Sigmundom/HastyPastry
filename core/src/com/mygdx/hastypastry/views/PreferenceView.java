@@ -20,6 +20,10 @@ import com.mygdx.hastypastry.ui.MenuButton;
 import com.mygdx.hastypastry.ui.SettingsCheckBox;
 import com.mygdx.hastypastry.ui.SettingsSlider;
 
+/**
+ * Provides the user with UI for adjusting the sound and music in the game.
+ */
+
 public class PreferenceView extends AbstractView {
     protected Texture background = new Texture("bg_menu.png");
 
@@ -44,13 +48,6 @@ public class PreferenceView extends AbstractView {
 
     @Override
     public void buildStage() {
-
-        /*if(PlayerPreferences.instance.isMusicEnabled()) {
-            if (!menuMusic.isPlaying()) {
-                menuMusic.setLooping(true);
-                menuMusic.play();
-            }
-        }*/
 
         soundEffectCheckBox = new SettingsCheckBox();
         soundEffectCheckBox.setChecked(PlayerPreferences.instance.isSoundEffectsEnabled());

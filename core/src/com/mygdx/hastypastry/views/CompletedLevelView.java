@@ -42,9 +42,18 @@ public class CompletedLevelView extends AbstractView {
         sprite.setOrigin(sprite.getWidth()/2,-15);
     }
 
+    /**
+     * Draws the number of stars the user has on a level according to the
+     * specified star rankings for said level.
+     * Also sets text for specified labels.
+     *
+     * @param batch Spritebatch to draw new models/sprites.
+     * @param delta The number of seconds that have passed since the last frame.
+     */
     @Override
     public void draw(SpriteBatch batch, float delta){
         levelTime = game.getPlayer().getNewLevelTime();
+        System.out.println("new level time is: " + game.getPlayer().getNewLevelTime());
         rotationDegree = 15.0f;
         for(float ranking : game.getLevel().getStarRank()) {
             if(levelTime < ranking) {

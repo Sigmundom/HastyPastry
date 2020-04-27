@@ -12,7 +12,7 @@ import com.mygdx.hastypastry.models.Game;
  * method opens the storage file the once - the first time you call the method.
  * https://developer.android.com/training/data-storage/shared-preferences
  *
- @author Hanna*/
+ */
 
 public class PlayerPreferences {
     public static PlayerPreferences instance = new PlayerPreferences();
@@ -23,7 +23,6 @@ public class PlayerPreferences {
     private static final String PREF_MUSIC_VOLUME = "volume";
     private static final String PREF_MUSIC_ENABLED = "music.enabled";
     private static final String PREF_SOUND_ENABLED = "sound.enabled";
-    private static final String PREF_SOUND_VOL = "sound";
     private static final String PREFS_NAME = "playerprfs";
 
     private PlayerPreferences() {
