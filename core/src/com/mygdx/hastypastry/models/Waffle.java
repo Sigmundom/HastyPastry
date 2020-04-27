@@ -1,6 +1,7 @@
 package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -126,4 +127,8 @@ public class Waffle implements WorldObject {
     public boolean isDead() {
         return isDead;
     }
+
+    public Vector2 getPosition() {return body.getPosition(); }
+
+    public float getRadius() {return RADIUS; }
 }

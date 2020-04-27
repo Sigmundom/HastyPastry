@@ -1,6 +1,7 @@
 package com.mygdx.hastypastry.models;
 
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.hastypastry.Config;
 import com.mygdx.hastypastry.enums.ScreenEnum;
 import com.mygdx.hastypastry.interfaces.WorldObject;
 import com.mygdx.hastypastry.models.dbmodels.Match;
@@ -41,12 +42,12 @@ public class Game {
         worldObjects.add(this.opponent.getWaffle());
         worldObjects.add(level.getGoal());
         // Add boundaries to the level
-        worldObjects.add(new SquareObstacle(-2 - this.player.getWaffle().getSprite().getWidth(), 16, 2, 75, "deadly"));
-        worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 75, "deadly"));
+        // worldObjects.add(new SquareObstacle(-2 - this.player.getWaffle().getSprite().getWidth(), 16, 2, 75, "deadly"));
+        // worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 75, "deadly"));
         worldObjects.add(new SquareObstacle(9, 33, 18, 2, "normal"));
         worldObjects.add(new SquareObstacle(9, -1, 18, 2, "normal"));
 
-        //Initializing the leaderboard forgiven level.
+        //Initializing the leaderboard for the given level.
         leaderBoard = new LeaderBoard(this);
     }
 
@@ -58,8 +59,6 @@ public class Game {
         worldObjects.add(this.player.getWaffle());
         worldObjects.add(level.getGoal());
         // Add boundaries to the level
-        worldObjects.add(new SquareObstacle(-2 - this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, "deadly"));
-        worldObjects.add(new SquareObstacle(20 + this.player.getWaffle().getSprite().getWidth(), 16, 2, 32, "deadly"));
         worldObjects.add(new SquareObstacle(9, 33, 18, 2, "normal"));
         worldObjects.add(new SquareObstacle(9, -1, 18, 2, "normal"));
     }
@@ -82,7 +81,7 @@ public class Game {
             opponent.getWaffle().update();
         }
 
-        // Check if waffle(s) is stuck
+        // Check if waffle(s) is / are stuck or out of bounds
         if (isMultiplayer()) {
             if (opponent.getWaffle().WaffleHasStopped()) {
                 // Opponent died
@@ -91,13 +90,26 @@ public class Game {
 
             if (player.getWaffle().WaffleHasStopped()) {
                 // You died
-                playerDied("You waffle is stuck!");
+                playerDied("Your waffle is stuck!");
+            }
+            if ((player.getWaffle().getPosition().x < - player.getWaffle().getRadius() * 2) || (player.getWaffle().getPosition().x > Config.WORLD_WIDTH + player.getWaffle().getRadius())) {
+                playerDied("Out of bounds!");
+            }
+            if ((opponent.getWaffle().getPosition().x < - opponent.getWaffle().getRadius() * 2) || (opponent.getWaffle().getPosition().x > Config.WORLD_WIDTH + opponent.getWaffle().getRadius())) {
+                // Opponent died
+                opponentDied();
             }
         } else {
             // Singleplayer
             if (player.getWaffle().WaffleHasStopped()) {
                 // You died
                 setMessage("Your waffle is stuck!");
+                gameOver();
+            }
+            // Check if waffle is out of bounds
+            if ((player.getWaffle().getPosition().x < - player.getWaffle().getRadius() * 2) || (player.getWaffle().getPosition().x > Config.WORLD_WIDTH + player.getWaffle().getRadius())) {
+                // You died
+                setMessage("Out of bounds!");
                 gameOver();
             }
         }
